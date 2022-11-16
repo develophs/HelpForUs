@@ -10,31 +10,31 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <style>
 	#topDiv{
-		padding-left: 40px; padding-right: 50px; height: 50px; font-family: 'CookieRunOTF';
+		padding-left: 40px; padding-right: 50px; height: 50px;
 	}
-	#topDiv a{
-		font-size: 30px;
+	#topDiv>a{
+		font-size: 30px; font-family: 'CookieRunOTF';
 	}
 	#collapsibleNavbar a{
-		color: black; text-decoration: none; font-size: 20px; font-size: 20px;
+		color: black; text-decoration: none; font-size: 15px;
 	}
 	#collapsibleNavbar a:hover{
 		color: gray;
 	}
-	#imgDiv{
+	#topImgDiv{
 		height: 300px;
 	}
-	#imgDiv>img{
+	#topImgDiv>img{
 		width: 100%; height: 100%;
  		object-fit: fill;
 	}
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand" style="background: #fbd14b;">
+	<nav class="navbar navbar-expand" style="background-color: #fbd14b;">
 		<div class="container-fluid" id="topDiv">
 			<a class="navbar-brand" href="${contextPath}">
-				<img src="https://user-images.githubusercontent.com/105089699/198592367-759659d8-e666-41e7-a465-ecc84db3abdb.png" alt="Logo" width="50" height="40" class="d-inline-block align-text-top">
+				<img src="resources/img/logo.png" alt="Logo" width="50" height="40" class="d-inline-block align-text-top">
 				&nbsp;HELP FOR US
 			</a>
 			<button class="navbar-toggler" type="button"
@@ -56,8 +56,8 @@
 			</div>
 		</div>
 	</nav>
-	<div id="imgDiv">
-		<img src="https://www.nonsan.go.kr/nanum/nanum/img/main/mvisual_bg01.jpg" alt="img">
+	<div id="topImgDiv">
+		<img src="resources/img/topImg.jpg" alt="img">
 	</div>
 </body>
 </html>

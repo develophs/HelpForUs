@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 	#navDiv{
-		background: #fbd14b; width: 100%; height: 50px; font-family: 'CookieRunOTF';
+		background: #fbd14b; width: 100%; height: 50px;
 		padding-top: 10px;
 	}
 	#navDiv a{
