@@ -17,7 +17,7 @@
 	#writeDiv{
 		 margin: auto; padding: 50px; min-height: 800px;
 		/* position: absolute; left:0; right:0; top:0; bottom:0; margin:auto;  */
-		border: 1px solid lightgray;
+		border: 1px solid black;
 	}
 	table{
 		border: 4px solid lightgray;
@@ -41,28 +41,38 @@
 </style>
 </head>
 <body>
-	<jsp:include page="top.jsp"></jsp:include>
-	<jsp:include page="nav.jsp"></jsp:include>
+	<jsp:include page="../common/top.jsp"></jsp:include>
+	<jsp:include page="../common/nav.jsp"></jsp:include>
 
 	<div class="container text-center" id="writeDiv"  >
-		<h2>봉사 활동 후기 글쓰기</h2>
+		<h2>봉사 활동 모집 글쓰기</h2>
 		<hr>
 		<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
-					<th class="table-active">일시 및 장소</th>
-					<td><input type="text" class="text1"  style=" width:100%"></td>
-					<th class="table-active">활동자</th>
-					<td><input type="text" class="text1" style=" width:100%"></td>
+					<th class="table-active">봉사기간</th>
+					<td><input type="Date" class="text1" ></td>
+					<th class="table-active">봉사시간</th>
+					<td><input type="time" class="text1"></td>
 				</tr>
 				<tr>
-					<th class="table-active">참석자</th>
-					<td><input type="text" class="text1"style=" width:100%">
+					<th class="table-active">모집기간</th>
+					<td><input type="Date" class="text1"  min="today" max="2022-12-31">
 					
+	  
+					  
 					<th class="table-active">봉사대상</th>
-					<td><input type="text" class="text1" style=" width:100%"></tr>
+					<td><input type="text" class="text1" ></tr>
 				<tr>
-					<th class="table-active">활동목적</th>
-					<td><input  type="text" style="width:100%"></td>
+					<th class="table-active">모집인원</th>
+					<td><select style="width:80%">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					</select></td>
 					<th class="table-active">신청인원</th>
 					<td><select style="width:80%">
 					<option>1</option>
@@ -108,7 +118,7 @@
 			
 	</div>
 
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="../common/footer.jsp"></jsp:include>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

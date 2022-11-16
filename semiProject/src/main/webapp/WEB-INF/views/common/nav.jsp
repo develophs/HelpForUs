@@ -24,9 +24,9 @@
 	<c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"></c:set>
 	<div class="container-fluid" id="navDiv">
 		<ul class="nav justify-content-center">
-			<li class="nav-item"><a  href="${contextPath }/boardList.bo">기부하기</a></li>
-			<li class="nav-item"><a href="#">봉사활동</a></li>
-			<li class="nav-item"><a href="#">모금후기</a></li>
+			<li class="nav-item"><a  href="${contextPath }/donBoardList.do">기부하기</a></li>
+			<li class="nav-item"><a href="${contextPath }/volBoardList.vo">봉사활동</a></li>
+			<li class="nav-item"><a href="${contextPath }/reqBoardList.re">모금후기</a></li>
 		</ul>
 	</div>
 </body>
