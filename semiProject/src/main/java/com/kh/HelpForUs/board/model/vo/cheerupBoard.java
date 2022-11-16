@@ -1,5 +1,4 @@
-package com.kh.spring.board.model.vo;
-
+package com.kh.HelpForUs.board.model.vo;
 
 
 import lombok.AllArgsConstructor;

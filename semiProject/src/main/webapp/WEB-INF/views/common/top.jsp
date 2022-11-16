@@ -31,6 +31,7 @@
 </style>
 </head>
 <body>
+	<c:set value="${ pageContext.servletContext.contextPath }" var="contextPath" scope="application"/>
 	<nav class="navbar navbar-expand" style="background-color: #fbd14b;">
 		<div class="container-fluid" id="topDiv">
 			<a class="navbar-brand" href="${contextPath}">

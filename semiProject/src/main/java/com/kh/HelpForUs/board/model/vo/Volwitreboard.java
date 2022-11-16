@@ -1,4 +1,4 @@
-package com.kh.spring.board.model.vo;
+package com.kh.HelpForUs.board.model.vo;
 
 import java.sql.Date;
 
@@ -13,9 +13,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
-
-
 public class Volwitreboard {
 
 	private int refBoardId;
