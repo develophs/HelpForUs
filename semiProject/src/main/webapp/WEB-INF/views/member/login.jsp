@@ -15,17 +15,17 @@
 </head>
 <body class="text-center">
 	<main class="form-signin w-100 m-auto">
-		<form action="${contextPath}" method="POST">
+		<form action="${contextPath}/login.me" method="POST">
 			<h1 class="h3 mb-3 fw-normal">Login</h1>
 
 			<div class="form-floating">
-				<input type="text" class="form-control" id="id" name="id">
-				<label for="id">ID</label>
+				<input type="text" class="form-control" id="memberUsername" name="memberUsername">
+				<label for="memberUsername">ID</label>
 			</div>
 			
 			<div class="form-floating">
-				<input type="password" class="form-control" id="pwd" name="pwd">
-				<label for="pwd">Password</label>
+				<input type="password" class="form-control" id="memberPwd" name="memberPwd">
+				<label for="memberPwd">Password</label>
 			</div>
 
 			<button class="btn btn-primary" type="submit"

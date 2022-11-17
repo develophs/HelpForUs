@@ -16,7 +16,7 @@
                 
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
-                        <form id="enroll" action="${contextPath}/enroll" method="POST">
+                        <form id="enroll" action="${contextPath}/enroll.me" method="POST">
                         	<!-- 아이디 input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="memberUsername" name="memberUsername" type="text"/>

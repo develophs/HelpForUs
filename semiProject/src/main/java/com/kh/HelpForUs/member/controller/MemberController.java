@@ -1,5 +1,7 @@
 package com.kh.HelpForUs.member.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -36,7 +38,7 @@ public class MemberController {
 	}
 	
 	// 회원가입 메서드
-	@RequestMapping("enroll")
+	@RequestMapping("enroll.me")
 	public String enroll(@ModelAttribute("Member")Member member,@RequestParam("memberPwd2")String memberPwd2) {
 		if(!member.getMemberPwd().equals(memberPwd2)) {
 			throw new MemberException("비밀번호가 일치하지 않습니다.");
@@ -55,7 +57,29 @@ public class MemberController {
 		}
 	}
 	
+	// 로그인 메서드
+	@RequestMapping("login.me")
+	public String login(@ModelAttribute("Member")Member member,HttpSession session) {
+		Member loginUser = mService.login(member);
+		
+		String rawPwd = member.getMemberPwd();
+		String enPwd = loginUser.getMemberPwd();
+		
+		if(bcrypt.matches(rawPwd, enPwd)) {
+			session.setMaxInactiveInterval(1800);
+			session.setAttribute("loginUser", loginUser);
+			return "redirect:/";
+		} else {
+			throw new MemberException("로그인에 실패 하셨습니다.");
+		}
+	}
 	
+	// 로그아웃 메서드
+	@RequestMapping("logout.me")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
 	
 	
 	

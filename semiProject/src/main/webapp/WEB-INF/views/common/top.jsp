@@ -45,13 +45,13 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="collapsibleNavbar">
 				<ul class="navbar-nav">
-					<c:if test="${ name == null }">
+					<c:if test="${ loginUser == null }">
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/loginView.me">로그인</a></li>
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/enrollView.me">회원가입</a></li>
 					</c:if>
-					<c:if test="${ name != null }">
+					<c:if test="${ loginUser != null }">
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/myPage.me">내 정보</a></li>
-						<li class="nav-item"><a class="nav-link" href="logout.me">로그아웃</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/logout.me">로그아웃</a></li>
 					</c:if>
 				</ul>
 			</div>
