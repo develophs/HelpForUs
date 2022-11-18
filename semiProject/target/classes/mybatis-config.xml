@@ -4,12 +4,12 @@
 
 	<typeAliases> 
 		<typeAlias type="com.kh.HelpForUs.member.model.vo.Member" alias="Member"/>
-		<!-- 		<typeAlias type="" alias=""/> -->
+		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.VolBoard" alias="volBoard"/>
 		<!-- 		<typeAlias type="" alias=""/> -->
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
-	<!--    <mapper resource="mappers/board-mapper.xml"/> -->
+	   	<mapper resource="mappers/volunteer-mapper.xml"/>
 	</mappers>
 </configuration>

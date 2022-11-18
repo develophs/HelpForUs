@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.HelpForUs.volBoard.model.dao.VolBoardDAO;
+import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Service("vService")
 public class VolBoardServiceImpl implements VolBoardService{
@@ -14,4 +15,9 @@ public class VolBoardServiceImpl implements VolBoardService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public int insertVolBoard(VolBoard vBoard) {
+		return vDAO.insertVolBoard(sqlSession, vBoard);
+	}
 }
