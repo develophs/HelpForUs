@@ -5,7 +5,7 @@
 	<typeAliases> 
 		<typeAlias type="com.kh.HelpForUs.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.VolBoard" alias="volBoard"/>
-		<!-- 		<typeAlias type="" alias=""/> -->
+		<typeAlias type="com.kh.HelpForUs.common.vo.Attachment" alias="Attachment"/>
 	</typeAliases>
 
 	<mappers>

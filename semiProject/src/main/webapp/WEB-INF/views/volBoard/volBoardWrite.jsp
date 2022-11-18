@@ -48,17 +48,17 @@
 	<div class="container text-center" id="writeDiv"  >
 		<h2>봉사 활동 모집 글쓰기</h2>
 		<hr>
-		<form action="writeVolBoard.vo">
-		<table class="table table-sm table-bordered" style="table-layout: fixed;">
+		<form action="${contextPath}/writeVolBoard.vo" id="form" enctype="multipart/form-data" method="post">
+			<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
 					<th class="table-active">제목</th>
-					<td><input type="text" class="text1" name="boardTitle"></td>
+					<td><input type="text" class="text1" name="boardTitle" required></td>
 					<th class="table-active">봉사날짜</th>
-					<td><input type="Date" class="text1" name="volunteerDate"></td>
+					<td><input type="Date" class="text1" name="volunteerDate" required></td>
 				</tr>
 				<tr>
 					<th class="table-active">모집기간</th>
-					<td><input type="Date" class="text1"  min="today" name="boardDeadline"></td>
+					<td><input type="Date" class="text1"  min="today" name="boardDeadline" required></td>
 					
 	  
 					  
@@ -77,25 +77,29 @@
 				<tr>
 					<th class="table-active">모집인원</th>
 					<td>
-						<input type="number" min="1" class="text1" name="volunteerGoalPeople">
+						<input type="number" min="1" class="text1" name="volunteerGoalPeople" required>
 					</td>
 					<th class="table-active">봉사장소</th>
-					<td><input type="text" class="text1" name="volunteerLocation"></td>
+					<td><input type="text" class="text1" name="volunteerLocation" required></td>
 				</tr>
 				<tr>
 					<th class="table-active">담당자</th>
-					<td><input type="text" class="text1" name="managerName"></td>
+					<td><input type="text" class="text1" name="managerName" required></td>
 					<th class="table-active">연락처</th>
-					<td><input type="text" class="text1" name="managerPhone"></td>
+					<td><input type="text" class="text1" name="managerPhone" required></td>
 				</tr>
 				<tr>
 					<th class="table-active">이미지</th>
-					<td colspan="3"><input type="file"></td>
-					
+					<td colspan="2" id="fileTd">
+						<input type="file" class="form-control form-control-md file" name="file">
+					</td>
+					<td>
+						<button class="btn btn-outline-success" type="button" id="fileButton">파일 추가</button>
+					</td>
 				</tr>
 				<tr>
 					<th class="table-active">내용</th>
-					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent"></textarea></td>
+					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent" required></textarea></td>
 				
 			</table>
 			<input type="hidden" name="boardType" value="Vol">
@@ -107,11 +111,35 @@
 			
 			<br><br>
 			
-			<button class="btn btn-primary">모집하기</button>
+			<button class="btn btn-primary" id="submitButton">모집하기</button>
 		</form>
 	</div>	
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<script>
+ 		window.onload = () => {
+
+ 			document.getElementById('fileButton').addEventListener('click', () => {
+ 				const fileTd = document.getElementById('fileTd');
+ 				fileTd.innerHTML += '<br><input type="file" class="form-control form-control-md file" name="file">'
+ 			});
+ 			
+ 			document.getElementById('submitButton').addEventListener('click', () => {
+ 				const form = document.getElementById('form');
+ 				const files = document.getElementsByClassName('file');
+ 				
+ 				for(const file of files){
+ 					const lastIndex = file.value.lastIndexOf('.');
+ 					const fileType = file.value.substring(lastIndex+1, file.length).toLowerCase();
+ 					
+ 					if(file != '' && !(fileType == 'jpg' || fileType == 'gif' || fileType == 'png' || fileType == 'jpeg')){
+ 						alert('이미지 파일만 선택할 수 있습니다.');
+ 						form.preventDefault();
+ 					}
+ 				}
+			});
+ 		}
+ 	</script>
 </body>
 </html>

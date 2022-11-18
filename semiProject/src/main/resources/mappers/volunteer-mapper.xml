@@ -2,13 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="volMapper">
 	<insert id="insertVolBoard">
-	insert all
-	into board
-	values(SEQ_BID.nextval, #{boardType}, #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, #{boardDeadline}, default)
-	into volunteer
-	values(SEQ_BID.currval,#{volunteerGoalPeople}, default, #{volunteerLocation}, #{volunteerDate})
-	select * from dual
+		insert all
+		into board
+		values(SEQ_BID.nextval, #{boardType}, #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, #{boardDeadline}, default)
+		into volunteer
+		values(SEQ_BID.currval,#{volunteerGoalPeople}, default, #{volunteerLocation}, #{volunteerDate})
+		into manager
+		values(seq_bid.currval, #{managerName}, #{managerPhone})
+		select * from dual
 	</insert>
 	
+	<insert id="insertAttm">
+		insert into attachment
+		values(seq_aid.nextval, #{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
+	</insert>
 	
+	<insert id="insertImg">
+		insert into image
+		values(seq_bid.currval, seq_aid.currval)
+	</insert>
 </mapper>

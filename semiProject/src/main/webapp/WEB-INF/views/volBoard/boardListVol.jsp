@@ -122,6 +122,7 @@
 	    <div class="container">
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	       
+	       <c:forEach begin="1" end="9">
 	        <div class="col">
 	          <div class="card shadow-sm">
 	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -129,201 +130,13 @@
 	            <h5>타이틀타이틀타이틀</h5>
 	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
 	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
 	                <small class="text-muted">11/23일 마감</small>
 	              </div>
 	            </div>
 	          </div>
 	        </div>
+	        </c:forEach>
 	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	       
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">신청하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
 	      </div>
 	    </div>
 	  </div>
