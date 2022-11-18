@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
+
+	<resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_USERNAME" property="memberUsername"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_ROSE" property="memberRose"/>
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrollDate"/>
+		<result column="MEMBER_MODIFY_DATE" property="memberModifyDate"/>
+		<result column="MEMBER_RIGHT" property="memberRight"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>
+	
+	<insert id="enroll" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(#{memberUsername}, #{memberPwd},#{memberNickname},#{memberName},#{memberPhone},#{memberEmail},#{memberAddress},
+		default,sysdate,sysdate,default,default)
+	</insert>
+	
+	<select id="login" parameterType="Member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_USERNAME=#{memberUsername} AND MEMBER_STATUS = 'Y'
+	</select>
 	
 </mapper>
