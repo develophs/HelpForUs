@@ -20,7 +20,6 @@
 <body>
 	<jsp:include page="../common/top.jsp"/>
 	
-	
 	<div class="container text-center">
 		<h3 class='mypage'>My Page</h3>
 		
@@ -76,10 +75,10 @@
                 <!-- 정보수정칸 -->
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
-                        <form id="updateInfo" action="${contextPath}" method="POST">
+                        <form id="updateInfo" action="${contextPath}/updateInfo.me" method="POST">
                         	<!-- 아이디 input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="id" type="text" readonly/>
+                                <input class="form-control" id="id" type="text" value="${ loginUser.memberUsername }"readonly/>
                                 <label for="id">아이디</label>
                             </div>
                             

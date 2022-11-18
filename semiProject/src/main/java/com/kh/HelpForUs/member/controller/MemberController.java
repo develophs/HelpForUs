@@ -81,6 +81,11 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 내정보 이동 메서드
+	@RequestMapping("myInfo.me")
+	public String myInfo() {
+		return "myinfo";
+	}
 	
 	
 	
