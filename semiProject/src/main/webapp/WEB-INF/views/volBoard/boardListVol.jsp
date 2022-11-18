@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,17 +13,7 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-	
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-
-
+		
     <style>
     
       .bd-placeholder-img {
@@ -85,18 +75,20 @@
     
   </head>
   <body >
+	<jsp:include page="../common/top.jsp"></jsp:include>
+	<jsp:include page="../common/nav.jsp"></jsp:include>
 	<main>
 	  <section class="py-5 text-center container">
 	    <div class="row py-lg-5">
 	    	<table>
 	    		<tr align="center">
-		    		<td><a href="#"><img alt="전체" src="https://cdn-icons-png.flaticon.com/512/1598/1598191.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="아동" src="https://cdn-icons-png.flaticon.com/512/4540/4540679.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="동물" src="https://cdn-icons-png.flaticon.com/512/489/489399.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="노인" src="https://cdn-icons-png.flaticon.com/512/864/864481.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="여성" src="https://cdn-icons-png.flaticon.com/512/2585/2585340.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="환경" src="https://cdn-icons-png.flaticon.com/512/3904/3904971.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="장애인" src="https://cdn-icons-png.flaticon.com/512/1467/1467285.png" width="50" height="50"></a></td>
+		    		<td><a href="#"><img alt="전체" src="resources/img/total.png" width="50" height="50"></a></td>
+		    		<td><a href="#"><img alt="아동" src="resources/img/children.png" width="50" height="50"></a></td>
+		    		<td><a href="#"><img alt="동물" src="resources/img/animal.png" width="50" height="50"></a></td>
+		    		<td><a href="#"><img alt="노인" src="resources/img/old.png" width="50" height="50"></a></td>
+		    		<td><a href="#"><img alt="여성" src="resources/img/woman.png" width="50" height="50"></a></td>
+		    		<td><a href="#"><img alt="환경" src="resources/img/environment.png" width="50" height="50"></a></td>
+		    		<td><a href="#"><img alt="장애인" src="resources/img/disabled.png" width="50" height="50"></a></td>
 	    		</tr>
 	    		<tr>
 		    		<th>전체</th>
@@ -111,6 +103,11 @@
 	    </div>
 	   <table align="right">
 	  		<tr>
+	  			<c:if test="${ loginUser.memberRight eq 'C' }">
+	  			<td style="padding-right: 20px;">
+	  				<button class="btn btn-outline-success" onclick="location.href='writeVolBoardView.vo'">봉사 글 작성</button>
+	  			</td>
+	  			</c:if>
 	  			<td>
 	        		<form class="d-flex" role="search">
 	        		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" width="150" height="25" >
@@ -118,8 +115,7 @@
 	        		</form>
 	  			</td>
 	  		</tr>
-	  	</table>	
-	  
+	  	</table>
 	  </section>
 		
 	  <div class="album py-5">
@@ -331,10 +327,12 @@
 	      </div>
 	    </div>
 	  </div>
-		    <jsp:include page="../common/pagination.jsp"/>
+	  <jsp:include page="../common/pagination.jsp"/>
+	  <jsp:include page="../common/footer.jsp"/>
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	     
 	</body>
+	
 	
 </html>

@@ -37,6 +37,7 @@
 	}
 	td{text-align:left;}
 	.text1{ align:left; width:300px; height:30px;}
+
 	
 </style>
 </head>
@@ -47,53 +48,45 @@
 	<div class="container text-center" id="writeDiv"  >
 		<h2>봉사 활동 모집 글쓰기</h2>
 		<hr>
+		<form action="writeVolBoard.vo">
 		<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
-					<th class="table-active">봉사기간</th>
-					<td><input type="Date" class="text1" ></td>
-					<th class="table-active">봉사시간</th>
-					<td><input type="time" class="text1"></td>
+					<th class="table-active">제목</th>
+					<td><input type="text" class="text1" name="boardTitle"></td>
+					<th class="table-active">봉사날짜</th>
+					<td><input type="Date" class="text1" name="volunteerDate"></td>
 				</tr>
 				<tr>
 					<th class="table-active">모집기간</th>
-					<td><input type="Date" class="text1"  min="today" max="2022-12-31">
+					<td><input type="Date" class="text1"  min="today" name="boardDeadline"></td>
 					
 	  
 					  
 					<th class="table-active">봉사대상</th>
-					<td><input type="text" class="text1" ></tr>
+					<td>
+						<select name="refCategoryId">
+							<option value="1">아동</option>
+							<option value="2">동물</option>
+							<option value="3">노인</option>
+							<option value="4">여성</option>
+							<option value="5">환경</option>
+							<option value="6">장애인</option>
+						</select>
+					</td>
+				</tr>
 				<tr>
 					<th class="table-active">모집인원</th>
-					<td><select style="width:80%">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>6</option>
-					<option>7</option>
-					</select></td>
-					<th class="table-active">신청인원</th>
-					<td><select style="width:80%">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-					<option>6</option>
-					<option>7</option>
-					</select></td>
+					<td>
+						<input type="number" min="1" class="text1" name="volunteerGoalPeople">
+					</td>
+					<th class="table-active">봉사장소</th>
+					<td><input type="text" class="text1" name="volunteerLocation"></td>
 				</tr>
 				<tr>
 					<th class="table-active">담당자</th>
-					<td><input type="text" class="text1" ></td>
+					<td><input type="text" class="text1" name="managerName"></td>
 					<th class="table-active">연락처</th>
-					<td><input type="text" class="text1" ></td>
-				</tr>
-				<tr>
-					<th class="table-active">봉사장소</th>
-					<td colspan="3"><input type="text" class="text1" style="width:100%"></td>
-					
+					<td><input type="text" class="text1" name="managerPhone"></td>
 				</tr>
 				<tr>
 					<th class="table-active">이미지</th>
@@ -102,7 +95,7 @@
 				</tr>
 				<tr>
 					<th class="table-active">내용</th>
-					<td colspan="3"><textarea rows="20px;" cols="120px;"></textarea></td>
+					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent"></textarea></td>
 				
 			</table>
 			
@@ -114,8 +107,8 @@
 			
 			<br><br>
 			
-			<button type="button" class="btn btn-primary">모집하기</button>
-			
+			<button class="btn btn-primary">모집하기</button>
+		</form>
 	</div>
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
