@@ -29,4 +29,18 @@
 		WHERE MEMBER_USERNAME=#{memberUsername} AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<select id="checkUsername" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_USERNAME = #{userName}
+	</select>
+	
+	<select id="checkNickName" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_NICKNAME = #{nickName}
+	</select>
+	
+	
+	
 </mapper>

@@ -25,4 +25,15 @@ public class MemberServiceImpl implements MemberService{
 	public Member login(Member member) {
 		return mDAO.login(sqlSession,member);
 	}
+
+	@Override
+	public int checkUserName(String userName) {
+		return mDAO.checkUsername(sqlSession, userName);
+	}
+
+
+	@Override
+	public int checkNickName(String nickName) {
+		return mDAO.checkNickName(sqlSession,nickName);
+	}
 }

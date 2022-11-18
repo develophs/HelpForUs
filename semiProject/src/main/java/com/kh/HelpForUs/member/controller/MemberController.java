@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.HelpForUs.common.exception.MemberException;
 import com.kh.HelpForUs.member.model.service.MemberService;
@@ -87,6 +88,23 @@ public class MemberController {
 		return "myinfo";
 	}
 	
+	// 아이디 중복 검사 메서드
+	@RequestMapping("checkUesrname.me")
+	@ResponseBody
+	public String checkUserName(@RequestParam("userName")String userName){
+		int count = mService.checkUserName(userName);
+		String result = count>0 ? "yes" : "no";
+		return result;
+	}
+	
+	// 닉네임 중복 검사 메서드
+	@RequestMapping("checkNickName.me")
+	@ResponseBody
+	public String checkNickName(@RequestParam("nickName")String nickName){
+		int count = mService.checkNickName(nickName);
+		String result = count>0 ? "yes" : "no";
+		return result;
+	}
 	
 	
 	
