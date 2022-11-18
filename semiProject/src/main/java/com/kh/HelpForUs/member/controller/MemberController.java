@@ -29,7 +29,7 @@ public class MemberController {
 	
 	@RequestMapping("myPage.me")
 	public String myPageView() {
-		return "myPage";
+		return "mypage";
 	}
 	
 	@RequestMapping("enrollView.me")
