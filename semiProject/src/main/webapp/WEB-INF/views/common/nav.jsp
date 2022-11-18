@@ -21,7 +21,6 @@
 </style>
 </head>
 <body>
-	<c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"></c:set>
 	<div class="container-fluid" id="navDiv">
 		<ul class="nav justify-content-center">
 			<li class="nav-item"><a  href="${contextPath }/donBoardList.do">기부하기</a></li>

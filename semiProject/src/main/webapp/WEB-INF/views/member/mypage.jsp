@@ -18,7 +18,6 @@
 <body>
 	<jsp:include page="../common/top.jsp"/>
 	
-	
 	<div class="container text-center">
 		<h3 class='mypage'>My Page</h3>
 		
