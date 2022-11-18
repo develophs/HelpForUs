@@ -27,14 +27,14 @@ public class MemberController {
 		return "login";
 	}
 	
+	@RequestMapping("myPage.me")
+	public String myPageView() {
+		return "myPage";
+	}
+	
 	@RequestMapping("enrollView.me")
 	public String enrollView() {
 		return "enroll";
-	}
-	
-	@RequestMapping("myPage.me")
-	public String myPage() {
-		return "myPage";
 	}
 	
 	// 회원가입 메서드
@@ -80,6 +80,8 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	
 	
 	
 	
