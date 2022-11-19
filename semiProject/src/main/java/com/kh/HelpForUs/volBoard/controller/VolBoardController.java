@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.member.model.vo.Member;
 import com.kh.HelpForUs.volBoard.model.service.VolBoardService;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -28,8 +31,26 @@ public class VolBoardController {
 	
 	// 봉사 게시글 리스트
 	@RequestMapping("volBoardList.vo")
-	public String volBoardList() {
-		return "boardListVol";
+	public String volBoardList(@RequestParam(value="page", required=false) Integer page, Model model) {
+		
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+		
+		int listCount = vService.getVListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 9);
+		ArrayList<VolBoard> vList = vService.selectVolBoardList(pi);
+		ArrayList<Attachment> aList = vService.selectAttmList();
+		
+		if(vList != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("vList", vList);
+			model.addAttribute("aList", aList);
+			return "boardListVol";
+		} else {
+			throw new BoardException("봉사 게시글 조회 실패");
+		}
 	}
 	
 	// 봉사 게시글글 작성 페이지 이동
@@ -78,6 +99,9 @@ public class VolBoardController {
 		if(boardResult + attmResult + imgResult == list.size()*2+3) {
 			return "redirect:volBoardList.vo";
 		} else {
+			for(Attachment a : list) {
+				deleteFile(a.getRenameName(), request);
+			}
 			throw new BoardException("봉사 게시글 작성 실패");
 		}
 	}
@@ -112,6 +136,15 @@ public class VolBoardController {
 		return returnArr;
 	}
 	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\uploadFiles";
+		
+		File f = new File(savePath + "\\" + fileName);
+		if(f.exists()) {
+			f.delete();
+		}
+	}
 	
 	
 	

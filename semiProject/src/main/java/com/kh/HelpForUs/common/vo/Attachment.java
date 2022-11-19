@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class Attachment {
 	private int attmId;
+	private int boardId;
 	private String fileType;
 	private Date createDate;
 	private String originalName;

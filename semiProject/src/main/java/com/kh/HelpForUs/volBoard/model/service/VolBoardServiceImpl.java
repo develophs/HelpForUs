@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.volBoard.model.dao.VolBoardDAO;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -32,5 +33,20 @@ public class VolBoardServiceImpl implements VolBoardService{
 	@Override
 	public int insertImg() {
 		return vDAO.insertImg(sqlSession);
+	}
+
+	@Override
+	public int getVListCount() {
+		return vDAO.getVListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<VolBoard> selectVolBoardList(PageInfo pi) {
+		return vDAO.selectVolBoardList(sqlSession, pi);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectAttmList() {
+		return vDAO.selectAttmList(sqlSession);
 	}
 }

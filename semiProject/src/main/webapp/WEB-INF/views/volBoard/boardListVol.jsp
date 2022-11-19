@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -122,15 +123,25 @@
 	    <div class="container">
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	       
-	       <c:forEach begin="1" end="9">
+	       <c:forEach items="${ vList }" var="v">
 	        <div class="col">
 	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+	          	<c:forEach items="${ aList }" var="a">
+		          	<c:if test="${ v.boardId eq a.boardId }">
+		          		<c:if test="${ a.originalName == null }">
+		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+		            	</c:if>
+		            	<c:if test="${ a.originalName != null }">
+		            		<img src="resources/uploadFiles/${ a.renameName }" class="card-img-top" alt="..." height="300px;">
+		            	</c:if>
+		            </c:if>
+	            </c:forEach>
 	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
+	            <h5>${ v.boardTitle }</h5>
+	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 20) }"></c:set>
+	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
-	                <small class="text-muted">11/23일 마감</small>
+	                <small class="text-muted">${ v.boardCreateDate }</small>
 	              </div>
 	            </div>
 	          </div>
@@ -140,8 +151,27 @@
 	      </div>
 	    </div>
 	  </div>
-	  <jsp:include page="../common/pagination.jsp"/>
-	  <jsp:include page="../common/footer.jsp"/>
+
+		<ul class="pagination" style="justify-content: center;">
+			<li class="page-item"><c:url var="goBack" value="${ loc }">
+					<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
+				</c:url> <a class="page-link" href="${ goBack }" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+			</a></li>
+			<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+				<c:url var="goNum" value="${ loc }">
+					<c:param name="page" value="${ p }"></c:param>
+				</c:url>
+				<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
+			</c:forEach>
+			<li class="page-item"><c:url var="goNext" value="${ loc }">
+					<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+				</c:url> <a class="page-link" href="${ goNext }" aria-label="Next"> <span
+					aria-hidden="true">&raquo;</span>
+			</a></li>
+		</ul>
+
+		<jsp:include page="../common/footer.jsp"/>
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	     
