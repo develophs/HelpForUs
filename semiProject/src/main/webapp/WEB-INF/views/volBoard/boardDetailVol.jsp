@@ -80,7 +80,7 @@
 			</c:if>
 		</c:if>
 		<c:if test="${ loginUser == null && vBoard.refMemberUsername == loginUser.memberUsername }">
-			<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
+			<button class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
 			<button class="btn btn-lg mb-0 text-white" style="background-color: gray" disabled>응원하기</button>
 		</c:if>
 	</div>
@@ -154,10 +154,16 @@
 		
 		<div class="text-center">
 			<c:if test="${ loginUser != null }">
-				<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
+				<c:if test="${ vBoard.refMemberUsername != loginUser.memberUsername }">
+					<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
+				</c:if>
+				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
+					<button onclick="location.href='${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }'" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
+					<button onclick="location.href='${contextPath}/updateVolBoardView.vo?bId=${ vBoard.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
+				</c:if>
 			</c:if>
 			<c:if test="${ loginUser == null }">
-				<button onclick="#" class="btn btn-lg text-white" style="background-color: orange" disabled>봉사 신청</button>
+				<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
 			</c:if>
 		</div>
 		<br>
@@ -170,28 +176,6 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	
 	<script>
-// 		window.onload = () => {
-			
-// 			document.getElementById('cheerButton').addEventListener('click', function(event) {
-// 				if(${loginUser == null}){
-// 					alert('먼저 로그인을 해주세요');
-// 					event.preventDefault();
-// 				} else {
-// 					console.log(${cheer});
-// 				}
-				
-// 				$.ajax({
-// 					url: '${contextPath}/cheerBoard.vo',
-// 					data: {boardId:${vBoard.boardId}, memberUserName:'${loginUser.memberUsername}'},
-// 					success: (data) => {
-// 						console.log(data);
-// 					},
-// 					error: (data) => {
-// 						console.log(data);
-// 					}
-// 				});
-// 			});
-// 		}
 	</script>
 </body>
 	

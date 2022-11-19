@@ -224,6 +224,21 @@ public class VolBoardController {
 		}
 	}
 	
+	// 봉사 게시글 수정페이지 이동
+	@RequestMapping("updateVolBoardView.vo")
+	public String updateVolBoardView(@RequestParam("bId") int bId, Model model) {
+		VolBoard vBoard = vService.selectVolBoard(bId, false);
+		ArrayList<Attachment> aList = vService.selectAttm(bId);
+		
+		if(vBoard != null) {
+			model.addAttribute("vBoard", vBoard);
+			model.addAttribute("aList", aList);
+			return "volBoardEdit";
+		} else {
+			throw new BoardException("봉사 게시글 조회 실패.");
+		}
+	}
+	
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,45 +49,44 @@
 	<div class="container text-center" id="writeDiv"  >
 		<h2>봉사 활동 모집 글쓰기</h2>
 		<hr>
-		<form action="${contextPath}/writeVolBoard.vo" id="form" enctype="multipart/form-data" method="post">
+		<form action="${contextPath}/updateVolBoard.vo" id="form" enctype="multipart/form-data" method="post">
 			<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
 					<th class="table-active">제목</th>
-					<td><input type="text" class="text1" name="boardTitle" required></td>
+					<td><input type="text" class="text1" name="boardTitle" required value=${ vBoard.boardTitle }></td>
 					<th class="table-active">봉사날짜</th>
-					<td><input type="Date" class="text1" name="volunteerDate" required></td>
+					<td><input type="Date" class="text1" name="volunteerDate" required value=${ vBoard.volunteerDate }></td>
 				</tr>
 				<tr>
 					<th class="table-active">모집기간</th>
-					<td><input type="Date" class="text1"  min="today" name="boardDeadline" required></td>
+					<td><input type="Date" class="text1"  min="today" name="boardDeadline" required value="${ vBoard.boardDeadline }"></td>
 					
-	  
 					  
 					<th class="table-active">봉사대상</th>
 					<td>
 						<select name="refCategoryId">
-							<option value="1">아동</option>
-							<option value="2">동물</option>
-							<option value="3">노인</option>
-							<option value="4">여성</option>
-							<option value="5">환경</option>
-							<option value="6">장애인</option>
+							<option value="1"<c:if test="${vBoard.refCategoryId == 1}">selected</c:if>>아동</option>
+							<option value="2"<c:if test="${vBoard.refCategoryId == 2}">selected</c:if>>동물</option>
+							<option value="3"<c:if test="${vBoard.refCategoryId == 3}">selected</c:if>>노인</option>
+							<option value="4"<c:if test="${vBoard.refCategoryId == 4}">selected</c:if>>여성</option>
+							<option value="5"<c:if test="${vBoard.refCategoryId == 5}">selected</c:if>>환경</option>
+							<option value="6"<c:if test="${vBoard.refCategoryId == 6}">selected</c:if>>장애인</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th class="table-active">모집인원</th>
 					<td>
-						<input type="number" min="1" class="text1" name="volunteerGoalPeople" required>
+						<input type="number" min="1" class="text1" name="volunteerGoalPeople" required value="${ vBoard.volunteerGoalPeople }">
 					</td>
 					<th class="table-active">봉사장소</th>
-					<td><input type="text" class="text1" name="volunteerLocation" required></td>
+					<td><input type="text" class="text1" name="volunteerLocation" required value="${ vBoard.volunteerLocation }"></td>
 				</tr>
 				<tr>
 					<th class="table-active">담당자</th>
-					<td><input type="text" class="text1" name="managerName" required></td>
+					<td><input type="text" class="text1" name="managerName" required value="${ vBoard.managerName }"></td>
 					<th class="table-active">연락처</th>
-					<td><input type="text" class="text1" name="managerPhone" required></td>
+					<td><input type="text" class="text1" name="managerPhone" required value="${ vBoard.managerPhone }"></td>
 				</tr>
 				<tr>
 					<th class="table-active">이미지</th>
@@ -97,7 +97,7 @@
 				</tr>
 				<tr>
 					<th class="table-active">내용</th>
-					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent" required></textarea></td>
+					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent" required>${ vBoard.boardContent }</textarea></td>
 				
 			</table>
 			<input type="hidden" name="boardType" value="Vol">
@@ -109,7 +109,7 @@
 			
 			<br><br>
 			
-			<button class="btn btn-primary" id="submitButton">모집하기</button>
+			<button class="btn btn-primary" id="submitButton">수정하기</button>
 		</form>
 	</div>	
 
