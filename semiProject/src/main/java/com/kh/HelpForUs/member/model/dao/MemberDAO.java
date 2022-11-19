@@ -24,4 +24,12 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.checkNickName", nickName);
 	}
 
+	public int updateInfo(SqlSessionTemplate sqlSession, Member member) {
+		return sqlSession.update("memberMapper.updateInfo", member);
+	}
+
+	public int deleteMember(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.update("memberMapper.deleteMember", userName);
+	}
+
 }

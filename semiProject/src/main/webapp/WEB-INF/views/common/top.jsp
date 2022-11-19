@@ -49,7 +49,7 @@
 				
 					<c:if test="${ loginUser == null }">
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/loginView.me">로그인</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextPath}/enrollView.me">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/enrollButton.me">회원가입</a></li>
 					</c:if>
 					
 					<c:if test="${ loginUser != null }">
