@@ -25,10 +25,13 @@ public class VolBoard {
 	private Date boardModifyDate;
 	private Date boardDeadline;
 	private String boardStatus;
+	private int boardCount;
 	private String volunteerGoalPeople;
 	private String volunteerCurrentPeople;
 	private String volunteerLocation;
 	private Date volunteerDate;
 	private String managerName;
 	private String managerPhone;
+	private String memberNickname;
+	private String categoryName;
 }

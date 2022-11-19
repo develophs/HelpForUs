@@ -71,6 +71,7 @@
 	#boardAlign{
 		float: left;
 	}
+	.cards *:hover{ cursor: pointer;}
     </style>
 
     
@@ -125,7 +126,7 @@
 	       
 	       <c:forEach items="${ vList }" var="v">
 	        <div class="col">
-	          <div class="card shadow-sm">
+	          <div class="card shadow-sm cards">
 	          	<c:forEach items="${ aList }" var="a">
 		          	<c:if test="${ v.boardId eq a.boardId }">
 		          		<c:if test="${ a.originalName == null }">
@@ -138,14 +139,16 @@
 	            </c:forEach>
 	            <div class="card-body">
 	            <h5>${ v.boardTitle }</h5>
-	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 20) }"></c:set>
+	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 20) }..."></c:set>
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
+	              	<small class="text-muted" id="nickName">${ v.memberNickname }</small>
 	                <small class="text-muted">${ v.boardCreateDate }</small>
 	              </div>
 	            </div>
 	          </div>
 	        </div>
+	        <input type="hidden" value="${ v.boardId }" id="boardId">
 	        </c:forEach>
 	        
 	      </div>
@@ -181,7 +184,19 @@
 		<jsp:include page="../common/footer.jsp"/>
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-	     
+	 
+	<script>
+		window.onload = () => {
+			const cards = document.getElementsByClassName('cards');
+			for(const card of cards){
+				card.addEventListener('click', function() {
+					const bId = document.getElementById("boardId").value;
+					const nickName = document.getElementById("nickName").innerText;
+					location.href='${contextPath}/volBoardDetail.vo?bId=' + bId + '&nickName=' + nickName;
+				});
+			}
+		}
+	</script>
 	</body>
 	
 	

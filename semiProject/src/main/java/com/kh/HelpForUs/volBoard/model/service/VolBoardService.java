@@ -20,4 +20,8 @@ public interface VolBoardService {
 
 	ArrayList<Attachment> selectAttmList();
 
+	VolBoard selectVolBoard(int bId, boolean yn);
+
+	ArrayList<Attachment> selectAttm(int bId);
+
 }

@@ -40,4 +40,16 @@ public class VolBoardDAO {
 	public ArrayList<Attachment> selectAttmList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("volMapper.selectAttmList");
 	}
+
+	public void volBoardCount(SqlSessionTemplate sqlSession, int bId) {
+		sqlSession.update("volMapper.volBoardCount", bId);
+	}
+
+	public VolBoard selectBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("volMapper.selectBoard", bId);
+	}
+
+	public ArrayList<Attachment> selectAttm(SqlSessionTemplate sqlSession, int bId) {
+		return (ArrayList)sqlSession.selectList("volMapper.selectAttm", bId);
+	}
 }

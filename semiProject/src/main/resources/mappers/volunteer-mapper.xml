@@ -31,6 +31,7 @@
 	<select id="selectVolBoardList" resultMap="volBoardResultSet">
 		select *
 		from BOARD
+			join member on(REF_MEMBER_USERNAME = MEMBER_USERNAME)
 		where BOARD_TYPE = 'Vol' and BOARD_STATUS = 'Y'
 		<if test="category != 0">
 			and REF_CATEGORY_ID = #{category}
@@ -48,12 +49,15 @@
 		<result property="boardModifyDate" column="BOARD_MODIFY_DATE"/>
 		<result property="boardDeadline" column="BOARD_DEADLINE"/>
 		<result property="boardStatus" column="BOARD_STATUS"/>
+		<result property="boardCount" column="BOARD_COUNT"/>
 		<result property="volunteerGoalPeople" column="VOLUNTEER_GOAL_PEOPLE"/>
 		<result property="volunteerCurrentPeople" column="VOLUNTEER_CURRENT_PEOPLE"/>
 		<result property="volunteerLocation" column="VOLUNTEER_LOCATION"/>
 		<result property="volunteerDate" column="VOLUNTEER_DATE"/>
 		<result property="managerName" column="MANAGER_NAME"/>
 		<result property="managerPhone" column="MANAGER_PHONE"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
 	</resultMap>
 	
 	<select id="selectAttmList" resultMap="attachmentResultSet">
@@ -74,4 +78,27 @@
 		<result property="level" column="ATTM_LEVEL"/>
 		<result property="fileStatus" column="FILE_STATUS"/>
 	</resultMap>
+	
+	<update id="volBoardCount">
+		update board
+		set board_count = board_count + 1
+		where board_id = #{bId}
+	</update>
+	
+	<select id="selectBoard" resultMap="volBoardResultSet">
+		select *
+		from board
+			join member on(REF_MEMBER_USERNAME = MEMBER_USERNAME)
+			join volunteer on(BOARD_ID = VOLUNTEER.REF_BOARD_ID)
+			join manager on(BOARD_ID = MANAGER.REF_BOARD_ID)
+			join category on(REF_CATEGORY_ID = CATEGORY_ID)
+		where BOARD_ID = #{bId} and BOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="selectAttm" resultMap="attachmentResultSet">
+		select *
+		from Attachment
+			join image using(attm_id)
+		where board_id = #{bId} and file_status = 'Y'
+	</select>
 </mapper>

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -152,7 +153,32 @@ public class VolBoardController {
 		}
 	}
 	
-	
+	@RequestMapping("volBoardDetail.vo")
+	public String selectvolBoard(@RequestParam("bId") int bId, @RequestParam("nickName") String nickName, HttpSession session, Model model) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String loginNick = null;
+		boolean yn = true;
+		
+		if(loginUser != null) {
+			loginNick = loginUser.getMemberNickname();
+			
+			if(loginNick.equals(nickName)) {
+				yn = false;
+			}
+		}
+		
+		VolBoard vBoard = vService.selectVolBoard(bId, yn);
+		ArrayList<Attachment> aList = vService.selectAttm(bId);
+		
+		if(vBoard != null) {
+			model.addAttribute("vBoard", vBoard);
+			model.addAttribute("aList", aList);
+			
+			return "boardDetailVol";
+		} else {
+			throw new BoardException("봉사 게시글 조회 실패.");
+		}
+	}
 	
 	
 	

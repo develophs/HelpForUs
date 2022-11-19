@@ -49,4 +49,17 @@ public class VolBoardServiceImpl implements VolBoardService{
 	public ArrayList<Attachment> selectAttmList() {
 		return vDAO.selectAttmList(sqlSession);
 	}
+
+	@Override
+	public VolBoard selectVolBoard(int bId, boolean yn) {
+		if(yn) {
+			vDAO.volBoardCount(sqlSession, bId);
+		}
+		return vDAO.selectBoard(sqlSession, bId);
+	}
+	
+	@Override
+	public ArrayList<Attachment> selectAttm(int bId) {
+		return vDAO.selectAttm(sqlSession, bId);
+	}
 }
