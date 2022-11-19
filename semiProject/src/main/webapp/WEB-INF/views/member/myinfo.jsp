@@ -190,7 +190,6 @@
 			     buttons: ["NO", "YES"],
 			}).then((YES) => {
 			     if (YES) {
-			    	 console.log(YES);
 			     	location.href="${contextPath}/deleteMember";
 			     }
 			});
