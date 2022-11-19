@@ -12,4 +12,8 @@ public interface MemberService {
 
 	int checkNickName(String nickName);
 
+	int updateInfo(Member member);
+
+	int deleteMember(String userName);
+
 }

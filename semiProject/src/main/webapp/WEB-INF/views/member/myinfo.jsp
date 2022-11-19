@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 	.mypage{padding-top:15px; text-align:left; font-weight:bold;}
@@ -77,7 +78,7 @@
                 <!-- 정보수정칸 -->
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
-                        <form id="updateInfo" action="${contextPath}/updateInfo.me" method="POST">
+                        <form id="updateInfo" action="${contextPath}/updateInfo.me" method="POST" onsubmit="return false;">
                         	<!-- 아이디 input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="memberUsername" name="memberUsername" type="text" value="${ loginUser.memberUsername }"readonly/>
@@ -122,14 +123,14 @@
                                 <label for="memberPhone">전화 번호</label>
                             </div>
                             
-                            <button class="btn btn-primary btn-xl " type="submit">수정</button>
+                            <button class="btn btn-primary btn-xl " type="submit" onclick="checkPwd();">수정</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-primary btn-xl " type="button" onclick="location.href='${contextPath}'">취소</button>
                         	<br><br>
                         </form>
                     </div>
                 </div>
-                <div id='quit' style="align:right;">회원 탈퇴</div>
+                <div id='quit' style="align:right;" onclick="deleteMember();">회원 탈퇴</div>
    			</div>
    			
   		</div>
@@ -142,23 +143,56 @@
 			const checkNickName = document.getElementById('checkNickName');
 			
 			nickName.addEventListener('change',function(){
-				$.ajax({
-					url: '${contextPath}/checkNickName.me',
-					data: {nickName:this.value},
-					success: (data)=>{
-						console.log(data);
-						if(data=='yes'){
-							checkNickName.style.color = 'red';
-							checkNickName.innerText = '이미 사용중인 닉네임 입니다.';
-						} else if(data=='no'){
-							checkNickName.style.color = 'green';
-							checkNickName.innerText = '사용 가능한 닉네임 입니다.';
+				if(this.value.trim() == ''){
+					checkNickName.style.color = 'black';
+					checkNickName.innerText = '닉네임을 입력해주세요.';
+				}else{
+					$.ajax({
+						url: '${contextPath}/checkNickName.me',
+						data: {nickName:this.value},
+						success: (data)=>{
+							console.log(data);
+							if(data=='yes'){
+								checkNickName.style.color = 'red';
+								checkNickName.innerText = '이미 사용중인 닉네임 입니다.';
+							} else if(data=='no'){
+								checkNickName.style.color = 'green';
+								checkNickName.innerText = '사용 가능한 닉네임 입니다.';
+							}
+						},
+						error: (data) =>{
+							console.log(data);
 						}
-					},
-					error: (data) =>{
-						console.log(data);
-					}
-				});
+					});
+				}
+			});
+		}
+		
+		const checkPwd = () =>{
+			const pwd = document.getElementById('memberPwd').value;
+			const pwd2 = document.getElementById('memberPwd2').value;
+			const form = document.querySelector('form');
+			if(pwd.trim() == '' || pwd2.trim() == '' ){
+				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
+		        return false;
+			} else if(pwd != pwd2){
+				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
+		        return false;
+			} else{
+				form.submit();
+			}
+		}
+		
+		const deleteMember = () =>{
+			swal({
+			     title: "회원 탈퇴",
+			     text: "정말 탈퇴 하시겠습니까?",
+			     buttons: ["NO", "YES"],
+			}).then((YES) => {
+			     if (YES) {
+			    	 console.log(YES);
+			     	location.href="${contextPath}/deleteMember";
+			     }
 			});
 		}
 	</script>
