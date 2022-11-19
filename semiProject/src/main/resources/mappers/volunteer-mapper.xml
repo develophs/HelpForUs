@@ -32,6 +32,9 @@
 		select *
 		from BOARD
 		where BOARD_TYPE = 'Vol' and BOARD_STATUS = 'Y'
+		<if test="category != 0">
+			and REF_CATEGORY_ID = #{category}
+		</if>
 	</select>
 	
 	<resultMap type="VolBoard" id="volBoardResultSet">

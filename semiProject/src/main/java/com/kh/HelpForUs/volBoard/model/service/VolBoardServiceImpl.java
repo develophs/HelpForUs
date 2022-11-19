@@ -41,8 +41,8 @@ public class VolBoardServiceImpl implements VolBoardService{
 	}
 
 	@Override
-	public ArrayList<VolBoard> selectVolBoardList(PageInfo pi) {
-		return vDAO.selectVolBoardList(sqlSession, pi);
+	public ArrayList<VolBoard> selectVolBoardList(PageInfo pi, int category) {
+		return vDAO.selectVolBoardList(sqlSession, pi, category);
 	}
 
 	@Override

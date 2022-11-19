@@ -31,7 +31,12 @@ public class VolBoardController {
 	
 	// 봉사 게시글 리스트
 	@RequestMapping("volBoardList.vo")
-	public String volBoardList(@RequestParam(value="page", required=false) Integer page, Model model) {
+	public String volBoardList(@RequestParam(value="page", required=false) Integer page, Model model, @RequestParam(value="category", required=false) Integer cate) {
+		
+		int category = 0;
+		if(cate != null && cate > 0 && cate < 7) {
+			category = cate;
+		}
 		
 		int currentPage = 1;
 		if(page != null && page > 1) {
@@ -40,13 +45,14 @@ public class VolBoardController {
 		
 		int listCount = vService.getVListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 9);
-		ArrayList<VolBoard> vList = vService.selectVolBoardList(pi);
+		ArrayList<VolBoard> vList = vService.selectVolBoardList(pi, category);
 		ArrayList<Attachment> aList = vService.selectAttmList();
 		
 		if(vList != null) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("vList", vList);
 			model.addAttribute("aList", aList);
+			model.addAttribute("category", category);
 			return "boardListVol";
 		} else {
 			throw new BoardException("봉사 게시글 조회 실패");

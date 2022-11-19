@@ -83,13 +83,13 @@
 	    <div class="row py-lg-5">
 	    	<table>
 	    		<tr align="center">
-		    		<td><a href="#"><img alt="전체" src="resources/img/total.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="아동" src="resources/img/children.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="동물" src="resources/img/animal.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="노인" src="resources/img/old.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="여성" src="resources/img/woman.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="환경" src="resources/img/environment.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="장애인" src="resources/img/disabled.png" width="50" height="50"></a></td>
+		    		<td><a href="volBoardList.vo?category=0"><img alt="전체" src="resources/img/total.png" width="50" height="50"></a></td>
+		    		<td><a href="volBoardList.vo?category=1"><img alt="아동" src="resources/img/children.png" width="50" height="50"></a></td>
+		    		<td><a href="volBoardList.vo?category=2"><img alt="동물" src="resources/img/animal.png" width="50" height="50"></a></td>
+		    		<td><a href="volBoardList.vo?category=3"><img alt="노인" src="resources/img/old.png" width="50" height="50"></a></td>
+		    		<td><a href="volBoardList.vo?category=4"><img alt="여성" src="resources/img/woman.png" width="50" height="50"></a></td>
+		    		<td><a href="volBoardList.vo?category=5"><img alt="환경" src="resources/img/environment.png" width="50" height="50"></a></td>
+		    		<td><a href="volBoardList.vo?category=6"><img alt="장애인" src="resources/img/disabled.png" width="50" height="50"></a></td>
 	    		</tr>
 	    		<tr>
 		    		<th>전체</th>
@@ -153,22 +153,29 @@
 	  </div>
 
 		<ul class="pagination" style="justify-content: center;">
+			<c:if test="${ pi.currentPage > 1 }">
 			<li class="page-item"><c:url var="goBack" value="${ loc }">
 					<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
+					<c:param name="category" value="${ category }"></c:param>
 				</c:url> <a class="page-link" href="${ goBack }" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 			</a></li>
+			</c:if>
 			<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
 				<c:url var="goNum" value="${ loc }">
 					<c:param name="page" value="${ p }"></c:param>
+					<c:param name="category" value="${ category }"></c:param>
 				</c:url>
 				<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
 			</c:forEach>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
 			<li class="page-item"><c:url var="goNext" value="${ loc }">
 					<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+					<c:param name="category" value="${ category }"></c:param>
 				</c:url> <a class="page-link" href="${ goNext }" aria-label="Next"> <span
 					aria-hidden="true">&raquo;</span>
 			</a></li>
+			</c:if>
 		</ul>
 
 		<jsp:include page="../common/footer.jsp"/>
