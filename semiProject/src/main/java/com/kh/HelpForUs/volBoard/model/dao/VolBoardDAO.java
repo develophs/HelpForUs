@@ -54,11 +54,15 @@ public class VolBoardDAO {
 		return (ArrayList)sqlSession.selectList("volMapper.selectAttm", bId);
 	}
 
-	public ArrayList<Cheer> selectCheer(SqlSessionTemplate sqlSession, int bId) {
-		return (ArrayList)sqlSession.selectList("volMapper.selectCheer", bId);
+	public Cheer selectCheer(SqlSessionTemplate sqlSession, Cheer ch) {
+		return sqlSession.selectOne("volMapper.selectCheer", ch);
 	}
 
 	public int cheerBoard(SqlSessionTemplate sqlSession, Cheer ch) {
 		return sqlSession.insert("volMapper.cheerBoard", ch);
+	}
+
+	public int cheerCancle(SqlSessionTemplate sqlSession, Cheer ch) {
+		return sqlSession.delete("volMapper.cheerCancle", ch);
 	}
 }

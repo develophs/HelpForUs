@@ -159,6 +159,7 @@ public class VolBoardController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String loginNick = null;
 		boolean yn = true;
+		System.out.println(bId);
 		
 		if(loginUser != null && nickName != null) {
 			loginNick = loginUser.getMemberNickname();
@@ -168,9 +169,17 @@ public class VolBoardController {
 			}
 		}
 		
+		Cheer ch = new Cheer();
+		Cheer cheer = null;
+		
+		if(loginUser != null) {
+			ch.setBoardId(bId);
+			ch.setMemberUserName(loginUser.getMemberUsername());
+			cheer = vService.selectCheer(ch);
+		}
+		
 		VolBoard vBoard = vService.selectVolBoard(bId, yn);
 		ArrayList<Attachment> aList = vService.selectAttm(bId);
-		ArrayList<Cheer> cheer = vService.selectCheer(bId);
 		
 		if(vBoard != null) {
 			model.addAttribute("vBoard", vBoard);
@@ -197,7 +206,22 @@ public class VolBoardController {
 		} else {
 			throw new BoardException("응원하기에 실패했습니다.");
 		}
+	}
+	
+	// 응원취소
+	@RequestMapping("cheerCancle.vo")
+	public String cheerCancle(@RequestParam("boardId") int boardId, HttpSession session, Model model) {
+		String userName = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		Cheer ch = new Cheer(boardId, userName);
 		
+		int result = vService.cheerCancle(ch);
+		
+		if(result > 0) {
+			model.addAttribute("bId", boardId);
+			return "redirect:volBoardDetail.vo";
+		} else {
+			throw new BoardException("응원취소에 실패했습니다.");
+		}
 	}
 	
 	

@@ -25,8 +25,10 @@ public interface VolBoardService {
 
 	ArrayList<Attachment> selectAttm(int bId);
 
-	ArrayList<Cheer> selectCheer(int bId);
+	Cheer selectCheer(Cheer ch);
 
 	int cheerBoard(Cheer ch);
+
+	int cheerCancle(Cheer ch);
 
 }

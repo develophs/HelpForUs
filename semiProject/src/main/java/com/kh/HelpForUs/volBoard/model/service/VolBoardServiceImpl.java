@@ -65,12 +65,17 @@ public class VolBoardServiceImpl implements VolBoardService{
 	}
 
 	@Override
-	public ArrayList<Cheer> selectCheer(int bId) {
-		return vDAO.selectCheer(sqlSession, bId);
+	public Cheer selectCheer(Cheer ch) {
+		return vDAO.selectCheer(sqlSession, ch);
 	}
 	
 	@Override
 	public int cheerBoard(Cheer ch) {
 		return vDAO.cheerBoard(sqlSession, ch);
+	}
+	
+	@Override
+	public int cheerCancle(Cheer ch) {
+		return vDAO.cheerCancle(sqlSession, ch);
 	}
 }

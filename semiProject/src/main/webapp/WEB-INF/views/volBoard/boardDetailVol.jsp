@@ -63,21 +63,23 @@
 	<div class="mx-auto m-3">
 		<button onclick="location.href='volBoardList.vo'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null }">
-			<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
-			<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
+			<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue"
 			<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
-				disabled
+					disabled
 			</c:if>
-			<c:forEach items="${ cheer }" var="c">
-				<c:if test="${ c.boardId == vBoard.boardId }">
-					<c:if test="${ c.memberUserName == loginUser.memberUsername }">
-						disabled
-					</c:if>
-				</c:if> 
-			</c:forEach>
-			>응원하기</button>
+			>문의</button>
+			<c:if test="${ cheer == null }">
+				<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
+				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
+					disabled
+				</c:if>
+				>응원하기</button>
+			</c:if>
+			<c:if test="${ cheer != null }">
+				<button onclick="location.href='${contextPath}/cheerCancle.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray">응원취소</button>
+			</c:if>
 		</c:if>
-		<c:if test="${ loginUser == null }">
+		<c:if test="${ loginUser == null && vBoard.refMemberUsername == loginUser.memberUsername }">
 			<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
 			<button class="btn btn-lg mb-0 text-white" style="background-color: gray" disabled>응원하기</button>
 		</c:if>
@@ -151,7 +153,12 @@
 		<br><br>
 		
 		<div class="text-center">
-			<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
+			<c:if test="${ loginUser != null }">
+				<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
+			</c:if>
+			<c:if test="${ loginUser == null }">
+				<button onclick="#" class="btn btn-lg text-white" style="background-color: orange" disabled>봉사 신청</button>
+			</c:if>
 		</div>
 		<br>
 	</div>
