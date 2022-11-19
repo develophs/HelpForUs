@@ -154,17 +154,17 @@
 		
 			
 		const check = () =>{
-			$('#enroll').on('submit',()=>{
-	    		const userName = $('#memberUsername').val();
-		        const regUserName = /^[A-za-z0-9]{6,12}$/g;
-		        if (!regUserName.test(userName)){
-		        	swal('아이디가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
-		            $('#memberUsername').focus();
-		            return false;
-		        } 
-			})
+			
+			const userName = document.getElementById('memberUsername').value;
+	        const regUserName = /^[A-za-z0-9]{6,12}$/g;
+	        
+		    if (!regUserName.test(userName)){
+		       swal('아이디가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
+		       return false;
+		    } 
 			
 			const regPwd = /^[A-za-z0-9]{6,12}$/g;
+			
 			const pwd = document.getElementById('memberPwd').value;
 			const pwd2 = document.getElementById('memberPwd2').value;
 			
@@ -180,7 +180,7 @@
 		        return false;
 			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
 				swal('비밀번호가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
-			} else if(regUserName.test(userName) && regPwd.test(pwd)){
+			} else{
 				form.submit();
 			}
 		
