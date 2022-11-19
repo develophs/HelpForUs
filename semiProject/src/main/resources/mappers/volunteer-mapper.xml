@@ -101,4 +101,20 @@
 			join image using(attm_id)
 		where board_id = #{bId} and file_status = 'Y'
 	</select>
+	
+	<resultMap type="Cheer" id="cheerResultSet">
+		<id property="boardId" column="REF_BOARD_ID"/>
+		<id property="memberUserName" column="REF_MEMBER_USERNAME"/>
+	</resultMap>
+	
+	<select id="selectCheer" resultMap="cheerResultSet">
+		select *
+		from cheer
+		where REF_BOARD_ID = #{bId}
+	</select>
+	
+	<insert id="cheerBoard">
+		insert into cheer
+		values(#{boardId}, #{memberUserName})
+	</insert>
 </mapper>

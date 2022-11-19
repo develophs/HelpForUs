@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -51,5 +52,13 @@ public class VolBoardDAO {
 
 	public ArrayList<Attachment> selectAttm(SqlSessionTemplate sqlSession, int bId) {
 		return (ArrayList)sqlSession.selectList("volMapper.selectAttm", bId);
+	}
+
+	public ArrayList<Cheer> selectCheer(SqlSessionTemplate sqlSession, int bId) {
+		return (ArrayList)sqlSession.selectList("volMapper.selectCheer", bId);
+	}
+
+	public int cheerBoard(SqlSessionTemplate sqlSession, Cheer ch) {
+		return sqlSession.insert("volMapper.cheerBoard", ch);
 	}
 }

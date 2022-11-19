@@ -125,7 +125,7 @@
  				fileTd.innerHTML += '<br><input type="file" class="form-control form-control-md file" name="file">'
  			});
  			
- 			document.getElementById('submitButton').addEventListener('click', () => {
+ 			document.getElementById('submitButton').addEventListener('click', function(event) {
  				const form = document.getElementById('form');
  				const files = document.getElementsByClassName('file');
  				
@@ -133,9 +133,9 @@
  					const lastIndex = file.value.lastIndexOf('.');
  					const fileType = file.value.substring(lastIndex+1, file.length).toLowerCase();
  					
- 					if(file != '' && !(fileType == 'jpg' || fileType == 'gif' || fileType == 'png' || fileType == 'jpeg')){
+ 					if(file.value != '' && !(fileType == 'jpg' || fileType == 'gif' || fileType == 'png' || fileType == 'jpeg')){
  						alert('이미지 파일만 선택할 수 있습니다.');
- 						form.preventDefault();
+ 						event.preventDefault();
  					}
  				}
 			});

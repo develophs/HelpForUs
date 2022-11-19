@@ -3,6 +3,7 @@ package com.kh.HelpForUs.volBoard.model.service;
 import java.util.ArrayList;
 
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -23,5 +24,9 @@ public interface VolBoardService {
 	VolBoard selectVolBoard(int bId, boolean yn);
 
 	ArrayList<Attachment> selectAttm(int bId);
+
+	ArrayList<Cheer> selectCheer(int bId);
+
+	int cheerBoard(Cheer ch);
 
 }

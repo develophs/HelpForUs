@@ -26,6 +26,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	
 	<style>
 		*{font-family: 'Nanum Gothic', sans-serif;}
@@ -61,8 +62,25 @@
 	
 	<div class="mx-auto m-3">
 		<button onclick="location.href='volBoardList.vo'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
-		<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
-		<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: gray">응원하기</button>
+		<c:if test="${ loginUser != null }">
+			<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
+			<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
+			<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
+				disabled
+			</c:if>
+			<c:forEach items="${ cheer }" var="c">
+				<c:if test="${ c.boardId == vBoard.boardId }">
+					<c:if test="${ c.memberUserName == loginUser.memberUsername }">
+						disabled
+					</c:if>
+				</c:if> 
+			</c:forEach>
+			>응원하기</button>
+		</c:if>
+		<c:if test="${ loginUser == null }">
+			<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
+			<button class="btn btn-lg mb-0 text-white" style="background-color: gray" disabled>응원하기</button>
+		</c:if>
 	</div>
 	
 	<div class="mx-auto" style="width: 750px">
@@ -143,7 +161,31 @@
 	<br><br><br>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-
+	
+	<script>
+// 		window.onload = () => {
+			
+// 			document.getElementById('cheerButton').addEventListener('click', function(event) {
+// 				if(${loginUser == null}){
+// 					alert('먼저 로그인을 해주세요');
+// 					event.preventDefault();
+// 				} else {
+// 					console.log(${cheer});
+// 				}
+				
+// 				$.ajax({
+// 					url: '${contextPath}/cheerBoard.vo',
+// 					data: {boardId:${vBoard.boardId}, memberUserName:'${loginUser.memberUsername}'},
+// 					success: (data) => {
+// 						console.log(data);
+// 					},
+// 					error: (data) => {
+// 						console.log(data);
+// 					}
+// 				});
+// 			});
+// 		}
+	</script>
 </body>
 	
 </html>

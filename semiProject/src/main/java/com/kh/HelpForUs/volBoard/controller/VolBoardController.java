@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.member.model.vo.Member;
@@ -154,12 +155,12 @@ public class VolBoardController {
 	}
 	
 	@RequestMapping("volBoardDetail.vo")
-	public String selectvolBoard(@RequestParam("bId") int bId, @RequestParam("nickName") String nickName, HttpSession session, Model model) {
+	public String selectvolBoard(@RequestParam("bId") int bId, @RequestParam(value="nickName", required=false) String nickName, HttpSession session, Model model) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String loginNick = null;
 		boolean yn = true;
 		
-		if(loginUser != null) {
+		if(loginUser != null && nickName != null) {
 			loginNick = loginUser.getMemberNickname();
 			
 			if(loginNick.equals(nickName)) {
@@ -169,15 +170,34 @@ public class VolBoardController {
 		
 		VolBoard vBoard = vService.selectVolBoard(bId, yn);
 		ArrayList<Attachment> aList = vService.selectAttm(bId);
+		ArrayList<Cheer> cheer = vService.selectCheer(bId);
 		
 		if(vBoard != null) {
 			model.addAttribute("vBoard", vBoard);
 			model.addAttribute("aList", aList);
+			model.addAttribute("cheer", cheer);
 			
 			return "boardDetailVol";
 		} else {
 			throw new BoardException("봉사 게시글 조회 실패.");
 		}
+	}
+	
+	// 응원하기
+	@RequestMapping("cheerBoard.vo")
+	public String cheerBoard(@RequestParam("boardId") int boardId, HttpSession session, Model model) {
+		String userName = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		Cheer ch = new Cheer(boardId, userName);
+		
+		int result = vService.cheerBoard(ch);
+		
+		if(result > 0) {
+			model.addAttribute("bId", boardId);
+			return "redirect:volBoardDetail.vo";
+		} else {
+			throw new BoardException("응원하기에 실패했습니다.");
+		}
+		
 	}
 	
 	

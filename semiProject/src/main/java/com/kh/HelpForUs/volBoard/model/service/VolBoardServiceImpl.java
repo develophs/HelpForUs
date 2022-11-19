@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.volBoard.model.dao.VolBoardDAO;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -61,5 +62,15 @@ public class VolBoardServiceImpl implements VolBoardService{
 	@Override
 	public ArrayList<Attachment> selectAttm(int bId) {
 		return vDAO.selectAttm(sqlSession, bId);
+	}
+
+	@Override
+	public ArrayList<Cheer> selectCheer(int bId) {
+		return vDAO.selectCheer(sqlSession, bId);
+	}
+	
+	@Override
+	public int cheerBoard(Cheer ch) {
+		return vDAO.cheerBoard(sqlSession, ch);
 	}
 }
