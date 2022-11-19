@@ -80,7 +80,7 @@
                             
                             <input type="hidden" name="memberRight" value="${right}">
                             
-                            <button class="btn btn-primary btn-xl " type="submit" onclick="checkPwd();">회원가입</button>
+                            <button class="btn btn-primary btn-xl " type="submit" onclick="check();">회원가입</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-primary btn-xl " type="button" onclick="location.href='${contextPath}'">취소</button>
                         	<br><br>
@@ -150,22 +150,40 @@
 					});
 				}
 			});
-			
 		}
 		
-		const checkPwd = () =>{
+			
+		const check = () =>{
+			$('#enroll').on('submit',()=>{
+	    		const userName = $('#memberUsername').val();
+		        const regUserName = /^[A-za-z0-9]{6,12}$/g;
+		        if (!regUserName.test(userName)){
+		        	swal('아이디가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
+		            $('#memberUsername').focus();
+		            return false;
+		        } 
+			})
+			
+			const regPwd = /^[A-za-z0-9]{6,12}$/g;
 			const pwd = document.getElementById('memberPwd').value;
 			const pwd2 = document.getElementById('memberPwd2').value;
+			
 			const form = document.querySelector('form');
+			
 			if(pwd.trim() == '' || pwd2.trim() == '' ){
 				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
+				pwd.focus();
 		        return false;
 			} else if(pwd != pwd2){
 				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
+				pwd.focus();
 		        return false;
-			} else{
+			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
+				swal('비밀번호가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
+			} else if(regUserName.test(userName) && regPwd.test(pwd)){
 				form.submit();
 			}
+		
 		}
 	</script>
 
