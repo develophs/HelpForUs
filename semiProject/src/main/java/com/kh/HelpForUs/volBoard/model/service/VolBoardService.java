@@ -1,9 +1,11 @@
 package com.kh.HelpForUs.volBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
+import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -13,7 +15,7 @@ public interface VolBoardService {
 
 	int insertAttm(Attachment a);
 
-	int insertImg();
+	int insertImg(int i);
 
 	int getVListCount();
 
@@ -30,5 +32,13 @@ public interface VolBoardService {
 	int cheerBoard(Cheer ch);
 
 	int cheerCancle(Cheer ch);
+
+	int updateVolBoard(VolBoard v);
+
+	int deleteAttm(ArrayList<String> delRename);
+
+	void updateAttmLevel(int boardId);
+
+	void deleteImage(Image img);
 
 }

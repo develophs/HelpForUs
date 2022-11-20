@@ -88,8 +88,20 @@
 					<th class="table-active">연락처</th>
 					<td><input type="text" class="text1" name="managerPhone" required value="${ vBoard.managerPhone }"></td>
 				</tr>
+				<c:forEach items="${ aList }" var="a">
+					<tr>
+						<th class="table-active">이미지</th>
+						<td colspan="2">${ a.originalName }</td>
+						<td>
+							<button type="button" class="btn btn-outline-dark btn-sm deleteAttm" id="delete-${ a.renameName }/${ a.level }/${ a.attmId }">
+								삭제 OFF
+							</button>
+							<input type="hidden" name="deleteAttm">
+						</td>
+					</tr>
+				</c:forEach>
 				<tr>
-					<th class="table-active">이미지</th>
+					<th class="table-active">이미지 추가</th>
 					<td colspan="2" id="fileTd">
 						<input type="file" class="form-control form-control-md file" name="file" multiple/>
 					</td>
@@ -100,6 +112,8 @@
 					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent" required>${ vBoard.boardContent }</textarea></td>
 				
 			</table>
+			<input type="hidden" name="boardId" value="${ vBoard.boardId }">
+			<input type="hidden" name="refMemberUsername" value="${ vBoard.refMemberUsername }">
 			<input type="hidden" name="boardType" value="Vol">
 			
 			<br><br>
@@ -116,22 +130,25 @@
 	<jsp:include page="../common/footer.jsp"></jsp:include>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<script>
- 		window.onload = () => {
- 			document.getElementById('submitButton').addEventListener('click', function(event) {
- 				const form = document.getElementById('form');
- 				const files = document.getElementsByClassName('file');
- 				
- 				for(const file of files){
- 					const lastIndex = file.value.lastIndexOf('.');
- 					const fileType = file.value.substring(lastIndex+1, file.length).toLowerCase();
- 					
- 					if(file.value != '' && !(fileType == 'jpg' || fileType == 'gif' || fileType == 'png' || fileType == 'jpeg')){
- 						alert('이미지 파일만 선택할 수 있습니다.');
- 						event.preventDefault();
- 					}
- 				}
+	window.onload = () => {
+		const delBtns = document.getElementsByClassName('deleteAttm');
+		for(const btn of delBtns){
+			btn.addEventListener('click', function() {
+				const nextHidden = this.nextElementSibling;
+				if(nextHidden.value == ''){ // 삭제 버튼을 누르지 않은 경우(삭제 OFF)
+					this.style.background = 'black';
+					this.style.color = 'white';
+					this.innerHTML = '삭제 ON';
+					nextHidden.value = this.id.split("-")[1];
+				} else{ // 삭제 버튼을 누른 경우 (삭제 ON)
+					this.style.background = 'none';
+					this.style.color = 'black';
+					this.innerHTML = '삭제 OFF';
+					nextHidden.removeAttribute('value');
+				}
 			});
- 		}
+		}
+	}
  	</script>
 </body>
 </html>
