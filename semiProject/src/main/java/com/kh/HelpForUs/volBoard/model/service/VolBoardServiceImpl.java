@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
+import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.volBoard.model.dao.VolBoardDAO;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -32,8 +33,8 @@ public class VolBoardServiceImpl implements VolBoardService{
 	}
 
 	@Override
-	public int insertImg() {
-		return vDAO.insertImg(sqlSession);
+	public int insertImg(int i) {
+		return vDAO.insertImg(sqlSession, i);
 	}
 
 	@Override
@@ -65,12 +66,37 @@ public class VolBoardServiceImpl implements VolBoardService{
 	}
 
 	@Override
-	public ArrayList<Cheer> selectCheer(int bId) {
-		return vDAO.selectCheer(sqlSession, bId);
+	public Cheer selectCheer(Cheer ch) {
+		return vDAO.selectCheer(sqlSession, ch);
 	}
 	
 	@Override
 	public int cheerBoard(Cheer ch) {
 		return vDAO.cheerBoard(sqlSession, ch);
+	}
+	
+	@Override
+	public int cheerCancle(Cheer ch) {
+		return vDAO.cheerCancle(sqlSession, ch);
+	}
+
+	@Override
+	public int updateVolBoard(VolBoard v) {
+		return vDAO.updateVolBoard(sqlSession, v);
+	}
+	
+	@Override
+	public int deleteAttm(ArrayList<String> delRename) {
+		return vDAO.deleteAttm(sqlSession, delRename);
+	}
+	
+	@Override
+	public void updateAttmLevel(int boardId) {
+		vDAO.updateAttmLevel(sqlSession, boardId);
+	}
+	
+	@Override
+	public void deleteImage(Image img) {
+		vDAO.deleteImage(sqlSession, img);
 	}
 }

@@ -142,13 +142,15 @@
 	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 20) }..."></c:set>
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
-	              	<small class="text-muted" id="nickName">${ v.memberNickname }</small>
+	              	<small class="text-muted">${ v.boardId }</small>
+	              </div>
+	              <div class="d-flex justify-content-between align-items-center">
+	              	<small class="text-muted">${ v.memberNickname }</small>
 	                <small class="text-muted">${ v.boardCreateDate }</small>
 	              </div>
 	            </div>
 	          </div>
 	        </div>
-	        <input type="hidden" value="${ v.boardId }" id="boardId">
 	        </c:forEach>
 	        
 	      </div>
@@ -190,8 +192,9 @@
 			const cards = document.getElementsByClassName('cards');
 			for(const card of cards){
 				card.addEventListener('click', function() {
-					const bId = document.getElementById("boardId").value;
-					const nickName = document.getElementById("nickName").innerText;
+					const small = this.querySelectorAll('small');
+					const bId = small[0].innerText;
+					const nickName = small[1].innerText;
 					location.href='${contextPath}/volBoardDetail.vo?bId=' + bId + '&nickName=' + nickName;
 				});
 			}

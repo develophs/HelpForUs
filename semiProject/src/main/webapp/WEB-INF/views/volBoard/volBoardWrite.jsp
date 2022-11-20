@@ -91,11 +91,9 @@
 				<tr>
 					<th class="table-active">이미지</th>
 					<td colspan="2" id="fileTd">
-						<input type="file" class="form-control form-control-md file" name="file">
+						<input type="file" class="form-control form-control-md" id="" name="file" multiple/>
 					</td>
-					<td>
-						<button class="btn btn-outline-success" type="button" id="fileButton">파일 추가</button>
-					</td>
+					<td></td>
 				</tr>
 				<tr>
 					<th class="table-active">내용</th>
@@ -118,28 +116,6 @@
 	<jsp:include page="../common/footer.jsp"></jsp:include>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<script>
- 		window.onload = () => {
-
- 			document.getElementById('fileButton').addEventListener('click', () => {
- 				const fileTd = document.getElementById('fileTd');
- 				fileTd.innerHTML += '<br><input type="file" class="form-control form-control-md file" name="file">'
- 			});
- 			
- 			document.getElementById('submitButton').addEventListener('click', function(event) {
- 				const form = document.getElementById('form');
- 				const files = document.getElementsByClassName('file');
- 				
- 				for(const file of files){
- 					const lastIndex = file.value.lastIndexOf('.');
- 					const fileType = file.value.substring(lastIndex+1, file.length).toLowerCase();
- 					
- 					if(file.value != '' && !(fileType == 'jpg' || fileType == 'gif' || fileType == 'png' || fileType == 'jpeg')){
- 						alert('이미지 파일만 선택할 수 있습니다.');
- 						event.preventDefault();
- 					}
- 				}
-			});
- 		}
  	</script>
 </body>
 </html>

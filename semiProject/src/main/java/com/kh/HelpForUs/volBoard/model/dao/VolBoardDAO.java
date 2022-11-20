@@ -1,6 +1,7 @@
 package com.kh.HelpForUs.volBoard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
+import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -22,8 +24,8 @@ public class VolBoardDAO {
 		return sqlSession.insert("volMapper.insertAttm", a);
 	}
 
-	public int insertImg(SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("volMapper.insertImg");
+	public int insertImg(SqlSessionTemplate sqlSession, int i) {
+		return sqlSession.insert("volMapper.insertImg", i);
 	}
 
 	public int getVListCount(SqlSessionTemplate sqlSession) {
@@ -54,11 +56,34 @@ public class VolBoardDAO {
 		return (ArrayList)sqlSession.selectList("volMapper.selectAttm", bId);
 	}
 
-	public ArrayList<Cheer> selectCheer(SqlSessionTemplate sqlSession, int bId) {
-		return (ArrayList)sqlSession.selectList("volMapper.selectCheer", bId);
+	public Cheer selectCheer(SqlSessionTemplate sqlSession, Cheer ch) {
+		return sqlSession.selectOne("volMapper.selectCheer", ch);
 	}
 
 	public int cheerBoard(SqlSessionTemplate sqlSession, Cheer ch) {
 		return sqlSession.insert("volMapper.cheerBoard", ch);
+	}
+
+	public int cheerCancle(SqlSessionTemplate sqlSession, Cheer ch) {
+		return sqlSession.delete("volMapper.cheerCancle", ch);
+	}
+
+	public int updateVolBoard(SqlSessionTemplate sqlSession, VolBoard v) {
+		int result = sqlSession.update("volMapper.updateBoard", v);
+		result += sqlSession.update("volMapper.updateVolunteer", v);
+		result += sqlSession.update("volMapper.updateManager", v);
+		return result;
+	}
+
+	public int deleteAttm(SqlSessionTemplate sqlSession, ArrayList<String> delRename) {
+		return sqlSession.delete("volMapper.deleteAttm", delRename);
+	}
+
+	public void updateAttmLevel(SqlSessionTemplate sqlSession, int boardId) {
+		sqlSession.update("volMapper.updateAttmLevel", boardId);
+	}
+
+	public void deleteImage(SqlSessionTemplate sqlSession, Image img) {
+		sqlSession.delete("volMapper.deleteImage", img);
 	}
 }

@@ -62,7 +62,7 @@
 				
 				<p class="category">쪽지함</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/message.bo'">쪽지함</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
    			</div>
    			

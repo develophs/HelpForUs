@@ -4,7 +4,7 @@
 	<insert id="insertVolBoard">
 		insert all
 		into board
-		values(SEQ_BID.nextval, #{boardType}, #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, #{boardDeadline}, default)
+		values(SEQ_BID.nextval, #{boardType}, #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, #{boardDeadline}, default, default)
 		into volunteer
 		values(SEQ_BID.currval,#{volunteerGoalPeople}, default, #{volunteerLocation}, #{volunteerDate})
 		into manager
@@ -19,7 +19,15 @@
 	
 	<insert id="insertImg">
 		insert into image
-		values(seq_bid.currval, seq_aid.currval)
+		values(
+		<if test="i == 0">
+			seq_bid.currval,
+		</if>
+		<if test="i > 0">
+			#{i},
+		</if>
+		
+		seq_aid.currval)
 	</insert>
 	
 	<select id="getVListCount" resultType="_int">
@@ -36,6 +44,7 @@
 		<if test="category != 0">
 			and REF_CATEGORY_ID = #{category}
 		</if>
+		order by BOARD_ID desc
 	</select>
 	
 	<resultMap type="VolBoard" id="volBoardResultSet">
@@ -110,11 +119,56 @@
 	<select id="selectCheer" resultMap="cheerResultSet">
 		select *
 		from cheer
-		where REF_BOARD_ID = #{bId}
+		where REF_BOARD_ID = #{boardId} and REF_MEMBER_USERNAME = #{memberUserName}
 	</select>
 	
 	<insert id="cheerBoard">
 		insert into cheer
 		values(#{boardId}, #{memberUserName})
 	</insert>
+	
+	<delete id="cheerCancle">
+		delete cheer
+		where REF_BOARD_ID = #{boardId} and REF_MEMBER_USERNAME = #{memberUserName}
+	</delete>
+	
+	<update id="updateBoard">
+		update board
+		set REF_CATEGORY_ID = #{refCategoryId}, BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent}, BOARD_MODIFY_DATE = sysdate, BOARD_DEADLINE = #{boardDeadline}
+		where BOARD_ID = #{boardId}
+	</update>
+	
+	<update id="updateVolunteer">
+		update VOLUNTEER
+		set VOLUNTEER_GOAL_PEOPLE = #{volunteerGoalPeople}, VOLUNTEER_LOCATION = #{volunteerLocation}, VOLUNTEER_DATE = #{volunteerDate}
+		where REF_BOARD_ID = #{boardId}
+	</update>
+	
+	<update id="updateManager">
+		update MANAGER
+		set MANAGER_NAME = #{managerName}, MANAGER_PHONE = #{managerPhone}
+		where REF_BOARD_ID = #{boardId}
+	</update>
+	
+	<delete id="deleteAttm">
+		delete from attachment
+		where rename_name in
+		<foreach collection="list" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="updateAttmLevel">
+		update attachment
+		set attm_level = 0
+		where attm_id = (select min(attm_id)
+						 from attachment
+						 	join image using(attm_id)
+						 where board_id = #{boardId})
+	</update>
+	
+	<delete id="deleteImage">
+		delete from image
+		where BOARD_ID = #{ boardId } and attm_id = #{ attmId }
+	</delete>
 </mapper>

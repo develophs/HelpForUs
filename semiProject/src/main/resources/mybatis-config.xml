@@ -7,6 +7,7 @@
 		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.VolBoard" alias="volBoard"/>
 		<typeAlias type="com.kh.HelpForUs.common.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.HelpForUs.common.vo.Cheer" alias="Cheer"/>
+		<typeAlias type="com.kh.HelpForUs.common.vo.Image" alias="Image"/>
 	</typeAliases>
 
 	<mappers>

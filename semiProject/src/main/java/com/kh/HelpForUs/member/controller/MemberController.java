@@ -122,6 +122,8 @@ public class MemberController {
 		}
 	}
 		
+
+		
 	// 내정보 이동 메서드
 	@RequestMapping("myInfo.me")
 	public String myInfo() {
@@ -198,13 +200,14 @@ public class MemberController {
 		return "groupPage";
 	}
 	
-	// 쪽지함 이동
-	@RequestMapping("message.bo")
+	
+	// 쪽지함 뷰 이동
+	@RequestMapping("message.me")
 	public String messageView(HttpSession session) {
 		String right = ((Member)session.getAttribute("loginUser")).getMemberRight();
 		if(right.equals("A")) {
 			return "messageBoxManager";
-		}else {
+		} else {
 			return "messageBox";
 		}
 	}
