@@ -7,6 +7,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 public interface VolBoardService {
@@ -44,5 +45,11 @@ public interface VolBoardService {
 	int deleteBoard(int bId);
 
 	int deleteAttmStatus(int bId);
+
+	ArrayList<Application> selectApp(int bId);
+
+	int applicationVol(Application app);
+
+	int applicationVolCancle(Application app);
 
 }

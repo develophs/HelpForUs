@@ -26,8 +26,8 @@ public class VolBoard {
 	private Date boardDeadline;
 	private String boardStatus;
 	private int boardCount;
-	private String volunteerGoalPeople;
-	private String volunteerCurrentPeople;
+	private int volunteerGoalPeople;
+	private int volunteerCurrentPeople;
 	private String volunteerLocation;
 	private Date volunteerDate;
 	private String managerName;
