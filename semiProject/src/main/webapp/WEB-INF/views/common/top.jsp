@@ -9,6 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 <style>
+
 	#topDiv{
 		padding-left: 40px; padding-right: 50px; height: 50px;
 	}
@@ -45,14 +46,22 @@
 			<div class="collapse navbar-collapse justify-content-end"
 				id="collapsibleNavbar">
 				<ul class="navbar-nav">
+				
 					<c:if test="${ loginUser == null }">
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/loginView.me">로그인</a></li>
-						<li class="nav-item"><a class="nav-link" href="${contextPath}/enrollView.me">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/enrollButton.me">회원가입</a></li>
 					</c:if>
-					<c:if test="${ loginUser != null }">
+					
+					<c:if test="${ loginUser.memberRight == 'B' || loginUser.memberRight == 'C'}">
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/myPage.me">내 정보</a></li>
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/logout.me">로그아웃</a></li>
 					</c:if>
+					
+					<c:if test="${ loginUser.memberRight == 'A' }">
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/admin.me">관리자 페이지</a></li>
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/logout.me">로그아웃</a></li>
+					</c:if>
+					
 				</ul>
 			</div>
 		</div>

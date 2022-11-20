@@ -1,4 +1,4 @@
-package com.kh.HelpForUs.member.model.service;
+﻿package com.kh.HelpForUs.member.model.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,5 +12,13 @@ public interface MemberService {
 	Member login(Member member);
 
 	int updateRose(Map<String, Object> map);
+
+	int checkUserName(String userName);
+
+	int checkNickName(String nickName);
+
+	int updateInfo(Member member);
+
+	int deleteMember(String userName);
 
 }

@@ -55,6 +55,11 @@
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/group.me'">단체 목록</p></li>
 				</ul>
+				
+				<p class="category">쪽지함</p>
+   				<ul type="circle">
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.bo'">쪽지함</p></li>
+				</ul>
    			</div>
    			
    			<%--공백생성 --%>

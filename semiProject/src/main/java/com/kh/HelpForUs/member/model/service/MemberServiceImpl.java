@@ -1,4 +1,4 @@
-package com.kh.HelpForUs.member.model.service;
+﻿package com.kh.HelpForUs.member.model.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,5 +32,26 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int updateRose(Map<String, Object> map) {
 		return mDAO.updateRose(sqlSession,map);
+	}
+	
+	@Override
+	public int checkUserName(String userName) {
+		return mDAO.checkUsername(sqlSession, userName);
+	}
+
+
+	@Override
+	public int checkNickName(String nickName) {
+		return mDAO.checkNickName(sqlSession,nickName);
+	}
+
+	@Override
+	public int updateInfo(Member member) {
+		return mDAO.updateInfo(sqlSession,member);
+	}
+
+	@Override
+	public int deleteMember(String userName) {
+		return mDAO.deleteMember(sqlSession,userName);
 	}
 }

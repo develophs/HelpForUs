@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,11 +60,13 @@
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
-				<p class="category">봉사 단체</p>
-   				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
-				</ul>
+				<c:if test="${loginUser.memberRight =='C'}">
+					<p class="category">봉사 단체</p>
+	   				<ul type="circle">
+		   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
+					</ul>
+				</c:if>
 				
 				<p class="category">쪽지함</p>
    				<ul type="circle">
