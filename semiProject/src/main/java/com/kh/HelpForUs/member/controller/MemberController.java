@@ -149,6 +149,33 @@ public class MemberController {
 		}
 	}
 	
+	// 관리자 페이지 이동
+	@RequestMapping("admin.me")
+	public String adminView() {
+		return "adminpage";
+	}
 	
+	// (관리자)회원 관리 페이지
+	@RequestMapping("client.me")
+	public String clientView() {
+		return "clientPage";
+	}
+	
+	// (관리자)단체 관리 페이지
+	@RequestMapping("group.me")
+	public String groupView() {
+		return "groupPage";
+	}
+	
+	// 쪽지함 이동
+	@RequestMapping("message.bo")
+	public String messageView(HttpSession session) {
+		String right = ((Member)session.getAttribute("loginUser")).getMemberRight();
+		if(right.equals("A")) {
+			return "messageBoxManager";
+		}else {
+			return "messageBox";
+		}
+	}
 	
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,15 +52,17 @@
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
-				<p class="category">봉사 단체</p>
-   				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
-				</ul>
+				<c:if test="${loginUser.memberRight =='C'}">
+					<p class="category">봉사 단체</p>
+	   				<ul type="circle">
+		   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
+					</ul>
+				</c:if>
 				
 				<p class="category">쪽지함</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">쪽지함</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.bo'">쪽지함</p></li>
 				</ul>
    			</div>
    			
@@ -123,7 +126,7 @@
                                 <label for="memberPhone">전화 번호</label>
                             </div>
                             
-                            <button class="btn btn-primary btn-xl " type="submit" onclick="checkPwd();">수정</button>
+                            <button class="btn btn-primary btn-xl " type="submit" onclick="check();">수정</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-primary btn-xl " type="button" onclick="location.href='${contextPath}'">취소</button>
                         	<br><br>
@@ -168,20 +171,6 @@
 			});
 		}
 		
-		const checkPwd = () =>{
-			const pwd = document.getElementById('memberPwd').value;
-			const pwd2 = document.getElementById('memberPwd2').value;
-			const form = document.querySelector('form');
-			if(pwd.trim() == '' || pwd2.trim() == '' ){
-				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
-		        return false;
-			} else if(pwd != pwd2){
-				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
-		        return false;
-			} else{
-				form.submit();
-			}
-		}
 		
 		const deleteMember = () =>{
 			swal({
@@ -190,11 +179,35 @@
 			     buttons: ["NO", "YES"],
 			}).then((YES) => {
 			     if (YES) {
-			    	 console.log(YES);
 			     	location.href="${contextPath}/deleteMember";
 			     }
 			});
 		}
+		
+		
+		const check = () =>{
+			const regPwd = /^[A-za-z0-9]{6,12}$/g;
+			const pwd = document.getElementById('memberPwd').value;
+			const pwd2 = document.getElementById('memberPwd2').value;
+			
+			const form = document.querySelector('form');
+			
+			if(pwd.trim() == '' || pwd2.trim() == '' ){
+				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
+				pwd.focus();
+		        return false;
+			} else if(pwd != pwd2){
+				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
+				pwd.focus();
+		        return false;
+			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
+				swal('비밀번호가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
+			} else{
+				form.submit();
+			}
+		}
+		
+		
 	</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,33 +31,38 @@
 		<div class="row">
     		<div class="col-2 border border-dark border-2">
    				
-   				<p class="category">내 정보</p>
+   				<p class="category">게시물 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">장미 내역</p></li>
-   				</ul>
-   				<p class="category"></p>
-   				
-   				
-   				<p class="category">기부 현황</p>
-   				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">기부 내역</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 모금 게시글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}'">모금 게시글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}'">봉사 게시글</p></li>
    				</ul>
    				
-   				
-   				<p class="category"></p>
-   				<p class="category">봉사 활동 현황</p>
+   				<p class="category">후기 관리</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">신청한 봉사활동</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}'">모금 후기</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}'">봉사 후기</p></li>
+   				</ul>
+   				
+   				<p class="category">댓글 관리</p>
+   				<ul type="circle">
+   					<li><p class="menu" onclick="location.href='${contextPath}'">모금 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}'">후기 댓글</p></li>
+   				</ul>
+   				
+   				<p class="category">회원 관리</p>
+   				<ul type="circle">
+   					<li><p class="menu" onclick="location.href='${contextPath}/client.me'">회원 목록</p></li>
+   				</ul>
+   				
+   				
+   				<p class="category">단체 관리</p>
+   				<ul type="circle">
+	   				<li><p class="menu" onclick="location.href='${contextPath}/group.me'">단체 목록</p></li>
 				</ul>
 				
-				<p class="category"></p>
-				<p class="category">봉사 단체</p>
+				<p class="category">쪽지함</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.bo'">쪽지함</p></li>
 				</ul>
    			
    			</div>
