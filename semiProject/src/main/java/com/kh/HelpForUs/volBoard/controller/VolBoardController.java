@@ -24,6 +24,7 @@ import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.service.VolBoardService;
 import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -397,23 +398,47 @@ public class VolBoardController {
 	}
 	
 	// 봉사 신청 취소
-		@RequestMapping("applicationVolCancle.vo")
-		public String applicationVolCancle(@RequestParam("bId") int bId, HttpSession session, Model model) {
-			String userName = ((Member)session.getAttribute("loginUser")).getMemberUsername();
-			Application app = new Application();
-			
-			app.setBoardId(bId);
-			app.setMemberUserName(userName);
-			
-			int result = vService.applicationVolCancle(app);
-			
-			if(result > 0) {
-				model.addAttribute("bId", bId);
-				return "redirect:volBoardDetail.vo";
-			} else {
-				throw new BoardException("봉사 신청 실패");
-			}
+	@RequestMapping("applicationVolCancle.vo")
+	public String applicationVolCancle(@RequestParam("bId") int bId, HttpSession session, Model model) {
+		String userName = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		Application app = new Application();
+		
+		app.setBoardId(bId);
+		app.setMemberUserName(userName);
+		
+		int result = vService.applicationVolCancle(app);
+		
+		if(result > 0) {
+			model.addAttribute("bId", bId);
+			return "redirect:volBoardDetail.vo";
+		} else {
+			throw new BoardException("봉사 신청 실패");
 		}
+	}
+		
+	// 문의 팝업
+	@RequestMapping("inquiryVolView.vo")
+	public String inquiryVolView(@RequestParam("bId") int bId, @RequestParam("writer") String writer, Model model) {
+		model.addAttribute("bId", bId);
+		model.addAttribute("writer", writer);
+		
+		return "writeInquiryVol";
+	}
+	
+	// 문의 하기
+	@RequestMapping("inquiryVol.vo")
+	@ResponseBody
+	public int inquiryVol(@ModelAttribute Message msg, HttpSession session) {
+		msg.setSenderUsername(((Member)session.getAttribute("loginUser")).getMemberUsername());
+		
+		int result = vService.inquiryVol(msg);
+		
+		if(result > 0) {
+			return result;
+		} else {
+			throw new BoardException("문의 실패");
+		}
+	}
 	
 	
 	

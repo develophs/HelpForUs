@@ -11,6 +11,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -106,5 +107,9 @@ public class VolBoardDAO {
 
 	public int applicationVolCancle(SqlSessionTemplate sqlSession, Application app) {
 		return sqlSession.delete("volMapper.applicationVolCancle", app);
+	}
+
+	public int inquiryVol(SqlSessionTemplate sqlSession, Message msg) {
+		return sqlSession.insert("volMapper.inquiryVol", msg);
 	}
 }

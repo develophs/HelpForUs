@@ -10,6 +10,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.dao.VolBoardDAO;
 import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -124,5 +125,10 @@ public class VolBoardServiceImpl implements VolBoardService{
 	@Override
 	public int applicationVolCancle(Application app) {
 		return vDAO.applicationVolCancle(sqlSession, app);
+	}
+	
+	@Override
+	public int inquiryVol(Message msg) {
+		return vDAO.inquiryVol(sqlSession, msg);
 	}
 }

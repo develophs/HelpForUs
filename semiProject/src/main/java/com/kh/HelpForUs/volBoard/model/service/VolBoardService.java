@@ -7,6 +7,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -51,5 +52,7 @@ public interface VolBoardService {
 	int applicationVol(Application app);
 
 	int applicationVolCancle(Application app);
+
+	int inquiryVol(Message msg);
 
 }
