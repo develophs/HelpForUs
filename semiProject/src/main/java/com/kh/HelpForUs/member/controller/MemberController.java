@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +57,6 @@ public class MemberController {
 	public String rose() {
 		return "rose";
 	}
-
 	
 	// 회원가입 메서드
 	@RequestMapping("enroll.me")
@@ -101,7 +101,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-
 	// 장미 구입
 	@RequestMapping("updateRose.me")
 	public String updateRose(HttpSession session, @RequestParam("roseNum") int roseNum ){
@@ -120,13 +119,15 @@ public class MemberController {
 		}else {
 			throw new MemberException("장미 충천을 실패했습니다.");
 		}
+		
+
 	}
 
+		
 	// 내정보 이동 메서드
 	@RequestMapping("myInfo.me")
 	public String myInfo() {
 		return "myinfo";
-
 	}
 	
 	// 아이디 중복 검사 메서드
