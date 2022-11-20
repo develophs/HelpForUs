@@ -86,4 +86,12 @@ public class VolBoardDAO {
 	public void deleteImage(SqlSessionTemplate sqlSession, Image img) {
 		sqlSession.delete("volMapper.deleteImage", img);
 	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("volMapper.deleteBoard", bId);
+	}
+
+	public int deleteAttmStatus(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("volMapper.deleteAttmStatus", bId);
+	}
 }

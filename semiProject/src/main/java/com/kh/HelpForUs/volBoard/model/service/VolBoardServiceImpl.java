@@ -99,4 +99,14 @@ public class VolBoardServiceImpl implements VolBoardService{
 	public void deleteImage(Image img) {
 		vDAO.deleteImage(sqlSession, img);
 	}
+	
+	@Override
+	public int deleteBoard(int bId) {
+		return vDAO.deleteBoard(sqlSession, bId);
+	}
+	
+	@Override
+	public int deleteAttmStatus(int bId) {
+		return vDAO.deleteAttmStatus(sqlSession, bId);
+	}
 }

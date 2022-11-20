@@ -349,6 +349,19 @@ public class VolBoardController {
 		}
 	}
 	
+	// 봉사 게시글 삭제
+	@RequestMapping("deleteVolBoard.vo")
+	public String deleteVolBoard(@RequestParam("bId") int bId) {
+		int result = vService.deleteBoard(bId);
+		result += vService.deleteAttmStatus(bId);
+		
+		if(result > 0) {
+			return "redirect:volBoardList.vo";
+		} else {
+			throw new BoardException("봉사 게시글 삭제 실패");
+		}
+	}
+	
 	
 	
 	

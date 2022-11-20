@@ -171,4 +171,18 @@
 		delete from image
 		where BOARD_ID = #{ boardId } and attm_id = #{ attmId }
 	</delete>
+	
+	<update id="deleteBoard">
+		update board
+		set BOARD_STATUS = 'N'
+		where BOARD_ID = #{bId}
+	</update>
+	
+	<update id="deleteAttmStatus">
+		update (select FILE_STATUS
+				from attachment
+					join image using(attm_id)
+				where board_id = #{bId})
+		set FILE_STATUS = 'N'
+	</update>
 </mapper>

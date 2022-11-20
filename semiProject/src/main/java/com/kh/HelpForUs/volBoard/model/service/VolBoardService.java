@@ -41,4 +41,8 @@ public interface VolBoardService {
 
 	void deleteImage(Image img);
 
+	int deleteBoard(int bId);
+
+	int deleteAttmStatus(int bId);
+
 }

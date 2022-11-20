@@ -154,7 +154,7 @@
 					<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
 				</c:if>
 				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A'}">
-					<button onclick="location.href='${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }'" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
+					<button id="deleteButton" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
 					<button onclick="location.href='${contextPath}/updateVolBoardView.vo?bId=${ vBoard.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
 				</c:if>
 			</c:if>
@@ -169,6 +169,13 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	
 	<script>
+		window.onload = () => {
+			document.getElementById('deleteButton').addEventListener('click', () => {
+				if(confirm('게시글을 삭제하면 다시 되돌릴 수 없습니다, 정말 삭제 하시겠습니까?')){
+					location.href="${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }" 	
+				}
+			});
+		}
 	</script>
 </body>
 	
