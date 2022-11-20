@@ -38,4 +38,9 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.deleteMember", userName);
 	}
 
+	public int insertPay(SqlSessionTemplate sqlSession, Map<String, Object> map ) {
+		return  sqlSession.insert("memberMapper.insertPay", map);
+	}
+
+
 }

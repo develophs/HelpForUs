@@ -21,4 +21,6 @@ public interface MemberService {
 
 	int deleteMember(String userName);
 
+	int insertPay(Map<String, Object> map);
+
 }

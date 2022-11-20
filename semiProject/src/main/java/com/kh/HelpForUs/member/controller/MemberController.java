@@ -106,19 +106,21 @@ public class MemberController {
 	public String updateRose(HttpSession session, @RequestParam("roseNum") int roseNum ){
 		Member m = ((Member)session.getAttribute("loginUser"));
 		String id = m.getMemberUsername();
-		
+	
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("roseNum", roseNum);
 		
 		int result = mService.updateRose(map);
+		int result2 = mService.insertPay(map);
 		
-		if(result>0) {
+		if(result + result2 == 2) {
 			session.setAttribute("loginUser", mService.login(m));
 			return "rose";
 		}else {
 			throw new MemberException("장미 충천을 실패했습니다.");
 		}
+	}
 		
 	// 내정보 이동 메서드
 	@RequestMapping("myInfo.me")

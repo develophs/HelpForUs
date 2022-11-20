@@ -54,4 +54,9 @@ public class MemberServiceImpl implements MemberService{
 	public int deleteMember(String userName) {
 		return mDAO.deleteMember(sqlSession,userName);
 	}
+
+	@Override
+	public int insertPay(Map<String, Object> map) {
+		return mDAO.insertPay(sqlSession,map);
+	}
 }

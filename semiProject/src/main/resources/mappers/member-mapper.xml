@@ -33,6 +33,7 @@
 		update member
 		set MEMBER_ROSE = MEMBER_ROSE + #{roseNum}
 		where MEMBER_USERNAME = #{id}
+	</update>
 
 	<select id="checkUsername" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
@@ -60,6 +61,9 @@
 		WHERE MEMBER_USERNAME = #{userName}
 	</update>
 	
-	
+	<insert id="insertPay" parameterType="java.util.HashMap">
+		insert into pay
+		values(seq_pid.nextval, #{roseNum}*100, sysdate, default, #{id})
+	</insert>
 	
 </mapper>
