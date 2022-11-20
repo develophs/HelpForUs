@@ -1,4 +1,4 @@
-﻿package com.kh.HelpForUs.member.controller;
+package com.kh.HelpForUs.member.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.springframework.validation.BindingResult;
+=======
+>>>>>>> fea812932f6a60e8902229e662024ce8df05f233
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,12 +54,13 @@ public class MemberController {
 		return "enrollButton";
 	}
 	
-
+<<<<<<< HEAD
 	@RequestMapping("rose.me")
 	public String rose() {
 		return "rose";
 	}
-
+=======
+>>>>>>> fea812932f6a60e8902229e662024ce8df05f233
 	
 	// 회원가입 메서드
 	@RequestMapping("enroll.me")
@@ -101,7 +105,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-
+<<<<<<< HEAD
 	// 장미 구입
 	@RequestMapping("updateRose.me")
 	public String updateRose(HttpSession session, @RequestParam("roseNum") int roseNum ){
@@ -121,12 +125,12 @@ public class MemberController {
 			throw new MemberException("장미 충천을 실패했습니다.");
 		}
 		
-
+=======
 	// 내정보 이동 메서드
 	@RequestMapping("myInfo.me")
 	public String myInfo() {
 		return "myinfo";
-
+>>>>>>> fea812932f6a60e8902229e662024ce8df05f233
 	}
 	
 	// 아이디 중복 검사 메서드
