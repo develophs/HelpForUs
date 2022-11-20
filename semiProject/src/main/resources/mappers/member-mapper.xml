@@ -33,7 +33,8 @@
 		update member
 		set MEMBER_ROSE = MEMBER_ROSE + #{roseNum}
 		where MEMBER_USERNAME = #{id}
-
+	</update>
+	
 	<select id="checkUsername" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
@@ -59,7 +60,5 @@
 		SET MEMBER_STATUS = 'N'
 		WHERE MEMBER_USERNAME = #{userName}
 	</update>
-	
-	
-	
+		
 </mapper>

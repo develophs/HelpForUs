@@ -202,7 +202,7 @@ public class MemberController {
 	
 	
 	// 쪽지함 뷰 이동
-	@RequestMapping("message.bo")
+	@RequestMapping("message.me")
 	public String messageView(HttpSession session) {
 		String right = ((Member)session.getAttribute("loginUser")).getMemberRight();
 		if(right.equals("A")) {
