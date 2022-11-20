@@ -120,7 +120,7 @@ public class MemberController {
 		}else {
 			throw new MemberException("장미 충천을 실패했습니다.");
 		}
-		
+	}
 
 	// 내정보 이동 메서드
 	@RequestMapping("myInfo.me")
@@ -199,13 +199,14 @@ public class MemberController {
 		return "groupPage";
 	}
 	
-	// 쪽지함 이동
+	
+	// 쪽지함 뷰 이동
 	@RequestMapping("message.bo")
 	public String messageView(HttpSession session) {
 		String right = ((Member)session.getAttribute("loginUser")).getMemberRight();
 		if(right.equals("A")) {
 			return "messageBoxManager";
-		}else {
+		} else {
 			return "messageBox";
 		}
 	}
