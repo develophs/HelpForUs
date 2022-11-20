@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.HelpForUs.common.exception.BoardException;
@@ -23,7 +24,9 @@ import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.service.VolBoardService;
+import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Controller
@@ -186,11 +189,25 @@ public class VolBoardController {
 		
 		VolBoard vBoard = vService.selectVolBoard(bId, yn);
 		ArrayList<Attachment> aList = vService.selectAttm(bId);
+		ArrayList<Application> app = vService.selectApp(bId);
+		
+		int appCheck = 0;
+		
+		if(loginUser != null) {
+			for(Application a : app) {
+				if(loginUser.getMemberUsername().equals(a.getMemberUserName())) {
+					appCheck = 1;
+					break;
+				}
+			}
+		}
 		
 		if(vBoard != null) {
+			vBoard.setVolunteerCurrentPeople(app.size());
 			model.addAttribute("vBoard", vBoard);
 			model.addAttribute("aList", aList);
 			model.addAttribute("cheer", cheer);
+			model.addAttribute("appCheck", appCheck);
 			
 			return "boardDetailVol";
 		} else {
@@ -339,7 +356,6 @@ public class VolBoardController {
 		
 		if(boardResult + attmResult + imgResult == list.size()*2+3) {
 			model.addAttribute("bId", v.getBoardId());
-			model.addAttribute("nickName", v.getMemberNickname());
 			return "redirect:volBoardDetail.vo";
 		} else {
 			for(Attachment a : list) {
@@ -349,6 +365,80 @@ public class VolBoardController {
 		}
 	}
 	
+	// 봉사 게시글 삭제
+	@RequestMapping("deleteVolBoard.vo")
+	public String deleteVolBoard(@RequestParam("bId") int bId) {
+		int result = vService.deleteBoard(bId);
+		result += vService.deleteAttmStatus(bId);
+		
+		if(result > 0) {
+			return "redirect:volBoardList.vo";
+		} else {
+			throw new BoardException("봉사 게시글 삭제 실패");
+		}
+	}
+	
+	// 봉사 신청
+	@RequestMapping("applicationVol.vo")
+	public String applicationVol(@RequestParam("bId") int bId, HttpSession session, Model model) {
+		String userName = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		Application app = new Application();
+		
+		app.setBoardId(bId);
+		app.setMemberUserName(userName);
+		
+		int result = vService.applicationVol(app);
+		
+		if(result > 0) {
+			model.addAttribute("bId", bId);
+			return "redirect:volBoardDetail.vo";
+		} else {
+			throw new BoardException("봉사 신청 실패");
+		}
+	}
+	
+	// 봉사 신청 취소
+	@RequestMapping("applicationVolCancle.vo")
+	public String applicationVolCancle(@RequestParam("bId") int bId, HttpSession session, Model model) {
+		String userName = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		Application app = new Application();
+		
+		app.setBoardId(bId);
+		app.setMemberUserName(userName);
+		
+		int result = vService.applicationVolCancle(app);
+		
+		if(result > 0) {
+			model.addAttribute("bId", bId);
+			return "redirect:volBoardDetail.vo";
+		} else {
+			throw new BoardException("봉사 신청 실패");
+		}
+	}
+		
+	// 문의 팝업
+	@RequestMapping("inquiryVolView.vo")
+	public String inquiryVolView(@RequestParam("bId") int bId, @RequestParam("writer") String writer, Model model) {
+		model.addAttribute("bId", bId);
+		model.addAttribute("writer", writer);
+		
+		return "writeInquiryVol";
+	}
+	
+	// 문의 하기
+	@RequestMapping("inquiryVol.vo")
+	@ResponseBody
+	public int inquiryVol(@ModelAttribute Message msg, HttpSession session) {
+		msg.setSenderUsername(((Member)session.getAttribute("loginUser")).getMemberUsername());
+		
+		int result = vService.inquiryVol(msg);
+		
+		if(result > 0) {
+			return result;
+		} else {
+			throw new BoardException("문의 실패");
+		}
+	}
 	
 	
 	

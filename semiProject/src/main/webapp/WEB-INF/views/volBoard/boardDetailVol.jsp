@@ -61,9 +61,9 @@
 	<br><br>
 	
 	<div class="mx-auto m-3">
-		<button onclick="location.href='volBoardList.vo'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
+		<button onclick="location.href='${contextPath}/volBoardList.vo'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
-			<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
+			<button onclick="window.open('${contextPath}/inquiryVolView.vo?bId=${ vBoard.boardId }&writer=${ vBoard.refMemberUsername }', 'inquiryVol', 'width = 500, height = 400, left = 350, top = 100')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 			<c:if test="${ cheer == null }">
 				<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
 				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
@@ -151,10 +151,15 @@
 		<div class="text-center">
 			<c:if test="${ loginUser != null}">
 				<c:if test="${ loginUser.memberRight == 'B' }">
-					<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
+					<c:if test="${ appCheck == 0 }">
+					<button id="applicationVol" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
+					</c:if>
+					<c:if test="${ appCheck == 1 }">
+					<button id="applicationVolCancle" class="btn btn-lg text-white" style="background-color: orange">신청 취소</button>
+					</c:if>
 				</c:if>
 				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A'}">
-					<button onclick="location.href='${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }'" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
+					<button id="deleteButton" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
 					<button onclick="location.href='${contextPath}/updateVolBoardView.vo?bId=${ vBoard.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
 				</c:if>
 			</c:if>
@@ -169,6 +174,31 @@
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	
 	<script>
+		window.onload = () => {
+			if(document.getElementById('deleteButton') != null){
+				document.getElementById('deleteButton').addEventListener('click', () => {
+					if(confirm('게시글을 삭제하면 다시 되돌릴 수 없습니다, 정말 삭제 하시겠습니까?')){
+						location.href="${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }" 	
+					}
+				});
+			}
+			
+			if(document.getElementById('applicationVol') != null){
+				document.getElementById('applicationVol').addEventListener('click', () => {
+					if(confirm('정말 신청 하시겠습니까?')){
+						location.href='${contextPath}/applicationVol.vo?bId=' + ${ vBoard.boardId }
+					}
+				});
+			}
+			
+			if(document.getElementById('applicationVolCancle') != null){
+				document.getElementById('applicationVolCancle').addEventListener('click', () => {
+					if(confirm('정말 신청 취소 하시겠습니까?')){
+						location.href='${contextPath}/applicationVolCancle.vo?bId=' + ${ vBoard.boardId }
+					}
+				});
+			}
+		}
 	</script>
 </body>
 	

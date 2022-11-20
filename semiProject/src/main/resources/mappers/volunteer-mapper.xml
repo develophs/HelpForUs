@@ -6,7 +6,7 @@
 		into board
 		values(SEQ_BID.nextval, #{boardType}, #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, #{boardDeadline}, default, default)
 		into volunteer
-		values(SEQ_BID.currval,#{volunteerGoalPeople}, default, #{volunteerLocation}, #{volunteerDate})
+		values(SEQ_BID.currval,#{volunteerGoalPeople}, #{volunteerLocation}, #{volunteerDate})
 		into manager
 		values(seq_bid.currval, #{managerName}, #{managerPhone})
 		select * from dual
@@ -60,7 +60,6 @@
 		<result property="boardStatus" column="BOARD_STATUS"/>
 		<result property="boardCount" column="BOARD_COUNT"/>
 		<result property="volunteerGoalPeople" column="VOLUNTEER_GOAL_PEOPLE"/>
-		<result property="volunteerCurrentPeople" column="VOLUNTEER_CURRENT_PEOPLE"/>
 		<result property="volunteerLocation" column="VOLUNTEER_LOCATION"/>
 		<result property="volunteerDate" column="VOLUNTEER_DATE"/>
 		<result property="managerName" column="MANAGER_NAME"/>
@@ -171,4 +170,46 @@
 		delete from image
 		where BOARD_ID = #{ boardId } and attm_id = #{ attmId }
 	</delete>
+	
+	<update id="deleteBoard">
+		update board
+		set BOARD_STATUS = 'N'
+		where BOARD_ID = #{bId}
+	</update>
+	
+	<update id="deleteAttmStatus">
+		update (select FILE_STATUS
+				from attachment
+					join image using(attm_id)
+				where board_id = #{bId})
+		set FILE_STATUS = 'N'
+	</update>
+	
+	<resultMap type="Application" id="ApplicationResultSet">
+		<id property="apllicationId" column="APPLICATION_ID"/>
+		<result property="boardId" column="REF_BOARD_ID"/>
+		<result property="MemberUserName" column="REF_MEMBER_USERNAME"/>
+		<result property="application" column="APPLICATION_DATE"/>
+	</resultMap>
+	
+	<select id="selectApp" resultMap="ApplicationResultSet">
+		select *
+		from application
+		where REF_BOARD_ID = #{bId}
+	</select>
+	
+	<insert id="applicationVol">
+		insert into application
+		values(seq_apid.nextval, #{boardId}, #{MemberUserName}, sysdate)
+	</insert>
+	
+	<delete id="applicationVolCancle">
+		delete application
+		where REF_BOARD_ID = #{boardId} and REF_MEMBER_USERNAME = #{MemberUserName}
+	</delete>
+	
+	<insert id="inquiryVol">
+		insert into message
+		values(seq_mid.nextval, #{refBoardId}, sysdate, #{messageTitle}, #{messageContent}, default, default, #{senderUsername}, #{receiverUsername})
+	</insert>
 </mapper>

@@ -10,7 +10,9 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.dao.VolBoardDAO;
+import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Service("vService")
@@ -98,5 +100,35 @@ public class VolBoardServiceImpl implements VolBoardService{
 	@Override
 	public void deleteImage(Image img) {
 		vDAO.deleteImage(sqlSession, img);
+	}
+	
+	@Override
+	public int deleteBoard(int bId) {
+		return vDAO.deleteBoard(sqlSession, bId);
+	}
+	
+	@Override
+	public int deleteAttmStatus(int bId) {
+		return vDAO.deleteAttmStatus(sqlSession, bId);
+	}
+
+	@Override
+	public ArrayList<Application> selectApp(int bId) {
+		return vDAO.selectApp(sqlSession, bId);
+	}
+	
+	@Override
+	public int applicationVol(Application app) {
+		return vDAO.applicationVol(sqlSession, app);
+	}
+	
+	@Override
+	public int applicationVolCancle(Application app) {
+		return vDAO.applicationVolCancle(sqlSession, app);
+	}
+	
+	@Override
+	public int inquiryVol(Message msg) {
+		return vDAO.inquiryVol(sqlSession, msg);
 	}
 }

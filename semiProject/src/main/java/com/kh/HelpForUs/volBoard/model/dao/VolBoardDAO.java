@@ -11,6 +11,8 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Message;
+import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Repository("vDAO")
@@ -85,5 +87,29 @@ public class VolBoardDAO {
 
 	public void deleteImage(SqlSessionTemplate sqlSession, Image img) {
 		sqlSession.delete("volMapper.deleteImage", img);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("volMapper.deleteBoard", bId);
+	}
+
+	public int deleteAttmStatus(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("volMapper.deleteAttmStatus", bId);
+	}
+
+	public ArrayList<Application> selectApp(SqlSessionTemplate sqlSession, int bId) {
+		return (ArrayList)sqlSession.selectList("volMapper.selectApp", bId);
+	}
+
+	public int applicationVol(SqlSessionTemplate sqlSession, Application app) {
+		return sqlSession.insert("volMapper.applicationVol", app);
+	}
+
+	public int applicationVolCancle(SqlSessionTemplate sqlSession, Application app) {
+		return sqlSession.delete("volMapper.applicationVolCancle", app);
+	}
+
+	public int inquiryVol(SqlSessionTemplate sqlSession, Message msg) {
+		return sqlSession.insert("volMapper.inquiryVol", msg);
 	}
 }
