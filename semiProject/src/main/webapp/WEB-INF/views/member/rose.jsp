@@ -7,15 +7,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <style>
 	.mypage{padding-top:15px; text-align:left; font-weight:bold;}
 	.category{font-weight:bold; text-align:left; font-size:22px; padding-top:5px;}
 	.menu{text-align:left; font-size:13px; margin:1px;}
 	.menu:hover{font-weight:bold; cursor:pointer; text-decoration:underline;}
 	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
-	.chargeRose{font-weight:bold; text-align:left; font-size:30px; padding-top:25px;}
+	.chargeRose{font-weight:bold; text-align:center; font-size:30px; padding-top:25px;}
 	.underline{width:360px; text-align:center;}
-	.rose{font-weight:bold; font-size:26px; padding:20px;}
+	.rose{font-weight:bold; font-size:20px; }
+	#allRose{border: none; width: 100px; height: 40px; text-align: right;}
+	button{width: 100px; height: 40px; text-align: justify;}
+	.col-5{padding-bottom: 30px;}
+	.row{padding-left: 55px}
+	
 </style>
 </head>
 <body>
@@ -73,45 +82,37 @@
    			<div class="col-8 border border-dark border-2">
    				
    				<!-- 선택된 제목-->
-                <h4 class="chargeRose">보유 중인 장미 : 10000 송이</h4>
-                <hr class="underline">
-                
-                <h4 class="chargeRose">장미 구입</h4>
+                <h4 class="chargeRose" ">보유 중인 장미 :<input id="allRose"  value="${loginUser.memberRose}" readonly>송이</h4>
+               
+                <h4 class="chargeRose" >장미 구입</h4>
                 <br>
                 
 	              	<div class="row"> 
 	              	 
 		                <div class="col-5">
 		                	<div class="rose">장미 1 송이    
-		                		<button type="button" class="btn btn-danger" value="1"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>100원</button>
+		                		<button type="button" class="btn btn-danger roseNum" value="1">100원</button>
 		                	</div>
 		                </div>
 			            
 			            <div class="col-5">
 		                	<div class="rose">장미 100 송이
-		                		<button type="button" class="btn btn-primary" value="100"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>10000원</button>
+		                		<button type="button" class="btn btn-danger roseNum" value="100">10,000원</button>
 		                	</div>
 		                </div>
+	                
 	                </div>
 	                
 		            <div class="row"> 
 		                <div class="col-5">
 		                	<div class="rose">장미 10 송이
-		                		<button type="button" class="btn btn-primary" value="10"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>1000원</button>
+		                		<button type="button" class="btn btn-danger roseNum" value="10">1,000원</button>
 		                	</div>
 		                </div>
 			            
 			            <div class="col-5">
 		                	<div class="rose">장미 300 송이
-		                		<button type="button" class="btn btn-primary" value="300"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>30000원</button>
+		                		<button type="button" class="btn btn-danger roseNum"  value="300">30,000원</button>
 		                	</div>
 		                </div>
 	                </div>
@@ -119,17 +120,13 @@
                 	 <div class="row"> 
 		                <div class="col-5">
 		                	<div class="rose">장미 30 송이
-		                		<button type="button" class="btn btn-primary" value="30"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>3000원</button>
+		                		<button type="button" class="btn btn-danger roseNum" value="30">3,000원</button>
 		                	</div>
 		                </div>
 			            
 			            <div class="col-5">
 		                	<div class="rose">장미 500 송이
-		                		<button type="button" class="btn btn-primary" value="500"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>50000원</button>
+		                		<button type="button" class="btn btn-danger roseNum" value="500">50,000원</button>
 		                	</div>
 		                </div>
 	                </div>
@@ -138,19 +135,15 @@
 	                <div class="row"> 
 		                <div class="col-5">
 		                	<div class="rose">장미 50 송이
-		                		<button type="button" class="btn btn-outline-primary" value="50"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>5000원</button>
+		                		<button type="button" class="btn btn-danger roseNum" value="50">5,000원</button>
 		                	</div>
 		                </div>
 			        
 			        
 			         
 			       		<div class="col-5">
-		            		<div class="rose">장미 1000 송이
-		                		<button type="button" class="btn btn-outline-primary" value="1000"
-		                		style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: 1rem;"
-		                		>100000원</button>
+		            		<div class="rose" >장미 1000 송이
+		                		<button type="button" class="btn btn-danger roseNum" value="1000">100,000원</button>
 		               		</div>
 		            	</div>
 	                </div>
@@ -159,33 +152,78 @@
 	               		<div class="col-12">
 		                	<div class="rose">
 		                		<span></span><span></span>
-		                		<a href="#">
-		                		<button type="submit" class="btn btn-outline-danger" style="margin-left:20px;">결제하기</button>
-		                		</a>
+		                		<button id="pay" class="btn btn-outline-danger" style="margin-left:20px;">결제하기</button>
 		                	</div>
 		                </div>
 	                </div>
 	            </div> 
             </div>
+            <form id="roseForm">
+            	<input calss="roseInfo" type="hidden" name="roseNum">
+            </form>
    		</div>
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
-	<script>
+	<script type="text/javascript">
 		window.onload = () =>{
-			const btn = document.querySelectorAll('button[type="button"]');
+			
+			
+			
+			const btns = document.getElementsByClassName('roseNum')
 			const price = document.querySelectorAll('span');
+			const roseNum = document.getElementsByName('roseNum');
 			
 			
-			
-			for(const i of btn){
+			for(const i of btns){
 				i.addEventListener('click',()=>{
 					price[1].innerText = i.value + '개';
 					price[2].innerText = '(' + i.innerHTML + ')';
+					roseNum.value = i.value*100;
+						
+					//console.log(btns);
+	
 				});
 			}
+		
+		
 			
+			document.getElementById('pay').addEventListener('click',function requestPay() {
+			      	
+				const loginUser = '${loginUser}';
+				if(loginUser == ''){
+					alert('로그인 후 이용해주세요.');
+					location.href='${contextPath}/loginView.me';
+				}
+				
+				var IMP = window.IMP; // 생략 가능
+					IMP.init("imp04858826"); // 예: imp00000000
+					console.log(roseNum.value);
+				// IMP.request_pay(param, callback) 결제창 호출
+			    	const form = document.getElementById('roseForm');
+			      IMP.request_pay({ // param
+			    	  pg: "html5_inicis",
+			          pay_method: "card",
+			          merchant_uid: new Date().getTite,
+			          name: "장미결제",
+			          amount: roseNum.value,
+			          buyer_name: "${loginUser.memberName}",
+			      }, function (rsp) { // callback
+			          if (rsp.success) {
+			        	$.ajax({ type: "GET", 
+			                    url: "${contextPath}/updateRose.me", 
+			                    data: {"roseNum" : roseNum.value/100}
+			                	});
+							alert('장미를 구매했어요!');
+			          } else {
+			        		alert('장미 구매에 실패했어요. 다시 시도해주세요');
+			          }
+			      });
+			    });
 		}
-	</script>
+  </script>
+	
+
+  
 </body>
 </html>
