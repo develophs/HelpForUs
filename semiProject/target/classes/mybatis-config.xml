@@ -2,14 +2,14 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
-	<typeAliases> 
-		<typeAlias type="com.kh.HelpForUs.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.VolBoard" alias="volBoard"/>
-		<!-- 		<typeAlias type="" alias=""/> -->
-	</typeAliases>
+<!-- 	<typeAliases> -->
+<!-- 		<typeAlias type="" alias=""/> -->
+<!-- 		<typeAlias type="" alias=""/> -->
+<!-- 		<typeAlias type="" alias=""/> -->
+<!-- 	</typeAliases> -->
 
-	<mappers>
-		<mapper resource="mappers/member-mapper.xml"/>
-	   	<mapper resource="mappers/volunteer-mapper.xml"/>
-	</mappers>
+<!-- <mappers> -->
+<!--    <mapper resource="mappers/member-mapper.xml"/> -->
+<!--    <mapper resource="mappers/board-mapper.xml"/> -->
+<!-- </mappers> -->
 </configuration>

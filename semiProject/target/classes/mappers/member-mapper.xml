@@ -29,4 +29,9 @@
 		WHERE MEMBER_USERNAME=#{memberUsername} AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<update id="updateRose" parameterType="java.util.HashMap">
+		update member
+		set MEMBER_ROSE = MEMBER_ROSE + #{roseNum}
+		where MEMBER_USERNAME = #{id}
+	</update>
 </mapper>

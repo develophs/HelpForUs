@@ -1,4 +1,7 @@
-package com.kh.HelpForUs.member.model.service;
+﻿package com.kh.HelpForUs.member.model.service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,11 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.login(sqlSession,member);
 	}
 
+	@Override
+	public int updateRose(Map<String, Object> map) {
+		return mDAO.updateRose(sqlSession,map);
+	}
+	
 	@Override
 	public int checkUserName(String userName) {
 		return mDAO.checkUsername(sqlSession, userName);

@@ -1,4 +1,7 @@
-package com.kh.HelpForUs.member.model.dao;
+﻿package com.kh.HelpForUs.member.model.dao;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,6 +19,9 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.login", member);
 	}
 
+	public int updateRose(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("memberMapper.updateRose", map);
+	}
 	public int checkUsername(SqlSessionTemplate sqlSession, String userName) {
 		return sqlSession.selectOne("memberMapper.checkUsername",userName);
 	}

@@ -47,7 +47,6 @@
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
-				
 				<c:if test="${loginUser.memberRight =='C'}">
 					<p class="category">봉사 단체</p>
 	   				<ul type="circle">
@@ -58,16 +57,16 @@
 				
 				<p class="category">쪽지함</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/message.bo'">쪽지함</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
    			</div>
    			
-   			<%--공백생성 --%>
+   			<%--공백?�성 --%>
    			<div class="col-1">
    			</div>
-   			<%--공백생성 --%>
+   			<%--공백?�성 --%>
    			
-   			<%-- 메뉴 선택하면 나오는 화면 컨테이너 --%>
+   			<%-- 메뉴 ?�택?�면 ?�오?? ?�면 컨테?�너 --%>
    			<div class="col-8 border border-dark border-2">
    				
                     </div>
