@@ -1,9 +1,13 @@
 ﻿package com.kh.HelpForUs.member.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 public interface MemberService {
 
@@ -34,5 +38,17 @@ public interface MemberService {
 	int getEndDListCount(String userName);
 
 	int getEndVListCount(String userName);
+
+	ArrayList<DonBoard> getDList(PageInfo pi, String userName);
+
+	ArrayList<VolBoard> getVList(PageInfo pi, String userName);
+
+	ArrayList<DonBoard> getGroupDList(PageInfo pi, String userName);
+
+	ArrayList<VolBoard> getGroupVList(PageInfo pi, String userName);
+
+	ArrayList<DonBoard> getEndDList(PageInfo pi, String userName);
+
+	ArrayList<VolBoard> getEndVList(PageInfo pi, String userName);
 
 }

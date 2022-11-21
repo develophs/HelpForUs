@@ -1,5 +1,6 @@
 ﻿package com.kh.HelpForUs.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.exception.MemberException;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.service.MemberService;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Controller
 public class MemberController {
@@ -225,6 +229,7 @@ public class MemberController {
 		int listCount = mService.getDListCount(userName);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<DonBoard> list = mService.getDList(pi,userName);
 		return "infoDonList";
 	}
 	
@@ -240,6 +245,7 @@ public class MemberController {
 		int listCount = mService.getVListCount(userName);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<VolBoard> list = mService.getVList(pi,userName);
 		return "infoVolList";
 	}
 	
@@ -254,12 +260,15 @@ public class MemberController {
 		}
 			
 		int listCount = mService.getGroupDListCount(userName);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<DonBoard> list = mService.getGroupDList(pi,userName);
 		return "groupDonList";
 	}
 	
 	// 단체 작성한 봉사모집 글
 	@RequestMapping("volList.me")
-	public String groupVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+	public String groupVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page,
+			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		int currentPage = 1;
 		if(page != null && page > 1) {
@@ -268,7 +277,16 @@ public class MemberController {
 			
 		int listCount = mService.getGroupVListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
-		return "groupVolList";
+		
+		ArrayList<VolBoard> list = mService.getGroupVList(pi,userName);
+		if(list != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("list",list);
+			return "groupVolList";
+		} else {
+			throw new BoardException("작성한 봉사모집글 조회 실패");
+		}
+		
 	}
 	
 	// 단체 기부 마감 현황
@@ -282,6 +300,7 @@ public class MemberController {
 			
 		int listCount = mService.getEndDListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<DonBoard> list = mService.getEndDList(pi,userName);
 		return "groupDonEndList";
 	}
 	
@@ -296,6 +315,7 @@ public class MemberController {
 			
 		int listCount = mService.getEndVListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<VolBoard> list = mService.getEndVList(pi,userName);
 		return "groupVolEndList";
 	}
 	

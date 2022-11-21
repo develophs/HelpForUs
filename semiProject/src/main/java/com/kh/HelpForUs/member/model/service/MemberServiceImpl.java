@@ -1,5 +1,6 @@
 ﻿package com.kh.HelpForUs.member.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,8 +8,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.dao.MemberDAO;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService{
@@ -88,5 +92,35 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int getEndVListCount(String userName) {
 		return mDAO.getEndVListCount(sqlSession, userName);
+	}
+
+	@Override
+	public ArrayList<DonBoard> getDList(PageInfo pi, String userName) {
+		return mDAO.getDList(sqlSession, pi, userName);
+	}
+
+	@Override
+	public ArrayList<VolBoard> getVList(PageInfo pi, String userName) {
+		return mDAO.getVList(sqlSession, pi, userName);
+	}
+
+	@Override
+	public ArrayList<DonBoard> getGroupDList(PageInfo pi, String userName) {
+		return mDAO.getGroupDList(sqlSession, pi, userName);
+	}
+
+	@Override
+	public ArrayList<VolBoard> getGroupVList(PageInfo pi, String userName) {
+		return mDAO.getGroupVList(sqlSession, pi, userName);
+	}
+
+	@Override
+	public ArrayList<DonBoard> getEndDList(PageInfo pi, String userName) {
+		return mDAO.getEndDList(sqlSession, pi, userName);
+	}
+
+	@Override
+	public ArrayList<VolBoard> getEndVList(PageInfo pi, String userName) {
+		return mDAO.getEndVList(sqlSession, pi, userName);
 	}
 }

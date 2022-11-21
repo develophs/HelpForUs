@@ -109,5 +109,33 @@
 		]]>
 	</select>
 	
+	<resultMap type="VolBoard" id="volBoardResultSet">
+		<id property="boardId" column="BOARD_ID"/>
+		<result property="boardType" column="BOARD_TYPE"/>
+		<result property="refMemberUsername" column="REF_MEMBER_USERNAME"/>
+		<result property="refCategoryId" column="REF_CATEGORY_ID"/>
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="boardCreateDate" column="BOARD_CREATE_DATE"/>
+		<result property="boardModifyDate" column="BOARD_MODIFY_DATE"/>
+		<result property="boardDeadline" column="BOARD_DEADLINE"/>
+		<result property="boardStatus" column="BOARD_STATUS"/>
+		<result property="boardCount" column="BOARD_COUNT"/>
+		<result property="volunteerGoalPeople" column="VOLUNTEER_GOAL_PEOPLE"/>
+		<result property="volunteerLocation" column="VOLUNTEER_LOCATION"/>
+		<result property="volunteerDate" column="VOLUNTEER_DATE"/>
+		<result property="managerName" column="MANAGER_NAME"/>
+		<result property="managerPhone" column="MANAGER_PHONE"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
+	</resultMap>
+	
+	<select id="getGroupVList" resultMap="volBoardResultSet">
+		SELECT BOARD_ID, BOARD_TITLE, BOARD_DEADLINE
+		FROM BOARD
+		JOIN MEMBER ON(MEMBER_USERNAME = REF_MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{userName}
+	</select>
+	
 		
 </mapper>
