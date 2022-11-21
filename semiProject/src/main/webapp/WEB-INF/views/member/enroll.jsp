@@ -93,27 +93,31 @@
 	<script>
 		window.onload = () =>{
 			
+	        const regUserName = /^[a-z0-9]{5,12}$/g;
 			const userName = document.getElementById('memberUsername');
-			const checkId = document.getElementById('checkUsername');
-			const userNameVal = userName.value;
 			
+			const checkId = document.getElementById('checkUsername');
 			userName.addEventListener('change',function(){
+				const userNameVal = document.getElementById('memberUsername').value;
 				if(this.value.trim() == ''){
-					checkNickName.style.color = 'black';
-					checkNickName.innerText = '아이디를 입력해주세요.';
+					checkId.style.color = 'black';
+					checkId.innerText = '아이디를 입력해주세요.';
 				} else{
 					$.ajax({
 						url: '${contextPath}/checkUesrname.me',
 						data: {userName:this.value},
 						success: (data)=>{
 							console.log(data);
-							if(data=='yes'){
+							if(!regUserName.test(this.value)){
+								checkId.style.color ='red';
+								checkId.innerText ='아이디가 적합하지 않습니다.';
+							} else if(data=='yes'){
 								checkId.style.color = 'red';
 								checkId.innerText = '이미 사용중인 아이디 입니다.';
 							} else if(data=='no'){
 								checkId.style.color = 'green';
 								checkId.innerText = '사용 가능한 아이디 입니다.';
-							} 
+							}
 						},
 						error: (data) =>{
 							console.log(data);
@@ -156,14 +160,14 @@
 		const check = () =>{
 			
 			const userName = document.getElementById('memberUsername').value;
-	        const regUserName = /^[A-za-z0-9]{6,12}$/g;
+	        const regUserName = /^[a-z0-9]{5,12}$/g;
 	        
 		    if (!regUserName.test(userName)){
-		       swal('아이디가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
+		       swal('아이디가 적합하지 않습니다.','영어 소문자, 숫자로 5글자 이상 12글자 이하입니다.');
 		       return false;
 		    } 
 			
-			const regPwd = /^[A-za-z0-9]{6,12}$/g;
+			const regPwd = /^[A-Za-z0-9]{6,12}$/g;
 			
 			const pwd = document.getElementById('memberPwd').value;
 			const pwd2 = document.getElementById('memberPwd2').value;
@@ -172,11 +176,9 @@
 			
 			if(pwd.trim() == '' || pwd2.trim() == '' ){
 				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
-				pwd.focus();
 		        return false;
 			} else if(pwd != pwd2){
 				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
-				pwd.focus();
 		        return false;
 			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
 				swal('비밀번호가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');

@@ -34,33 +34,31 @@
    				<p class="category">내 정보</p>
    				<ul type="circle">
    					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">장미 내역</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 내역</p></li>
    				</ul>
    				<p class="category"></p>
    				
    				
    				<p class="category">기부 현황</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">기부 내역</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/donBoard.me'">기부 내역</p></li>
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 모금 게시글</p></li>
    				</ul>
    				
    				
-   				<p class="category"></p>
    				<p class="category">봉사 활동 현황</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">신청한 봉사활동</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/volBoard.me'">신청한 봉사활동</p></li>
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
 				<c:if test="${loginUser.memberRight =='C'}">
-					<p class="category"></p>
 					<p class="category">봉사 단체</p>
 	   				<ul type="circle">
-		   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
+		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
 					</ul>
-   				</c:if>
+				</c:if>
    				
    				<p class="category">쪽지함</p>
    				<ul type="circle">

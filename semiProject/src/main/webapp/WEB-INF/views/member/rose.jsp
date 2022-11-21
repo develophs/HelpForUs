@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이페이지</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -217,9 +218,9 @@
 			                    url: "${contextPath}/updateRose.me", 
 			                    data: {"roseNum" : roseNum.value/100}
 			                	});
-							alert('장미를 구매했어요!');
+							swal('장미를 구매했어요!');
 			          } else {
-			        		alert('장미 구매에 실패했어요. 다시 시도해주세요');
+			        		swal('장미 구매에 실패했어요. 다시 시도해주세요');
 			          }
 			      });
 			    });
