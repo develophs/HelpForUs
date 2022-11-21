@@ -36,22 +36,22 @@
    				
    				<p class="category">기부 현황</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">기부 내역</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/donBoard.me'">기부 내역</p></li>
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 모금 게시글</p></li>
    				</ul>
    				
    				
    				<p class="category">봉사 활동 현황</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">신청한 봉사활동</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/volBoard.me'">신청한 봉사활동</p></li>
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
 				<c:if test="${loginUser.memberRight =='C'}">
 					<p class="category">봉사 단체</p>
 	   				<ul type="circle">
-		   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
+		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
 					</ul>
 				</c:if>
 				
@@ -61,12 +61,12 @@
 				</ul>
    			</div>
    			
-   			<%--공백?�성 --%>
+   			<%--공백 생성 --%>
    			<div class="col-1">
    			</div>
-   			<%--공백?�성 --%>
+   			<%--공백 생성 --%>
    			
-   			<%-- 메뉴 ?�택?�면 ?�오?? ?�면 컨테?�너 --%>
+   			<%-- 메뉴 선택 컨테이터 --%>
    			<div class="col-8 border border-dark border-2">
    				
                     </div>
