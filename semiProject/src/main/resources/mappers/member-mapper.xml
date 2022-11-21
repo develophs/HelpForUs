@@ -70,32 +70,37 @@
 	<select id="getDListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM DONATION
-		WHERE REF_MEMBER_USERNAME = #{userName}
+		JOIN MEMBER ON (REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{userName}
 	</select>
 	
 	<select id="getVListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM APPLICATION
-		WHERE REF_MEMBER_USERNAME = #{userName}
+		JOIN MEMBER ON (REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{userName}
 	</select>
 	
 	<select id="getGroupDListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Don'
+		JOIN MEMBER ON (REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Don'
 	</select>
 	
 	<select id="getGroupVListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Vol'
+		JOIN MEMBER ON (REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Vol'
 	</select>
 	
 	<select id="getEndDListCount" resultType="_int">
 		<![CDATA[
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Don
+		JOIN MEMBER ON (REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Don'
 		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') < TO_CHAR(SYSDATE,'MM/dd')
 		]]>
 	</select>
@@ -104,7 +109,8 @@
 		<![CDATA[
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Vol
+		JOIN MEMBER ON (REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Vol'
 		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') < TO_CHAR(SYSDATE,'MM/dd')
 		]]>
 	</select>
