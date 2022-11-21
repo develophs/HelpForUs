@@ -67,31 +67,31 @@
 		values(seq_pid.nextval, #{roseNum}*100, sysdate, default, #{id})
 	</insert>
 	
-	<select id="getDListCount">
+	<select id="getDListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM DONATION
 		WHERE REF_MEMBER_USERNAME = #{userName}
 	</select>
 	
-	<select id="getVListCount">
+	<select id="getVListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM APPLICATION
 		WHERE REF_MEMBER_USERNAME = #{userName}
 	</select>
 	
-	<select id="getGroupDListCount">
+	<select id="getGroupDListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Don
+		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Don'
 	</select>
 	
-	<select id="getGroupVListCount">
+	<select id="getGroupVListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Vol
+		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = 'Vol'
 	</select>
 	
-	<select id="getEndDListCount">
+	<select id="getEndDListCount" resultType="_int">
 		<![CDATA[
 		SELECT COUNT(*)
 		FROM BOARD
@@ -100,7 +100,7 @@
 		]]>
 	</select>
 	
-	<select id="getEndVListCount">
+	<select id="getEndVListCount" resultType="_int">
 		<![CDATA[
 		SELECT COUNT(*)
 		FROM BOARD
