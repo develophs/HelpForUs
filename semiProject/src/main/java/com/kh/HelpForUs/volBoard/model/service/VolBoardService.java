@@ -21,7 +21,7 @@ public interface VolBoardService {
 
 	int getVListCount();
 
-	ArrayList<VolBoard> selectVolBoardList(PageInfo pi, int category);
+	ArrayList<VolBoard> selectVolBoardList(PageInfo pi, HashMap<String, Object> map);
 
 	ArrayList<Attachment> selectAttmList();
 

@@ -1,6 +1,7 @@
 package com.kh.HelpForUs.volBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,8 @@ public class VolBoardServiceImpl implements VolBoardService{
 	}
 
 	@Override
-	public ArrayList<VolBoard> selectVolBoardList(PageInfo pi, int category) {
-		return vDAO.selectVolBoardList(sqlSession, pi, category);
+	public ArrayList<VolBoard> selectVolBoardList(PageInfo pi, HashMap<String, Object> map) {
+		return vDAO.selectVolBoardList(sqlSession, pi, map);
 	}
 
 	@Override
