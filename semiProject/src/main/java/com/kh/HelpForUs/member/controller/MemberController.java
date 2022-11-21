@@ -267,6 +267,7 @@ public class MemberController {
 		}
 			
 		int listCount = mService.getGroupVListCount(userName);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		return "groupVolList";
 	}
 	
@@ -280,6 +281,7 @@ public class MemberController {
 		}
 			
 		int listCount = mService.getEndDListCount(userName);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		return "groupDonEndList";
 	}
 	
@@ -293,6 +295,7 @@ public class MemberController {
 		}
 			
 		int listCount = mService.getEndVListCount(userName);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		return "groupVolEndList";
 	}
 	
