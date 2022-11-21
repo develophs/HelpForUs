@@ -334,6 +334,10 @@ public class VolBoardController {
 			}
 		}
 		
+		if(deleteAttm == null) {
+			existBeforeAttm = false;
+		}
+		
 		int attmResult = 0;
 		int imgResult = 0;
 		
