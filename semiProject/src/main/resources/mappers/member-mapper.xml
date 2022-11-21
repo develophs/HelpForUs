@@ -62,13 +62,52 @@
 		WHERE MEMBER_USERNAME = #{userName}
 	</update>
 	
-	
-	
-	
 	<insert id="insertPay" parameterType="java.util.HashMap">
 		insert into pay
 		values(seq_pid.nextval, #{roseNum}*100, sysdate, default, #{id})
 	</insert>
+	
+	<select id="getDListCount">
+		SELECT COUNT(*)
+		FROM DONATION
+		WHERE REF_MEMBER_USERNAME = #{userName}
+	</select>
+	
+	<select id="getVListCount">
+		SELECT COUNT(*)
+		FROM APPLICATION
+		WHERE REF_MEMBER_USERNAME = #{userName}
+	</select>
+	
+	<select id="getGroupDListCount">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Don
+	</select>
+	
+	<select id="getGroupVListCount">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Vol
+	</select>
+	
+	<select id="getEndDListCount">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Don
+		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') <= TO_CHAR(SYSDATE,'MM/dd')
+		]]>
+	</select>
+	
+	<select id="getEndVListCount">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE REF_MEMBER_USERNAME = #{userName} AND BOARD_TYPE = Vol
+		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') <= TO_CHAR(SYSDATE,'MM/dd')
+		]]>
+	</select>
 	
 		
 </mapper>

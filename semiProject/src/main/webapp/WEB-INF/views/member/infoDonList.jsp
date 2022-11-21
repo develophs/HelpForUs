@@ -20,7 +20,7 @@
 </style>
 </head>
 <body>
-	<%-- <jsp:include page="../common/top.jsp"/> --%>
+	<jsp:include page="../common/top.jsp"/>
 	
 	
 	<div class="container text-center">

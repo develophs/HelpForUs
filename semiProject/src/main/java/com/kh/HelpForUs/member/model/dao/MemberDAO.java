@@ -42,5 +42,29 @@ public class MemberDAO {
 		return  sqlSession.insert("memberMapper.insertPay", map);
 	}
 
+	public int getDListCount(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.selectOne("memberMapper.getDListCount", userName);
+	}
+
+	public int getVListCount(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.selectOne("memberMapper.getVListCount", userName);
+	}
+
+	public int getGroupDListCount(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.selectOne("memberMapper.getGroupDListCount", userName);
+	}
+
+	public int getGroupVListCount(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.selectOne("memberMapper.getGroupVListCount", userName);
+	}
+
+	public int getEndDListCount(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.selectOne("memberMapper.getEndDListCount", userName);
+	}
+
+	public int getEndVListCount(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.selectOne("memberMapper.getEndVListCount", userName);
+	}
+
 
 }

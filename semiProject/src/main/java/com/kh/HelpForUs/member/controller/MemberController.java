@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.HelpForUs.common.exception.MemberException;
+import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.member.model.service.MemberService;
 import com.kh.HelpForUs.member.model.vo.Member;
 
@@ -169,7 +169,7 @@ public class MemberController {
 	}
 	
 	// 회원 탈퇴 메서드
-	@RequestMapping("deleteMember")
+	@RequestMapping("deleteMember.me")
 	public String deleteMember(HttpSession session) {
 		String userName = ((Member)session.getAttribute("loginUser")).getMemberUsername();
 		int result = mService.deleteMember(userName);
@@ -211,5 +211,90 @@ public class MemberController {
 			return "messageBox";
 		}
 	}
+	
+	// 기부 내역
+	@RequestMapping("donBoard.me")
+	public String myDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currentPage = 1;
+		
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+		
+		int listCount = mService.getDListCount(userName);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		return "infoDonList";
+	}
+	
+	// 봉사 신청 내역
+	@RequestMapping("volBoard.me")
+	public String myVolBoard(HttpSession session,@RequestParam(value="page",required=false)Integer page) {
+		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currentPage = 1;
+			if(page != null && page > 1) {
+				currentPage = page;
+		}
+			
+		int listCount = mService.getVListCount(userName);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		return "infoVolList";
+	}
+	
+	// 단체 작성한 기부 글
+	@RequestMapping("donList.me")
+	public String gourpDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page){
+		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
+		
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+			
+		int listCount = mService.getGroupDListCount(userName);
+		return "groupDonList";
+	}
+	
+	// 단체 작성한 봉사모집 글
+	@RequestMapping("volList.me")
+	public String groupVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+			
+		int listCount = mService.getGroupVListCount(userName);
+		return "groupVolList";
+	}
+	
+	// 단체 기부 마감 현황
+	@RequestMapping("endDonList.me")
+	public String endDonList(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+			
+		int listCount = mService.getEndDListCount(userName);
+		return "groupDonEndList";
+	}
+	
+	// 단체 봉사모집 마감 현황
+	@RequestMapping("endVolList.me")
+	public String endVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+			
+		int listCount = mService.getEndVListCount(userName);
+		return "groupVolEndList";
+	}
+	
 	
 }

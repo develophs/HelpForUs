@@ -59,4 +59,34 @@ public class MemberServiceImpl implements MemberService{
 	public int insertPay(Map<String, Object> map) {
 		return mDAO.insertPay(sqlSession,map);
 	}
+
+	@Override
+	public int getDListCount(String userName) {
+		return mDAO.getDListCount(sqlSession, userName);
+	}
+
+	@Override
+	public int getVListCount(String userName) {
+		return mDAO.getVListCount(sqlSession, userName);
+	}
+
+	@Override
+	public int getGroupDListCount(String userName) {
+		return mDAO.getGroupDListCount(sqlSession, userName);
+	}
+
+	@Override
+	public int getGroupVListCount(String userName) {
+		return mDAO.getGroupVListCount(sqlSession, userName);
+	}
+
+	@Override
+	public int getEndDListCount(String userName) {
+		return mDAO.getEndDListCount(sqlSession, userName);
+	}
+
+	@Override
+	public int getEndVListCount(String userName) {
+		return mDAO.getEndVListCount(sqlSession, userName);
+	}
 }

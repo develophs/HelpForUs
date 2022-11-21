@@ -91,104 +91,106 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	
 	<script>
-		window.onload = () =>{
+ 		window.onload = () =>{
+ 			
+ 			const userName = document.getElementById('memberUsername');
+ 			const checkId = document.getElementById('checkUsername');
+ 			
+ 			userName.addEventListener('blur',function(){
+ 				
+ 				const regUserName = /^[a-z0-9]{5,12}$/g;
+ 				
+ 				
+ 				const val = this.value.trim();
+ 				if(val == ''){
+ 					checkId.style.color = 'black';
+ 					checkId.innerText = '아이디를 입력해주세요.';
+ 				} else{
+ 					const checked = regUserName.test(val);
+ 					$.ajax({
+ 						url: '${contextPath}/checkUesrname.me',
+ 						data: {userName:val},
+ 						success: (data)=>{
+ 							if(data=='yes'){
+ 								checkId.style.color = 'red';
+ 								checkId.innerText = '이미 사용중인 아이디 입니다.';
+ 							} else if(data=='no'){
+ 								if(!checked){
+ 									checkId.style.color ='red';
+ 									checkId.innerText ='아이디가 적합하지 않습니다.';
+ 								} else{
+ 									checkId.style.color = 'green';
+ 									checkId.innerText = '사용 가능한 아이디 입니다.';
+ 								}
+ 							}
+ 						},
+ 						error: (data) =>{
+ 							console.log(data);
+ 						}
+ 					});
+ 				}
+ 			});
+ 			
+ 			
+ 			const nickName = document.getElementById('memberNickname');
+ 			const checkNickName = document.getElementById('checkNickName');
 			
-	        const regUserName = /^[a-z0-9]{5,12}$/g;
-			const userName = document.getElementById('memberUsername');
-			
-			const checkId = document.getElementById('checkUsername');
-			userName.addEventListener('change',function(){
-				const userNameVal = document.getElementById('memberUsername').value;
-				if(this.value.trim() == ''){
-					checkId.style.color = 'black';
-					checkId.innerText = '아이디를 입력해주세요.';
-				} else{
-					$.ajax({
-						url: '${contextPath}/checkUesrname.me',
-						data: {userName:this.value},
-						success: (data)=>{
-							console.log(data);
-							if(!regUserName.test(this.value)){
-								checkId.style.color ='red';
-								checkId.innerText ='아이디가 적합하지 않습니다.';
-							} else if(data=='yes'){
-								checkId.style.color = 'red';
-								checkId.innerText = '이미 사용중인 아이디 입니다.';
-							} else if(data=='no'){
-								checkId.style.color = 'green';
-								checkId.innerText = '사용 가능한 아이디 입니다.';
-							}
-						},
-						error: (data) =>{
-							console.log(data);
-						}
-					});
-				}
-			});
-			
-			
-			const nickName = document.getElementById('memberNickname');
-			const checkNickName = document.getElementById('checkNickName');
-			
-			nickName.addEventListener('change',function(){
-				if(this.value.trim() == ''){
-					checkNickName.style.color = 'black';
+ 			nickName.addEventListener('change',function(){
+ 				if(this.value.trim() == ''){
+ 					checkNickName.style.color = 'black';
 					checkNickName.innerText = '닉네임을 입력해주세요.';
 				}else{
-					$.ajax({
-						url: '${contextPath}/checkNickName.me',
+ 					$.ajax({
+ 						url: '${contextPath}/checkNickName.me',
 						data: {nickName:this.value},
-						success: (data)=>{
-							console.log(data);
-							if(data=='yes'){
-								checkNickName.style.color = 'red';
-								checkNickName.innerText = '이미 사용중인 닉네임 입니다.';
-							} else if(data=='no'){
-								checkNickName.style.color = 'green';
-								checkNickName.innerText = '사용 가능한 닉네임 입니다.';
-							}
-						},
+ 						success: (data)=>{
+ 							console.log(data);
+ 							if(data=='yes'){
+ 								checkNickName.style.color = 'red';
+ 								checkNickName.innerText = '이미 사용중인 닉네임 입니다.';
+ 							} else if(data=='no'){
+ 								checkNickName.style.color = 'green';
+ 								checkNickName.innerText = '사용 가능한 닉네임 입니다.';
+ 							}
+ 						},
 						error: (data) =>{
-							console.log(data);
-						}
-					});
-				}
-			});
-		}
-		
+ 							console.log(data);
+ 						}
+ 					});
+ 				}
+ 			});
+ 		}
 			
-		const check = () =>{
+ 		const check = () =>{
 			
 			const userName = document.getElementById('memberUsername').value;
-	        const regUserName = /^[a-z0-9]{5,12}$/g;
+ 	        const regUserName = /^[a-z0-9]{5,12}$/g;
 	        
-		    if (!regUserName.test(userName)){
-		       swal('아이디가 적합하지 않습니다.','영어 소문자, 숫자로 5글자 이상 12글자 이하입니다.');
-		       return false;
-		    } 
+ 		    if (!regUserName.test(userName)){
+ 		       swal('아이디가 적합하지 않습니다.','영어 소문자, 숫자로 5글자 이상 12글자 이하입니다.');
+ 		       return false;
+ 		    } 
 			
-			const regPwd = /^[A-Za-z0-9]{6,12}$/g;
+ 			const regPwd = /^[A-Za-z0-9]{6,12}$/g;
 			
 			const pwd = document.getElementById('memberPwd').value;
-			const pwd2 = document.getElementById('memberPwd2').value;
+ 			const pwd2 = document.getElementById('memberPwd2').value;
 			
-			const form = document.querySelector('form');
+ 			const form = document.querySelector('form');
 			
-			if(pwd.trim() == '' || pwd2.trim() == '' ){
-				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
-		        return false;
-			} else if(pwd != pwd2){
-				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
-		        return false;
-			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
-				swal('비밀번호가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
-			} else{
-				form.submit();
-			}
+ 			if(pwd.trim() == '' || pwd2.trim() == '' ){
+ 				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
+ 		        return false;			} else if(pwd != pwd2){
+ 				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
+ 		        return false;
+ 			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
+ 				swal('비밀번호가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
+ 			} else{
+ 				form.submit();
+ 			}
 		
-		}
+ 		}
 	</script>
-
 
 </body>
 </html>
