@@ -132,7 +132,7 @@
 		
 		<div class="mx-auto" style="height: 20%; text-align: center">
 			<c:forEach items="${ aList }" var="a">
-				<img style="margin: auto" src="resources/uploadFiles/${ a.renameName }">
+				<img style="margin: auto; width: 800px; height: 500px;" src="resources/uploadFiles/${ a.renameName }">
 			</c:forEach>
 		</div>
 		
