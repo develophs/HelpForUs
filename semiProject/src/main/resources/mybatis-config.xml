@@ -14,5 +14,6 @@
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 	   	<mapper resource="mappers/volunteer-mapper.xml"/>
+	   	<mapper resource="mappers/common-mapper.xml"/>
 	</mappers>
 </configuration>

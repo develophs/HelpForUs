@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="commonMapper">
+	<select id="countRose" resultType="integer">
+		select DONATION_PRICE
+		from donation
+		where to_char(DONATION_DATE, 'yy/mm/dd') = to_char(sysdate, 'yy/mm/dd')
+	</select>
+	
+	<select id="countApp" resultType="_int">
+		select count(APPLICATION_ID)
+		from application
+		where to_char(APPLICATION_DATE, 'yy/mm/dd') = to_char(sysdate, 'yy/mm/dd')
+	</select>
+</mapper>

@@ -97,6 +97,22 @@
 		<url-pattern>*.re</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 공용 -->
+	<servlet>
+		<servlet-name>CommonServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/common-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>CommonServlet</servlet-name>
+		<url-pattern>*.co</url-pattern>
+	</servlet-mapping>
+	
 	<!-- 에러 페이지 -->
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>HELP FOR US</title>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <style>
 	#mainDiv{
 		margin-top: 100px; 
@@ -93,18 +94,33 @@
 					<br><br>
 					<strong class="countTitle">오늘 모아진 장미</strong>
 					<br><br>
-					<p class="count">3,506 송이</p>
+					<p class="count"></p>
 				</div>
 				<div class="container text-center" id="volunteerCountDiv">
 					<img src="resources/img/peoples.png" width="200px;" height="200px;">
 					<br><br>
 					<strong class="countTitle">모집중인 봉사활동</strong>
 					<br><br>
-					<p class="count">509 건</p>
+					<p class="count"></p>
 				</div>
 			</div>
 		</div>
 	</div>
 	<jsp:include page="WEB-INF/views/common/footer.jsp"/>
+	<script>
+		window.onload = () => {
+			$.ajax({
+				url: '${ contextPath }/count.co',
+				success: (data) => {
+					const counts = document.getElementsByClassName('count');
+					counts[0].innerText = data[0] + '송이';
+					counts[1].innerText = data[1] + '개';
+				},
+				error: (data) => {
+					console.log(data);
+				}
+			});
+		}
+	</script>
 </body>
 </html>
