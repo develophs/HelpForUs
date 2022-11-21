@@ -80,7 +80,7 @@
 						<input type="number" min="1" class="text1" name="volunteerGoalPeople" required>
 					</td>
 					<th class="table-active">봉사장소</th>
-					<td><input type="text" class="text1" name="volunteerLocation" required></td>
+					<td><input type="text" id="address" class="text1" name="volunteerLocation" readonly required></td>
 				</tr>
 				<tr>
 					<th class="table-active">담당자</th>
@@ -115,7 +115,18 @@
 
 	<jsp:include page="../common/footer.jsp"></jsp:include>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+		window.onload = () => {
+			document.getElementById('address').addEventListener('click', () => {
+				 new daum.Postcode({
+					 oncomplete: function(data){
+						 document.getElementById("address").value = data.address;
+					 }
+				 }).open();
+			});
+		}
+	
  	</script>
 </body>
 </html>
