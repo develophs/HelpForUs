@@ -51,8 +51,6 @@ public class VolBoardController {
 			currentPage = page;
 		}
 		
-		System.out.println(category);
-		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("category", category);
 		map.put("search", search);
@@ -287,7 +285,7 @@ public class VolBoardController {
 			String fileName = file.getOriginalFilename();
 			if(!fileName.equals("")) {
 				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("gpeg")) {
+				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
 					String[] returnArr = saveFile(file, request);
 					
 					if(returnArr[1] != null) {
