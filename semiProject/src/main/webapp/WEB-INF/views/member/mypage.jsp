@@ -51,7 +51,9 @@
 					<p class="category">봉사 단체</p>
 	   				<ul type="circle">
 		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
+		   				<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
 	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
 					</ul>
 				</c:if>
 				

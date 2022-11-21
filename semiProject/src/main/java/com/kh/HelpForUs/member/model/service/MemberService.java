@@ -23,4 +23,16 @@ public interface MemberService {
 
 	int insertPay(Map<String, Object> map);
 
+	int getDListCount(String userName);
+
+	int getVListCount(String userName);
+
+	int getGroupDListCount(String userName);
+
+	int getGroupVListCount(String userName);
+
+	int getEndDListCount(String userName);
+
+	int getEndVListCount(String userName);
+
 }
