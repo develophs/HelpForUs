@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,24 +38,25 @@
    				
    				<p class="category">모금 현황</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">진행중인 모금</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">완료된 모금</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
+		   			<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
    				</ul>
    				
    				
-   				<p class="category"></p>
    				<p class="category">봉사활동 모집 현황</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">모집중인 봉사활동</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">모집완료된 봉사활동</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
 				</ul>
 				
-				<p class="category"></p>
 				<p class="category">쪽지함</p>
    				<ul type="circle">
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
    			
    			</div>
+   			
+   			
    			
    			<%--공백생성 --%>
    			<div class="col-1">
@@ -74,39 +76,45 @@
 					    </tr>
 					  </thead>
 					  <tbody class="table-group-divider" >
-					    <tr>
-					      <td>든든한 겨울밥상,걱정없는 한해! 김장김치지원 함께해주세요</td>
-					      <td>11/30 마감</td>
-					      <td><button >신청자 보기</button></td>
-					    </tr>
-						<tr>
-					      <td>성평등 민주주의 후퇴를 막기 위해 지금 할 수 있는 일</td>
-					      <td>12/02 마감</td>
-					      <td><button>신청자 보기</button></td>
-					    </tr>
-					    <tr>
-					      <td>어르신에게 건네는 희망의 손길</td>
-					      <td>11/28 마감</td>
-					      <td><button>신청자 보기</button></td>
-					    </tr>
-					    <tr>
-					      <td>"따"뜻한 "온"기로 채워지는 어르신의 밝은 "표"정</td>
-					      <td>12/21 마감</td>
-					      <td><button>신청자 보기</button></td>
-					    </tr>
-					    <tr>
-					      <td>건강한 입! 건강 한 입!</td>
-					      <td>1/23 마감</td>
-					      <td><button>신청자 보기</button></td>
-					    </tr>
+						  <c:forEach items="${list}" var="v"> 
+						    <tr>
+						      <td>${v.boardTitle}</td>
+						      <td>${v.boardDeadline}</td>
+						      <td><button >신청자 보기</button></td>
+						    </tr>
+						  </c:forEach>
 					  </tbody>
 					</table>
    				</div>
-   				 <div style="padding-top: 50px;"><jsp:include page="../common/pagination.jsp"/></div>
-   			</div>
-			   <div style="height: 100px;"></div>
-  		</div>
-	</div>
+   				
+   				<ul class="pagination" style="justify-content: center;">
+					<c:if test="${ pi.currentPage > 1 }">
+					<li class="page-item"><c:url var="goBack" value="${ loc }">
+							<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
+						</c:url> <a class="page-link" href="${ goBack }" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+					</a></li>
+					</c:if>
+					<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+						<c:url var="goNum" value="${ loc }">
+							<c:param name="page" value="${ p }"></c:param>
+						</c:url>
+						<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
+					</c:forEach>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+					<li class="page-item"><c:url var="goNext" value="${ loc }">
+							<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+						</c:url> <a class="page-link" href="${ goNext }" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span>
+					</a></li>
+					</c:if>
+				</ul>
+				
+   			<div style="padding-top: 50px;"><jsp:include page="../common/pagination.jsp"/></div>
+   		</div>
+		<div style="height: 100px;"></div>
+  	</div>
+</div>
 	
 	
 

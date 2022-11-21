@@ -1,12 +1,17 @@
 ﻿package com.kh.HelpForUs.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Repository("mDAO")
 public class MemberDAO {
@@ -66,5 +71,45 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.getEndVListCount", userName);
 	}
 
+	public ArrayList<DonBoard> getDList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.getDList", userName, rowBounds);
+	}
 
+	public ArrayList<VolBoard> getVList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.getVList", userName, rowBounds);
+	}
+
+	public ArrayList<DonBoard> getGroupDList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.getGroupDList", userName, rowBounds);
+	}
+
+	public ArrayList<VolBoard> getGroupVList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.getGroupVList", userName, rowBounds);
+	}
+
+	public ArrayList<DonBoard> getEndDList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.getEndDList", userName, rowBounds);
+	}
+
+	public ArrayList<VolBoard> getEndVList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.getEndVList", userName, rowBounds);
+	}
 }
