@@ -77,49 +77,35 @@
    				
    				<div class="w-60 jstify-content-center">
    					<table class="table table-bordered" style="padding: auto">
-   					<colgroup>
-   						<col width="25%">
-   						<col width="45%">
-   						<col width="20%">
-   					</colgroup>
-	   					<tr class="table-active align-middle">
-	   						<th>단체명</th>
-	   						<th>제목</th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td><button class="btn btn-secondary" onclick="#">이동</button></td>
-	   						<!-- ↑ 게시글이 있을 때 버튼이 보이도록 -->
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>   				
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
+   					
+	   					<thead>
+		   					<tr class="table-active align-middle">
+		   						<th>단체명</th>
+		   						<th>제목</th>
+		   						<td>이동</td>
+		   					</tr>
+		   				<thead>	
+		   				
+		   				<tbody class="table-group-divider" >
+					  	 <c:if test="${list != null}">
+							  <c:forEach items="${list}" var="d"> 
+							    <tr>
+							      <td>${d.boardTitle}</td>
+							      <td>${d.boardDeadline}</td>
+							      <td><button class="btn btn-secondary" onclick="#">이동</button></td>
+							    </tr>
+							  </c:forEach>
+						  </c:if>
+						  
+						  <c:if test="${message != null}">
+							  <tr>
+							  	<td colspan="3" id="nullList"></td>
+							  </tr>
+						  </c:if> 
+					    
+					  </tbody>
      			</table>
-   				</div>
+   			</div>
    				
      			<ul class="pagination" style="justify-content: center;">
 					<c:if test="${ pi.currentPage > 1 }">
@@ -149,7 +135,9 @@
 	
 	<br><br><br>
 
-
+	<script type="text/javascript">
+		document.getElementById('nullList').innerText ='${message}';
+	</script>
 
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

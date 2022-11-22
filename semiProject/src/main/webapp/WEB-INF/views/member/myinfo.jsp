@@ -32,12 +32,28 @@
 		<div class="row">
     		<div class="col-2 border border-dark border-2">
    				
-   				<p class="category">내 정보</p>
+   				<c:if test="${loginUser.memberRight =='B'}">
+   					<p class="category">내 정보</p>
+   				</c:if>
+   				
+   				<c:if test="${loginUser.memberRight =='C'}">
+   					<p class="category">단체 정보</p>
+   				</c:if>
+   				
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인 / 수정</p></li>
+   					<c:if test="${loginUser.memberRight =='B'}">
+   						<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인 / 수정</p></li>
+	   				</c:if>
+	   				
+	   				<c:if test="${loginUser.memberRight =='C'}">
+	   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인 / 수정</p></li>
+	   				</c:if>
+	   				
+   					
    					<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
    				</ul>
    				
+   				<c:if test="${loginUser.memberRight =='B'}">
    				
    				<p class="category">기부 현황</p>
    				<ul type="circle">
@@ -52,13 +68,19 @@
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
+				</c:if>
+				
 				<c:if test="${loginUser.memberRight =='C'}">
-					<p class="category">봉사 단체</p>
+					<p class="category">봉사 모집 현황</p>
+	   				<ul type="circle">
+	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
+					</ul>
+					
+					<p class="category">모금 현황</p>
 	   				<ul type="circle">
 		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
 		   				<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
 					</ul>
 				</c:if>
 				
@@ -77,7 +99,13 @@
    			<div class="col-8 border border-dark border-2">
    				
    				<!-- 선택된 제목-->
-                <h4 class="seletedCategory">내 정보 수정</h4>
+   				<c:if test="${loginUser.memberRight =='B'}">
+               		<h4 class="seletedCategory">내 정보 수정</h4>
+                </c:if>
+                
+                <c:if test="${loginUser.memberRight =='C'}">
+               		<h4 class="seletedCategory">단체 정보 수정</h4>
+                </c:if>
                 <br>
                 
                 <!-- 정보수정칸 -->

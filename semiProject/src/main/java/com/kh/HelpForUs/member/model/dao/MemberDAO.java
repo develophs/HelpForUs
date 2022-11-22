@@ -77,7 +77,6 @@ public class MemberDAO {
 	public ArrayList<DonBoard> getDList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
 		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
 		return (ArrayList)sqlSession.selectList("memberMapper.getDList", userName, rowBounds);
 	}
 
@@ -97,7 +96,6 @@ public class MemberDAO {
 	public int deleteMsg(SqlSessionTemplate sqlSession, int mId) {
 		return sqlSession.update("memberMapper.deleteMsg", mId);
 	}
-
 
 	public ArrayList<VolBoard> getVList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
 		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();

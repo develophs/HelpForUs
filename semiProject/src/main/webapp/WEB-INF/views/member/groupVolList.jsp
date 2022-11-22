@@ -22,32 +22,31 @@
 	
 	
 	<div class="container text-center">
-		<h3 class='mypage'>My Page</h3>
+		<h3 class='mypage'>단체 정보 페이지</h3>
 		
 		<br>
 		
 		<div class="row">
     		<div class="col-2 border border-dark border-2">
    				
-   				<p class="category">내 정보</p>
+   				<p class="category">단체 정보</p>
    				<ul type="circle">
    					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인</p></li>
    				</ul>
    				<p class="category"></p>
    				
    				
-   				<p class="category">모금 현황</p>
-   				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
-		   			<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
-   				</ul>
-   				
-   				
-   				<p class="category">봉사활동 모집 현황</p>
-   				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
-	   				<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
-				</ul>
+   				<p class="category">봉사 모집 현황</p>
+	   				<ul type="circle">
+	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
+					</ul>
+					
+					<p class="category">모금 현황</p>
+	   				<ul type="circle">
+		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
+		   				<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
+					</ul>
 				
 				<p class="category">쪽지함</p>
    				<ul type="circle">
@@ -68,6 +67,7 @@
    				<div style="height: 400px">
    				
 					<table class="table" >
+					
 					  <thead>
 					    <tr>
 					      <th scope="col">글 제목</th>
@@ -75,14 +75,25 @@
 					      <th scope="col">신청자</th>
 					    </tr>
 					  </thead>
+					  
 					  <tbody class="table-group-divider" >
-						  <c:forEach items="${list}" var="v"> 
-						    <tr>
-						      <td>${v.boardTitle}</td>
-						      <td>${v.boardDeadline}</td>
-						      <td><button >신청자 보기</button></td>
-						    </tr>
-						  </c:forEach>
+					  
+						  <c:if test="${list != null}">
+							  <c:forEach items="${list}" var="v"> 
+							    <tr>
+							      <td>${v.boardTitle}</td>
+							      <td>${v.boardDeadline}</td>
+							      <td><button >신청자 보기</button></td>
+							    </tr>
+							  </c:forEach>
+						  </c:if>
+						  
+						  <c:if test="${message != null}">
+							  <tr>
+							  	<td colspan="3" id="nullList"></td>
+							  </tr>
+						  </c:if>
+						  
 					  </tbody>
 					</table>
    				</div>
@@ -115,12 +126,11 @@
 		<div style="height: 100px;"></div>
   	</div>
 </div>
-	
-	
-
-
 
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		document.getElementById('nullList').innerText ='${message}';
+	</script>
 </body>
 </html>

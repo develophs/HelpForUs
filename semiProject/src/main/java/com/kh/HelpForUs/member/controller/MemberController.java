@@ -245,9 +245,6 @@ public class MemberController {
 			throw new MemberException("쪽지 불러오기 실패. 다시 시도해 주세요");
 		}
 		
-		
-		
-		
 	}
 	
 	@RequestMapping("deleteMsg.me")
@@ -277,14 +274,20 @@ public class MemberController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<DonBoard> list = mService.getDList(pi,userName);
-		if(list != null) {
+		System.out.println(list.size());
+		
+		if(list.size() != 0) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list",list);
 			return "infoDonList";
+		} else if(list.size() == 0) {
+			model.addAttribute("message","기부한 게시글이 존재하지 않습니다.");
+			return "infoDonList";
 		} else {
-			throw new BoardException("기부 내역 조회 실패");
+			throw new MemberException("게시글 조회 실패");
 		}
 	}
+
 	
 	// 봉사 신청 내역
 	@RequestMapping("volBoard.me")
@@ -303,8 +306,11 @@ public class MemberController {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list",list);
 			return "infoVolList";
+		} else if(list.size() == 0) {
+			model.addAttribute("message","신청한 게시글이 존재하지 않습니다.");
+			return "infoVolList";
 		} else {
-			throw new BoardException("봉사 신청 조회 실패");
+			throw new MemberException("게시글 조회 실패");
 		}
 	}
 	
@@ -321,12 +327,15 @@ public class MemberController {
 		int listCount = mService.getGroupDListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<DonBoard> list = mService.getGroupDList(pi,userName);
-		if(list != null) {
+		if(!list.isEmpty()) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list",list);
 			return "groupDonList";
+		} else if(list.size() == 0) {
+			model.addAttribute("message","작성한 게시글이 존재하지 않습니다.");
+			return "groupDonList";
 		} else {
-			throw new BoardException("작성한 모금 게시물 조회 실패");
+			throw new MemberException("작성한 게시글 조회 실패");
 		}
 	}
 	
@@ -344,14 +353,16 @@ public class MemberController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		
 		ArrayList<VolBoard> list = mService.getGroupVList(pi,userName);
-		if(list != null) {
+		if(list.size() != 0) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list",list);
 			return "groupVolList";
+		}else if(list.size() == 0) {
+			model.addAttribute("message","작성한 게시글이 존재하지 않습니다.");
+			return "groupVolList";
 		} else {
-			throw new BoardException("작성한 봉사모집글 조회 실패");
+			throw new MemberException("작성한 게시글 조회 실패");
 		}
-		
 	}
 	
 	// 단체 기부 마감 현황
@@ -368,12 +379,15 @@ public class MemberController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<DonBoard> list = mService.getEndDList(pi,userName);
 		
-		if(list != null) {
+		if(list.size() != 0) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list",list);
 			return "groupDonEndList";
+		} else if(list.size() == 0) {
+			model.addAttribute("message","마감된 게시글이 존재하지 않습니다.");
+			return "groupDonEndList";
 		} else {
-			throw new BoardException("마감 봉사모집 조회 실패");
+			throw new MemberException("게시글 조회 실패");
 		}
 	}
 	
@@ -390,14 +404,16 @@ public class MemberController {
 		int listCount = mService.getEndVListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<VolBoard> list = mService.getEndVList(pi,userName);
-		if(list != null) {
+		if(!list.isEmpty()) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("list",list);
 			return "groupVolEndList";
+		} else if(list.isEmpty()) {
+			model.addAttribute("message","마감된 게시글이 존재하지 않습니다.");
+			return "groupVolEndList";
 		} else {
-			throw new BoardException("마감 봉사모집 조회 실패");
+			throw new MemberException("게시글 조회 실패");
 		}
-		
 	}
 	
 	

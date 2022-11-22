@@ -33,26 +33,24 @@
    				<ul type="circle">
    					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인</p></li>
    				</ul>
-   				<p class="category"></p>
    				
    				
-   				<p class="category">모금 현황</p>
-   				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">진행중인 모금</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">완료된 모금</p></li>
-   				</ul>
-   				
-   				
-   				<p class="category"></p>
-   				<p class="category">봉사활동 모집 현황</p>
-   				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}'">모집중인 봉사활동</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">모집완료된 봉사활동</p></li>
-				</ul>
+   				<p class="category">봉사 모집 현황</p>
+	   				<ul type="circle">
+	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
+	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
+					</ul>
+					
+				<p class="category">모금 현황</p>
+	   				<ul type="circle">
+		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
+		   				<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
+					</ul>
+			
 				
-				<p class="category"></p>
 				<p class="category">쪽지함</p>
    				<ul type="circle">
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
    			
    			</div>
@@ -71,36 +69,30 @@
 					    <tr>
 					      <th scope="col">글 제목</th>
 					      <th scope="col">마감 일</th>
-					      <th scope="col">기부자</th>
+					      <th scope="col">신청자</th>
 					    </tr>
 					  </thead>
+					  
 					  <tbody class="table-group-divider" >
-					    <tr>
-					      <td>든든한 겨울밥상,걱정없는 한해! 김장김치지원 함께해주세요</td>
-					      <td>11/30 마감</td>
-					      <td><button >참여자 보기</button></td>
-					    </tr>
-						<tr>
-					      <td>성평등 민주주의 후퇴를 막기 위해 지금 할 수 있는 일</td>
-					      <td>12/02 마감</td>
-					      <td><button>참여자 보기</button></td>
-					    </tr>
-					    <tr>
-					      <td>어르신에게 건네는 희망의 손길</td>
-					      <td>11/28 마감</td>
-					      <td><button>참여자 보기</button></td>
-					    </tr>
-					    <tr>
-					      <td>"따"뜻한 "온"기로 채워지는 어르신의 밝은 "표"정</td>
-					      <td>12/21 마감</td>
-					      <td><button>참여자 보기</button></td>
-					    </tr>
-					    <tr>
-					      <td>건강한 입! 건강 한 입!</td>
-					      <td>1/23 마감</td>
-					      <td><button>참여자 보기</button></td>
-					    </tr>
+					    
+					    <c:if test="${list != null}">
+							  <c:forEach items="${list}" var="v"> 
+							    <tr>
+							      <td>${v.boardTitle}</td>
+							      <td>${v.boardDeadline}</td>
+							      <td><button >신청자 보기</button></td>
+							    </tr>
+							  </c:forEach>
+						  </c:if>
+						  
+						  <c:if test="${message != null}">
+							  <tr>
+							  	<td colspan="3" id="nullList"></td>
+							  </tr>
+						  </c:if>
+						
 					  </tbody>
+					  
 					</table>
    				</div>
    				<ul class="pagination" style="justify-content: center;">
@@ -120,22 +112,20 @@
 					<c:if test="${ pi.currentPage < pi.maxPage }">
 					<li class="page-item"><c:url var="goNext" value="${ loc }">
 							<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
-						</c:url> <a class="page-link" href="${ goNext }" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span>
+						</c:url> <a class="page-link" href="${ goNext }" aria-label="Next">
 					</a></li>
 					</c:if>
 				</ul>
-   				 <div style="padding-top: 50px;">></div>
+   				 <div style="padding-top: 50px;"></div>
    			</div>
 			   <div style="height: 100px;"></div>
   		</div>
 	</div>
 	
-	
-
-
-
-
+	<jsp:include page="../common/footer.jsp"/>
+	<script type="text/javascript">
+		document.getElementById('nullList').innerText ='${message}';
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
