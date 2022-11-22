@@ -235,5 +235,12 @@
 	
 	
 	
+	<select id="selectMsg" resultMap="messageResultSet">
+		select MESSAGE_ID,REF_BOARD_ID,MESSAGE_CREATE_DATE,MESSAGE_TITLE,MESSAGE_CONTENT,MESSAGE_CHECK,MESSAGE_STATUS,
+				SENDER_USERNAME,RECEIVER_USERNAME,BOARD_TYPE
+		from message
+    		join board on(REF_BOARD_ID = BOARD_ID)
+    		where MESSAGE_STATUS = 'Y' and MESSAGE_ID =#{mId}
+	</select>
 	
 </mapper>
