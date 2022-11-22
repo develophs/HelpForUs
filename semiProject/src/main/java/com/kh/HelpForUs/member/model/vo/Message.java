@@ -23,4 +23,5 @@ public class Message {
 	private String senderUsername;
 	private String receiverUsername;
 	private int refBoardId;
+	private String boardType;
 }

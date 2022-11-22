@@ -22,7 +22,10 @@ import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.service.MemberService;
 import com.kh.HelpForUs.member.model.vo.Member;
+
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
+
+import com.kh.HelpForUs.member.model.vo.Message;
 
 @Controller
 public class MemberController {
@@ -119,7 +122,6 @@ public class MemberController {
 		int result2 = mService.insertPay(map);
 		
 		if(result + result2 == 2) {
-			session.setAttribute("loginUser", mService.login(m));
 			return "rose";
 		}else {
 			throw new MemberException("장미 충천을 실패했습니다.");
@@ -205,20 +207,65 @@ public class MemberController {
 	}
 	
 	
-	// 쪽지함 뷰 이동
+	// 쪽지함 리스트
 	@RequestMapping("message.me")
-	public String messageView(HttpSession session) {
-		String right = ((Member)session.getAttribute("loginUser")).getMemberRight();
-		if(right.equals("A")) {
-			return "messageBoxManager";
-		} else {
-			return "messageBox";
+	public String messageView(HttpSession session, Model model, @RequestParam(value="msgType", required=false) Integer msgType, @RequestParam(value="page", required=false) Integer page) {
+		Member m= (Member)session.getAttribute("loginUser");
+		String id = m.getMemberUsername();
+		
+		
+		int type = 0;
+		if(msgType!=null) {
+			type = msgType;
+		}else {
+			
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("type", type);
+		
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+		
+		int listCount = mService.getMsgListCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		
+		ArrayList<Message> msgList = mService.selectMsgList(map,pi);
+		
+		if(msgList != null) {
+			model.addAttribute("msgList", msgList);
+			model.addAttribute("pi", pi);
+			model.addAttribute("msgType", msgType);
+			
+			return "messageBox";
+		}else {
+			throw new MemberException("쪽지 불러오기 실패. 다시 시도해 주세요");
+		}
+		
+		
+		
+		
+	}
+	
+	@RequestMapping("deleteMsg.me")
+	public String deleteMsg(@RequestParam("messageId") int mId) {
+		System.out.println(mId);
+		int result = mService.deleteMsg(mId);
+		if(result > 0) {
+			return "redirect:message.me";
+		}else {
+			throw new MemberException("쪽지 삭제 실패. 다시 시도해주세요");
+		}
+		
 	}
 	
 	// 기부 내역
 	@RequestMapping("donBoard.me")
-	public String myDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+	public String myDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page,
+			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		int currentPage = 1;
 		
@@ -230,12 +277,18 @@ public class MemberController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<DonBoard> list = mService.getDList(pi,userName);
-		return "infoDonList";
+		if(list != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("list",list);
+			return "infoDonList";
+		} else {
+			throw new BoardException("기부 내역 조회 실패");
+		}
 	}
 	
 	// 봉사 신청 내역
 	@RequestMapping("volBoard.me")
-	public String myVolBoard(HttpSession session,@RequestParam(value="page",required=false)Integer page) {
+	public String myVolBoard(HttpSession session,@RequestParam(value="page",required=false)Integer page,Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		int currentPage = 1;
 			if(page != null && page > 1) {
@@ -246,12 +299,18 @@ public class MemberController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<VolBoard> list = mService.getVList(pi,userName);
-		return "infoVolList";
+		if(list != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("list",list);
+			return "infoVolList";
+		} else {
+			throw new BoardException("봉사 신청 조회 실패");
+		}
 	}
 	
 	// 단체 작성한 기부 글
 	@RequestMapping("donList.me")
-	public String gourpDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page){
+	public String gourpDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page,Model model){
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		
 		int currentPage = 1;
@@ -262,7 +321,13 @@ public class MemberController {
 		int listCount = mService.getGroupDListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<DonBoard> list = mService.getGroupDList(pi,userName);
-		return "groupDonList";
+		if(list != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("list",list);
+			return "groupDonList";
+		} else {
+			throw new BoardException("작성한 모금 게시물 조회 실패");
+		}
 	}
 	
 	// 단체 작성한 봉사모집 글
@@ -291,7 +356,8 @@ public class MemberController {
 	
 	// 단체 기부 마감 현황
 	@RequestMapping("endDonList.me")
-	public String endDonList(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+	public String endDonList(HttpSession session, @RequestParam(value="page",required=false)Integer page,
+			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		int currentPage = 1;
 		if(page != null && page > 1) {
@@ -301,12 +367,20 @@ public class MemberController {
 		int listCount = mService.getEndDListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<DonBoard> list = mService.getEndDList(pi,userName);
-		return "groupDonEndList";
+		
+		if(list != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("list",list);
+			return "groupDonEndList";
+		} else {
+			throw new BoardException("마감 봉사모집 조회 실패");
+		}
 	}
 	
 	// 단체 봉사모집 마감 현황
 	@RequestMapping("endVolList.me")
-	public String endVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page) {
+	public String endVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page,
+			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		int currentPage = 1;
 		if(page != null && page > 1) {
@@ -316,7 +390,14 @@ public class MemberController {
 		int listCount = mService.getEndVListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<VolBoard> list = mService.getEndVList(pi,userName);
-		return "groupVolEndList";
+		if(list != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("list",list);
+			return "groupVolEndList";
+		} else {
+			throw new BoardException("마감 봉사모집 조회 실패");
+		}
+		
 	}
 	
 	

@@ -12,7 +12,10 @@ import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.dao.MemberDAO;
 import com.kh.HelpForUs.member.model.vo.Member;
+
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
+
+import com.kh.HelpForUs.member.model.vo.Message;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService{
@@ -123,4 +126,23 @@ public class MemberServiceImpl implements MemberService{
 	public ArrayList<VolBoard> getEndVList(PageInfo pi, String userName) {
 		return mDAO.getEndVList(sqlSession, pi, userName);
 	}
+
+	@Override
+	public ArrayList<Message> selectMsgList(Map<String, Object> map, PageInfo pi) {
+		return mDAO.selectMsgList(sqlSession,map,pi);
+	}
+
+	@Override
+	public int getMsgListCount(Map<String, Object> map) {
+		return mDAO.getMsgListCount(sqlSession,map);
+	}
+
+	@Override
+	public int deleteMsg(int mId) {
+		return mDAO.deleteMsg(sqlSession, mId);
+	}
+
+	
+
+	
 }
