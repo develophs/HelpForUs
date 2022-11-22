@@ -54,11 +54,13 @@
 					</thead>
 					<tbody>
 						<c:forEach begin="1" end="5">
-							<tr>
+							<tr class="nots">
 								<td>공지</td>
 								<td class="notTitle">공지가 존재하지 않습니다</td>
 								<td class="notDate">2022-11-11</td>
 								<td class="notCount">99</td>
+								<input type="hidden">
+								<input type="hidden">
 							</tr>
 						</c:forEach>
 						<tr align="right">
@@ -153,14 +155,32 @@
 			$.ajax({
 				url: '${ contextPath }/selectNot.co',
 				success: (data) => {
+					const nots = document.getElementsByClassName('nots');
 					const title = document.getElementsByClassName('notTitle');
 					const date = document.getElementsByClassName('notDate');
 					const count = document.getElementsByClassName('notCount');
 					
 					for(const i in data){
+						const hidden = nots[i].querySelectorAll('input[type="hidden"]');
+						
 						title[i].innerText = data[i].boardTitle;
 						date[i].innerText = data[i].boardModifyDate;
 						count[i].innerText = data[i].boardCount;
+						hidden[0].value = data[i].boardId;
+						hidden[1].value = data[i].refMemberUsername;
+						
+						nots[i].addEventListener('mouseover', () => {
+							nots[i].style.background = 'lightgray';
+							nots[i].style.cursor = 'pointer';
+						});
+						
+						nots[i].addEventListener('mouseout', () => {
+							nots[i].style.background = 'white';
+						});
+						
+						nots[i].addEventListener('click', () => {
+							location.href='${contextPath}/notBoardDetail.no?bId=' + hidden[0].value + '&userName=' + hidden[1].value
+						});
 					}
 				},
 				erro: (data) => {
