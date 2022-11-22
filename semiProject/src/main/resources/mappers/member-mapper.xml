@@ -143,5 +143,51 @@
 		WHERE MEMBER_USERNAME = #{userName}
 	</select>
 	
+	<select id="selectMsgList" resultMap="messageResultSet" parameterType="java.util.HashMap">
+		select MESSAGE_ID,REF_BOARD_ID,MESSAGE_CREATE_DATE,MESSAGE_TITLE,MESSAGE_CONTENT,MESSAGE_CHECK,MESSAGE_STATUS,
+				SENDER_USERNAME,RECEIVER_USERNAME,BOARD_TYPE
+		from message
+    		join board on(REF_BOARD_ID = BOARD_ID)
+    	where MESSAGE_STATUS = 'Y'
+		<if test="type==0">
+			and RECEIVER_USERNAME = #{id}
+		</if>
+		<if test="type==1">
+			and SENDER_USERNAME = #{id}
+		</if>
+		order by MESSAGE_CREATE_DATE desc
+	</select>
+	
+	<resultMap type="Message" id="messageResultSet">
+		<id column="MESSAGE_ID" property="messageId"/>
+		<result column="MESSAGE_CREATE_DATE" property="messageCreateDate"/>
+		<result column="MESSAGE_TITLE" property="messageTitle"/>
+		<result column="MESSAGE_CONTENT" property="messageContent"/>
+		<result column="MESSAGE_CHECK" property="messageCheck"/>
+		<result column="MESSAGE_STATUS" property="messageStatus"/>
+		<result column="SENDER_USERNAME" property="senderUsername"/>
+		<result column="RECEIVER_USERNAME" property="receiverUsername"/>
+		<result column="REF_BOARD_ID" property="refBoardId"/>
+		<result column="BOARD_TYPE" property="boardType"/>
+	</resultMap>
 		
+	<select id="getMsgListCount" resultType="_int" parameterType="java.util.HashMap">
+		select count(*)
+		from message
+		where MESSAGE_STATUS = 'Y'
+		<if test="type == 0">
+			 and RECEIVER_USERNAME = #{id}
+		</if>
+		<if test="type == 1">
+			and SENDER_USERNAME = #{id}
+		</if>
+	</select>
+	
+	<update id="deleteMsg">
+		update message
+		set MESSAGE_STATUS = 'N'
+		WHERE MESSAGE_ID = #{mId}
+	</update>
+	
+	
 </mapper>

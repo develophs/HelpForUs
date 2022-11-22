@@ -11,7 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Member;
+
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
+
+import com.kh.HelpForUs.member.model.vo.Message;
 
 @Repository("mDAO")
 public class MemberDAO {
@@ -77,6 +80,24 @@ public class MemberDAO {
 		
 		return (ArrayList)sqlSession.selectList("memberMapper.getDList", userName, rowBounds);
 	}
+
+	public ArrayList<Message> selectMsgList(SqlSessionTemplate sqlSession, Map<String, Object> map, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMsgList", map, rowBounds);
+	}
+
+	public int getMsgListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("memberMapper.getMsgListCount", map);
+	}
+
+	public int deleteMsg(SqlSessionTemplate sqlSession, int mId) {
+		return sqlSession.update("memberMapper.deleteMsg", mId);
+	}
+
 
 	public ArrayList<VolBoard> getVList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
 		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
