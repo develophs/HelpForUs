@@ -67,4 +67,26 @@
 		where rownum <= 5
 		]]>
 	</select>
+	
+	<select id="getNListCount" resultType="_int">
+		select count(*)
+		from board
+		where BOARD_STATUS = 'Y' and BOARD_TYPE = 'Not'
+	</select>
+	
+	<select id="selectNotBoardList" resultMap="BoardResultSet">
+	 	select *
+	 	from board
+	 	where BOARD_STATUS = 'Y' and BOARD_TYPE = 'Not'
+	 	
+	 	<if test="category > 0">
+			and REF_CATEGORY_ID = #{category}
+		</if>
+
+		<if test="search != null">
+			and BOARD_TITLE LIKE '%'||#{search}||'%'
+		</if>
+		
+		order by BOARD_ID desc
+	</select>
 </mapper>

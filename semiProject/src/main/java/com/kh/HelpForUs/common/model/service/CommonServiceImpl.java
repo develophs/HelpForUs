@@ -1,6 +1,7 @@
 package com.kh.HelpForUs.common.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.HelpForUs.common.model.dao.CommonDAO;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
+import com.kh.HelpForUs.common.vo.PageInfo;
 
 @Service("cService")
 public class CommonServiceImpl implements CommonService {
@@ -42,6 +44,16 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public ArrayList<Board> seletNot5() {
 		return cDAO.selectNot5(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectNotBoardList(PageInfo pi, HashMap<String, Object> map) {
+		return cDAO.selectNotBoardList(sqlSession, pi, map);
+	}
+
+	@Override
+	public int getNListCount() {
+		return cDAO.getNListCount(sqlSession);
 	}
 	
 }

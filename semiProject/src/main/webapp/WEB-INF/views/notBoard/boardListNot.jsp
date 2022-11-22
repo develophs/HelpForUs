@@ -84,13 +84,13 @@
 	    <div class="row py-lg-5">
 	    	<table>
 	    		<tr align="center">
-		    		<td><a href="volBoardList.vo?category=0"><img alt="전체" src="resources/img/total.png" width="50" height="50"></a></td>
-		    		<td><a href="volBoardList.vo?category=1"><img alt="아동" src="resources/img/children.png" width="50" height="50"></a></td>
-		    		<td><a href="volBoardList.vo?category=2"><img alt="동물" src="resources/img/animal.png" width="50" height="50"></a></td>
-		    		<td><a href="volBoardList.vo?category=3"><img alt="노인" src="resources/img/old.png" width="50" height="50"></a></td>
-		    		<td><a href="volBoardList.vo?category=4"><img alt="여성" src="resources/img/woman.png" width="50" height="50"></a></td>
-		    		<td><a href="volBoardList.vo?category=5"><img alt="환경" src="resources/img/environment.png" width="50" height="50"></a></td>
-		    		<td><a href="volBoardList.vo?category=6"><img alt="장애인" src="resources/img/disabled.png" width="50" height="50"></a></td>
+		    		<td><a href="notBoardList.no?category=0"><img alt="전체" src="resources/img/total.png" width="50" height="50"></a></td>
+		    		<td><a href="notBoardList.no?category=1"><img alt="아동" src="resources/img/children.png" width="50" height="50"></a></td>
+		    		<td><a href="notBoardList.no?category=2"><img alt="동물" src="resources/img/animal.png" width="50" height="50"></a></td>
+		    		<td><a href="notBoardList.no?category=3"><img alt="노인" src="resources/img/old.png" width="50" height="50"></a></td>
+		    		<td><a href="notBoardList.no?category=4"><img alt="여성" src="resources/img/woman.png" width="50" height="50"></a></td>
+		    		<td><a href="notBoardList.no?category=5"><img alt="환경" src="resources/img/environment.png" width="50" height="50"></a></td>
+		    		<td><a href="notBoardList.no?category=6"><img alt="장애인" src="resources/img/disabled.png" width="50" height="50"></a></td>
 	    		</tr>
 	    		<tr>
 		    		<th>전체</th>
@@ -105,13 +105,13 @@
 	    </div>
 	   <table align="right">
 	  		<tr>
-	  			<c:if test="${ loginUser.memberRight eq 'C' }">
+	  			<c:if test="${ loginUser.memberRight eq 'A' }">
 	  			<td style="padding-right: 20px;">
-	  				<button class="btn btn-outline-success" onclick="location.href='writeVolBoardView.vo'">봉사 글 작성</button>
+	  				<button class="btn btn-outline-success" onclick="location.href='writeVolBoardView.vo'">공지 글 작성</button>
 	  			</td>
 	  			</c:if>
 	  			<td>
-	        		<form class="d-flex" role="search" action="${ contextPath }/volBoardList.vo">
+	        		<form class="d-flex" role="search" action="${ contextPath }/notBoardList.no">
 	        		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" width="150" height="25" name="search">
 	        		<input type="hidden" name="page" value="${ pi.currentPage }">
 	        		<input type="hidden" name="category" value="${ category }">
@@ -120,44 +120,30 @@
 	  			</td>
 	  		</tr>
 	  	</table>
+	  	<br><br><br>
+	  	<table class="table">
+			<thead class="table-light">
+				<tr>
+					<th scope="col" width="150px">#</th>
+					<th scope="col">제목</th>
+					<th scope="col" width="200px">작성일</th>
+					<th scope="col" width="100px">조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${ nList }" var="n">
+					<tr class="nots">
+						<td>공지</td>
+						<td class="notTitle">${ n.boardTitle }</td>
+						<td class="notDate">${ n.boardModifyDate }</td>
+						<td class="notCount">${ n.boardCount }</td>
+						<input type="hidden" value="${ n.boardId }">
+						<input type="hidden" value="${ n.refMemberUsername }">
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	  </section>
-		
-	  <div class="album py-5">
-	    <div class="container">
-	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-	       
-	       <c:forEach items="${ vList }" var="v">
-	        <div class="col">
-	          <div class="card shadow-sm cards">
-	          	<c:forEach items="${ aList }" var="a">
-		          	<c:if test="${ v.boardId eq a.boardId }">
-		          		<c:if test="${ a.originalName == null }">
-		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-		            	</c:if>
-		            	<c:if test="${ a.originalName != null }">
-		            		<img src="resources/uploadFiles/${ a.renameName }" class="card-img-top" alt="..." height="300px;">
-		            	</c:if>
-		            </c:if>
-	            </c:forEach>
-	            <div class="card-body">
-	            <h5>${ v.boardTitle }</h5>
-	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 20) }..."/>
-	              <p class="card-text">${ content }</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	              	<small class="text-muted">${ v.boardId }</small>
-	              </div>
-	              <div class="d-flex justify-content-between align-items-center">
-	              	<small class="text-muted">${ v.memberNickname }</small>
-	                <small class="text-muted">${ v.boardCreateDate }</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        </c:forEach>
-	        
-	      </div>
-	    </div>
-	  </div>
 
 		<ul class="pagination" style="justify-content: center;">
 			<c:if test="${ pi.currentPage > 1 }">
@@ -191,13 +177,21 @@
 	 
 	<script>
 		window.onload = () => {
-			const cards = document.getElementsByClassName('cards');
-			for(const card of cards){
-				card.addEventListener('click', function() {
-					const small = this.querySelectorAll('small');
-					const bId = small[0].innerText;
-					const nickName = small[1].innerText;
-					location.href='${contextPath}/volBoardDetail.vo?bId=' + bId + '&nickName=' + nickName;
+			const nots = document.getElementsByClassName('nots');
+			for(const not of nots){
+				const hidden = not.querySelectorAll('input[type="hidden"]');
+				
+				not.addEventListener('mouseover', () => {
+					not.style.background = 'lightgray';
+					not.style.cursor = 'pointer';
+				});
+				
+				not.addEventListener('mouseout', () => {
+					not.style.background = 'white';
+				});
+				
+				not.addEventListener('click', () => {
+					location.href='${contextPath}/notBoardDetail.no?bId=' + hidden[0].value + '&userName=' + hidden[1].value;
 				});
 			}
 		}

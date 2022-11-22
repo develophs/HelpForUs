@@ -27,8 +27,8 @@
 	.card *:hover{
 		cursor: pointer;
 	}
-	#moreNot:hover{
-		cursor: pointer;
+	#moreNot{
+		text-decoration: none; color: black;
 	}
 </style>
 </head>
@@ -62,7 +62,7 @@
 							</tr>
 						</c:forEach>
 						<tr align="right">
-							<td colspan="4" align="right" id="moreNot">...더보기</td>
+							<td colspan="4" align="right"><a href="${ contextPath }/notBoardList.no" id="moreNot">...더보기</a></td>
 						</tr>
 					</tbody>
 				</table>
