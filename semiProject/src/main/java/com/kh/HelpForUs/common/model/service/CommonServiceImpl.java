@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.HelpForUs.common.model.dao.CommonDAO;
+import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.Board;
 
 @Service("cService")
 public class CommonServiceImpl implements CommonService {
@@ -25,6 +27,21 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int countApp() {
 		return cDAO.countApp(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> latestBoard() {
+		return cDAO.latestBoard(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectAttm() {
+		return cDAO.selectAttm(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> seletNot5() {
+		return cDAO.selectNot5(sqlSession);
 	}
 	
 }

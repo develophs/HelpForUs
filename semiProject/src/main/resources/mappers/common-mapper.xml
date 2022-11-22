@@ -12,4 +12,59 @@
 		from application
 		where to_char(APPLICATION_DATE, 'yy/mm/dd') = to_char(sysdate, 'yy/mm/dd')
 	</select>
+	
+	<resultMap type="Board" id="BoardResultSet">
+		<id property="boardId" column="BOARD_ID"/>
+		<result property="boardType" column="BOARD_TYPE"/>
+		<result property="refMemberUsername" column="REF_MEMBER_USERNAME"/>
+		<result property="refCategoryId" column="REF_CATEGORY_ID"/>
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="boardCreateDate" column="BOARD_CREATE_DATE"/>
+		<result property="boardModifyDate" column="BOARD_MODIFY_DATE"/>
+		<result property="boardDeadline" column="BOARD_DEADLINE"/>
+		<result property="boardStatus" column="BOARD_STATUS"/>
+		<result property="boardCount" column="BOARD_COUNT"/>
+	</resultMap>
+	
+	<select id="latestBoard" resultMap="BoardResultSet">
+		<![CDATA[
+		select *
+		from (select *
+			  from board
+			  where BOARD_STATUS = 'Y' and BOARD_TYPE != 'Not'
+			  order by BOARD_ID desc)
+		where rownum <= 5
+		]]>
+	</select>
+	
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id property="attmId" column="ATTM_ID"/>
+		<result property="boardId" column="BOARD_ID"/>
+		<result property="fileType" column="FILE_TYPE"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="originalName" column="ORIGINAL_NAME"/>
+		<result property="renameName" column="RENAME_NAME"/>
+		<result property="fileLink" column="FILE_LINK"/>
+		<result property="level" column="ATTM_LEVEL"/>
+		<result property="fileStatus" column="FILE_STATUS"/>
+	</resultMap>
+	
+	<select id="selectAttm" resultMap="attachmentResultSet">
+		select *
+		from ATTACHMENT
+			join image using(attm_id)
+		where FILE_STATUS ='Y' and ATTM_LEVEL = 0
+	</select>
+	
+	<select id="selectNot5" resultMap="BoardResultSet">
+		<![CDATA[
+		select *
+		from (select *
+			  from board
+			  where BOARD_STATUS = 'Y' and BOARD_TYPE = 'Not'
+			  order by BOARD_ID desc)
+		where rownum <= 5
+		]]>
+	</select>
 </mapper>

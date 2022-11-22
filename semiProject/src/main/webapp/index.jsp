@@ -27,6 +27,9 @@
 	.card *:hover{
 		cursor: pointer;
 	}
+	#moreNot:hover{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -35,7 +38,7 @@
 	
 	<div class="container" id="mainDiv">
 		<div class="row">
-			<div class="col-8">
+			<div class="col-8 left">
 				<h3>공지 사항</h3>
 				
 				<br>
@@ -50,14 +53,17 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach begin="1" end="4">
-						<tr>
-							<td>공지</td>
-							<td>제목입니다</td>
-							<td>2022-11-11</td>
-							<td>99</td>
-						</tr>
+						<c:forEach begin="1" end="5">
+							<tr>
+								<td>공지</td>
+								<td class="notTitle">공지가 존재하지 않습니다</td>
+								<td class="notDate">2022-11-11</td>
+								<td class="notCount">99</td>
+							</tr>
 						</c:forEach>
+						<tr align="right">
+							<td colspan="4" align="right" id="moreNot">...더보기</td>
+						</tr>
 					</tbody>
 				</table>
 				
@@ -67,25 +73,23 @@
 				
 				<br>
 				
-				<c:forEach begin="1" end="4">
-				<div class="card mb-3" style="max-width: 100%; height: 200px;">
-					<div class="row g-0">
-						<div class="col-md-4">
-							<img src="resources/img/peoples.png" class="img-fluid rounded-start" alt="..." id="cardImg">
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<h5 class="card-title">제목</h5>
-								<p class="card-text">This is a wider card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
-								<p class="card-text">
-									<small class="text-muted">2022-11-11</small>
-								</p>
+				<c:forEach begin="1" end="5">
+					<div class="card mb-3 cards" style="max-width: 100%; height: 200px;">
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img src="resources/img/peoples.png" class="img-fluid rounded-start img" alt="..." id="cardImg">
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title title">최신 글</h5>
+									<p class="card-text content">최신 글이 존재하지 않습니다.</p>
+									<p class="card-text">
+										<small class="text-muted date">2022-11-11</small>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 				</c:forEach>
 			</div>
 			<div class="col-4" id="countDiv">
@@ -117,6 +121,49 @@
 					counts[1].innerText = data[1] + '개';
 				},
 				error: (data) => {
+					console.log(data);
+				}
+			});
+			
+			$.ajax({
+				url: '${ contextPath }/latestBoard.co',
+				success: (data) => {
+					const title = document.getElementsByClassName('title');
+					const content = document.getElementsByClassName('content');
+					const date = document.getElementsByClassName('date');
+					const img = document.getElementsByClassName('img');
+					
+					for(const i in data.bList){
+						for(const a of data.aList){
+							if(data.bList[i].boardId == a.boardId){
+								img[i].src = 'resources/uploadFiles/' + a.renameName;
+							}
+						}
+						title[i].innerText = data.bList[i].boardTitle;
+						content[i].innerText = data.bList[i].boardContent.substring(0, 20);
+						date[i].innerText = data.bList[i].boardCreateDate;
+					}
+
+				},
+				error: (data) => {
+					console.log(data);
+				}
+			});
+			
+			$.ajax({
+				url: '${ contextPath }/selectNot.co',
+				success: (data) => {
+					const title = document.getElementsByClassName('notTitle');
+					const date = document.getElementsByClassName('notDate');
+					const count = document.getElementsByClassName('notCount');
+					
+					for(const i in data){
+						title[i].innerText = data[i].boardTitle;
+						date[i].innerText = data[i].boardModifyDate;
+						count[i].innerText = data[i].boardCount;
+					}
+				},
+				erro: (data) => {
 					console.log(data);
 				}
 			});

@@ -9,6 +9,7 @@
 		<typeAlias type="com.kh.HelpForUs.common.vo.Cheer" alias="Cheer"/>
 		<typeAlias type="com.kh.HelpForUs.common.vo.Image" alias="Image"/>
 		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.Application" alias="Application"/>
+		<typeAlias type="com.kh.HelpForUs.common.vo.Board" alias="Board"/>
 	</typeAliases>
 
 	<mappers>
