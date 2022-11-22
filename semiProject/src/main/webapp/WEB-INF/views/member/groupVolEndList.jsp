@@ -22,14 +22,14 @@
 	
 	
 	<div class="container text-center">
-		<h3 class='mypage'>My Page</h3>
+		<h3 class='mypage'>단체 정보 페이지</h3>
 		
 		<br>
 		
 		<div class="row">
     		<div class="col-2 border border-dark border-2">
    				
-   				<p class="category">내 정보</p>
+   				<p class="category">단체 정보</p>
    				<ul type="circle">
    					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인</p></li>
    				</ul>

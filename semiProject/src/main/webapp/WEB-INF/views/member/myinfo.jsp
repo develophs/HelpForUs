@@ -25,7 +25,13 @@
 	<jsp:include page="../common/top.jsp"/>
 	
 	<div class="container text-center">
-		<h3 class='mypage'>My Page</h3>
+		<c:if test="${loginUser.memberRight =='B'}">
+			<h3 class='mypage'>My Page</h3>
+		</c:if>
+		
+		<c:if test="${loginUser.memberRight =='C'}">
+			<h3 class='mypage'>단체 정보 페이지</h3>
+		</c:if>
 		
 		<br>
 		
