@@ -126,11 +126,15 @@ public class CommonController {
 		boolean yn = true;
 		
 		if(loginUser != null && userName != null) {
-			loginUserName = loginUser.getMemberNickname();
+			loginUserName = loginUser.getMemberUsername();
 			
 			if(loginUserName.equals(userName)) {
 				yn = false;
 			}
+		}
+		
+		if(userName == null) {
+			yn = false;
 		}
 		
 		Board b = cService.selectnotBoard(bId, yn);
