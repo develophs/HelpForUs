@@ -151,7 +151,6 @@ public class CommonController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		b.setRefMemberUsername(loginUser.getMemberUsername());
-		b.setBoardType("Not");
 		
 		int result = cService.insertNotBoard(b);
 		
@@ -161,4 +160,42 @@ public class CommonController {
 			throw new BoardException("공지 글 작성 실패");
 		}
 	}
+	
+	@RequestMapping("updateNotBoardView.no")
+	public String updateNotBoardView(@RequestParam("bId") int bId, Model model) {
+		Board b = cService.selectnotBoard(bId, false);
+		
+		model.addAttribute("b", b);
+		
+		if(b != null) {
+			return "notBoardEdit";
+		}else {
+			throw new BoardException("공지 글 조회 실패");
+		}
+	}
+	
+	@RequestMapping("updateNotBoard.no")
+	public String updateNotBoard(@ModelAttribute Board b, Model model) {
+		int result = cService.updateNotBoard(b);
+		
+		model.addAttribute("bId", b.getBoardId());
+		
+		if(result > 0) {
+			return "redirect:notBoardDetail.no";
+		} else {
+			throw new BoardException("공지 글 수정 실패");
+		}
+	}
+	
+	@RequestMapping("deleteNotBoard.no")
+	public String deleteNotBoard(@RequestParam("bId") int bId) {
+		int result = cService.delelteNotBoard(bId);
+		
+		if(result > 0) {
+			return "redirect:notBoardList.no";
+		} else {
+			throw new BoardException("공지 글 삭젠 실패");
+		}
+	}
+	
 }

@@ -68,5 +68,15 @@ public class CommonServiceImpl implements CommonService {
 	public int insertNotBoard(Board b) {
 		return cDAO.insertNotBoard(sqlSession, b);
 	}
+
+	@Override
+	public int updateNotBoard(Board b) {
+		return cDAO.updateNotBoard(sqlSession, b);
+	}
+	
+	@Override
+	public int delelteNotBoard(int bId) {
+		return cDAO.deleteNotBoard(sqlSession, bId);
+	}
 	
 }

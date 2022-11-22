@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,34 +49,35 @@
 	<div class="container text-center" id="writeDiv"  >
 		<h2>공지 글 작성</h2>
 		<hr>
-		<form action="${contextPath}/writeNotBoard.no" id="form">
+		<form action="${contextPath}/updateNotBoard.no" id="form">
 			<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
 					<th class="table-active">제목</th>
-					<td><input type="text" class="text1" name="boardTitle" required></td>
+					<td><input type="text" class="text1" name="boardTitle" required value="${ b.boardTitle }"></td>
 					<th class="table-active">카테고리</th>
 					<td>
 						<select name="refCategoryId">
-							<option value="1">아동</option>
-							<option value="2">동물</option>
-							<option value="3">노인</option>
-							<option value="4">여성</option>
-							<option value="5">환경</option>
-							<option value="6">장애인</option>
+							<option value="1" <c:if test="${b.refCategoryId == 1}">selected</c:if>>아동</option>
+							<option value="2" <c:if test="${b.refCategoryId == 2}">selected</c:if>>동물</option>
+							<option value="3" <c:if test="${b.refCategoryId == 3}">selected</c:if>>노인</option>
+							<option value="4" <c:if test="${b.refCategoryId == 4}">selected</c:if>>여성</option>
+							<option value="5" <c:if test="${b.refCategoryId == 5}">selected</c:if>>환경</option>
+							<option value="6" <c:if test="${b.refCategoryId == 6}">selected</c:if>>장애인</option>
 						</select>
 					</td>
 				</tr>
 				
 				<tr>
 					<th class="table-active">내용</th>
-					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent" required></textarea></td>
+					<td colspan="3"><textarea rows="20px;" cols="120px;" name="boardContent" required>${ b.boardContent }</textarea></td>
 				
 			</table>
 			<input type="hidden" name="boardType" value="Not">
+			<input type="hidden" name="boardId" value="${ b.boardId }">
 			
 			<br><br>
 			
-			<button class="btn btn-primary" id="submitButton">작성하기</button>
+			<button class="btn btn-primary" id="submitButton">수정하기</button>
 		</form>
 	</div>	
 
