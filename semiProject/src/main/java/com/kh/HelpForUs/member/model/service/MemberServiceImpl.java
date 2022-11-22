@@ -1,5 +1,6 @@
 ﻿package com.kh.HelpForUs.member.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,8 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.member.model.dao.MemberDAO;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.member.model.vo.Message;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService{
@@ -59,4 +62,23 @@ public class MemberServiceImpl implements MemberService{
 	public int insertPay(Map<String, Object> map) {
 		return mDAO.insertPay(sqlSession,map);
 	}
+
+	@Override
+	public ArrayList<Message> selectMsgList(Map<String, Object> map, PageInfo pi) {
+		return mDAO.selectMsgList(sqlSession,map,pi);
+	}
+
+	@Override
+	public int getMsgListCount(Map<String, Object> map) {
+		return mDAO.getMsgListCount(sqlSession,map);
+	}
+
+	@Override
+	public int deleteMsg(int mId) {
+		return mDAO.deleteMsg(sqlSession, mId);
+	}
+
+	
+
+	
 }

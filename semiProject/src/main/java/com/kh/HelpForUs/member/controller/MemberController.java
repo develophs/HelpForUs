@@ -1,5 +1,6 @@
 ﻿package com.kh.HelpForUs.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.exception.MemberException;
+import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.member.model.service.MemberService;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.member.model.vo.Message;
 
 @Controller
 public class MemberController {
@@ -115,7 +120,6 @@ public class MemberController {
 		int result2 = mService.insertPay(map);
 		
 		if(result + result2 == 2) {
-			session.setAttribute("loginUser", mService.login(m));
 			return "rose";
 		}else {
 			throw new MemberException("장미 충천을 실패했습니다.");
@@ -201,15 +205,59 @@ public class MemberController {
 	}
 	
 	
-	// 쪽지함 뷰 이동
+	// 쪽지함 리스트
 	@RequestMapping("message.me")
-	public String messageView(HttpSession session) {
-		String right = ((Member)session.getAttribute("loginUser")).getMemberRight();
-		if(right.equals("A")) {
-			return "messageBoxManager";
-		} else {
-			return "messageBox";
+	public String messageView(HttpSession session, Model model, @RequestParam(value="msgType", required=false) Integer msgType, @RequestParam(value="page", required=false) Integer page) {
+		Member m= (Member)session.getAttribute("loginUser");
+		String id = m.getMemberUsername();
+		
+		
+		int type = 0;
+		if(msgType!=null) {
+			type = msgType;
+		}else {
+			
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("type", type);
+		
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+		
+		int listCount = mService.getMsgListCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
+		
+		ArrayList<Message> msgList = mService.selectMsgList(map,pi);
+		
+		if(msgList != null) {
+			model.addAttribute("msgList", msgList);
+			model.addAttribute("pi", pi);
+			model.addAttribute("msgType", msgType);
+			
+			return "messageBox";
+		}else {
+			throw new MemberException("쪽지 불러오기 실패. 다시 시도해 주세요");
+		}
+		
+		
+		
+		
+	}
+	
+	@RequestMapping("deleteMsg.me")
+	public String deleteMsg(@RequestParam("messageId") int mId) {
+		System.out.println(mId);
+		int result = mService.deleteMsg(mId);
+		if(result > 0) {
+			return "redirect:message.me";
+		}else {
+			throw new MemberException("쪽지 삭제 실패. 다시 시도해주세요");
+		}
+		
 	}
 	
 }

@@ -1,12 +1,16 @@
 ﻿package com.kh.HelpForUs.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.member.model.vo.Message;
 
 @Repository("mDAO")
 public class MemberDAO {
@@ -40,6 +44,23 @@ public class MemberDAO {
 
 	public int insertPay(SqlSessionTemplate sqlSession, Map<String, Object> map ) {
 		return  sqlSession.insert("memberMapper.insertPay", map);
+	}
+
+	public ArrayList<Message> selectMsgList(SqlSessionTemplate sqlSession, Map<String, Object> map, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMsgList", map, rowBounds);
+	}
+
+	public int getMsgListCount(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("memberMapper.getMsgListCount", map);
+	}
+
+	public int deleteMsg(SqlSessionTemplate sqlSession, int mId) {
+		return sqlSession.update("memberMapper.deleteMsg", mId);
 	}
 
 

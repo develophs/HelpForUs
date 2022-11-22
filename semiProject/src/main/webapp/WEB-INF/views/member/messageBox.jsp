@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,14 +14,13 @@
 	.category{font-weight:bold; text-align:left; font-size:24px; padding-top:15px;}
 	.menu{text-align:left; font-size:15px;}
 	.menu:hover{font-weight:bold; cursor:pointer;}
-	tr{height: 80px;}
-	th, td{font-size: 20px; border-left: none; border-right: none;}
-	table{border-bottom: 4px solid gray;}
+	#divTable{padding-left: 75px; padding-right: 75px}
 	
 </style>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <body>
-	<%-- <jsp:include page="../common/top.jsp"/> --%>
+<jsp:include page="../common/top.jsp"/>
 	
 	
 	<div class="container text-center">
@@ -33,10 +33,9 @@
    				
    				<p class="category">내 정보</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">장미 내역</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인 / 수정</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
    				</ul>
-   				<p class="category"></p>
    				
    				
    				<p class="category">기부 현황</p>
@@ -46,7 +45,6 @@
    				</ul>
    				
    				
-   				<p class="category"></p>
    				<p class="category">봉사 활동 현황</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}'">신청한 봉사활동</p></li>
@@ -54,84 +52,147 @@
 				</ul>
 				
 				<c:if test="${loginUser.memberRight =='C'}">
-					<p class="category"></p>
 					<p class="category">봉사 단체</p>
 	   				<ul type="circle">
 		   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>
 	   					<li><p class="menu" onclick="location.href='${contextPath}'">작성한 봉사모집 현황</p></li>
 					</ul>
-   				</c:if>
-   				
-   				<p class="category">쪽지함</p>
+				</c:if>
+				
+				<p class="category">쪽지함</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/message.bo'">쪽지함</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
    			</div>
+   			
    			
    			<%--공백생성 --%>
    			<div class="col-1">
    			</div>
    			<%--공백생성 --%>
    			
-   			<div class="col-9 border border-dark border-2">
-   				<h1 class="fs-1 fw-bold text-start mt-5 ms-4">문의 내역</h1>
+   			<div class="col-9 border border-dark " id="divTable">
+   				<h3 style="text-align: center; padding-bottom: 20px; padding-top: 50px;">쪽지함</h3>
+   				<div style="height: 400px">
    				
-   				<div class="w-60 jstify-content-center">
-   					<table class="table table-bordered" style="padding: auto">
-   					<colgroup>
-   						<col width="25%">
-   						<col width="45%">
-   						<col width="20%">
-   					</colgroup>
-	   					<tr class="table-active align-middle">
-	   						<th>단체명</th>
-	   						<th>제목</th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>   				
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-	   					<tr class="align-middle">
-	   						<th></th>
-	   						<th></th>
-	   						<td></td>
-	   					</tr>
-     			</table>
+	   				<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+						<div class="btn-group me-2" role="group" aria-label="First group">
+						    <button type="button" class="btn btn-outline-secondary" id="sendBoxBtn" onclick="location.href='${contextPath}/message.me?msgType='+1">보낸편지함</button>
+						    <button type="button" class="btn btn-outline-secondary" id="receiveBoxBtn" onclick="location.href='${contextPath}/message.me?msgType='+0">받은편지함</button>
+						</div>
+					</div>
+					<br><br><br>
+					<table class="table" id="sendBox">
+						<thead>
+						    <tr>
+						      <th scope="col">제목</th>
+							      <c:if test="${msgType==0}">
+							      	<th scope="col">보낸사람</th>
+							      </c:if>
+							      <c:if test="${msgType==1}">
+							      	<th scope="col">받는사람</th>
+							      </c:if>
+						      
+						      <th scope="col">날짜</th>
+						      <th scope="col">확인</th>
+						      <th scope="col">삭제</th>
+						    </tr>
+						</thead>
+						<tbody class="table-group-divider" >
+							<c:forEach items="${msgList}" var="m">
+								<form method="POST" id="detailForm">
+									<input type="hidden" value='${m.messageId }' name="messageId">
+								</form>
+								<c:set var="title" value="${fn:substring(m.messageTitle, 0, 15)}"></c:set>
+								<tr>
+								<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${m.messageTitle}</td>
+							    
+							    <c:if test="${loginUser.memberUsername eq m.receiverUsername}">
+						      		<th scope="col">${m.senderUsername}</th>
+						   		</c:if>
+								<c:if test="${loginUser.memberUsername eq m.senderUsername}">
+						      		<th scope="col">${m.receiverUsername}</th>
+						      	</c:if>
+						      	<td>${m.messageCreateDate}</td>
+							    <td><button id="msgDetail">확인</button></td>
+							    <td><button id="deleteBtn">삭제</button></td>
+							    </tr>
+						    </c:forEach>				  
+					  </tbody>
+					</table>
    				</div>
    				
-     			<jsp:include page="../common/pagination.jsp"/>
+		   		<nav aria-label="Standard pagination example" style="align-content: center;">
+		        	
+		        	<ul class="pagination">
+		        	<c:if test="${ pi.currentPage > 1 }">
+			            <li class="page-item">
+			            	<c:url var="goBack" value="${ loc }">
+			            		<c:param name="page" value="${ pi.currentPage-1}"/>
+			            		<c:param name="msgType" value="${ msgType }"/>
+			            	</c:url>
+			            	<a class="page-link" href="${ goBack }" aria-label="Previous">
+			            		<span aria-hidden="true">&laquo;</span>
+			              	</a>
+			            </li>
+			            </c:if>
+			            <c:forEach begin="${pi.startPage }" end="${pi.endPage }" var="p">
+			            	<c:url var="goNum" value="${loc}">
+			            		<c:param name="page" value="${ p }"></c:param>
+			            		<c:param name="msgType" value="${ msgType }"></c:param>
+			            	</c:url>
+			            	<li class="page-item"><a class="page-link" href="${goNum }">${ p }</a></li>
+			            </c:forEach>
+			            <c:if test="${ pi.currentPage < pi.maxPage }">
+			            <li class="page-item">
+			            	<c:url var="goNext" value="${loc}">
+			            		<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+			            		<c:param name="msgType" value="${ msgType }"></c:param>
+			            	</c:url>
+			            	<a class="page-link" href="${goNext }" aria-label="Next">
+			            		<span aria-hidden="true">&raquo;</span>
+			            	</a>
+			            </li>
+			            </c:if>
+			    	</ul>
+        		</nav>
    			</div>
+			   <div style="height: 100px;"></div>
   		</div>
+  		<div class="modal fade" tabindex="-1" role="dialog" id="modalChoice">
+			<div class="modal-dialog" role="document">
+	    		<div class="modal-content rounded-3 shadow">
+	      			<div class="modal-body p-4 text-center">
+	        			<h3 class="mb-0">쪽지를 삭제하시겠습니까?</h3>
+	      			</div>
+	      			<div class="modal-footer flex-nowrap p-0">
+	        			<button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end" id="delete">
+	        				<strong>네</strong>
+	        			</button>
+	        			<button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">아니오</button>
+	      			</div>
+	    		</div>
+  			</div>
+		</div>
 	</div>
-	
-	<br><br><br>
+	<script>
+		window.onload = () =>{
+			const form = document.getElementById('detailForm');
+			
+			document.getElementById('deleteBtn').addEventListener('click', ()=>{
+				$('#modalChoice').modal('show');	
+			});
+			
+			document.getElementById("delete").addEventListener('click', ()=>{
+				form.action = '${contextPath}/deleteMsg.me';
+				form.submit();
+			});
+		}
+	</script>
 
 
 
 
-	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
