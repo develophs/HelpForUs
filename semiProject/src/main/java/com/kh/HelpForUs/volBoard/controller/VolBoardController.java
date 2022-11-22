@@ -440,7 +440,7 @@ public class VolBoardController {
 	@ResponseBody
 	public int inquiryVol(@ModelAttribute Message msg, HttpSession session) {
 		msg.setSenderUsername(((Member)session.getAttribute("loginUser")).getMemberUsername());
-		
+		System.out.println(msg);
 		int result = vService.inquiryVol(msg);
 		
 		if(result > 0) {

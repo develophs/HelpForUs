@@ -81,8 +81,8 @@
    				
 	   				<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
 						<div class="btn-group me-2" role="group" aria-label="First group">
-						    <button type="button" class="btn btn-outline-secondary" id="sendBoxBtn" onclick="location.href='${contextPath}/message.me?msgType='+1">보낸편지함</button>
-						    <button type="button" class="btn btn-outline-secondary" id="receiveBoxBtn" onclick="location.href='${contextPath}/message.me?msgType='+0">받은편지함</button>
+						    <button type="button" class="btn btn-outline-secondary" id="sendBoxBtn" onclick="location.href='${contextPath}/message.me?msgType='+1">보낸쪽지함</button>
+						    <button type="button" class="btn btn-outline-secondary" id="receiveBoxBtn" onclick="location.href='${contextPath}/message.me?msgType='+0">받은쪽지함</button>
 						</div>
 					</div>
 					<br><br><br>
@@ -93,10 +93,9 @@
 							      <c:if test="${msgType==0}">
 							      	<th scope="col">보낸사람</th>
 							      </c:if>
-							      <c:if test="${msgType==1}">
+							      <c:if test="${msgType!=0}">
 							      	<th scope="col">받는사람</th>
 							      </c:if>
-						      
 						      <th scope="col">날짜</th>
 						      <th scope="col">확인</th>
 						      <th scope="col">삭제</th>
@@ -104,30 +103,29 @@
 						</thead>
 						<tbody class="table-group-divider" >
 							<c:forEach items="${msgList}" var="m">
-								<form method="POST" id="detailForm">
-									<input type="hidden" value='${m.messageId }' name="messageId">
+								<form method="POST" id="msgList">
+									<input type="hidden" value='${m.messageId }' name="messageId"  id="messageId">
 								</form>
 								<c:set var="title" value="${fn:substring(m.messageTitle, 0, 15)}"></c:set>
 								<tr>
-								<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${m.messageTitle}</td>
-							    
-							    <c:if test="${loginUser.memberUsername eq m.receiverUsername}">
-						      		<th scope="col">${m.senderUsername}</th>
-						   		</c:if>
-								<c:if test="${loginUser.memberUsername eq m.senderUsername}">
-						      		<th scope="col">${m.receiverUsername}</th>
-						      	</c:if>
-						      	<td>${m.messageCreateDate}</td>
-							    <td><button id="msgDetail">확인</button></td>
-							    <td><button id="deleteBtn">삭제</button></td>
+									<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${m.messageTitle}</td>
+								    <c:if test="${loginUser.memberUsername eq m.receiverUsername}">
+							      		<td scope="col">${m.senderUsername}</td>
+							   		</c:if>
+									<c:if test="${loginUser.memberUsername eq m.senderUsername}">
+							      		<td scope="col">${m.receiverUsername}</td>
+							      	</c:if>
+							      	<td>${m.messageCreateDate}</td>
+								    <td><button id="msgDetail">확인</button></td>
+								    <td><button id="deleteBtn">삭제</button></td>
 							    </tr>
 						    </c:forEach>				  
 					  </tbody>
 					</table>
    				</div>
-   				
+   			
+   			<!-- 페이징 처리 -->
 		   		<nav aria-label="Standard pagination example" style="align-content: center;">
-		        	
 		        	<ul class="pagination">
 		        	<c:if test="${ pi.currentPage > 1 }">
 			            <li class="page-item">
@@ -163,6 +161,8 @@
    			</div>
 			   <div style="height: 100px;"></div>
   		</div>
+  		
+  		<!-- 메세지 삭제 모달창 -->
   		<div class="modal fade" tabindex="-1" role="dialog" id="modalChoice">
 			<div class="modal-dialog" role="document">
 	    		<div class="modal-content rounded-3 shadow">
@@ -178,11 +178,68 @@
 	    		</div>
   			</div>
 		</div>
+	
+	
+	<!-- 메세지 확인 모달창 -->
+		<div class="modal fade" id="msgDetailModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-body" style="text-align: left">
+		    	제목<input type="text" class="form-control " id="recipient-name" name="selectMsgDetail" readonly>
+		    	내용<input class="form-control" name="selectMsgDetail" readonly style="height: 300px">
+		      	<br>
+		      	아이디 : <input readonly="readonly" name="selectMsgDetail" readonly style="border: none;">
+		      </div>
+		      <div class="modal-footer">
+		      	 <c:if test="${msgType!=1}">
+		        	<button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" id="delete">답장하기</button>
+		        </c:if>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+	<!-- 메세지 답장 모달창 -->
+		<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+		  <div class="modal-dialog modal-dialog-centered">
+	 		<form method="POST" id="msgForm" action="inquiryVol.vo">	    
+	 			<div class="modal-content">
+				   	<div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">SEND MESSAGE</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				    </div>
+				 	<div class="modal-body">
+					    <div class="mb-3" style="text-align: left;">
+					    	제목<input type="text" class="form-control " id="recipient-name" name="messageTitle">
+					    	내용<input class="form-control" style="height: 300px" name="messageContent">
+					      	<br>
+					      	보낼 아이디 : <input type="text" name="receiverUsername" class="reMsgInput" readonly style="border: none;">
+					      	<input type="hidden" name="refBoardId" class="reMsgInput">
+					      	<input type="hidden" name="boardType" class="reMsgInput">
+					    </div>
+					 </div>
+					 <div class="modal-footer">
+						<button type="submit" class="btn btn-primary" id="sendBtn"><strong>보내기</strong></button>
+				      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					 </div>
+		    	</div> 
+		    </form>
+		  </div>
+		</div>
+
+	
+	
+	
+	
+	
+		
 	</div>
 
 	<script>
 		window.onload = () =>{
-			const form = document.getElementById('detailForm');
+			
+			const form = document.getElementById('msgList');
 			
 			document.getElementById('deleteBtn').addEventListener('click', ()=>{
 				$('#modalChoice').modal('show');	
@@ -192,6 +249,37 @@
 				form.action = '${contextPath}/deleteMsg.me';
 				form.submit();
 			});
+			
+			
+			document.getElementById('msgDetail').addEventListener('click', ()=>{
+				$.ajax({
+					url: '${contextPath}/selectMsg.me',
+					data: {messageId:document.getElementById('messageId').value},
+					success: (data) => {
+						$('#msgDetailModal').modal('show')
+						const inputMsg = document.getElementsByName("selectMsgDetail");
+						inputMsg[0].value=data.messageTitle;
+						inputMsg[1].value=data.messageContent;
+						inputMsg[2].value=data.receiverUsername;
+						
+						const reMsgInput = document.getElementsByClassName('reMsgInput');
+						reMsgInput[0].value=data.senderUsername;
+						reMsgInput[1].value=data.refBoardId;
+						reMsgInput[2].value=data.boardType;
+						
+					},
+					error: (data) => {
+						console.log(data);
+					}
+				});
+				
+				
+			});
+			
+			
+			
+			
+			
 		}
 	</script>
 

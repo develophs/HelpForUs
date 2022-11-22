@@ -1,9 +1,12 @@
 ﻿package com.kh.HelpForUs.member.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.exception.MemberException;
 import com.kh.HelpForUs.common.vo.PageInfo;
@@ -400,5 +406,24 @@ public class MemberController {
 		
 	}
 	
+	
+	@RequestMapping("selectMsg.me")
+	public void selectMsg(@RequestParam("messageId") int mId, Model model, HttpServletResponse response) {
+		Message m =  mService.selectMsg(mId);
+		if(m!=null) {
+			response.setContentType("application/json; charset=UTF-8");
+			GsonBuilder gb = new GsonBuilder();
+			Gson gson = gb.create();
+			try {
+				gson.toJson(m, response.getWriter());
+			} catch (JsonIOException | IOException e) {
+				e.printStackTrace();
+			}
+			
+		}else {
+			throw new MemberException("쪽지 확인 실패. 다시 시도해주세요");
+		}
+		
+	}
 	
 }

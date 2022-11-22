@@ -142,6 +142,11 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.deleteMsg(sqlSession, mId);
 	}
 
+	@Override
+	public Message selectMsg(int mId) {
+		return mDAO.selectMsg(sqlSession, mId);
+	}
+
 	
 
 	

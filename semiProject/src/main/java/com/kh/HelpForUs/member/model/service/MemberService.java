@@ -60,5 +60,7 @@ public interface MemberService {
 
 	int deleteMsg(int mId);
 
+	Message selectMsg(int mId);
+
 
 }

@@ -133,4 +133,8 @@ public class MemberDAO {
 		
 		return (ArrayList)sqlSession.selectList("memberMapper.getEndVList", userName, rowBounds);
 	}
+
+	public Message selectMsg(SqlSessionTemplate sqlSession, int mId) {
+		return sqlSession.selectOne("memberMapper.selectMsg",mId);
+	}
 }
