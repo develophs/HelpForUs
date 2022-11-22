@@ -45,5 +45,13 @@ public class CommonDAO {
 	public int getNListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("commonMapper.getNListCount");
 	}
+
+	public void updateCount(SqlSessionTemplate sqlSession, int bId) {
+		sqlSession.update("commonMapper.updateCount", bId);
+	}
+
+	public Board selectnotBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("commonMapper.selectnotBoard", bId);
+	}
 	
 }

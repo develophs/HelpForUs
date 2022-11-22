@@ -23,4 +23,6 @@ public interface CommonService {
 
 	int getNListCount();
 
+	Board selectnotBoard(int bId, boolean yn);
+
 }

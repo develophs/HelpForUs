@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.member.model.vo.Member;
 
 @Controller
 public class CommonController {
@@ -113,5 +115,28 @@ public class CommonController {
 		} else {
 			throw new BoardException("공지 게시글 조회 실패");
 		}
+	}
+	
+	@RequestMapping("notBoardDetail.no")
+	public String selectnotBoard(@RequestParam("bId") int bId, @RequestParam(value="userName", required=false) String userName, HttpSession session, Model model) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		String loginUserName = null;
+		boolean yn = true;
+		
+		if(loginUser != null && userName != null) {
+			loginUserName = loginUser.getMemberNickname();
+			
+			if(loginUserName.equals(userName)) {
+				yn = false;
+			}
+		}
+		
+		Board b = cService.selectnotBoard(bId, yn);
+		
+		model.addAttribute("b", b);
+		
+		return "boardDetailNot";
+		
 	}
 }

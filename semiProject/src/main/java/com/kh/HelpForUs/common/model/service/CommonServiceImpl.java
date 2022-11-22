@@ -55,5 +55,13 @@ public class CommonServiceImpl implements CommonService {
 	public int getNListCount() {
 		return cDAO.getNListCount(sqlSession);
 	}
+
+	@Override
+	public Board selectnotBoard(int bId, boolean yn) {
+		if(yn) {
+			cDAO.updateCount(sqlSession, bId);
+		}
+		return cDAO.selectnotBoard(sqlSession, bId);
+	}
 	
 }

@@ -89,4 +89,16 @@
 		
 		order by BOARD_ID desc
 	</select>
+	
+	<update id="updateCount">
+		update board
+		set BOARD_COUNT = BOARD_COUNT + 1
+		where BOARD_ID = #{bId}
+	</update>
+	
+	<select id="selectnotBoard" resultMap="BoardResultSet">
+		select *
+		from board
+		where BOARD_ID = #{bId}
+	</select>
 </mapper>

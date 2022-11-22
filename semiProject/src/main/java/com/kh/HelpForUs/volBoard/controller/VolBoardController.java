@@ -174,7 +174,6 @@ public class VolBoardController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String loginNick = null;
 		boolean yn = true;
-		System.out.println(bId);
 		
 		if(loginUser != null && nickName != null) {
 			loginNick = loginUser.getMemberNickname();
