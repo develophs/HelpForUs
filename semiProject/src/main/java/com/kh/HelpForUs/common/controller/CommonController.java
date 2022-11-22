@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -138,5 +139,26 @@ public class CommonController {
 		
 		return "boardDetailNot";
 		
+	}
+	
+	@RequestMapping("writeNotBoardView.no")
+	public String writeNotBoardView() {
+		return "notBoardWrite";
+	}
+	
+	@RequestMapping("writeNotBoard.no")
+	public String insertNotBoard(HttpSession session,@ModelAttribute Board b) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		b.setRefMemberUsername(loginUser.getMemberUsername());
+		b.setBoardType("Not");
+		
+		int result = cService.insertNotBoard(b);
+		
+		if(result > 0) {
+			return "redirect:notBoardList.no";
+		} else {
+			throw new BoardException("공지 글 작성 실패");
+		}
 	}
 }

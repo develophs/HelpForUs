@@ -25,4 +25,6 @@ public interface CommonService {
 
 	Board selectnotBoard(int bId, boolean yn);
 
+	int insertNotBoard(Board b);
+
 }

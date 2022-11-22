@@ -145,9 +145,10 @@
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
 	              	<small class="text-muted">${ v.boardId }</small>
+	              	<small class="text-muted">${ v.memberNickname }</small>
 	              </div>
 	              <div class="d-flex justify-content-between align-items-center">
-	              	<small class="text-muted">${ v.memberNickname }</small>
+	              	<p></p>
 	                <small class="text-muted">${ v.boardCreateDate }</small>
 	              </div>
 	            </div>

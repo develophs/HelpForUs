@@ -38,7 +38,7 @@
 			margin-right: 300px;
 		}
 		
-		table{border: 4px solid lightgray;}
+		table{border: 4px solid lightgray; text-align: center;}
 		
 		th, td{
 			width: 15%;
@@ -50,6 +50,9 @@
 			width: 450px;
 			height: 300px;
 			border: 1px solid black;
+		}
+		#table th{
+			width: 5%;
 		}
 
 	</style>
@@ -100,7 +103,7 @@
 	<div style="border: 5px solid lightgray; width:60%" class="mx-auto">
 		<br>
 		<div class="mx-auto" style="width: 850px">
-			<table class="table table-sm table-bordered">
+			<table class="table table-sm table-bordered" id="table">
 				<tr>
 					<th class="table-active">봉사 날짜</th>
 					<td>${ vBoard.volunteerDate }</td>

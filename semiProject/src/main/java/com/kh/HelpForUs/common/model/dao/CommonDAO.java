@@ -53,5 +53,9 @@ public class CommonDAO {
 	public Board selectnotBoard(SqlSessionTemplate sqlSession, int bId) {
 		return sqlSession.selectOne("commonMapper.selectnotBoard", bId);
 	}
+
+	public int insertNotBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("commonMapper.insertNotBoard", b);
+	}
 	
 }

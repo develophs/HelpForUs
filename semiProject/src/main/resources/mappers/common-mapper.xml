@@ -101,4 +101,9 @@
 		from board
 		where BOARD_ID = #{bId}
 	</select>
+	
+	<insert id="insertNotBoard">
+		insert into board
+		values(SEQ_BID.nextval, #{boardType}, #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, null, default, default)
+	</insert>
 </mapper>

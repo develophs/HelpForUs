@@ -107,7 +107,7 @@
 	  		<tr>
 	  			<c:if test="${ loginUser.memberRight eq 'A' }">
 	  			<td style="padding-right: 20px;">
-	  				<button class="btn btn-outline-success" onclick="location.href='writeVolBoardView.vo'">공지 글 작성</button>
+	  				<button class="btn btn-outline-success" onclick="location.href='writeNotBoardView.no'">공지 글 작성</button>
 	  			</td>
 	  			</c:if>
 	  			<td>
@@ -185,7 +185,7 @@
 					not.style.background = 'lightgray';
 					not.style.cursor = 'pointer';
 				});
-				
+					
 				not.addEventListener('mouseout', () => {
 					not.style.background = 'white';
 				});
