@@ -19,6 +19,9 @@
 	#quit{float: right; font-size:1px; color:gray;}
 	#quit:hover{font-weight:bold; font-size:1px; cursor:pointer; color:black;}
 	.check{float:left;font-size:12px;}
+	#memberAddress:hover{
+		cursor:pointer;
+	}
 </style>
 </head>
 <body>
@@ -152,8 +155,9 @@
                             
                             <!-- 전화번호 input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="memberAddress" name="memberAddress" type="text" value="${ loginUser.memberAddress }"/>
-                                <label for="memberAddress">주소</label>
+                                <input class="form-control" id="memberAddress" name="memberAddress" type="text" 
+                                value="${ loginUser.memberAddress }" onclick="openAddress();"/>
+                                <label for="memberAddress">주소 (클릭)</label>
                             </div>
                             
                             <!-- 전화번호 input-->
@@ -176,6 +180,25 @@
 	</div>
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	
+	<!-- 회원수정 주소 검색 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+			const searchAddress = document.getElementById('memberAddress');
+			
+	    	const openAddress = function(){
+	    		new daum.Postcode({
+	    			oncomplete: function(data){
+	    				searchAddress.value = data.address;
+	    			}
+	    			
+	    			}).open({
+	    				 popupTitle: '주소 검색'
+	    			})
+	    	};
+	</script>
+	
+	<!-- 정규표현식, 비밀번호, 닉네임 중복검사 -->
 	<script>
 		window.onload = () =>{
 			const nickName = document.getElementById('memberNickname');
