@@ -27,4 +27,8 @@ public interface CommonService {
 
 	int insertNotBoard(Board b);
 
+	int updateNotBoard(Board b);
+
+	int delelteNotBoard(int bId);
+
 }

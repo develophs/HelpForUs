@@ -34,7 +34,13 @@
 	
 	
 	<div class="container text-center">
-		<h3 class='mypage'>My Page</h3>
+		<c:if test="${loginUser.memberRight =='B'}">
+			<h3 class='mypage'>My Page</h3>
+		</c:if>
+		
+		<c:if test="${loginUser.memberRight =='C'}">
+			<h3 class='mypage'>단체 정보 페이지</h3>
+		</c:if>
 		
 		<br>
 		
@@ -109,9 +115,9 @@
    			<div class="col-8 border border-dark border-2">
    				
    				<!-- 선택된 제목-->
-                <h4 class="chargeRose" ">보유 중인 장미 :<input id="allRose"  value="${loginUser.memberRose}" readonly>송이</h4>
+                <h4 class="chargeRose">보유 중인 장미 :<input id="allRose"  value="${loginUser.memberRose}" readonly>송이</h4>
                
-                <h4 class="chargeRose" >장미 구입</h4>
+                <h4 class="chargeRose">장미 구입</h4>
                 <br>
                 
 	              	<div class="row"> 
