@@ -256,12 +256,11 @@ public class MemberController {
 	
 	// 쪽지 삭제
 	@RequestMapping("deleteMsg.me")
-	public String deleteMsg(@RequestParam("mId") int mId,@RequestParam(value="msgType", required=false) int msgType, HttpSession session) {
-		System.out.println("mid="+mId);
-		System.out.println("mTpye="+msgType);
+	public String deleteMsg(@RequestParam("mId") int mId,@RequestParam(value="msgType", required=false) Integer type, HttpSession session) {
 		String id=((Member)session.getAttribute("loginUser")).getMemberUsername();
-		if(msgType!=1) {
-			msgType=0;
+		int msgType=0;
+		if(type!=null) {
+			msgType = type;
 		}
 		System.out.println("mType="+msgType);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -451,17 +450,19 @@ public class MemberController {
 			 msgType = type;
 		}
 		
+		int result;
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mId", mId);
 		map.put("id", id);
-		map.put("msgType", msgType);
 		
 		Message m =  mService.selectMsg(mId);
 		if(m!=null) {
 			response.setContentType("application/json; charset=UTF-8");
 			GsonBuilder gb = new GsonBuilder();
 			Gson gson = gb.create();
-			//result = mService.updateReCheck(map)
+			if(msgType!=1) {
+				result = mService.updateCheck(map);}
 			try {
 				gson.toJson(m, response.getWriter());
 			} catch (JsonIOException | IOException e) {

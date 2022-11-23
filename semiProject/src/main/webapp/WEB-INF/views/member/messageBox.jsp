@@ -92,6 +92,7 @@
 				
 				<p class="category">쪽지함</p>
    				<ul type="circle">
+   					
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
    			</div>
@@ -116,21 +117,27 @@
 					<table class="table table-hover" id="sendBox">
 						<thead>
 						    <tr>
-						      <th scope="col">제목</th>
-							      <c:if test="${msgType!=1}">
-							      	<th scope="col">보낸사람</th>
-							      </c:if>
-							      <c:if test="${msgType==1}">
-							      	<th scope="col">받는사람</th>
-							      </c:if>
-						      <th scope="col">날짜</th>
-						     
+						    	<th></th>
+						     	<th scope="col">제목</th>
+							    <c:if test="${msgType!=1}">
+							      <th scope="col">보낸사람</th>
+							    </c:if>
+							    <c:if test="${msgType==1}">
+							      <th scope="col">받는사람</th>
+							    </c:if>
+						      	<th scope="col">날짜</th>
 						    </tr>
 						</thead>
+						
 						<tbody class="table-group-divider" >
 							<c:forEach items="${msgList}" var="m">
 								<c:set var="title" value="${fn:substring(m.messageTitle, 0, 15)}"></c:set>
 								<tr>
+									<td>
+										<c:if test="${msgType != 1 && m.messageCheck eq 'N'}">
+										<img alt="읽지않은메세지이미지" src="https://cdn-icons-png.flaticon.com/512/6188/6188613.png" style="width: 50px; height: 35px;">
+										</c:if>
+									</td>
 									<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${m.messageTitle}</td>
 								    <c:if test="${loginUser.memberUsername eq m.receiverUsername}">
 							      		<td scope="col">${m.senderUsername}</td>
@@ -224,7 +231,7 @@
 		        	<button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" id="delete">답장하기</button>
 		        </c:if>
 		        <button class="btn btn-primary deleteBtn">삭제</button>
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onClick="window.location.reload()">닫기</button>
 		      </div>
 		    </div>
 		  </div>
@@ -233,7 +240,6 @@
 	<!-- 메세지 답장 모달창 -->
 		<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 		  <div class="modal-dialog modal-dialog-centered">
-	 		<form method="POST" id="msgForm" action="inquiryVol.vo">	    
 	 			<div class="modal-content">
 				   	<div class="modal-header">
 				        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">SEND MESSAGE</h1>
@@ -247,11 +253,10 @@
 					      	<input type="hidden" name="refBoardId" class="reMsgInput">
 					 </div>
 					 <div class="modal-footer">
-						<button class="btn btn-primary" id="sendBtn"><strong>보내기</strong></button>
+						<button class="btn btn-primary" id="sendBtn" ><strong>보내기</strong></button>
 				      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 					 </div>
 		    	</div> 
-		    </form>
 		  </div>
 		</div>
 
@@ -265,12 +270,8 @@
 <jsp:include page="../common/footer.jsp"/>
 	<script>
 		window.onload = () =>{
-			
-				if(document.getElementById("msgTypeVal").value==null){
-					document.getElementById("msgTypeVal").value = '0';
-				}			
-				console.log(document.getElementById("msgTypeVal").value);
 				
+								
 				const tbody = document.querySelector('tbody');
 				const trs = tbody.querySelectorAll('tr');
 				
@@ -326,12 +327,15 @@
 					const reMsgInput = document.getElementsByClassName('reMsgInput');
 					$.ajax({
 						url: '${ contextPath }/inquiryVol.vo',
-						data: {messageTitle:input[0].value,
-							   messageContent:input[1].value,
-							   receiverUsername:input[2].value,
-							   refBoardId:input[3].value},
+						data: {messageTitle:reMsgInput[0].value,
+							   messageContent:reMsgInput[1].value,
+							   receiverUsername:reMsgInput[2].value,
+							   refBoardId:reMsgInput[3].value},
 						success: (data) => {
-							window.close();
+							 $('#exampleModalToggle2').modal('hide')
+							 reMsgInput[0].value = '';
+							 reMsgInput[1].value = ''; 
+							 location.reload();
 						},
 						error: (data) => {
 							console.log(data);
@@ -339,8 +343,7 @@
 					});
 				});
 				
-				
-				
+			
 				
 				
 				
