@@ -93,10 +93,6 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.getMsgListCount", map);
 	}
 
-	public int deleteMsg(SqlSessionTemplate sqlSession, int mId) {
-		return sqlSession.update("memberMapper.deleteMsg", mId);
-	}
-
 	public ArrayList<VolBoard> getVList(SqlSessionTemplate sqlSession, PageInfo pi, String userName) {
 		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -134,5 +130,13 @@ public class MemberDAO {
 
 	public Message selectMsg(SqlSessionTemplate sqlSession, int mId) {
 		return sqlSession.selectOne("memberMapper.selectMsg",mId);
+	}
+
+	public int updateCheck(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("memberMapper.updateCheck", map);
+	}
+
+	public int deleteMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("memberMapper.deleteMsg", map);
 	}
 }

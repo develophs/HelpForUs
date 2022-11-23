@@ -216,6 +216,6 @@
 	
 	<insert id="inquiryVol">
 		insert into message
-		values(seq_mid.nextval, #{refBoardId}, sysdate, #{messageTitle}, #{messageContent}, default, default, #{senderUsername}, #{receiverUsername})
+		values(seq_mid.nextval, #{refBoardId}, sysdate, #{messageTitle}, #{messageContent}, default, default,default, #{senderUsername}, #{receiverUsername})
 	</insert>
 </mapper>

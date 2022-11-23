@@ -145,15 +145,16 @@
 	</select>
 	
 	<select id="selectMsgList" resultMap="messageResultSet" parameterType="java.util.HashMap">
-		select MESSAGE_ID,REF_BOARD_ID,MESSAGE_CREATE_DATE,MESSAGE_TITLE,MESSAGE_CONTENT,MESSAGE_CHECK,MESSAGE_STATUS,
+		select MESSAGE_ID,REF_BOARD_ID,MESSAGE_CREATE_DATE,MESSAGE_TITLE,MESSAGE_CONTENT,MESSAGE_CHECK,RE_MESSAGE_STATUS,SE_MESSAGE_STATUS,
 				SENDER_USERNAME,RECEIVER_USERNAME,BOARD_TYPE
 		from message
     		join board on(REF_BOARD_ID = BOARD_ID)
-    	where MESSAGE_STATUS = 'Y'
-		<if test="type==0">
-			and RECEIVER_USERNAME = #{id}
+		<if test="type != 1"> 
+			where RE_MESSAGE_STATUS = 'Y'
+			 and RECEIVER_USERNAME = #{id}
 		</if>
-		<if test="type==1">
+		<if test="type == 1">
+			where SE_MESSAGE_STATUS = 'Y'
 			and SENDER_USERNAME = #{id}
 		</if>
 		order by MESSAGE_CREATE_DATE desc
@@ -165,7 +166,8 @@
 		<result column="MESSAGE_TITLE" property="messageTitle"/>
 		<result column="MESSAGE_CONTENT" property="messageContent"/>
 		<result column="MESSAGE_CHECK" property="messageCheck"/>
-		<result column="MESSAGE_STATUS" property="messageStatus"/>
+		<result column="RE_MESSAGE_STATUS" property="reMessageStatus"/>
+		<result column="SE_MESSAGE_STATUS" property="seMessageStatus"/>
 		<result column="SENDER_USERNAME" property="senderUsername"/>
 		<result column="RECEIVER_USERNAME" property="receiverUsername"/>
 		<result column="REF_BOARD_ID" property="refBoardId"/>
@@ -175,19 +177,27 @@
 	<select id="getMsgListCount" resultType="_int" parameterType="java.util.HashMap">
 		select count(*)
 		from message
-		where MESSAGE_STATUS = 'Y'
-		<if test="type == 0">
+		<if test="type != 1">
+			where RE_MESSAGE_STATUS = 'Y'
 			 and RECEIVER_USERNAME = #{id}
 		</if>
 		<if test="type == 1">
+			where SE_MESSAGE_STATUS = 'Y'
 			and SENDER_USERNAME = #{id}
 		</if>
 	</select>
 	
-	<update id="deleteMsg">
+	<update id="deleteMsg" parameterType="java.util.HashMap">
 		update message
-		set MESSAGE_STATUS = 'N'
-		WHERE MESSAGE_ID = #{mId}
+		<if test="msgType != 1">
+			set RE_MESSAGE_STATUS = 'N'
+			where MESSAGE_ID = #{mId}
+		</if>
+		<if test="msgType == 1">
+			set SE_MESSAGE_STATUS = 'N'
+			where MESSAGE_ID = #{mId}
+		</if>
+		
 	</update>
 	
 	<select id="getGroupDList" resultMap="volBoardResultSet">
@@ -233,14 +243,19 @@
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_STATUS ='Y'
 	</select>
 	
-	
-	
 	<select id="selectMsg" resultMap="messageResultSet">
-		select MESSAGE_ID,REF_BOARD_ID,MESSAGE_CREATE_DATE,MESSAGE_TITLE,MESSAGE_CONTENT,MESSAGE_CHECK,MESSAGE_STATUS,
+		select MESSAGE_ID,REF_BOARD_ID,MESSAGE_CREATE_DATE,MESSAGE_TITLE,MESSAGE_CONTENT,MESSAGE_CHECK,SE_MESSAGE_STATUS,RE_MESSAGE_STATUS,
 				SENDER_USERNAME,RECEIVER_USERNAME,BOARD_TYPE
 		from message
     		join board on(REF_BOARD_ID = BOARD_ID)
-    		where MESSAGE_STATUS = 'Y' and MESSAGE_ID =#{mId}
+    		where MESSAGE_ID =#{mId}
 	</select>
+	
+	<update id="updateCheck" parameterType="java.util.HashMap">
+		update message
+		set MESSAGE_CHECK = 'Y'
+		where RECEIVER_USERNAME = #{id} and MESSAGE_ID = #{mId}
+	</update>
+	
 	
 </mapper>

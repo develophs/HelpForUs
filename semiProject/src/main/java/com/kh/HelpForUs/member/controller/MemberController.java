@@ -219,13 +219,13 @@ public class MemberController {
 		Member m= (Member)session.getAttribute("loginUser");
 		String id = m.getMemberUsername();
 		
-		
+		//받는편지함 0
+		//보낸편지함 1
 		int type = 0;
 		if(msgType!=null) {
 			type = msgType;
-		}else {
-			
 		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("type", type);
@@ -253,10 +253,25 @@ public class MemberController {
 		
 	}
 	
+	// 쪽지 삭제
 	@RequestMapping("deleteMsg.me")
-	public String deleteMsg(@RequestParam("messageId") int mId) {
-		System.out.println(mId);
-		int result = mService.deleteMsg(mId);
+	public String deleteMsg(@RequestParam("mId") int mId,@RequestParam(value="msgType", required=false) int msgType, HttpSession session) {
+		System.out.println("mid="+mId);
+		System.out.println("mTpye="+msgType);
+		String id=((Member)session.getAttribute("loginUser")).getMemberUsername();
+		if(msgType!=1) {
+			msgType=0;
+		}
+		System.out.println("mType="+msgType);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("id", id);
+		map.put("msgType", msgType);
+		
+		
+		int result = mService.deleteMsg(map);
+
+		
 		if(result > 0) {
 			return "redirect:message.me";
 		}else {
@@ -424,22 +439,36 @@ public class MemberController {
 	
 	
 	@RequestMapping("selectMsg.me")
-	public void selectMsg(@RequestParam("messageId") int mId, Model model, HttpServletResponse response) {
+	@ResponseBody
+	public void selectMsg(@RequestParam("messageId") int mId, @RequestParam(value="msgType", required=false) Integer type,Model model, HttpServletResponse response,HttpSession session ) {
+		System.out.println(mId);
+		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		
+		int msgType = 0;
+		
+		if(type!=null) {
+			 msgType = type;
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mId", mId);
+		map.put("id", id);
+		map.put("msgType", msgType);
+		
 		Message m =  mService.selectMsg(mId);
 		if(m!=null) {
 			response.setContentType("application/json; charset=UTF-8");
 			GsonBuilder gb = new GsonBuilder();
 			Gson gson = gb.create();
+			//result = mService.updateReCheck(map)
 			try {
 				gson.toJson(m, response.getWriter());
 			} catch (JsonIOException | IOException e) {
 				e.printStackTrace();
 			}
-			
 		}else {
 			throw new MemberException("쪽지 확인 실패. 다시 시도해주세요");
 		}
-		
 	}
 	
 }

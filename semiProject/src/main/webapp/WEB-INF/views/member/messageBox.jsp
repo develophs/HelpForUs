@@ -105,26 +105,22 @@
 						</div>
 					</div>
 					<br><br><br>
-					<table class="table" id="sendBox">
+					<table class="table table-hover" id="sendBox">
 						<thead>
 						    <tr>
 						      <th scope="col">제목</th>
-							      <c:if test="${msgType==0}">
+							      <c:if test="${msgType!=1}">
 							      	<th scope="col">보낸사람</th>
 							      </c:if>
-							      <c:if test="${msgType!=0}">
+							      <c:if test="${msgType==1}">
 							      	<th scope="col">받는사람</th>
 							      </c:if>
 						      <th scope="col">날짜</th>
-						      <th scope="col">확인</th>
-						      <th scope="col">삭제</th>
+						     
 						    </tr>
 						</thead>
 						<tbody class="table-group-divider" >
 							<c:forEach items="${msgList}" var="m">
-								<form method="POST" id="msgList">
-									<input type="hidden" value='${m.messageId }' name="messageId"  id="messageId">
-								</form>
 								<c:set var="title" value="${fn:substring(m.messageTitle, 0, 15)}"></c:set>
 								<tr>
 									<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${m.messageTitle}</td>
@@ -135,8 +131,10 @@
 							      		<td scope="col">${m.receiverUsername}</td>
 							      	</c:if>
 							      	<td>${m.messageCreateDate}</td>
-								    <td><button id="msgDetail">확인</button></td>
-								    <td><button id="deleteBtn">삭제</button></td>
+								    <td>
+								    <input id="mId"type="hidden" value="${ m.messageId }" >
+								    <input id="msgTypeVal" type="hidden" value="${ msgType }" >
+								    </td>
 							    </tr>
 						    </c:forEach>				  
 					  </tbody>
@@ -203,6 +201,10 @@
 		<div class="modal fade" id="msgDetailModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 		  <div class="modal-dialog modal-dialog-centered">
 		    <div class="modal-content">
+		      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">MESSAGE</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				    </div>
 		      <div class="modal-body" style="text-align: left">
 		    	제목<input type="text" class="form-control " id="recipient-name" name="selectMsgDetail" readonly>
 		    	내용<input class="form-control" name="selectMsgDetail" readonly style="height: 300px">
@@ -213,6 +215,7 @@
 		      	 <c:if test="${msgType!=1}">
 		        	<button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" id="delete">답장하기</button>
 		        </c:if>
+		        <button class="btn btn-primary deleteBtn">삭제</button>
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 		      </div>
 		    </div>
@@ -228,18 +231,15 @@
 				        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">SEND MESSAGE</h1>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				    </div>
-				 	<div class="modal-body">
-					    <div class="mb-3" style="text-align: left;">
-					    	제목<input type="text" class="form-control " id="recipient-name" name="messageTitle">
-					    	내용<input class="form-control" style="height: 300px" name="messageContent">
+				 	<div class="modal-body" style="text-align: left">
+					    	제목<input type="text" class="form-control reMsgInput" id="recipient-name" name="messageTitle">
+					    	내용<input class="form-control reMsgInput" style="height: 300px" name="messageContent">
 					      	<br>
 					      	보낼 아이디 : <input type="text" name="receiverUsername" class="reMsgInput" readonly style="border: none;">
 					      	<input type="hidden" name="refBoardId" class="reMsgInput">
-					      	<input type="hidden" name="boardType" class="reMsgInput">
-					    </div>
 					 </div>
 					 <div class="modal-footer">
-						<button type="submit" class="btn btn-primary" id="sendBtn"><strong>보내기</strong></button>
+						<button class="btn btn-primary" id="sendBtn"><strong>보내기</strong></button>
 				      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 					 </div>
 		    	</div> 
@@ -258,47 +258,87 @@
 	<script>
 		window.onload = () =>{
 			
-			const form = document.getElementById('msgList');
-			
-			document.getElementById('deleteBtn').addEventListener('click', ()=>{
-				$('#modalChoice').modal('show');	
-			});
-			
-			document.getElementById("delete").addEventListener('click', ()=>{
-				form.action = '${contextPath}/deleteMsg.me';
-				form.submit();
-			});
-			
-			
-			document.getElementById('msgDetail').addEventListener('click', ()=>{
-				$.ajax({
-					url: '${contextPath}/selectMsg.me',
-					data: {messageId:document.getElementById('messageId').value},
-					success: (data) => {
-						$('#msgDetailModal').modal('show')
-						const inputMsg = document.getElementsByName("selectMsgDetail");
-						inputMsg[0].value=data.messageTitle;
-						inputMsg[1].value=data.messageContent;
-						inputMsg[2].value=data.receiverUsername;
-						
-						const reMsgInput = document.getElementsByClassName('reMsgInput');
-						reMsgInput[0].value=data.senderUsername;
-						reMsgInput[1].value=data.refBoardId;
-						reMsgInput[2].value=data.boardType;
-						
-					},
-					error: (data) => {
-						console.log(data);
-					}
+				if(document.getElementById("msgTypeVal").value==null){
+					document.getElementById("msgTypeVal").value = '0';
+				}			
+				console.log(document.getElementById("msgTypeVal").value);
+				
+				const tbody = document.querySelector('tbody');
+				const trs = tbody.querySelectorAll('tr');
+				
+				<!-- 상세페에지 -->
+				for(const tr of trs){
+					tr.addEventListener('click', function() {
+						$.ajax({
+							url: '${contextPath}/selectMsg.me',
+							data: {
+									messageId:this.querySelectorAll('input')[0].value,
+									msgType:this.querySelectorAll('input')[1].value 
+								},
+							success: (data) => {
+								
+								$('#msgDetailModal').modal('show');
+								const inputMsg = document.getElementsByName("selectMsgDetail");
+								inputMsg[0].value=data.messageTitle;
+								inputMsg[1].value=data.messageContent;
+								inputMsg[2].value=data.senderUsername;
+								
+								const reMsgInput = document.getElementsByClassName('reMsgInput');
+								reMsgInput[2].value=data.senderUsername;
+								reMsgInput[3].value=data.refBoardId;
+								
+							},
+							error: (data) => {
+								console.log(data);
+							}
+						});
+					});
+				}
+				
+				
+				<!-- 삭제 -->
+				const deleteBtns = document.getElementsByClassName('deleteBtn');
+				for(const deleteBtn of deleteBtns){
+					deleteBtn.addEventListener('click', function() {
+						$('#msgDetailModal').modal('hide');
+						$('#modalChoice').modal('show');
+					});
+				}
+				
+				document.getElementById("delete").addEventListener('click', ()=>{
+					const mId = document.getElementById("mId").value;
+					const msgType = document.getElementById("msgTypeVal").value;
+					location.href='${contextPath}/deleteMsg.me?mId='+ mId+'&msgType='+ msgType;
 				});
 				
 				
-			});
-			
-			
-			
-			
-			
+				
+				<!-- 답장보내기 -->
+				document.getElementById('sendBtn').addEventListener('click', () => {
+					const reMsgInput = document.getElementsByClassName('reMsgInput');
+					$.ajax({
+						url: '${ contextPath }/inquiryVol.vo',
+						data: {messageTitle:input[0].value,
+							   messageContent:input[1].value,
+							   receiverUsername:input[2].value,
+							   refBoardId:input[3].value},
+						success: (data) => {
+							window.close();
+						},
+						error: (data) => {
+							console.log(data);
+						}
+					});
+				});
+				
+				
+				
+				
+				
+				
+				
+				
+				
 		}
 	</script>
 

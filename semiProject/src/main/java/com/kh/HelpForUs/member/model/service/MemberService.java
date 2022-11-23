@@ -58,9 +58,11 @@ public interface MemberService {
 
 	int getMsgListCount(Map<String, Object> map);
 
-	int deleteMsg(int mId);
-
 	Message selectMsg(int mId);
+
+	int updateCheck(Map<String, Object> map);
+
+	int deleteMsg(Map<String, Object> map);
 
 
 }

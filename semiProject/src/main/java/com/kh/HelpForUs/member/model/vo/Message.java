@@ -19,7 +19,8 @@ public class Message {
 	private String messageTitle;
 	private String messageContent;
 	private String messageCheck;
-	private String messageStatus;
+	private String reMessageStatus;
+	private String seMessageStatus;
 	private String senderUsername;
 	private String receiverUsername;
 	private int refBoardId;
