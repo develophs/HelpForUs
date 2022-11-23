@@ -124,11 +124,11 @@
 	    <div class="container">
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	       
-	       <c:forEach items="${ vList }" var="v">
+	       <c:forEach items="${ rList }" var="r">
 	        <div class="col">
 	          <div class="card shadow-sm cards">
 	          	<c:forEach items="${ aList }" var="a">
-		          	<c:if test="${ v.boardId eq a.boardId }">
+		          	<c:if test="${ r.boardId eq a.boardId }">
 		          		<c:if test="${ a.originalName == null }">
 		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 		            	</c:if>
@@ -138,15 +138,15 @@
 		            </c:if>
 	            </c:forEach>
 	            <div class="card-body">
-	            <h5>${ v.boardTitle }</h5>
-	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 20) }..."></c:set>
+	            <h5>${ r.boardTitle }</h5>
+	            	<c:set var="content" value="${ fn:substring(r.boardContent, 0, 20) }..."></c:set>
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
-	              	<small class="text-muted">${ v.boardId }</small>
+	              	<small class="text-muted">${ r.boardId }</small>
 	              </div>
 	              <div class="d-flex justify-content-between align-items-center">
-	              	<small class="text-muted">${ v.memberNickname }</small>
-	                <small class="text-muted">${ v.boardCreateDate }</small>
+	              	<small class="text-muted">${ r.memberNickname }</small>
+	                <small class="text-muted">${ r.boardCreateDate }</small>
 	              </div>
 	            </div>
 	          </div>
