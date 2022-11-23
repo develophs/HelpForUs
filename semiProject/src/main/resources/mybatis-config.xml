@@ -5,6 +5,7 @@
 	<typeAliases> 
 		<typeAlias type="com.kh.HelpForUs.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.HelpForUs.member.model.vo.Message" alias="Message"/>
+		<typeAlias type="com.kh.HelpForUs.revBoard.model.vo.RevBoard" alias="RevBoard"/>
 		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.VolBoard" alias="volBoard"/>
 		<typeAlias type="com.kh.HelpForUs.common.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.HelpForUs.common.vo.Cheer" alias="Cheer"/>
@@ -19,5 +20,6 @@
 	   	<mapper resource="mappers/volunteer-mapper.xml"/>
 	   	<mapper resource="mappers/common-mapper.xml"/>
 	   	<mapper resource="mappers/donation-mapper.xml"/>
+	   	<mapper resource="mappers/review-mapper.xml"/>
 	</mappers>
 </configuration>

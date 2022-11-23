@@ -46,42 +46,34 @@
 	<jsp:include page="../common/nav.jsp"></jsp:include>
 
 	<div class="container text-center" id="writeDiv"  >
-	<form action="${ contextPath }/writeRevBoard.re" method="POST" enctype="multipart/form-data" id="RevForm">
-		<h2>후기 활동 후기 글쓰기</h2>
+	<form action="${ contextPath }/writeRevBoard.vo" method="POST" enctype="multipart/form-data" id="RevForm">
+		<h2>모금 활동 후기 글쓰기</h2>
 		<hr>
 		<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
 					<th class="table-active">제목 :</th>
-					<td><input  id="title" type="text" class="text1" name="boardTitle" style=" width:100%" placeholder="제목을 입력해주세요 "></td>
+					<td><input  type="text" class="text1" name="boardTitle" style=" width:100%" placeholder="제목을 입력해주세요 "></td>
 					<th class="table-active">봉사 날짜 :</th>
-					<td><input id="voldate" type="Date" name="volunteerDate" class="text1" style=" width:100%"></td>
+					<td><input  type="Date" name="volunteerDate" class="text1" style=" width:100%"></td>
 				</tr>
 				
 				<tr>
 					<th class="table-active">이름 :</th>
-					<td><input type="text" id="nickname" name="refMemberUsername" class="text1"style=" width:100%">
+					<td><input type="text"  name="refMemberUsername" class="text1"style=" width:100%">
 					
 					<th class="table-active">봉사대상 :</th>
-					<td><select name="refCategoryId" >
-					<option value="0">전체</option>
-					<option value="1">아동</option>
-					<option value="2">동물</option>
-					<option value="3">노인</option>
-					<option value="4">여성</option>
-					<option value="5">환경</option>
-					<option value="6">장애인</option>
-					</select></tr>
+					<td><input type="text" name="volunteerGoalPeople" class="text1" style=" width:100%"></tr>
 				
 				
 				<tr>
 					<th class="table-active">봉사장소 :</th>
-					<td colspan="3"><input type="text" name="volunteerLocation" id="vollocation" class="text1" style="width:100%" placeholder="봉사장소를 입력해주세요"></td>
+					<td colspan="3"><input type="text" name="volunteerLocation"  class="text1" style="width:100%" placeholder="봉사장소를 입력해주세요"></td>
 					
 				</tr>
 				<tr>
 				  
 					<th class="table-active">이미지</th>
-					<td colspan="3"><input type="file" name="file" id="filearea" multiple></td>
+					<td colspan="3"><input type="file" name="file" id="filearea"></td>
 				</tr>
 				<tr>
 					<th class="table-active">내용</th>
