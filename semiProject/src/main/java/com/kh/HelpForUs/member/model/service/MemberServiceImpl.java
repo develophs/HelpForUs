@@ -184,6 +184,11 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.getAllList(sqlSession, boardType,pi);
 	}
 
+	@Override
+	public int inquiry(Message msg) {
+		return mDAO.inquiry(sqlSession, msg);
+	}
+
 	
 
 	

@@ -78,6 +78,8 @@ public interface MemberService {
 
 	List<Board> getAllList(String boardType, PageInfo pi);
 
+	int inquiry(Message msg);
+
 
 
 }

@@ -128,8 +128,8 @@ public class VolBoardServiceImpl implements VolBoardService{
 		return vDAO.applicationVolCancle(sqlSession, app);
 	}
 	
-	@Override
-	public int inquiryVol(Message msg) {
-		return vDAO.inquiryVol(sqlSession, msg);
-	}
+//	@Override
+//	public int inquiryVol(Message msg) {
+//		return vDAO.inquiryVol(sqlSession, msg);
+//	}
 }

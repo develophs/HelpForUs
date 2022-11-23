@@ -53,6 +53,6 @@ public interface VolBoardService {
 
 	int applicationVolCancle(Application app);
 
-	int inquiryVol(Message msg);
+//	int inquiryVol(Message msg);
 
 }

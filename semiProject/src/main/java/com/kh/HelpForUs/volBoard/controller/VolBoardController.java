@@ -425,29 +425,29 @@ public class VolBoardController {
 		}
 	}
 		
-	// 문의 팝업
-	@RequestMapping("inquiryVolView.vo")
-	public String inquiryVolView(@RequestParam("bId") int bId, @RequestParam("writer") String writer, Model model) {
-		model.addAttribute("bId", bId);
-		model.addAttribute("writer", writer);
-		
-		return "writeInquiryVol";
-	}
-	
-	// 문의 하기
-	@RequestMapping("inquiryVol.vo")
-	@ResponseBody
-	public int inquiryVol(@ModelAttribute Message msg, HttpSession session) {
-		msg.setSenderUsername(((Member)session.getAttribute("loginUser")).getMemberUsername());
-		System.out.println(msg);
-		int result = vService.inquiryVol(msg);
-		
-		if(result > 0) {
-			return result;
-		} else {
-			throw new BoardException("문의 실패");
-		}
-	}
+//	// 문의 팝업
+//	@RequestMapping("inquiryVolView.vo")
+//	public String inquiryVolView(@RequestParam("bId") int bId, @RequestParam("writer") String writer, Model model) {
+//		model.addAttribute("bId", bId);
+//		model.addAttribute("writer", writer);
+//		
+//		return "writeInquiryVol";
+//	}
+//	
+//	// 문의 하기
+//	@RequestMapping("inquiryVol.vo")
+//	@ResponseBody
+//	public int inquiryVol(@ModelAttribute Message msg, HttpSession session) {
+//		msg.setSenderUsername(((Member)session.getAttribute("loginUser")).getMemberUsername());
+//		System.out.println(msg);
+//		int result = vService.inquiryVol(msg);
+//		
+//		if(result > 0) {
+//			return result;
+//		} else {
+//			throw new BoardException("문의 실패");
+//		}
+//	}
 	
 	
 	

@@ -171,4 +171,8 @@ public class MemberDAO {
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.getAllList", boardType,rowBounds);
 	}
+
+	public int inquiry(SqlSessionTemplate sqlSession, Message msg) {
+		return sqlSession.insert("memberMapper.inquiry", msg);
+	}
 }

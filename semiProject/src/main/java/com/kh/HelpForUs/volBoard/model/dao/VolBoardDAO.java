@@ -109,7 +109,7 @@ public class VolBoardDAO {
 		return sqlSession.delete("volMapper.applicationVolCancle", app);
 	}
 
-	public int inquiryVol(SqlSessionTemplate sqlSession, Message msg) {
-		return sqlSession.insert("volMapper.inquiryVol", msg);
-	}
+//	public int inquiryVol(SqlSessionTemplate sqlSession, Message msg) {
+//		return sqlSession.insert("volMapper.inquiryVol", msg);
+//	}
 }
