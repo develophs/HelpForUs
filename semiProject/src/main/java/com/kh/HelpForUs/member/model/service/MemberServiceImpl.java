@@ -178,6 +178,11 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.inquiry(sqlSession, msg);
 	}
 
+	@Override
+	public int msgAlarm(String id) {
+		return mDAO.msgAlarm(sqlSession, id);
+	}
+
 	
 
 	

@@ -181,7 +181,6 @@
 		<result column="SENDER_USERNAME" property="senderUsername"/>
 		<result column="RECEIVER_USERNAME" property="receiverUsername"/>
 		<result column="REF_BOARD_ID" property="refBoardId"/>
-		<result column="BOARD_TYPE" property="boardType"/>
 	</resultMap>
 		
 	<select id="getMsgListCount" resultType="_int" parameterType="java.util.HashMap">
@@ -307,4 +306,10 @@
 		insert into message
 		values(seq_mid.nextval, #{refBoardId}, sysdate, #{messageTitle}, #{messageContent}, default, default,default, #{senderUsername}, #{receiverUsername})
 	</insert>
+	
+	<select id="notReadMsg" resultType="_int">
+		select count(*)
+		from message
+    	where RECEIVER_USERNAME = #{mId} and MESSAGE_CHECK='N'
+	</select>
 </mapper>

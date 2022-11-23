@@ -166,4 +166,8 @@ public class MemberDAO {
 		
 		
 	}
+
+	public int msgAlarm(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("memberMapper.notReadMsg", id);
+	}
 }

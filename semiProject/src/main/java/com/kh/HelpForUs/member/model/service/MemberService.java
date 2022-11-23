@@ -75,6 +75,8 @@ public interface MemberService {
 
 	int inquiry(Message msg);
 
+	int msgAlarm(String id);
+
 
 
 }

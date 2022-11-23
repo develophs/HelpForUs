@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -450,19 +451,21 @@ public class MemberController {
 			 msgType = type;
 		}
 		
-		int result;
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mId", mId);
 		map.put("id", id);
 		
 		Message m =  mService.selectMsg(mId);
+		System.out.println(m);
 		if(m!=null) {
 			response.setContentType("application/json; charset=UTF-8");
 			GsonBuilder gb = new GsonBuilder();
 			Gson gson = gb.create();
+			
 			if(msgType!=1) {
-				result = mService.updateCheck(map);}
+				mService.updateCheck(map);
+			}
+			
 			try {
 				gson.toJson(m, response.getWriter());
 			} catch (JsonIOException | IOException e) {
@@ -538,5 +541,22 @@ public class MemberController {
 		}
 	}
 	
+	//쪽지 알림
+	@RequestMapping("msgAlarm.me")
+	public void alarm(HttpSession session, HttpServletResponse response) {
+		String id =((Member)session.getAttribute("loginUser")).getMemberUsername();
+	
+		int result = mService.msgAlarm(id);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		GsonBuilder gb = new GsonBuilder();
+		Gson gson = gb.create();
+		
+		try {
+			gson.toJson(result, response.getWriter());
+		} catch (JsonIOException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

@@ -91,7 +91,7 @@
 					</ul>
 				</c:if>
 				
-				<p class="category">쪽지함</p>
+				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
@@ -226,6 +226,27 @@
 					});
 				}
 			});
+			
+			
+			setInterval(
+					function alarm() {
+						$.ajax({
+							url: '${ contextPath }/msgAlarm.me',
+							success: (data) => {
+								if(data>0){
+									document.getElementById('msgBox').style="width: 40px; height:30px; padding-left: 10px;"
+								}
+								
+							},
+							error: (data) => {
+								console.log(data);
+							}
+						});
+				 },1000);
+			
+			
+			
+			
 		}
 		
 		
@@ -262,7 +283,9 @@
 			}
 		}
 		
+
 		
 	</script>
+	
 </body>
 </html>

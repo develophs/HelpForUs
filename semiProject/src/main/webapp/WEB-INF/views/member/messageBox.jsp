@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이페이지</title>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 	.mypage{padding-top:15px; text-align:left; font-weight:bold;}
@@ -90,7 +91,7 @@
 					</ul>
 				</c:if>
 				
-				<p class="category">쪽지함</p>
+				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
    				<ul type="circle">
    					
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
@@ -131,14 +132,14 @@
 						
 						<tbody class="table-group-divider" >
 							<c:forEach items="${msgList}" var="m">
-								<c:set var="title" value="${fn:substring(m.messageTitle, 0, 15)}"></c:set>
+								<c:set var="title" value="${fn:substring(m.messageTitle, 0, 10)}"></c:set>
 								<tr>
 									<td>
 										<c:if test="${msgType != 1 && m.messageCheck eq 'N'}">
-										<img alt="읽지않은메세지이미지" src="https://cdn-icons-png.flaticon.com/512/6188/6188613.png" style="width: 50px; height: 35px;">
+										<img alt="읽지않은메시지이미지" src="https://cdn-icons-png.flaticon.com/512/6188/6188613.png" style="width: 50px; height: 35px;">
 										</c:if>
 									</td>
-									<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${m.messageTitle}</td>
+									<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${ title}</td>
 								    <c:if test="${loginUser.memberUsername eq m.receiverUsername}">
 							      		<td scope="col">${m.senderUsername}</td>
 							   		</c:if>
@@ -275,7 +276,7 @@
 				const tbody = document.querySelector('tbody');
 				const trs = tbody.querySelectorAll('tr');
 				
-				<!-- 상세페에지 -->
+				<!-- 상세페이지 -->
 				for(const tr of trs){
 					tr.addEventListener('click', function() {
 						$.ajax({
@@ -285,7 +286,7 @@
 									msgType:this.querySelectorAll('input')[1].value 
 								},
 							success: (data) => {
-								
+								console.log(data);
 								$('#msgDetailModal').modal('show');
 								const inputMsg = document.getElementsByName("selectMsgDetail");
 								inputMsg[0].value=data.messageTitle;
@@ -295,7 +296,6 @@
 								const reMsgInput = document.getElementsByClassName('reMsgInput');
 								reMsgInput[2].value=data.senderUsername;
 								reMsgInput[3].value=data.refBoardId;
-								
 							},
 							error: (data) => {
 								console.log(data);
@@ -326,7 +326,7 @@
 				document.getElementById('sendBtn').addEventListener('click', () => {
 					const reMsgInput = document.getElementsByClassName('reMsgInput');
 					$.ajax({
-						url: '${ contextPath }/inquiryVol.vo',
+						url: '${ contextPath }/inquiry.me',
 						data: {messageTitle:reMsgInput[0].value,
 							   messageContent:reMsgInput[1].value,
 							   receiverUsername:reMsgInput[2].value,
@@ -345,7 +345,22 @@
 				
 			
 				
-				
+		setInterval(
+			function alarm() {
+				$.ajax({
+					url: '${ contextPath }/msgAlarm.me',
+					success: (data) => {
+						if(data>0){
+							document.getElementById('msgBox').style="width: 40px; height:30px; padding-left: 10px;"
+						}
+						
+					},
+					error: (data) => {
+						console.log(data);
+					}
+				});
+		 },1000);
+		
 				
 				
 				
