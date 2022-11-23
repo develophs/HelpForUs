@@ -10,6 +10,9 @@
 		float:left;
 		font-size:12px;
 	}
+	#memberAddress:hover{
+		cursor:pointer;
+	}
 	
 </style>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
@@ -66,11 +69,13 @@
                                 <label for="memberEmail">이메일 주소</label>
                             </div>
                             
-                            <!-- 전화번호 input-->
+                            <!-- 주소 input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="memberAddress" name="memberAddress" type="text" required/>
-                                <label for="memberAddress">주소</label>
+                                <input class="form-control" id="memberAddress" name="memberAddress" type="text" 
+                                onclick="openAddress();" required/>
+                                <label for="memberAddress">주소 (클릭)</label>
                             </div>
+                            
                             
                             <!-- 전화번호 input-->
                             <div class="form-floating mb-3">
@@ -180,7 +185,8 @@
 			
  			if(pwd.trim() == '' || pwd2.trim() == '' ){
  				swal('비밀번호가 공백입니다.','비밀번호를 입력 해주세요.');
- 		        return false;			} else if(pwd != pwd2){
+ 				return false;
+ 			} else if(pwd != pwd2){
  				swal('비밀번호가 일치하지 않습니다.','다시 확인 해주세요.');
  		        return false;
  			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
@@ -190,6 +196,23 @@
  			}
 		
  		}
+	</script>
+	
+	<!-- 회원가입 시 주소 검색 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+			const searchAddress = document.getElementById('memberAddress');
+			
+	    	const openAddress = function(){
+	    		new daum.Postcode({
+	    			oncomplete: function(data){
+	    				searchAddress.value = data.address;
+	    			}
+	    			
+	    			}).open({
+	    				 popupTitle: '주소 검색'
+	    			})
+	    	};
 	</script>
 
 </body>
