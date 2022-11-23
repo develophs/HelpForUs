@@ -13,6 +13,7 @@
 	.menu{text-align:left; font-size:13px; margin:1px;}
 	.menu:hover{font-weight:bold; cursor:pointer; text-decoration:underline;}
 	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
+	.row{height:700px;}
 </style>
 </head>
 <body>

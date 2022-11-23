@@ -19,6 +19,7 @@
 	.menu{text-align:left; font-size:13px; margin:1px;}
 	.menu:hover{font-weight:bold; cursor:pointer; text-decoration:underline;}
 	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
+	
 	.chargeRose{font-weight:bold; text-align:center; font-size:30px; padding-top:25px;}
 	.underline{width:360px; text-align:center;}
 	.rose{font-weight:bold; font-size:20px; }
@@ -58,13 +59,13 @@
    				<ul type="circle">
    					<c:if test="${loginUser.memberRight =='B'}">
    						<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인 / 수정</p></li>
+   						<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
 	   				</c:if>
 	   				
 	   				<c:if test="${loginUser.memberRight =='C'}">
 	   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인 / 수정</p></li>
 	   				</c:if>
 	   				
-   					<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
    				</ul>
    				
    				<c:if test="${loginUser.memberRight =='B'}">

@@ -10,11 +10,11 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 	.mypage{padding-top:15px; text-align:left; font-weight:bold;}
-	.category{font-weight:bold; text-align:left; font-size:24px; padding-top:15px;}
-	.menu{text-align:left; font-size:15px;}
-	.menu:hover{font-weight:bold; cursor:pointer;}
-	#divTable{padding-left: 75px; padding-right: 75px}
-	
+	.category{font-weight:bold; text-align:left; font-size:22px; padding-top:5px;}
+	.menu{text-align:left; font-size:13px; margin:1px;}
+	.menu:hover{font-weight:bold; cursor:pointer; text-decoration:underline;}
+	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
+	.row{height:700px;}
 </style>
 </head>
 <body>
@@ -31,22 +31,22 @@
    				
    				<p class="category">단체 정보</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인 / 수정</p></li>
    				</ul>
    				<p class="category"></p>
    				
    				
    				<p class="category">봉사 모집 현황</p>
-	   				<ul type="circle">
-	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
-					</ul>
+	   			<ul type="circle">
+	   				<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">진행중인 모집 현황</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
+				</ul>
 					
 				<p class="category">모금 현황</p>
-	   				<ul type="circle">
-		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
-		   				<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
-					</ul>
+	   			<ul type="circle">
+		   			<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">진행중인 모금 현황</p></li>
+		   			<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">모금 마감 현황</p></li>
+				</ul>
 				
 				<p class="category">쪽지함</p>
    				<ul type="circle">
@@ -55,30 +55,34 @@
    			
    			</div>
    			
+   			
+   			
    			<%--공백생성 --%>
    			<div class="col-1">
    			</div>
    			<%--공백생성 --%>
    			
-   			<div class="col-8 border border-dark border-2">
-   				<h4 style="padding:10px;">진행 중인 모금</h4>
+   			<div class="col-9 border border-dark border-2">
+   				<h4 style="padding:10px;">진행중인 모금활동</h4>
    				
 					<table class="table table-hover">
+					
 					  <thead>
 					    <tr>
 					      <th scope="col">글 제목</th>
 					      <th scope="col">마감 일</th>
-					      <th scope="col">기부자</th>
+					      <th scope="col">신청자</th>
 					    </tr>
 					  </thead>
+					  
 					  <tbody class="table-group-divider" >
 					  
-					    <c:if test="${list != null}">
-							  <c:forEach items="${list}" var="d"> 
+						  <c:if test="${list != null}">
+							  <c:forEach items="${list}" var="v"> 
 							    <tr>
-							      <td>${d.boardTitle}</td>
-							      <td>${d.boardDeadline}</td>
-							      <td><button>신청자 보기</button></td>
+							      <td>${v.boardTitle}</td>
+							      <td>${v.boardDeadline}</td>
+							      <td><button >신청자 보기</button></td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
@@ -88,11 +92,11 @@
 							  	<td colspan="3" id="nullList"></td>
 							  </tr>
 						  </c:if>
-					    
+						  
 					  </tbody>
 					</table>
-					
-   					<ul class="pagination" style="justify-content: center;">
+   				
+   				<ul class="pagination" style="justify-content: center;">
 					<c:if test="${ pi.currentPage > 1 }">
 					<li class="page-item"><c:url var="goBack" value="${ loc }">
 							<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
@@ -117,16 +121,14 @@
 				
    			<div style="padding-top: 50px;"></div>
    		</div>
-			<div style="height: 100px;"></div>
-    </div>
-   </div>
-	
+		<div style="height: 100px;"></div>
+  	</div>
+</div>
 
 	<jsp:include page="../common/footer.jsp"/>
-
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		document.getElementById('nullList').innerText ='${message}';
 	</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

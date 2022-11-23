@@ -83,17 +83,23 @@
 	</select>
 	
 	<select id="getGroupDListCount" resultType="_int">
+		<![CDATA[
 		SELECT COUNT(*)
 		FROM BOARD B
 		JOIN MEMBER M ON (M.MEMBER_USERNAME = B.REF_MEMBER_USERNAME)
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_TYPE = 'Don' AND B.BOARD_STATUS='Y'
+		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') > TO_CHAR(SYSDATE,'MM/dd')
+		]]>
 	</select>
 	
 	<select id="getGroupVListCount" resultType="_int">
+		<![CDATA[
 		SELECT COUNT(*)
 		FROM BOARD B
 		JOIN MEMBER M ON (M.MEMBER_USERNAME = B.REF_MEMBER_USERNAME)
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_TYPE = 'Vol' AND B.BOARD_STATUS='Y'
+		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') > TO_CHAR(SYSDATE,'MM/dd')
+		]]>
 	</select>
 	
 	<select id="getEndDListCount" resultType="_int">
@@ -137,11 +143,15 @@
 		<result property="categoryName" column="CATEGORY_NAME"/>
 	</resultMap>
 	
+	<!-- 단체가 작성한 모집중인 봉사글 -->
 	<select id="getGroupVList" resultMap="volBoardResultSet">
+		<![CDATA[
 		SELECT B.BOARD_ID, B.BOARD_TYPE, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_DEADLINE, B.BOARD_STATUS
 		FROM BOARD B
 		JOIN MEMBER M ON(M.MEMBER_USERNAME = B.REF_MEMBER_USERNAME)
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_TYPE='Vol' AND B.BOARD_STATUS = 'Y'
+		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') > TO_CHAR(SYSDATE,'MM/dd')
+		]]>
 	</select>
 	
 	<select id="selectMsgList" resultMap="messageResultSet" parameterType="java.util.HashMap">
@@ -200,13 +210,18 @@
 		
 	</update>
 	
+	<!-- 단체가 작성한 모금중인 기부글 -->
 	<select id="getGroupDList" resultMap="volBoardResultSet">
+		<![CDATA[
 		SELECT B.BOARD_ID, B.BOARD_TYPE, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_DEADLINE, B.BOARD_STATUS
 		FROM BOARD B
 		JOIN MEMBER M ON(M.MEMBER_USERNAME = B.REF_MEMBER_USERNAME)
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_TYPE='Don' AND B.BOARD_STATUS = 'Y'
+		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') > TO_CHAR(SYSDATE,'MM/dd')
+		]]>
 	</select>
 	
+	<!-- 단체 모금 마감 -->
 	<select id="getEndDList" resultMap="volBoardResultSet">
 		<![CDATA[
 		SELECT B.BOARD_ID, B.BOARD_TYPE, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_DEADLINE, B.BOARD_STATUS
@@ -217,6 +232,7 @@
 		]]>
 	</select>
 	
+	<!-- 단체 봉사활동 모집 마감 -->
 	<select id="getEndVList" resultMap="volBoardResultSet">
 		<![CDATA[
 		SELECT B.BOARD_ID, B.BOARD_TYPE, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_DEADLINE, B.BOARD_STATUS
@@ -227,6 +243,7 @@
 		]]>
 	</select>
 	
+	<!-- 회원이 기부한 내역 -->
 	<select id="getDList" resultMap="volBoardResultSet">
 		SELECT B.BOARD_ID, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_STATUS
 		FROM BOARD B
@@ -235,6 +252,7 @@
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_STATUS ='Y'
 	</select>
 	
+	<!-- 회원이 봉사 신청한 내역 -->
 	<select id="getVList" resultMap="volBoardResultSet">
 		SELECT B.BOARD_ID, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_STATUS
 		FROM BOARD B
@@ -257,24 +275,28 @@
 		where RECEIVER_USERNAME = #{id} and MESSAGE_ID = #{mId}
 	</update>
 	
+	<!-- 회원 수 카운트 -->
 	<select id="getMemberCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_RIGHT = 'B' AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<!-- 회원 리스트 가져오기 -->
 	<select id="getMemberList" resultMap="memberResultSet">
 		SELECT MEMBER_USERNAME, MEMBER_NICKNAME, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ENROLL_DATE
 		FROM MEMBER
 		WHERE MEMBER_RIGHT = 'B' AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<!-- 단체 수 카운트 -->
 	<select id="getGroupCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<!-- 단체 리스트 가져오기 -->
 	<select id="getGroupList" resultMap="memberResultSet">
 		SELECT MEMBER_USERNAME, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ENROLL_DATE
 		FROM MEMBER
