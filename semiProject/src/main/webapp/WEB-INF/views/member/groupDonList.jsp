@@ -60,11 +60,10 @@
    			</div>
    			<%--공백생성 --%>
    			
-   			<div class="col-9 border border-dark " id="divTable">
-   				<h3 style="text-align: center; padding-bottom: 50px; padding-top: 100px;">진행 중인 모금</h3>
-   				<div style="height: 400px">
+   			<div class="col-8 border border-dark border-2">
+   				<h4 style="padding:10px;">진행 중인 모금</h4>
    				
-					<table class="table" >
+					<table class="table table-hover">
 					  <thead>
 					    <tr>
 					      <th scope="col">글 제목</th>
@@ -92,8 +91,8 @@
 					    
 					  </tbody>
 					</table>
-   				</div>
-   				<ul class="pagination" style="justify-content: center;">
+					
+   					<ul class="pagination" style="justify-content: center;">
 					<c:if test="${ pi.currentPage > 1 }">
 					<li class="page-item"><c:url var="goBack" value="${ loc }">
 							<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
@@ -115,12 +114,12 @@
 					</a></li>
 					</c:if>
 				</ul>
-   				 <div style="padding-top: 50px;"></div>
-   			</div>
-			   <div style="height: 100px;"></div>
-  		</div>
-	</div>
-	
+				
+   			<div style="padding-top: 50px;"></div>
+   		</div>
+			<div style="height: 100px;"></div>
+    </div>
+   </div>
 	
 
 	<jsp:include page="../common/footer.jsp"/>

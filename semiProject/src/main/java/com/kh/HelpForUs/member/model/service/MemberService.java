@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.kh.HelpForUs.common.vo.PageInfo;
@@ -63,6 +64,15 @@ public interface MemberService {
 	int updateCheck(Map<String, Object> map);
 
 	int deleteMsg(Map<String, Object> map);
+
+	int getMemberCount();
+
+	List<Member> getMemberList(PageInfo pi);
+
+	int getGroupCount();
+
+	List<Member> getGroupList(PageInfo pi);
+
 
 
 }

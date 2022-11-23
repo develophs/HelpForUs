@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -150,6 +151,26 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int deleteMsg(Map<String, Object> map) {
 		return mDAO.deleteMsg(sqlSession,map);
+	}
+
+	@Override
+	public int getMemberCount() {
+		return mDAO.getMemberCount(sqlSession);
+	}
+
+	@Override
+	public List<Member> getMemberList(PageInfo pi) {
+		return mDAO.getMemberList(sqlSession,pi);
+	}
+
+	@Override
+	public int getGroupCount() {
+		return mDAO.getGroupCount(sqlSession);
+	}
+
+	@Override
+	public List<Member> getGroupList(PageInfo pi) {
+		return mDAO.getGroupList(sqlSession,pi);
 	}
 
 	

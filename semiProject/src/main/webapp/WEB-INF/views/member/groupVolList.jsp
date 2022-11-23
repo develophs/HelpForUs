@@ -62,11 +62,10 @@
    			</div>
    			<%--공백생성 --%>
    			
-   			<div class="col-9 border border-dark " id="divTable">
-   				<h3 style="text-align: center; padding-bottom: 50px; padding-top: 100px;">모집중인 봉사활동</h3>
-   				<div style="height: 400px">
+   			<div class="col-8 border border-dark border-2">
+   				<h4 style="padding:10px;">모집중인 봉사활동</h4>
    				
-					<table class="table" >
+					<table class="table table-hover">
 					
 					  <thead>
 					    <tr>
@@ -96,7 +95,6 @@
 						  
 					  </tbody>
 					</table>
-   				</div>
    				
    				<ul class="pagination" style="justify-content: center;">
 					<c:if test="${ pi.currentPage > 1 }">

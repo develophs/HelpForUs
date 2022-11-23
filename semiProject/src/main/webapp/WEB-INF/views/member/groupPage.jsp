@@ -48,13 +48,13 @@
    				
    				<p class="category">회원 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/client.me'">회원 목록</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/memberList.me'">회원 목록</p></li>
    				</ul>
    				
    				
    				<p class="category">단체 관리</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/group.me'">단체 목록</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/groupList.me'">단체 목록</p></li>
 				</ul>
 				
 				<p class="category">쪽지함</p>
@@ -71,7 +71,7 @@
    			
    			<%-- 메뉴 선택하면 나오는 화면 컨테이너 --%>
    			<div class="col-8 border border-dark border-2">
-   				<h4 style="padding:10px;">단체 관리창</h4>
+   				<h4 style="padding:10px;">봉사 단체 목록</h4>
    				
    				<table class="table table-hover">
 				  <thead>
@@ -82,65 +82,25 @@
 				      <th scope="col">전화번호</th>
 				      <th scope="col">이메일</th>
 				      <th scope="col">가입일</th>
-				      <th scope="col">STATUS</th>
 				      <th scope="col">인증여부</th>
 				    </tr>
 				  </thead>
+				  
 				  <tbody>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td>Bae</td>
-				      <td>Hanseong</td>
-				      <td>010</td>
-				      <td>naver</td>
-				      <td>SYSDATE</td>
-				      <td>M</td>
-				      <td>Y</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jung</td>
-				      <td>Jaehoon</td>
-				      <td>010</td>
-				      <td>naver</td>
-				      <td>SYSDATE</td>
-				      <td>M</td>
-				      <td>Y</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Kim</td>
-				      <td>Jiho</td>
-				      <td>010</td>
-				      <td>naver</td>
-				      <td>SYSDATE</td>
-				      <td>M</td>
-				      <td>Y</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">4</th>
-				      <td>Choi</td>
-				      <td>Wonchang</td>
-				      <td>019</td>
-				      <td>naver</td>
-				      <td>SYSDATE</td>
-				      <td>M</td>
-				      <td>N</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">5</th>
-				      <td>Baek</td>
-				      <td>Jangmi</td>
-				      <td>010</td>
-				      <td>naver</td>
-				      <td>SYSDATE</td>
-				      <td>MZ</td>
-				      <td>Y</td>
-				    </tr>
-				    
+				  	<c:forEach items="${ groupList }" var="gList" varStatus="status">
+					    <tr>
+					      <th scope="row">${ status.count }</th>
+					      <td>${ gList.memberUsername }</td>
+					      <td>${ gList.memberNickname }</td>
+					      <td>${ gList.memberPhone }</td>
+					      <td>${ gList.memberEmail }</td>
+					      <td>${ gList.memberEnrollDate }</td>
+					      <td>Y</td>
+					    </tr>
+				    </c:forEach>
 				  </tbody>
 				</table>
-				<ul class="pagination" style="justify-content: center;">
+					<ul class="pagination" style="justify-content: center;">
 					<c:if test="${ pi.currentPage > 1 }">
 					<li class="page-item"><c:url var="goBack" value="${ loc }">
 							<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
@@ -162,9 +122,12 @@
 					</a></li>
 					</c:if>
 				</ul>
-            </div>
-    	</div>
-   	</div>
+				
+   			<div style="padding-top: 50px;"></div>
+   		</div>
+			<div style="height: 100px;"></div>
+    </div>
+   </div>
    			
    			
 	<jsp:include page="../common/footer.jsp"/>

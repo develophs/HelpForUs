@@ -257,5 +257,29 @@
 		where RECEIVER_USERNAME = #{id} and MESSAGE_ID = #{mId}
 	</update>
 	
+	<select id="getMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_RIGHT = 'B' AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<select id="getMemberList" resultMap="memberResultSet">
+		SELECT MEMBER_USERNAME, MEMBER_NICKNAME, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ENROLL_DATE
+		FROM MEMBER
+		WHERE MEMBER_RIGHT = 'B' AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<select id="getGroupCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<select id="getGroupList" resultMap="memberResultSet">
+		SELECT MEMBER_USERNAME, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ENROLL_DATE
+		FROM MEMBER
+		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y'
+	</select>
+	
 	
 </mapper>

@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -470,5 +471,48 @@ public class MemberController {
 			throw new MemberException("쪽지 확인 실패. 다시 시도해주세요");
 		}
 	}
+	
+	// 관리자 페이지 - 회원 리스트
+	@RequestMapping("memberList.me")
+	public String getMemberList(@RequestParam(value="page",required=false)Integer page,Model model) {
+		int memberCount = mService.getMemberCount();
+		int currentPage = 0;
+		if(page != null && page>0) {
+			currentPage = page;
+		}
+		PageInfo pi = Pagination.getPageInfo(currentPage, memberCount, 10);
+		
+		List<Member> memberList = mService.getMemberList(pi);
+		
+		if(memberList != null) {
+			model.addAttribute("memberList",memberList);
+			model.addAttribute("pi",pi);
+			return "clientPage";
+		} else {
+			throw new MemberException("회원조회에 실패하셨습니다.");
+		}
+	}
+	
+	// 관리자 페이지 - 단체 리스트
+	@RequestMapping("groupList.me")
+	public String getGroupList(@RequestParam(value="page",required=false)Integer page,Model model) {
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		int groupCount = mService.getGroupCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, groupCount, 10);
+		
+		List<Member> groupList = mService.getGroupList(pi);
+		
+		if(groupList != null) {
+			model.addAttribute("groupList",groupList);
+			model.addAttribute("pi",pi);
+			return "groupPage";
+		} else {
+			throw new MemberException("단체조회에 실패하셨습니다.");
+		}
+	}
+	
 	
 }

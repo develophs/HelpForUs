@@ -33,31 +33,31 @@
    				
    				<p class="category">게시물 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">모금 게시글</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">봉사 게시글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allDList.me'">모금 게시글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allVList.me'">봉사 게시글</p></li>
    				</ul>
    				
    				<p class="category">후기 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">모금 후기</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">봉사 후기</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allDRevList.me'">모금 후기</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allVRevList.me'">봉사 후기</p></li>
    				</ul>
    				
    				<p class="category">댓글 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}'">모금 댓글</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">후기 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allDRepList.me'">모금 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allVRepList.me'">봉사 후기 댓글</p></li>
    				</ul>
    				
    				<p class="category">회원 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/client.me'">회원 목록</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/memberList.me'">회원 목록</p></li>
    				</ul>
    				
    				
    				<p class="category">단체 관리</p>
    				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/group.me'">단체 목록</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/groupList.me'">단체 목록</p></li>
 				</ul>
 				
 				<p class="category">쪽지함</p>

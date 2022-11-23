@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -138,5 +139,25 @@ public class MemberDAO {
 
 	public int deleteMsg(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.update("memberMapper.deleteMsg", map);
+	}
+
+	public int getMemberCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getMemberCount");
+	}
+
+	public List<Member> getMemberList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getMemberList", null, rowBounds);
+	}
+
+	public int getGroupCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getGroupCount");
+	}
+
+	public List<Member> getGroupList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getGroupList", null, rowBounds);
 	}
 }
