@@ -173,6 +173,11 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.getGroupList(sqlSession,pi);
 	}
 
+	@Override
+	public int inquiry(Message msg) {
+		return mDAO.inquiry(sqlSession, msg);
+	}
+
 	
 
 	

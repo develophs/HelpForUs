@@ -281,5 +281,8 @@
 		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y'
 	</select>
 	
-	
+	<insert id="inquiry">
+		insert into message
+		values(seq_mid.nextval, #{refBoardId}, sysdate, #{messageTitle}, #{messageContent}, default, default,default, #{senderUsername}, #{receiverUsername})
+	</insert>
 </mapper>

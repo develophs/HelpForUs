@@ -214,8 +214,8 @@
 		where REF_BOARD_ID = #{boardId} and REF_MEMBER_USERNAME = #{MemberUserName}
 	</delete>
 	
-	<insert id="inquiryVol">
-		insert into message
-		values(seq_mid.nextval, #{refBoardId}, sysdate, #{messageTitle}, #{messageContent}, default, default,default, #{senderUsername}, #{receiverUsername})
-	</insert>
+<!-- 	<insert id="inquiryVol"> -->
+<!-- 		insert into message -->
+<!-- 		values(seq_mid.nextval, #{refBoardId}, sysdate, #{messageTitle}, #{messageContent}, default, default,default, #{senderUsername}, #{receiverUsername}) -->
+<!-- 	</insert> -->
 </mapper>

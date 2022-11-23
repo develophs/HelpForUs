@@ -66,7 +66,7 @@
 	<div class="mx-auto m-3">
 		<button onclick="location.href='${contextPath}/volBoardList.vo'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
-			<button onclick="window.open('${contextPath}/inquiryVolView.vo?bId=${ vBoard.boardId }&writer=${ vBoard.refMemberUsername }', 'inquiryVol', 'width = 500, height = 400, left = 350, top = 100')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
+			<button onclick="window.open('${contextPath}/inquiryView.me?bId=${ vBoard.boardId }&writer=${ vBoard.refMemberUsername }', 'inquiryVol', 'width = 500, height = 400, left = 350, top = 100')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 			<c:if test="${ cheer == null }">
 				<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
 				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">

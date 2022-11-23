@@ -514,5 +514,28 @@ public class MemberController {
 		}
 	}
 	
+	// 문의 팝업
+	@RequestMapping("inquiryView.me")
+	public String inquiryView(@RequestParam("bId") int bId, @RequestParam("writer") String writer, Model model) {
+		model.addAttribute("bId", bId);
+		model.addAttribute("writer", writer);
+		
+		return "writeInquiry";
+	}
+	
+	@RequestMapping("inquiry.me")
+	@ResponseBody
+	public int inquiry(@ModelAttribute Message msg, HttpSession session) {
+		msg.setSenderUsername(((Member)session.getAttribute("loginUser")).getMemberUsername());
+		System.out.println(msg);
+		int result = mService.inquiry(msg);
+		
+		if(result > 0) {
+			return result;
+		} else {
+			throw new BoardException("문의 실패");
+		}
+	}
+	
 	
 }

@@ -33,7 +33,7 @@
 				const input = document.getElementsByClassName('input');
 				console.log(input[2].value);
 				$.ajax({
-					url: '${ contextPath }/inquiryVol.vo',
+					url: '${ contextPath }/inquiry.me',
 					data: {messageTitle:input[0].value,
 						   messageContent:input[1].value,
 						   receiverUsername:input[2].value,

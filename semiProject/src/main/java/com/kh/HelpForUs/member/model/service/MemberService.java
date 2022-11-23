@@ -73,6 +73,8 @@ public interface MemberService {
 
 	List<Member> getGroupList(PageInfo pi);
 
+	int inquiry(Message msg);
+
 
 
 }
