@@ -19,9 +19,8 @@
 	#quit{float: right; font-size:1px; color:gray;}
 	#quit:hover{font-weight:bold; font-size:1px; cursor:pointer; color:black;}
 	.check{float:left;font-size:12px;}
-	#memberAddress:hover{
-		cursor:pointer;
-	}
+	#memberAddress:hover{cursor:pointer;}
+	
 </style>
 </head>
 <body>
@@ -52,14 +51,13 @@
    				<ul type="circle">
    					<c:if test="${loginUser.memberRight =='B'}">
    						<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인 / 수정</p></li>
+   						<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
 	   				</c:if>
 	   				
 	   				<c:if test="${loginUser.memberRight =='C'}">
 	   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인 / 수정</p></li>
 	   				</c:if>
 	   				
-   					
-   					<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
    				</ul>
    				
    				<c:if test="${loginUser.memberRight =='B'}">
@@ -81,15 +79,15 @@
 				
 				<c:if test="${loginUser.memberRight =='C'}">
 					<p class="category">봉사 모집 현황</p>
-	   				<ul type="circle">
-	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
+		   			<ul type="circle">
+		   				<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">진행중인 모집 현황</p></li>
+		   				<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
 					</ul>
 					
 					<p class="category">모금 현황</p>
-	   				<ul type="circle">
-		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
-		   				<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
+		   			<ul type="circle">
+			   			<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">진행중인 모금 현황</p></li>
+			   			<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">모금 마감 현황</p></li>
 					</ul>
 				</c:if>
 				

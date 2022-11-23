@@ -13,7 +13,7 @@
 	.menu{text-align:left; font-size:15px;}
 	.menu:hover{font-weight:bold; cursor:pointer;}
 	#divTable{padding-left: 100px; padding-right: 100px}
-	
+	.row{height:700px;}
 </style>
 </head>
 <body>

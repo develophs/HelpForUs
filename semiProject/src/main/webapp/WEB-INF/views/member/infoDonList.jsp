@@ -16,7 +16,7 @@
 	tr{height: 80px;}
 	th, td{font-size: 20px; border-left: none; border-right: none;}
 	table{border-bottom: 4px solid gray;}
-	
+	.row{height:700px;}
 </style>
 </head>
 <body>
