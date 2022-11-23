@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,47 +62,43 @@
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
+   			
    			</div>
+   			
+   			
    			
    			<%--공백생성 --%>
    			<div class="col-1">
    			</div>
    			<%--공백생성 --%>
    			
-   			<%-- 메뉴 선택하면 나오는 화면 컨테이너 --%>
-   			<div class="col-8 border border-dark border-2">
-   				<h4 style="padding:10px;">회원 목록</h4>
+   			<div class="col-9 border border-dark border-2">
+   				<h4 style="padding:10px;">작성된 봉사활동 모집 게시판</h4>
    				
-   				<table class="table table-hover">
-				  <thead>
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">아이디</th>
-				      <th scope="col">닉네임</th>
-				      <th scope="col">이름</th>
-				      <th scope="col">전화번호</th>
-				      <th scope="col">이메일</th>
-				      <th scope="col">가입일</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				    
-				  	<c:forEach items="${ memberList }" var="mList" varStatus="status">
+					<table class="table table-hover">
+					
+					  <thead>
 					    <tr>
-					      <th scope="row">${ status.count }</th>
-					      <td>${ mList.memberUsername }</td>
-					      <td>${ mList.memberNickname }</td>
-					      <td>${ mList.memberName }</td>
-					      <td>${ mList.memberPhone }</td>
-					      <td>${ mList.memberEmail }</td>
-					      <td>${ mList.memberEnrollDate }</td>
+					      <th scope="col">Board_No</th>
+					      <th scope="col">제목</th>
+					      <th scope="col">작성자</th>
+					      <th scope="col">작성일</th>
 					    </tr>
-				    </c:forEach>
-				    
-				  </tbody>
-				</table>
-				
-				<ul class="pagination" style="justify-content: center;">
+					  </thead>
+					  
+					  <tbody class="table-group-divider" >
+							<c:forEach items="${allVList}" var="av"> 
+							  <tr>
+							    <td>${av.boardId}</td>
+							    <td>${av.boardTitle}</td>
+							    <td>${av.memberNickname}</td>
+							    <td>${av.boardCreateDate}</td>
+							   </tr>
+							 </c:forEach>
+					  </tbody>
+					</table>
+   				
+   				<ul class="pagination" style="justify-content: center;">
 					<c:if test="${ pi.currentPage > 1 }">
 					<li class="page-item"><c:url var="goBack" value="${ loc }">
 							<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
@@ -127,10 +123,10 @@
 				
    			<div style="padding-top: 50px;"></div>
    		</div>
-			<div style="height: 100px;"></div>
-    </div>
-   </div>
-   			
+		<div style="height: 100px;"></div>
+  	</div>
+</div>
+
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>

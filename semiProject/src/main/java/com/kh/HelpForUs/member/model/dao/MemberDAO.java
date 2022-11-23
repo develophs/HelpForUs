@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Member;
@@ -159,5 +160,15 @@ public class MemberDAO {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("memberMapper.getGroupList", null, rowBounds);
+	}
+
+	public long getAllListCount(SqlSessionTemplate sqlSession,String boardType) {
+		return sqlSession.selectOne("memberMapper.getAllListCount", boardType);
+	}
+
+	public List<Board> getAllList(SqlSessionTemplate sqlSession, String boardType, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getAllList", boardType,rowBounds);
 	}
 }

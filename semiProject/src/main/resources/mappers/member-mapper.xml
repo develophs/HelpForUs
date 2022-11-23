@@ -303,5 +303,23 @@
 		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<!-- 관리자페이지 봉사글, 모금글카운트 -->
+	<select id="getAllListCount" resultType="long">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE BOARD_TYPE=#{boardType}
+	</select>
+	
+	<select id="getAllList" resultMap="volBoardResultSet">
+		SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_CREATE_DATE, BOARD_MODIFY_DATE, BOARD_DEADLINE, MEMBER_NICKNAME
+		FROM BOARD
+		<if test="boardType == 'Don'">
+		JOIN FUNDRAISING ON(BOARD_ID = REF_BOARD_ID)
+		</if>
+		<if test="boardType == 'Vol'">
+		JOIN VOLUNTEER ON(BOARD_ID = REF_BOARD_ID)
+		</if>
+		JOIN MEMBER ON (MEMBER_USERNAME = REF_MEMBER_USERNAME)
+	</select>
 	
 </mapper>
