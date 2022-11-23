@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 
 <!doctype html>
 <html lang="en">
@@ -14,16 +15,6 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 	
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-
-
     <style>
     
       .bd-placeholder-img {
@@ -84,19 +75,21 @@
 
     
   </head>
-  <body >
+  <body>
+  	<jsp:include page="../common/top.jsp"></jsp:include>
+	<jsp:include page="../common/nav.jsp"></jsp:include>
 	<main>
 	  <section class="py-5 text-center container">
 	    <div class="row py-lg-5">
 	    	<table>
 	    		<tr align="center">
-		    		<td><a href="#"><img alt="전체" src="https://cdn-icons-png.flaticon.com/512/1598/1598191.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="아동" src="https://cdn-icons-png.flaticon.com/512/4540/4540679.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="동물" src="https://cdn-icons-png.flaticon.com/512/489/489399.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="노인" src="https://cdn-icons-png.flaticon.com/512/864/864481.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="여성" src="https://cdn-icons-png.flaticon.com/512/2585/2585340.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="환경" src="https://cdn-icons-png.flaticon.com/512/3904/3904971.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="장애인" src="https://cdn-icons-png.flaticon.com/512/1467/1467285.png" width="50" height="50"></a></td>
+		    		<td><a href="donBoardList.do?category=0"><img alt="전체" src="resources/img/total.png" width="50" height="50"></a></td>
+		    		<td><a href="donBoardList.do?category=1"><img alt="아동" src="resources/img/children.png" width="50" height="50"></a></td>
+		    		<td><a href="donBoardList.do?category=2"><img alt="동물" src="resources/img/animal.png" width="50" height="50"></a></td>
+		    		<td><a href="donBoardList.do?category=3"><img alt="노인" src="resources/img/old.png" width="50" height="50"></a></td>
+		    		<td><a href="donBoardList.do?category=4"><img alt="여성" src="resources/img/woman.png" width="50" height="50"></a></td>
+		    		<td><a href="donBoardList.do?category=5"><img alt="환경" src="resources/img/environment.png" width="50" height="50"></a></td>
+		    		<td><a href="donBoardList.do?category=6"><img alt="장애인" src="resources/img/disabled.png" width="50" height="50"></a></td>
 	    		</tr>
 	    		<tr>
 		    		<th>전체</th>
@@ -111,6 +104,11 @@
 	    </div>
 	   <table align="right">
 	  		<tr>
+	  			<c:if test="${ loginUser.memberRight eq 'C' }">
+	  				<td>
+		  				<button class="btn btn-outline-primary" type="button" onclick="location.href='donBoardWrite.do'">글쓰기</button>
+		  			</td>
+	  			</c:if>
 	  			<td>
 	        		<form class="d-flex" role="search">
 	        		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" width="150" height="25" >
@@ -125,216 +123,82 @@
 	  <div class="album py-5">
 	    <div class="container">
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-	       
+	       <c:forEach items="${ dList }" var="d">
 	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	         <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	       
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
-	        
-	        <div class="col">
-	          <div class="card shadow-sm">
-	            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	
-	            <div class="card-body">
-	            <h5>타이틀타이틀타이틀</h5>
-	              <p class="card-text">여기에는 게시글 내용 잘라서 넣으면 어떄요?짧게 잘라서요 뭔지 알죠? 한줄요약같은 느낌으루다가</p>
-	              <div class="d-flex justify-content-between align-items-center">
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">기부하기</button>
-	                </div>
-	                <small class="text-muted">11/23일 마감</small>
-	              </div>
-	            </div>
-	          </div>
-	        </div>
+	          <div class="card shadow-sm cards">
+	          	<c:forEach items="${ aList }" var="a">
+		          	<c:if test="${ d.boardId eq a.boardId }">
+		          		<c:if test="${ a.originalName == null }">
+		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+		            	</c:if>
+		            	<c:if test="${ a.originalName != null }">
+		            		<img src="resources/uploadFiles/${ a.renameName }" class="card-img-top" alt="..." height="300px;">
+		            	</c:if>
+		            </c:if>
+	            </c:forEach>
+			            <div class="card-body">
+			            <h5>${ d.boardTitle }</h5>
+			              <p class="card-text">${ d.boardContent }</p>
+			              <div class="d-flex justify-content-between align-items-center">
+		              		<small class="text-muted">${ d.boardId }</small>
+			                <small class="text-muted">${ d.refMemberUsername }</small>
+			                <small class="text-muted">${ d.boardCreateDate }</small>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+		       </c:forEach>
+	       </div>
 	      </div>
-	    </div>
-	  </div>
+	     </div>
+	     
+	     <nav aria-label="Standard pagination example" style="float: right;">
+        	<ul class="pagination">
+	            <li class="page-item">
+	            	<c:url var="goBack" value="${ loc }">
+	            		<c:param name="page" value="${ pi.currentPage-1 }"/>
+	            		<c:param name="category" value="${ category }"></c:param>
+	            	</c:url>
+	            	<a class="page-link" href="${ goBack }" aria-label="Previous">
+	            		<span aria-hidden="true">&laquo;</span>
+	              	</a>
+	            </li>
+	            <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+	            	<c:url var="goNum" value="${ loc }">
+	            		<c:param name="page" value="${ p }"/>
+	            		<c:param name="category" value="${ category }"></c:param>
+	            	</c:url>
+	            	<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
+	            </c:forEach>
+	            <li class="page-item">
+	            	<c:url var="goNext" value="${ loc }">
+	            		<c:param name="page" value="${ pi.currentPage+1 }"/>
+	            		<c:param name="category" value="${ category }"></c:param>
+	            	</c:url>
+	            	<a class="page-link" href="${ goNext }" aria-label="Next">
+	            		<span aria-hidden="true">&raquo;</span>
+	            	</a>
+	            </li>
+	    	</ul>
+        </nav>
 		    <jsp:include page="../common/pagination.jsp"/>
+		    <jsp:include page="../common/footer.jsp"/>
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-	     
+	
+	<script>
+		window.onload = () =>{
+			const cards = document.getElementsByClassName('cards');
+			for(card of cards){
+				card.addEventListener('click', function(){
+					const small = this.querySelectorAll('small');
+					const boardId = small[0].innerText;
+					const writer = small[1].innerText;
+					location.href='${contextPath}/selectDonBoard.do?bId=' + boardId + '&writer=' + writer + '&page=' + ${pi.currentPage};
+				});
+			}
+		}
+	</script> 
 	</body>
 	
 </html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="donationMapper">
+	<select id="getDonListCount" resultType="_int">
+		select count(*)
+		from board
+		where board_type='Don' and board_status='Y'
+	</select>
+	
+	<insert id="insertDonBoard">
+		insert all
+		into board 
+		values(SEQ_BID.NEXTVAL, #{boardType}, #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, #{boardDeadline}, default, default) 
+		into fundraising
+		values(SEQ_BID.CURRVAL, #{fundraisingGoalPrice}, default)
+		into manager
+		values(SEQ_BID.CURRVAL, #{managerName}, #{managerPhone})
+		select * from dual
+	</insert>
+	
+	<select id="selectDonList" resultMap="DonBoardResultSet">
+		select *
+		from board
+			join member on(ref_member_username = member_username)
+		where board_type='Don' and board_status='Y'
+		<if test="cate != 0">
+			and ref_category_id=#{cate}
+		</if>
+		order by board_id desc
+	</select>
+	
+	<resultMap type="DonBoard" id="DonBoardResultSet">
+		<id column="board_id" property="boardId"/>
+		<result column="board_type" property="boardType"/>
+		<result column="ref_member_username" property="refMemberUsername"/>
+		<result column="ref_category_id" property="refCategoryId"/>
+		<result column="board_title" property="boardTitle"/>
+		<result column="board_content" property="boardContent"/>
+		<result column="board_create_date" property="boardCreateDate"/>
+		<result column="board_modify_date" property="boardModifyDate"/>
+		<result column="board_deadline" property="boardDeadline"/>
+		<result column="board_status" property="boardStatus"/>
+		<result column="manager_name" property="managerName"/>
+		<result column="manager_phone" property="managerPhone"/>
+		<result column="FUNDRAISING_GOAL_PRICE" property="fundraisingGoalPrice"/>
+		<result column="FUNDRAISING_CURRENT_PRICE" property="fundraisingCurrentPrice"/>
+		<result column="category_name" property="categoryName"/>
+	</resultMap>
+	
+	<insert id="insertAttm">
+		insert into attachment
+		values(SEQ_AID.NEXTVAL, #{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
+	</insert>
+	<insert id="insertImg">
+		insert into image
+		values(
+		<if test="i == 0">
+			seq_bid.currval,
+		</if>
+		<if test="i > 0">
+			#{i},
+		</if>
+		
+		seq_aid.currval)
+	</insert>
+	
+	<select id="selectAttmList" resultMap="AttmResultSet">
+		select *
+		from attachment
+			join image using(attm_id)
+		where file_type='Don' and file_status='Y' and attm_level=0
+	</select>
+	
+	<resultMap type="Attachment" id="AttmResultSet">
+		<id column="attm_id" property="attmId"/>
+		<result column="board_id" property="boardId"/>
+		<result column="file_type" property="fileType"/>
+		<result column="create_date" property="createDate"/>
+		<result column="original_name" property="originalName"/>
+		<result column="rename_name" property="renameName"/>
+		<result column="file_link" property="fileLink"/>
+		<result column="attm_level" property="level"/>
+		<result column="file_status" property="fileStatus"/>
+	</resultMap>
+	
+	<select id="selectDonBoard" resultMap="DonBoardResultSet">
+		select *
+		from board
+			join fundraising on(board_id = fundraising.ref_board_id)
+			join member on(ref_member_username = member_username)
+			join manager on(board_id = manager.ref_board_id)
+			join category on(ref_category_id = category_id)
+		where board_id=#{bId} and board_status='Y'
+	</select>
+	
+	<select id="selectDonAttm" resultMap="AttmResultSet">
+		select *
+		from attachment
+			join image using(attm_id)
+		where board_id=#{bId} and file_status='Y'
+	</select>
+	
+	
+</mapper>

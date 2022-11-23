@@ -19,14 +19,16 @@ public class DonBoard {
 	private String boardType;
 	private String refMemberUsername;
 	private int refCategoryId;
+	private String categoryName;
 	private String boardTitle;
 	private String boardContent;
 	private Date boardCreateDate;
 	private Date boardModifyDate;
 	private Date boardDeadline;
 	private String boardStatus;
-	private String fundraisionGoalPrice;
-	private String fundraisionCurrentPrice;
+	private String fundraisingGoalPrice;
+	private String fundraisingCurrentPrice;
 	private String managerName;
 	private String managerPhone;
+	
 }

@@ -11,11 +11,13 @@
 		<typeAlias type="com.kh.HelpForUs.common.vo.Image" alias="Image"/>
 		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.Application" alias="Application"/>
 		<typeAlias type="com.kh.HelpForUs.common.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.HelpForUs.donBoard.model.vo.DonBoard" alias="donBoard"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 	   	<mapper resource="mappers/volunteer-mapper.xml"/>
 	   	<mapper resource="mappers/common-mapper.xml"/>
+	   	<mapper resource="mappers/donation-mapper.xml"/>
 	</mappers>
 </configuration>
