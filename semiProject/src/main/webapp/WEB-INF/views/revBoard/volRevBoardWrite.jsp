@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
     
 <!DOCTYPE html>				<!-- 글쓰기 페이지  -->
 <html>
@@ -48,36 +50,29 @@
 	<div class="container text-center" id="writeDiv"  >
 	<form action="${ contextPath }/writeRevBoard.vo" method="POST" enctype="multipart/form-data" id="RevForm">
 		<h2>모금 활동 후기 글쓰기</h2>
-		<hr>
+		<br>
 		<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
 					<th class="table-active">제목 :</th>
 					<td><input  type="text" class="text1" name="boardTitle" style=" width:100%" placeholder="제목을 입력해주세요 "></td>
-					<th class="table-active">봉사 날짜 :</th>
-					<td><input  type="Date" name="volunteerDate" class="text1" style=" width:100%"></td>
+					<th class="table-active">모금 마감일 :</th>
+					<td><input  type="date" name="boardDeadline" class="text1" style=" width:100%"></td>
 				</tr>
 				
 				<tr>
-					<th class="table-active">이름 :</th>
-					<td><input type="text"  name="refMemberUsername" class="text1"style=" width:100%">
+					<th class="table-active">작성자 :</th>
+					<td><input type="text"  name="memberNickname" class="text1"style=" width:100%">
 					
-					<th class="table-active">봉사대상 :</th>
-					<td><input type="text" name="volunteerGoalPeople" class="text1" style=" width:100%"></tr>
-				
-				
-				<tr>
-					<th class="table-active">봉사장소 :</th>
-					<td colspan="3"><input type="text" name="volunteerLocation"  class="text1" style="width:100%" placeholder="봉사장소를 입력해주세요"></td>
-					
+					<th class="table-active">모금액 :</th>
+					<td><input type="text" name="fundraisingGoalPrice" class="text1" style=" width:100%">
 				</tr>
 				<tr>
-				  
 					<th class="table-active">이미지</th>
 					<td colspan="3"><input type="file" name="file" id="filearea"></td>
 				</tr>
 				<tr>
 					<th class="table-active">내용</th>
-					<td colspan="3"><textarea rows="20px;" name="boardContent" cols="120px;" placeholder="내용을 입력해주세요 "></textarea></td>
+					<td colspan="3"><textarea rows="20px;" name="boardContent" cols="125px;" placeholder="내용을 입력해주세요 "></textarea></td>
 			</table>
 			
 			

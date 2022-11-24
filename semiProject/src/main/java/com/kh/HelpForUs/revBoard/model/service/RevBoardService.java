@@ -10,7 +10,7 @@ import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 public interface RevBoardService {
 
 
-	int insertRevBoard(VolBoard vBoard);
+	int insertRevBoard(RevBoard rBoard);
 	
 	int insertAttm(Attachment a);
 
