@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Member;
@@ -72,6 +73,10 @@ public interface MemberService {
 	int getGroupCount();
 
 	List<Member> getGroupList(PageInfo pi);
+
+	long getAllListCount(String boardType);
+
+	List<Board> getAllList(String boardType, PageInfo pi);
 
 	int inquiry(Message msg);
 

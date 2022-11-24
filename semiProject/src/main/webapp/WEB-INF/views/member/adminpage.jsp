@@ -22,7 +22,7 @@
 	
 	
 	<div class="container text-center">
-		<h3 class='mypage'>Admin Page</h3>
+		<h3 class='mypage'>관리자 페이지</h3>
 		
 		<br>
 		

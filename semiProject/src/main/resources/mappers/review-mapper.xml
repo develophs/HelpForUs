@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RevMapper">
+	<insert id="insertRevBoard">
+		insert all
+		into board
+		values(SEQ_BID.nextval,'Rev', #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, null, default, 0)
+		into volunteer
+		values(SEQ_BID.currval,#{volunteerGoalPeople}, #{volunteerLocation}, #{volunteerDate})
+		select * from dual
+	</insert>
+
+	<insert id="insertAttm">
+		insert into attachment
+		values(seq_aid.nextval, #{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
+	</insert>
+	
+	<insert id="insertImg">
+		insert into image
+		values(
+		<if test="i == 0">
+			seq_bid.currval,
+		</if>
+		<if test="i > 0">
+			#{i},
+		</if>
+		
+		seq_aid.currval)
+	</insert>
+
+	<select id="getRListCount" resultType="_int">
+		select count(*)
+		from BOARD
+		where BOARD_TYPE = 'Rev' and BOARD_STATUS = 'Y'
+	</select>
+	
+	
+	<select id="selectVolBoardList" resultMap="volBoardResultSet">
+		select *
+		from BOARD
+			join member on(REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		where BOARD_TYPE = 'Rev' and BOARD_STATUS = 'Y'
+		<if test="category != 0">
+			and REF_CATEGORY_ID = #{category}
+		</if>
+		order by BOARD_ID desc
+	</select>
+	
+	<resultMap type="VolBoard" id="volBoardResultSet">
+		<id property="boardId" column="BOARD_ID"/>
+		<result property="boardType" column="BOARD_TYPE"/>
+		<result property="refMemberUsername" column="REF_MEMBER_USERNAME"/>
+		<result property="refCategoryId" column="REF_CATEGORY_ID"/>
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="boardCreateDate" column="BOARD_CREATE_DATE"/>
+		<result property="boardModifyDate" column="BOARD_MODIFY_DATE"/>
+		<result property="boardDeadline" column="BOARD_DEADLINE"/>
+		<result property="boardStatus" column="BOARD_STATUS"/>
+		<result property="boardCount" column="BOARD_COUNT"/>
+		<result property="volunteerGoalPeople" column="VOLUNTEER_GOAL_PEOPLE"/>
+		<result property="volunteerLocation" column="VOLUNTEER_LOCATION"/>
+		<result property="volunteerDate" column="VOLUNTEER_DATE"/>
+		<result property="managerName" column="MANAGER_NAME"/>
+		<result property="managerPhone" column="MANAGER_PHONE"/>
+		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>
+	</resultMap>
+
+	<select id="selectAttmList" resultMap="attachmentResultSet">
+		select *
+		from attachment
+			join image using(attm_id)
+		where file_type = 'Rev' and file_status = 'Y' and ATTM_LEVEL = 0
+	</select>
+
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id property="attmId" column="ATTM_ID"/>
+		<result property="boardId" column="BOARD_ID"/>
+		<result property="fileType" column="FILE_TYPE"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="originalName" column="ORIGINAL_NAME"/>
+		<result property="renameName" column="RENAME_NAME"/>
+		<result property="fileLink" column="FILE_LINK"/>
+		<result property="level" column="ATTM_LEVEL"/>
+		<result property="fileStatus" column="FILE_STATUS"/>
+	</resultMap>
+
+
+
+
+
+
+
+<!-- 	<insert id="insertRevBoard">
+		insert all
+		into board
+		values(SEQ_BID.nextval, 'Rev', #{refMemberUsername}, #{refCategoryId}, #{boardTitle}, #{boardContent}, sysdate, sysdate, null, default, default,
+		#{boardCount}, #{categoryName})
+		into volunteer
+		values(SEQ_BID.currval,#{volunteerGoalPeople}, #{volunteerLocation}, #{volunteerDate})
+		select * from dual
+		
+	</insert>
+		
+	<insert id="insertAttm">
+		insert into attachment
+		values(seq_aid.nextval, #{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
+	</insert>
+	
+	<insert id="insertImg">
+		insert into image
+		values(
+		<if test="i == 0">
+			seq_bid.currval,
+		</if>
+		<if test="i > 0">
+			#{i},
+		</if>
+		
+		seq_aid.currval)
+	</insert>
+	
+	<select id="getRListCount" resultType="_int">
+		select count(*)
+		from BOARD
+		where BOARD_TYPE = 'Rev' and BOARD_STATUS = 'Y'
+	</select>
+	
+  	<select id="selectRevBoardList" resultMap="RevBoardResultSet">
+		select *
+		from BOARD
+			join member on(REF_MEMBER_USERNAME = MEMBER_USERNAME)
+		where BOARD_TYPE = 'Rev' and BOARD_STATUS = 'Y'
+		<if test="category != 0">
+			and REF_CATEGORY_ID = #{category}
+		</if>
+		order by BOARD_ID desc
+	</select>
+	
+	<resultMap type="RevBoard" id="RevBoardResultSet">
+		<id property="boardId" column="BOARD_ID"/>
+		<result property="boardType" column="BOARD_TYPE"/>
+		<result property="refMemberUsername" column="REF_MEMBER_USERNAME"/>
+		<result property="refCategoryId" column="REF_CATEGORY_ID"/>
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="boardCreateDate" column="BOARD_CREATE_DATE"/>
+		<result property="boardModifyDate" column="BOARD_MODIFY_DATE"/>
+		<result property="boardStatus" column="BOARD_STATUS"/>
+		<result property="boardCount" column="BOARD_COUNT"/>
+		<result property="boardDeadline" column="BOARD_DEADLINE"/>
+		<result property="categoryName" column="CATEGORY_NAME"/>		
+		<result property="volunteerGoalPeople" column="VOLUNTEER_GOAL_PEOPLE"/>
+		<result property="volunteerLocation" column="VOLUNTEER_LOCATION"/>
+		<result property="volunteerDate" column="VOLUNTEER_DATE"/>
+	</resultMap>
+-->	
+</mapper>

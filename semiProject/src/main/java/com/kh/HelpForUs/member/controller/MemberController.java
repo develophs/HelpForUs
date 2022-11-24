@@ -25,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.exception.MemberException;
+import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
@@ -515,6 +516,47 @@ public class MemberController {
 			return "groupPage";
 		} else {
 			throw new MemberException("단체조회에 실패하셨습니다.");
+		}
+	}
+	
+	// 관리자 페이지 - 모금 게시글 관리
+	@RequestMapping("allDList.me")
+	public String getAllDList(@RequestParam(value="page", required=false) Long page, Model model) {
+		long currentPage = 0;
+		String boardType ="Don";
+		if(page != null && page>0) {
+			currentPage = page;
+		}
+		long allDListCount = mService.getAllListCount(boardType);
+		PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+		List<Board> allDList = mService.getAllList(boardType,pi);
+		if(allDList != null) {
+			model.addAttribute("allDList",allDList);
+			model.addAttribute("pi",pi);
+			return "allDList";
+		} else {
+			throw new MemberException("글 목록 조회 실패");
+		}
+		
+	}
+	
+	// 관리자 페이지 - 봉사모집 관리
+	@RequestMapping("allVList.me")
+	public String getAllVList(@RequestParam(value="page", required=false) Long page, Model model) {
+		long currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage = page;
+		}
+		String boardType ="Vol";
+		long allVListCount = mService.getAllListCount(boardType);
+		PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allVListCount, 10);
+		List<Board> allVList = mService.getAllList(boardType,pi);
+		if(allVList != null) {
+			model.addAttribute("allVList",allVList);
+			model.addAttribute("pi",pi);
+			return "allVList";
+		} else {
+			throw new MemberException("글 목록 조회 실패");
 		}
 	}
 	

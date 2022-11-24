@@ -15,14 +15,19 @@ import lombok.ToString;
 @ToString
 public class RevBoard {
 	
-	private int boardId;
-	private String boardType;
-	private String refMemberUsername;
-	private int refCategoryId;
-	private String boardTitle;
-	private String boardContent;
-	private Date boardCreateDate;
-	private Date boardModifyDate;
-	private Date boardDeadline;
-	private String boardStatus;
+	private int boardId;//게시글 번호
+	private String boardType;// 게시판 이름
+	private String refMemberUsername;//작성자
+	private int refCategoryId;//카테고리 번호
+	private String boardTitle;//제목
+	private String boardContent;//내용	
+	private Date boardCreateDate;//작성일
+	private Date boardModifyDate;//수정일
+	private String boardStatus;//상태
+	private int boardCount; //후기 조회수
+	private String categoryName;//카테고리이름
+	private String volunteerGoalPeople;//봉사대상
+	private String volunteerLocation;
+	private Date volunteerDate;
+	
 }

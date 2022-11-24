@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html>					<!--후기 작성완료페이지  -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -63,20 +63,14 @@
 		<button onclick="#" class="btn btn-lg mb-0 text-white" style="background-color: gray">좋아요</button>
 	</div>
 	
-	<div class="mx-auto" style="width: 750px">
-		<table class="table table-sm table-bordered">
-			<tr>
-				<th>언덕 내일 나의 아이들의 아스라히 불러 하나에 있습니다.</th>
-			</tr>
-		</table>
-	</div>
+	
 	
 	<div>
 		<div class="mx-auto" style="width: 750px">
 			<table class="table table-sm table-bordered">
 				<tr>
-					<td>작성자</td>
-					<td>제목</td>
+					<td>제목 :</td>
+					<td>작성자 :</td>
 				</tr>
 			</table>
 		</div>

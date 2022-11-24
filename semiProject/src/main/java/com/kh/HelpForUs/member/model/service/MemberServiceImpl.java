@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.dao.MemberDAO;
@@ -171,6 +172,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<Member> getGroupList(PageInfo pi) {
 		return mDAO.getGroupList(sqlSession,pi);
+	}
+
+	@Override
+	public long getAllListCount(String boardType) {
+		return mDAO.getAllListCount(sqlSession,boardType);
+	}
+
+	@Override
+	public List<Board> getAllList(String boardType, PageInfo pi) {
+		return mDAO.getAllList(sqlSession, boardType,pi);
 	}
 
 	@Override
