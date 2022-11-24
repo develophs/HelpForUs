@@ -69,6 +69,13 @@
                                 <label for="memberEmail">이메일 주소</label>
                             </div>
                             
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="validEmail" name="validEmail" type="text" required/>
+                                <label for="memberEmail">인증번호를 입력해주세요.</label>
+                                <button class="btn btn-primary" id='mailButton' type="button" style="float:left;">인증번호 발송</button>
+                            </div>    
+                                
+                            <br>
                             <!-- 주소 input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="memberAddress" name="memberAddress" type="text" 
@@ -96,7 +103,23 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	
 	<script>
+	
+		let authNumber = null;
+	 	let mailNumber = null;	
+	
  		window.onload = () =>{
+ 			document.getElementById('mailButton').addEventListener('click',function(){
+ 				const email = $('#memberEmail').val();
+ 				
+ 				$.ajax({
+ 					url : '${contextPath}/email.me',
+ 					data : {email,email},
+ 					success : (data)=>{
+ 						 	mailNumber = data;
+ 							swal('메일이 발송되었습니다.','인증번호를 확인해주세요.');
+ 					}
+ 				});
+ 			});
  			
  			const userName = document.getElementById('memberUsername');
  			const checkId = document.getElementById('checkUsername');
@@ -105,8 +128,8 @@
  				
  				const regUserName = /^[a-z0-9]{5,12}$/g;
  				
- 				
  				const val = this.value.trim();
+ 				
  				if(val == ''){
  					checkId.style.color = 'black';
  					checkId.innerText = '아이디를 입력해주세요.';
@@ -149,7 +172,6 @@
  						url: '${contextPath}/checkNickName.me',
 						data: {nickName:this.value},
  						success: (data)=>{
- 							console.log(data);
  							if(data=='yes'){
  								checkNickName.style.color = 'red';
  								checkNickName.innerText = '이미 사용중인 닉네임 입니다.';
@@ -167,6 +189,10 @@
  		}
 			
  		const check = () =>{
+ 			authNumber = $('#validEmail').val();
+ 			
+			console.log(authNumber);
+			console.log(mailNumber);
 			
 			const userName = document.getElementById('memberUsername').value;
  	        const regUserName = /^[a-z0-9]{5,12}$/g;
@@ -191,6 +217,10 @@
  		        return false;
  			} else if(!regPwd.test(pwd) || regPwd.test(pwd2)){
  				swal('비밀번호가 적합하지 않습니다.','영어 대-소문자,숫자로 6글자 이상 12글자 이하입니다.');
+ 				return false;
+ 			} else if(authNumber != mailNumber){
+ 				swal('인증번호가 일치하지 않습니다.','다시 확인해주세요.');
+ 				return false;
  			} else{
  				form.submit();
  			}
