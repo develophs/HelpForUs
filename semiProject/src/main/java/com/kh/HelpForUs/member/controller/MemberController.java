@@ -569,9 +569,15 @@ public class MemberController {
 	@ResponseBody
 	public int inquiry(@ModelAttribute Message msg, HttpSession session) {
 		msg.setSenderUsername(((Member)session.getAttribute("loginUser")).getMemberUsername());
-		System.out.println(msg);
-		int result = mService.inquiry(msg);
 		
+		int result = 0;
+		
+		if(msg.getMessageTitle().equals("") || msg.getMessageContent().equals("")) {
+			result = 1;
+		} else {
+			result = mService.inquiry(msg);
+		}
+	
 		if(result > 0) {
 			return result;
 		} else {
