@@ -1,6 +1,7 @@
 package com.kh.HelpForUs.revBoard.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,112 +63,131 @@ public class RevBoardController {
 	}
 		
 	
-	
-		
+//----------------------------------------------------------------------------------------------------------	
+	//작성페이지로 넘어감 	
 	@RequestMapping("witrerevBoardview.re")
 	public String witrerevBoardview() {
 		return "revBoardWrite";
 	}
 	
-	
-	//봉사 후기 작성페이지로 이동
-	@RequestMapping("writeRevBoard.re")
-	public String witrerevBoardview(HttpServletRequest request, @ModelAttribute VolBoard vBoard ,@RequestParam("file") ArrayList<MultipartFile> files) {
-		String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
-		vBoard.setRefMemberUsername(id);
-		int boardResult = rService.insertRevBoard(vBoard);
-		
-		ArrayList<Attachment> list = new ArrayList<>();
-		for(MultipartFile file : files) {
-			String fileName = file.getOriginalFilename();
-			if(!fileName.equals("")) {
-				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-				System.out.println(fileType);
-				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("gpeg")) {
-					String[] returnArr = saveFile(file, request);
-					
-					if(returnArr[1] != null) {
-						Attachment attm = new Attachment();
-						attm.setOriginalName(file.getOriginalFilename());
-						attm.setRenameName(returnArr[1]);
-						attm.setFileLink(returnArr[0]);
+//----------------------------------------------------------------------------------------------------------- 	
+	// 봉사 게시글 insert
+		@RequestMapping("insertRevBoard.re")//insertRevBoard.re작성페이지에서 리스트로 넘어가는url
+		public String insertVolBoard(HttpServletRequest request, @ModelAttribute RevBoard rBoard, @RequestParam("file") ArrayList<MultipartFile> files) {
+			String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
+			rBoard.setRefMemberUsername(id);
+//			System.out.println(rBoard);
+//			System.out.println(files);
+			int boardResult = rService.insertRevBoard(rBoard);
+			
+			ArrayList<Attachment> list = new ArrayList<Attachment>();
+			for(MultipartFile file : files) {
+				String fileName = file.getOriginalFilename();
+				if(!fileName.equals("")) {
+					String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
+					System.out.println(fileType);
+					if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("gpeg")) {
+						String[]  returnArr = saveFile(file, request);
+						System.out.println(returnArr);
 						
-						list.add(attm);
+						if(returnArr[1] != null) {
+							Attachment attm = new Attachment();
+							attm.setOriginalName(file.getOriginalFilename());
+							attm.setRenameName(returnArr[1]);
+							attm.setFileLink(returnArr[0]);
+							
+							list.add(attm);
+						}
+						
+						}
 					}
 				}
+			int attmResult = 0;
+			int imgResult = 0; 
+			for(int i = 0; i < list.size(); i++) {
+				Attachment a = list.get(i);
+				if(i == 0) {
+					a.setLevel(0);
+				} else {
+					a.setLevel(1);
+				}
+				a.setFileType("Rev");
+				attmResult += rService.insertAttm(a);
+				imgResult += rService.insertImg(0);
 			}
-		}
-		
-		int attmResult = 0;
-		int imgResult = 0;
-		for(int i = 0; i < list.size(); i++) {
-			Attachment a = list.get(i);
-			if(i == 0) {
-				a.setLevel(0);
+			
+			System.out.println(list.size());
+			System.out.println(boardResult);
+			System.out.println(imgResult);
+			System.out.println(attmResult);
+			
+			
+			if(boardResult + attmResult + imgResult == list.size()*2+2) {
+				return "redirect:revBoardList.re";
 			} else {
-				a.setLevel(1);
+				for(Attachment a : list) {
+					deleteFile(a.getRenameName(), request);
+				}
+				throw new BoardException("봉사 게시글 작성 실패");
 			}
-			a.setFileType("Rev");
-			attmResult += rService.insertAttm(a);
-			imgResult += rService.insertImg(0);
-		}
+		} 
+			
+			
 		
-		if(boardResult + attmResult + imgResult == list.size()*2+3) {
-			return "redirect:revBoardList.re";
-		} else {
-			for(Attachment a : list) {
-				deleteFile(a.getRenameName(), request);
-			}
-			throw new BoardException("봉사 게시글 작성 실패");
-		}
-	}
-		
-		
+//-----------------------------------------------------------------------------------------------------------------			
+	
+			
 
-	@RequestMapping("volwitrerevBoardview.re")
-	public String  volwitrerevBoardview() {
-		return "volRevBoardWrite";
-	}
-	
-	
-	private String[] saveFile(MultipartFile file, HttpServletRequest request) {
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\uploadFiles";
+	public String[] saveFile(MultipartFile file, HttpServletRequest request) {//파일저장
+		String root = request.getSession().getServletContext().getRealPath("resources");//파일저장위치 지정
+		String savePath = root +"\\uploadFiles";
 		
 		File folder = new File(savePath);
 		if(!folder.exists()) {
-			folder.mkdir();
+			folder.mkdirs();
 		}
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHss");
-		int ranNum = (int)(Math.random()*1000);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		int ranNum = (int)(Math.random()*100000);
 		String originFileName = file.getOriginalFilename();
-		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + ranNum
-											+ originFileName.substring(originFileName.lastIndexOf("."));
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))+ranNum
+											+originFileName.substring(originFileName.lastIndexOf("."));
 		
-		String renamePath = folder + "\\" + renameFileName;
+		String renamePath = folder + "\\" +renameFileName;
 		
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (Exception e) {
-			System.out.println("파일 전송 에러" + e.getMessage());
+			System.out.println("파일 전송 에러 :" + e.getMessage());
 		}
-		
 		String[] returnArr = new String[2];
 		returnArr[0] = savePath;
 		returnArr[1] = renameFileName;
 		
 		return returnArr;
 	}
-	private void deleteFile(String fileName, HttpServletRequest request) {
+//-----------------------------------------------------------------------------------------------------
+	
+	private void deleteFile(String renameName, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\uploadFiles";
 		
-		File f = new File(savePath + "\\" + fileName);
+		File f = new File(savePath +"\\"+ renameName);
 		if(f.exists()) {
 			f.delete();
 		}
+		
+		
 	}
+	@RequestMapping("revBoardDetail.re")
+	public String revBoardDetail() {
+		return "boardReviewDetail";
 	}
-
-
+}
+//------------------------------------------------------------------------------------------------------	
+	
+	
+  
+	/*
+	 * @RequestMapping("volwitrerevBoardview.re") public String
+	 * volwitrerevBoardview() { return "volRevBoardWrite"; }
+	 */

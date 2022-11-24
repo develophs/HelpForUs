@@ -32,8 +32,7 @@
 		select count(*)
 		from BOARD
 		where BOARD_TYPE = 'Rev' and BOARD_STATUS = 'Y'
-	</select>
-	
+	</select>  	
 	
 	<select id="selectVolBoardList" resultMap="volBoardResultSet">
 		select *
