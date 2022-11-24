@@ -57,12 +57,6 @@
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/groupList.me'">단체 목록</p></li>
 				</ul>
-				
-				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
-   				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
-				</ul>
-				
    			</div>
    			
    			<%--공백생성 --%>

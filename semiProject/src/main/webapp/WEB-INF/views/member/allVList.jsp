@@ -58,11 +58,6 @@
 	   				<li><p class="menu" onclick="location.href='${contextPath}/groupList.me'">단체 목록</p></li>
 				</ul>
 				
-				<p class="category">쪽지함</p>
-   				<ul type="circle">
-	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
-				</ul>
-   			
    			</div>
    			
    			
