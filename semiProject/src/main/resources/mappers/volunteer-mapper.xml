@@ -13,22 +13,35 @@
 	</insert>
 	
 	<insert id="insertAttm">
-		insert into attachment
-		values(seq_aid.nextval, #{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
+		insert all
+		<foreach collection="list" item="a">
+			into attachment
+			values(new_aid, #{a.fileType}, sysdate, #{a.originalName}, #{a.renameName}, #{a.fileLink}, #{a.level}, default)
+			into image
+			values(
+			<if test="bId == 0">
+				seq_bid.currval,
+			</if>
+			<if test="bId > 0">
+				#{bId},
+			</if>
+			CUR_AID)
+		</foreach>
+		select * from dual
 	</insert>
 	
-	<insert id="insertImg">
-		insert into image
-		values(
-		<if test="i == 0">
-			seq_bid.currval,
-		</if>
-		<if test="i > 0">
-			#{i},
-		</if>
+<!-- 	<insert id="insertImg"> -->
+<!-- 		insert into image -->
+<!-- 		values( -->
+<!-- 		<if test="i == 0"> -->
+<!-- 			seq_bid.currval, -->
+<!-- 		</if> -->
+<!-- 		<if test="i > 0"> -->
+<!-- 			#{i}, -->
+<!-- 		</if> -->
 		
-		seq_aid.currval)
-	</insert>
+<!-- 		seq_aid.currval) -->
+<!-- 	</insert> -->
 	
 	<select id="getVListCount" resultType="_int">
 		select count(*)

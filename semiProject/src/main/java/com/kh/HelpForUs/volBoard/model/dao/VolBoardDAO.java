@@ -22,12 +22,8 @@ public class VolBoardDAO {
 		return sqlSession.insert("volMapper.insertVolBoard", vBoard);
 	}
 
-	public int insertAttm(SqlSessionTemplate sqlSession, Attachment a) {
-		return sqlSession.insert("volMapper.insertAttm", a);
-	}
-
-	public int insertImg(SqlSessionTemplate sqlSession, int i) {
-		return sqlSession.insert("volMapper.insertImg", i);
+	public int insertAttm(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("volMapper.insertAttm", map);
 	}
 
 	public int getVListCount(SqlSessionTemplate sqlSession) {

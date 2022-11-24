@@ -15,9 +15,7 @@ public interface VolBoardService {
 
 	int insertVolBoard(VolBoard vBoard);
 
-	int insertAttm(Attachment a);
-
-	int insertImg(int i);
+	int insertAttm(HashMap<String, Object> map);
 
 	int getVListCount();
 
