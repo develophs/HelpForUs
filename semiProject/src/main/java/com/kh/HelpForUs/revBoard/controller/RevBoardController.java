@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
+import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Member;
 import com.kh.HelpForUs.revBoard.model.service.RevBoardService;
 import com.kh.HelpForUs.revBoard.model.vo.RevBoard;
@@ -32,6 +35,8 @@ public class RevBoardController {
 	@Autowired
 	private RevBoardService rService;
 	
+	@Autowired
+	private DonBoardService dService;
 	
 	// 봉사/기부 게시판 리스트 // 게시판리스트로 넘어감
 	@RequestMapping("revBoardList.re")
@@ -182,12 +187,22 @@ public class RevBoardController {
 	public String revBoardDetail() {
 		return "boardReviewDetail";
 	}
-}
+
 //------------------------------------------------------------------------------------------------------	
 	
-	
-  
-	/*
-	 * @RequestMapping("volwitrerevBoardview.re") public String
-	 * volwitrerevBoardview() { return "volRevBoardWrite"; }
-	 */
+	@RequestMapping("donRevWrite.re") 
+	public ModelAndView volwitrerevBoardview(@RequestParam("bId") int bId, ModelAndView mv) {
+		
+		boolean yn =false;
+		DonBoard d = dService.selectDonBoard(bId, yn);
+		System.out.println(d);
+		if(d != null) { 
+			mv.addObject("d",d); 
+			mv.setViewName("donRevWrite");
+			return mv; 
+		}else { 
+			throw new BoardException("게시글 작성 실패"); }
+	 
+	  }
+
+}

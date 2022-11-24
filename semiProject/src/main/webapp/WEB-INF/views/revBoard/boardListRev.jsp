@@ -212,6 +212,9 @@
 	</main>
 	<script>
 		window.onload = () => {
+			if(){
+				
+			}
 			const cards = document.getElementsByClassName('cards');
 			for(const card of cards){
 				card.addEventListener('click', function() {

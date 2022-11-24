@@ -147,7 +147,14 @@ public class DonBoardController {
 		System.out.println(insImgCount);
 		System.out.println(fList.size());
 		if(insBoardCount + insAttmCount + insImgCount == fList.size()+fList.size()+3) {
-			return "redirect:donBoardList.do";
+			
+			if(dB.getBoardType().equals("Don")) {
+				return "redirect:donBoardList.do";
+			} else{
+				return "redirect:revBoardList.re";
+			}
+			
+			
 		}else {
 			for(Attachment a : list) {
 				deleteFile(a.getRenameName(), request);

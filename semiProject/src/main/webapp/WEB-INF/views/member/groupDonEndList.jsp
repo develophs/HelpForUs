@@ -73,6 +73,7 @@
 					      <th scope="col">글 제목</th>
 					      <th scope="col">마감 일</th>
 					      <th scope="col">신청자</th>
+					      <th scope="col">후기 작성</th>
 					    </tr>
 					  </thead>
 					  
@@ -84,6 +85,7 @@
 							      <td>${v.boardTitle}</td>
 							      <td>${v.boardDeadline}</td>
 							      <td><button >신청자 보기</button></td>
+							      <td><button onclick="location.href='${contextPath}/donRevWrite.re?bId='+${v.boardId}">후기 작성</button></td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
