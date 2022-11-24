@@ -56,9 +56,9 @@
 						<c:forEach begin="1" end="5">
 							<tr class="nots">
 								<td>공지</td>
-								<td class="notTitle">공지가 존재하지 않습니다</td>
-								<td class="notDate">2022-11-11</td>
-								<td class="notCount">99</td>
+								<td class="notTitle"></td>
+								<td class="notDate"></td>
+								<td class="notCount"></td>
 								<input type="hidden">
 								<input type="hidden">
 							</tr>
@@ -83,10 +83,10 @@
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title title">최신 글</h5>
-									<p class="card-text content">최신 글이 존재하지 않습니다.</p>
+									<h5 class="card-title title"></h5>
+									<p class="card-text content"></p>
 									<p class="card-text">
-										<small class="text-muted date">2022-11-11</small>
+										<small class="text-muted date"></small>
 									</p>
 								</div>
 							</div>

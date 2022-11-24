@@ -31,13 +31,8 @@ public class VolBoardServiceImpl implements VolBoardService{
 	}
 
 	@Override
-	public int insertAttm(Attachment a) {
-		return vDAO.insertAttm(sqlSession, a);
-	}
-
-	@Override
-	public int insertImg(int i) {
-		return vDAO.insertImg(sqlSession, i);
+	public int insertAttm(HashMap<String, Object> map) {
+		return vDAO.insertAttm(sqlSession, map);
 	}
 
 	@Override

@@ -14,8 +14,8 @@ import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 @Repository("rDAO")
 public class RevBoardDAO {
 
-	public int insertRevBoard(SqlSessionTemplate sqlSession, VolBoard vBoard) {
-		return sqlSession.insert("RevMapper.insertRevBoard",vBoard);
+	public int insertRevBoard(SqlSessionTemplate sqlSession, RevBoard rBoard) {
+		return sqlSession.insert("RevMapper.insertRevBoard",rBoard);
 	}
 
 	public int insertAttm(SqlSessionTemplate sqlSession, Attachment a) {

@@ -78,7 +78,7 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-     .btn-group {background: rgb(26, 188, 156);}
+     .btn-group {background: rgb(26, 188, 156); align:right;}
 	#boardAlign{
 		float: left;
 	}
@@ -114,9 +114,7 @@
 	    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 	    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 	    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-	    <c:if test="${ loginUser.memberRight == 'C'}" >
-	    	<button class="btn btn-outline-success">봉사</button>&emsp;<button class="btn btn-outline-success">모금</button>
-	    </c:if>
+	    
 	    
 	   <table align="right">
 	  		<tr>
@@ -130,7 +128,7 @@
 	  	</table>	
 	  	<spen>
 	  	<c:if test="${ loginUser.memberRight == 'B'}">
-			&emsp;&emsp;<button class="btn btn-outline-success"  onclick="location.href='${contextPath}/witrerevBoardview.re'">봉사 글 쓰기</button>
+			&emsp;&emsp;<button align="right" class="btn btn-outline-success"  onclick="location.href='${contextPath}/witrerevBoardview.re'">봉사 글 쓰기</button>
 		</c:if>
 		<c:if test="${ loginUser.memberRight == 'C'}">
 			&emsp;&emsp;<button class="btn btn-outline-success"  onclick="location.href='${contextPath}/witrerevBoardview.re'">봉사 글 쓰기</button>
@@ -143,20 +141,27 @@
 	  <div class="album py-5">
 	    <div class="container">
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-	       
 	       <c:forEach items="${ rList }" var="r">
 	        <div class="col">
 	          <div class="card shadow-sm cards">
-	          	<c:forEach items="${ aList }" var="a">
-		          	<c:if test="${ r.boardId eq a.boardId }">
-		          		<c:if test="${ a.originalName == null }">
-		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-		            	</c:if>
-		            	<c:if test="${ a.originalName != null }">
-		            		<img src="resources/uploadFiles/${ a.renameName }" class="card-img-top" alt="..." height="300px;">
-		            	</c:if>
+	          	<c:set var="fileO" value="false"/>
+	          	<c:set var="isBreak" value="true"/>
+	          	<c:set var="imageName"/>
+	          	<c:if test="${ isBreak }">
+		          	<c:forEach items="${ aList }" var="a">
+			          	<c:if test="${ r.boardId eq a.boardId }">
+			          		<c:set var="fileO" value="true"/>
+			          		<c:set var="isBreak" value="false"/>
+			          		<c:set var="imageName" value="${ a.renameName }"/>
+			            </c:if>
+		            </c:forEach>
+		            <c:if test="${ fileO }">
+		            	<img src="resources/uploadFiles/${ imageName }" class="card-img-top" alt="..." width="100%" height="225">
 		            </c:if>
-	            </c:forEach>
+		            <c:if test="${ !fileO }">
+		            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+		            </c:if>
+	            </c:if>
 	            <div class="card-body">
 	            <h5>${ r.boardTitle }</h5>
 	            	<c:set var="content" value="${ fn:substring(r.boardContent, 0, 20) }..."></c:set>

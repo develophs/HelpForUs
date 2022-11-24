@@ -66,7 +66,7 @@
 	<div class="mx-auto m-3">
 		<button onclick="location.href='${contextPath}/volBoardList.vo'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
-			<button onclick="window.open('${contextPath}/inquiryView.me?bId=${ vBoard.boardId }&writer=${ vBoard.refMemberUsername }', 'inquiryVol', 'width = 500, height = 400, left = 350, top = 100')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
+			<button id="inquiry" onclick="$('#modal').modal('show')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 			<c:if test="${ cheer == null }">
 				<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
 				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
@@ -170,6 +170,29 @@
 		<br>
 	</div>
 	
+	<div class="modal fade" id="modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+	  <div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+			  	<div class="modal-header">
+			        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">SEND MESSAGE</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			    </div>
+			 	<div class="modal-body" style="text-align: left">
+				    	제목<input type="text" class="form-control input" id="recipient-name" name="messageTitle">
+				    	내용<input class="form-control input" style="height: 300px" name="messageContent">
+				      	<br>
+				      	보낼 아이디 : <input value="${ vBoard.refMemberUsername }" type="text" name="receiverUsername" class="input" readonly style="border: none;">
+				      	<input value="${ vBoard.boardId }" type="hidden" name="refBoardId" class="input">
+				 </div>
+				 <div class="modal-footer">
+					<button class="btn btn-primary" id="sendBtn" ><strong>보내기</strong></button>
+			      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				 </div>
+	    	</div> 
+	  </div>
+	</div>	
+	
+	
 	
 	<br><br><br>
 	<br><br><br>
@@ -233,6 +256,31 @@
 					}
 				});
 			}
+			
+			
+			document.getElementById('sendBtn').addEventListener('click', () => {
+				const input = document.getElementsByClassName('input');
+				console.log(input[2].value);
+				$.ajax({
+					url: '${ contextPath }/inquiry.me',
+					data: {messageTitle:input[0].value,
+						   messageContent:input[1].value,
+						   receiverUsername:input[2].value,
+						   refBoardId:input[3].value},
+					success: (data) => {
+						$('#modal').modal('hide')
+						 reMsgInput[0].value = '';
+						 reMsgInput[1].value = ''; 
+						 location.reload();
+					},
+					error: (data) => {
+						console.log(data);
+					}
+				});
+			});
+			
+			
+			
 		}
 	</script>
 </body>

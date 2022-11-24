@@ -105,8 +105,6 @@ public class VolBoardController {
 			}
 		}
 		
-		int attmResult = 0;
-		int imgResult = 0;
 		for(int i = 0; i < list.size(); i++) {
 			Attachment a = list.get(i);
 			if(i == 0) {
@@ -115,11 +113,15 @@ public class VolBoardController {
 				a.setLevel(1);
 			}
 			a.setFileType("Vol");
-			attmResult += vService.insertAttm(a);
-			imgResult += vService.insertImg(0);
 		}
 		
-		if(boardResult + attmResult + imgResult == list.size()*2+3) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("bId", 0);
+		
+		int attmResult = vService.insertAttm(map);
+		
+		if(boardResult + attmResult == list.size()*2+3) {
 			return "redirect:volBoardList.vo";
 		} else {
 			for(Attachment a : list) {
@@ -343,9 +345,6 @@ public class VolBoardController {
 			existBeforeAttm = false;
 		}
 		
-		int attmResult = 0;
-		int imgResult = 0;
-		
 		for(int i = 0; i < list.size(); i++) {
 			Attachment a = list.get(i);
 			
@@ -359,11 +358,15 @@ public class VolBoardController {
 				}
 			}
 			a.setFileType("Vol");
-			attmResult += vService.insertAttm(a);
-			imgResult += vService.insertImg(v.getBoardId());
 		}
 		
-		if(boardResult + attmResult + imgResult == list.size()*2+3) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("bId", v.getBoardId());
+		
+		int attmResult = vService.insertAttm(map);
+		
+		if(boardResult + attmResult == list.size()*2+3) {
 			model.addAttribute("bId", v.getBoardId());
 			return "redirect:volBoardDetail.vo";
 		} else {

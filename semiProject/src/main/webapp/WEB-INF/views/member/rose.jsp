@@ -185,8 +185,9 @@
 	                <div class="row">
 	               		<div class="col-12">
 		                	<div class="rose">
-		                		<span></span><span></span>
-		                		<button id="pay" class="btn btn-outline-danger" style="margin-left:20px;">결제하기</button>
+		                		<span></span>
+		                		<button id="pay" class="btn btn-outline-primary">결제하기</button>
+		                		<button id="reset" class="btn btn-outline-danger" style="margin-right: 30px">취소</button>
 		                	</div>
 		                </div>
 	                </div>
@@ -202,25 +203,30 @@
 	<script type="text/javascript">
 		window.onload = () =>{
 			
-			
-			
 			const btns = document.getElementsByClassName('roseNum')
 			const price = document.querySelectorAll('span');
-			const roseNum = document.getElementsByName('roseNum');
-			
-			
+			var num = 0;
+			var won = 0;
+
 			for(const i of btns){
 				i.addEventListener('click',()=>{
-					price[1].innerText = i.value + '개';
-					price[2].innerText = '(' + i.innerHTML + ')';
-					roseNum.value = i.value*100;
-						
-					//console.log(btns);
-	
+					//console.log(Number(i.value)+Number(i.value));
+					num += Number(i.value);
+					won += Number(i.value*100);
+					console.log(num);
+					console.log(won);
+					
+					price[1].innerText = num + '개'+'('+ won +'원)';
 				});
 			}
-		
-		
+			
+			document.getElementById('reset').addEventListener('click', function reset() {
+					price[1].innerText = " ";
+					num=0;
+					won=0;
+			} )
+			
+			
 			
 			document.getElementById('pay').addEventListener('click',function requestPay() {
 			      	
@@ -232,17 +238,16 @@
 				
 				var IMP = window.IMP; // 생략 가능
 					IMP.init("imp04858826"); // 예: imp00000000
-					console.log(roseNum.value);
+				//	console.log(roseNum.value);
 				// IMP.request_pay(param, callback) 결제창 호출
-			    	const form = document.getElementById('roseForm');
-			      IMP.request_pay({ // param
+			    IMP.request_pay({ // param
 			    	  pg: "html5_inicis",
 			          pay_method: "card",
 			          merchant_uid: new Date().getTite,
 			          name: "장미결제",
-			          amount: roseNum.value,
+			          amount: won,
 			          buyer_name: "${loginUser.memberName}",
-			      }, function (rsp) { // callback
+			     }, function (rsp) { // callback
 			          if (rsp.success) {
 			        	$.ajax({ type: "GET", 
 			                    url: "${contextPath}/updateRose.me", 

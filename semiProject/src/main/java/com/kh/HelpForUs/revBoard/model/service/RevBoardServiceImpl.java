@@ -22,8 +22,8 @@ public class RevBoardServiceImpl implements RevBoardService{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int insertRevBoard(VolBoard vBoard) {
-		return rDAO.insertRevBoard(sqlSession,vBoard);
+	public int insertRevBoard(RevBoard rBoard) {
+		return rDAO.insertRevBoard(sqlSession,rBoard);
 	}
 
 	@Override

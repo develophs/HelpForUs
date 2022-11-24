@@ -46,9 +46,10 @@
 	<jsp:include page="../common/nav.jsp"></jsp:include>
 
 	<div class="container text-center" id="writeDiv"  >
-	<form action="${ contextPath }/writeRevBoard.re" method="POST" enctype="multipart/form-data" id="RevForm">
+	<form action="${ contextPath }/insertRevBoard.re" method="POST" enctype="multipart/form-data" id="RevForm">
 		<h2>후기 활동 후기 글쓰기</h2>
-		<hr>
+		<br>
+		
 		<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
 					<th class="table-active">제목 :</th>
@@ -78,11 +79,12 @@
 					<td colspan="3"><input type="text" name="volunteerLocation" id="vollocation" class="text1" style="width:100%" placeholder="봉사장소를 입력해주세요"></td>
 					
 				</tr>
+				
 				<tr>
-				  
-					<th class="table-active">이미지</th>
-					<td colspan="3"><input type="file" name="file" id="filearea" multiple></td>
+					<th class="table-active" id="filearea">이미지</th>
+					<td colspan="3"><input type="file" name="file" id="filearea" multiple></td>	
 				</tr>
+				
 				<tr>
 					<th class="table-active">내용</th>
 					<td colspan="3"><textarea rows="20px;" name="boardContent" cols="120px;" placeholder="내용을 입력해주세요 "></textarea></td>
