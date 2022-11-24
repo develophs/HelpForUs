@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
@@ -75,7 +77,7 @@ public class DonBoardController {
 		String donBoardWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
 		dB.setRefMemberUsername(donBoardWriter);
 		int insBoardCount = dService.insertDonBoard(dB);
-		System.out.println(files);
+//		System.out.println(files);
 		
 		// 로직1
 //		ArrayList<Attachment> list = new ArrayList<Attachment>();
@@ -95,13 +97,13 @@ public class DonBoardController {
 //				}
 //			}
 //		}
-		ArrayList<Attachment> list = new ArrayList<>();
+		ArrayList<Attachment> fList = new ArrayList<>();
 		for(MultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
-			System.out.println(file.getOriginalFilename());
+//			System.out.println(file.getOriginalFilename());
 			if(!fileName.equals("")) {
 				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-				System.out.println(fileType);
+//				System.out.println(fileType);
 				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
 					String[] returnArr = saveFile(file, request);
 					
@@ -111,34 +113,40 @@ public class DonBoardController {
 						attm.setRenameName(returnArr[1]);
 						attm.setFileLink(returnArr[0]);
 						
-						list.add(attm);
+						fList.add(attm);
 					}
 				}
 			}
 		}
 		
 		// 로직 2
-		
-		System.out.println(list);
+//		System.out.println(list);
 //		dB.setBoardType("Don");
 		int insAttmCount = 0;
 		int insImgCount = 0;
 		
 		
-		for(int i = 0; i < list.size(); i++) {
-			Attachment a = list.get(i);
+		ArrayList<Attachment> list = new ArrayList<>();
+		for(int i = 0; i < fList.size(); i++) {
+			Attachment a = fList.get(i);
 			if(i == 0) {
 				a.setLevel(0);
 			}else {
 				a.setLevel(1);
 			}
 			a.setFileType("Don");
+			
 			insAttmCount += dService.insertAttm(a);
 			insImgCount += dService.insertImg(0);
 		}
 		
+		// 한 번에 넣을 수 있게 바꿔주기
 		
-		if(insBoardCount + insAttmCount + insImgCount == list.size()*2+3) {
+		System.out.println(insBoardCount);
+		System.out.println(insAttmCount);
+		System.out.println(insImgCount);
+		System.out.println(fList.size());
+		if(insBoardCount + insAttmCount + insImgCount == fList.size()+fList.size()+3) {
 			return "redirect:donBoardList.do";
 		}else {
 			for(Attachment a : list) {
@@ -189,27 +197,89 @@ public class DonBoardController {
 	}
 	
 	@RequestMapping("selectDonBoard.do")
-	public ModelAndView selectDonBoard(@RequestParam("page") int page, @RequestParam("bId") int bId, @RequestParam("writer") String writer, HttpSession session, ModelAndView mv) {
+	public ModelAndView selectDonBoard(@RequestParam("bId") int bId, @RequestParam(value="writer", required=false) String writer, HttpSession session, ModelAndView mv) {
 		Member m = (Member)session.getAttribute("loginUser");
 		String login = null;
-		if(m != null) {
+		boolean bool = false;
+		if(m != null && writer != null) {
 			login = m.getMemberNickname();
+			if(!writer.equals(login)) {
+				bool = true;
+			}
 		}
 		
-		boolean yn = false;
-		if(!writer.equals(login)) {
-			yn = true;
+		// 응원 내역 보기 위한 것
+		Cheer c = new Cheer();
+		Cheer cheer = null;
+		System.out.println("DonCont m : " + m);
+		if(m != null) {
+			c.setBoardId(bId);
+			c.setMemberUserName(m.getMemberUsername());
+			System.out.println("DonCont c : " + c);
+			cheer = dService.cheer(c);
+			
 		}
-		
-		DonBoard dB = dService.selectDonBoard(bId);
+		System.out.println("DonCont cheer2 : " + cheer);
+		DonBoard dB = dService.selectDonBoard(bId, bool);
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
 		if(dB != null) {
-			mv.addObject("dB", dB).addObject("aList", aList).addObject("page", page).setViewName("boardDetailDon");
+			mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("boardDetailDon");
 		}else {
 			throw new BoardException("게시글 상세 조회 실패");
 		}
 		
 		return mv;
 	}
+	
+	// 응원하기
+	@RequestMapping("cheerBoard.do")
+	public String cheerBoard(HttpSession session, @RequestParam("bId") int boardId, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		
+		Cheer cheerUp = new Cheer(boardId, id);
+		
+		int result = dService.cheerUp(cheerUp);
+		
+		if(result > 0) {
+			model.addAttribute("bId", boardId);
+			return "redirect:selectDonBoard.do";
+		}else {
+			throw new BoardException("응원하기 실패");
+		}
+	}
+	
+	// 응원하기 취소
+	@RequestMapping("cheerCancle.do")
+	public String cheerCancle(HttpSession session, @RequestParam("bId") int bId, Model model) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		
+		Cheer cheerUp = new Cheer(bId, id);
+		
+		int cheerCancle = dService.cheerCancle(cheerUp);
+		
+		if(cheerCancle > 0) {
+			model.addAttribute("bId", bId);
+			return "redirect:selectDonBoard.do";
+		}else {
+			throw new BoardException("응원하기 취소 실패");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

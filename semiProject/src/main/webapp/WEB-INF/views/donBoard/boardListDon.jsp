@@ -194,6 +194,7 @@
 					const small = this.querySelectorAll('small');
 					const boardId = small[0].innerText;
 					const writer = small[1].innerText;
+					console.log(writer);
 					location.href='${contextPath}/selectDonBoard.do?bId=' + boardId + '&writer=' + writer + '&page=' + ${pi.currentPage};
 				});
 			}

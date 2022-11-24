@@ -49,8 +49,9 @@
 	
 	<insert id="insertAttm">
 		insert into attachment
-		values(SEQ_AID.NEXTVAL, #{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
+		values(seq_aid.nextval,	#{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
 	</insert>
+	
 	<insert id="insertImg">
 		insert into image
 		values(
@@ -60,7 +61,6 @@
 		<if test="i > 0">
 			#{i},
 		</if>
-		
 		seq_aid.currval)
 	</insert>
 	
@@ -100,5 +100,31 @@
 		where board_id=#{bId} and file_status='Y'
 	</select>
 	
+	<select id="cheer" resultMap="CheerResultMap">
+		select *
+		from cheer
+		where ref_board_id=#{boardId} and ref_member_username=#{memberUserName}
+	</select>
+	
+	<insert id="cheerUp">
+		insert into cheer
+		values(#{boardId}, #{memberUserName})
+	</insert>
+	
+	<delete id="cheerCancle">
+		delete cheer
+		where ref_board_id=#{boardId} and ref_member_username=#{memberUserName}
+	</delete>
+	
+	<resultMap type="Cheer" id="CheerResultMap">
+		<id column="ref_board_id" property="boardId"/>
+		<result column="ref_member_username" property="memberUserName"/>
+	</resultMap>
+	
+	<update id="donBoardCount">
+		update board
+		set board_count = board_count+1
+		where board_id=#{bId}
+	</update>
 	
 </mapper>

@@ -49,11 +49,11 @@
 				<tr>
 					<th class="table-active">제목</th>
 					<td><input type="text" class="text1" name="boardTitle" required></td>
-					<th class="table-active">목표 장미</th>
+					<th class="table-active">목표 금액</th>
 					<td><input type="text" class="text1" name="fundraisingGoalPrice" required></td>
 				</tr>
 				<tr>
-					<th class="table-active">장미 모금 마감일</th>
+					<th class="table-active">모금 마감일</th>
 					<td><input type="Date" class="text1"  min="today" name="boardDeadline" required></td>
 					
 	  
