@@ -41,7 +41,7 @@ public class EmailController {
 	
     private String sendMail = "javachild@naver.com";
     private String username = "javachild";
-    private String password = "J1a2v3a_4c5h6i7!";
+    private String password = null;
 
     @RequestMapping("email.me")
     public String mailSend(@RequestParam("email")String memberEmail){
