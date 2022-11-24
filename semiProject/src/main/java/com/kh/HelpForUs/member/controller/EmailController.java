@@ -39,7 +39,6 @@ public class EmailController {
 	      return randomNumber;
 	   }
 	
-	private String nickName = "Help For us";
     private String sendMail = "javachild@naver.com";
     private String username = "javachild";
     private String password = "J1a2v3a_4c5h6i7!";
@@ -65,7 +64,7 @@ public class EmailController {
         try {
         	authNumber = makeRandomNumber();
             Message mimeMessage = new MimeMessage(session);
-            mimeMessage.setFrom(new InternetAddress(sendMail, nickName));	
+            mimeMessage.setFrom(new InternetAddress(sendMail));	
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(memberEmail));
             mimeMessage.setSubject("Help For Us 이메일 인증 번호 입니다.");
             mimeMessage.setContent("인증번호 : " + authNumber, "text/html;charset=UTF-8");
