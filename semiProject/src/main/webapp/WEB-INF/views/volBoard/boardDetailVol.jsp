@@ -68,6 +68,7 @@
 		<c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
 			<button id="inquiry" onclick="$('#modal').modal('show')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 			<c:if test="${ cheer == null }">
+				<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
 				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
 					disabled
 				</c:if>
