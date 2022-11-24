@@ -48,27 +48,13 @@
 		<div class="row">
     		<div class="col-2 border border-dark border-2">
    				
-   				<c:if test="${loginUser.memberRight =='B'}">
    					<p class="category">내 정보</p>
-   				</c:if>
-   				
-   				<c:if test="${loginUser.memberRight =='C'}">
-   					<p class="category">단체 정보</p>
-   				</c:if>
    				
    				<ul type="circle">
-   					<c:if test="${loginUser.memberRight =='B'}">
    						<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">내 정보 확인 / 수정</p></li>
    						<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
-	   				</c:if>
-	   				
-	   				<c:if test="${loginUser.memberRight =='C'}">
-	   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인 / 수정</p></li>
-	   				</c:if>
-	   				
    				</ul>
    				
-   				<c:if test="${loginUser.memberRight =='B'}">
    				
    				<p class="category">기부 현황</p>
    				<ul type="circle">
@@ -83,26 +69,12 @@
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
-				</c:if>
-				
-				<c:if test="${loginUser.memberRight =='C'}">
-					<p class="category">봉사 모집 현황</p>
-	   				<ul type="circle">
-	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
-					</ul>
-					
-					<p class="category">모금 현황</p>
-	   				<ul type="circle">
-		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
-		   				<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">기부 마감 현황</p></li>
-					</ul>
-				</c:if>
 				
 				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
+			
    			</div>
   	 	
    

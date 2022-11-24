@@ -44,14 +44,12 @@
    				</ul>
    				
    				
-   				<p class="category"></p>
    				<p class="category">봉사 활동 현황</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}'">신청한 봉사활동</p></li>
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
 				
-				<p class="category"></p>
 				<p class="category">봉사 단체</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}'">작성한 기부 현황</p></li>

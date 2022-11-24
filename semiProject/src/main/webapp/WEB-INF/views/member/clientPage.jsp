@@ -53,7 +53,6 @@
    					<li><p class="menu" onclick="location.href='${contextPath}/memberList.me'">회원 목록</p></li>
    				</ul>
    				
-   				
    				<p class="category">단체 관리</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/groupList.me'">단체 목록</p></li>

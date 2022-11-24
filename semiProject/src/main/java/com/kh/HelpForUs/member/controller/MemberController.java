@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,11 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,10 +31,8 @@ import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.service.MemberService;
 import com.kh.HelpForUs.member.model.vo.Member;
-
-import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
-
 import com.kh.HelpForUs.member.model.vo.Message;
+import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Controller
 public class MemberController {
@@ -601,6 +599,34 @@ public class MemberController {
 		} catch (JsonIOException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//봉사단체 서류 제출함 이동
+	@RequestMapping("certificateView.me")
+	public String cetificateView() {
+		return "certificateView";
+	}
+	
+	//봉사단체 서류 제출 저장
+	@RequestMapping("certificate.me")
+	public String insertCertificate(@RequestParam("title")String title, 
+			@RequestParam("content")String content, 
+			@RequestParam MultipartFile file, 
+			HttpSession session) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		String certiTitle = title;
+		String certiContent = content;
+		
+		String originName = file.getOriginalFilename();
+		String reName = UUID.randomUUID().toString();
+		String fileExtension = originName.substring(originName.lastIndexOf(".") + 1);
+		originName = originName.substring(0, originName.lastIndexOf("."));
+		long fileSize = file.getSize();
+		
+		
+		
+		return "redirect:/certificateView.me";
 	}
 	
 }

@@ -29,10 +29,6 @@
 			<h3 class='mypage'>My Page</h3>
 		</c:if>
 		
-		<c:if test="${loginUser.memberRight =='C'}">
-			<h3 class='mypage'>단체 정보 페이지</h3>
-		</c:if>
-		
 		<br>
 		
 		<div class="row">
@@ -58,14 +54,6 @@
 	   				<li><p class="menu" onclick="location.href='${contextPath}/volBoard.me'">신청한 봉사활동</p></li>
    					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
 				</ul>
-				
-				<c:if test="${loginUser.memberRight =='C'}">
-					<p class="category">봉사 단체</p>
-	   				<ul type="circle">
-		   				<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">작성한 기부 현황</p></li>
-	   					<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">작성한 봉사모집 현황</p></li>
-					</ul>
-				</c:if>
 				
 				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
    				<ul type="circle">

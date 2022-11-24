@@ -93,9 +93,15 @@
 				
 				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
    				<ul type="circle">
-   					
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
+				
+				<c:if test="${loginUser.memberRight == 'C'}">
+					<p class="category">단체 서류 제출</p>
+	   				<ul type="circle">
+		   				<li><p class="menu" onclick="location.href='${contextPath}/certificateView.me'">작성한 기부 현황</p></li>
+					</ul>
+				</c:if>
    			</div>
    			
    			
