@@ -232,7 +232,7 @@ public class MemberController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("type", type);
-		
+
 		int currentPage = 1;
 		if(page != null && page > 1) {
 			currentPage = page;
@@ -243,7 +243,6 @@ public class MemberController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 5);
 		
 		ArrayList<Message> msgList = mService.selectMsgList(map,pi);
-		
 		if(msgList != null) {
 			model.addAttribute("msgList", msgList);
 			model.addAttribute("pi", pi);
@@ -264,7 +263,6 @@ public class MemberController {
 		if(type!=null) {
 			msgType = type;
 		}
-		System.out.println("mType="+msgType);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mId", mId);
 		map.put("id", id);
@@ -272,7 +270,6 @@ public class MemberController {
 		
 		
 		int result = mService.deleteMsg(map);
-
 		
 		if(result > 0) {
 			return "redirect:message.me";
@@ -443,7 +440,6 @@ public class MemberController {
 	@RequestMapping("selectMsg.me")
 	@ResponseBody
 	public void selectMsg(@RequestParam("messageId") int mId, @RequestParam(value="msgType", required=false) Integer type,Model model, HttpServletResponse response,HttpSession session ) {
-		System.out.println(mId);
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
 		
 		int msgType = 0;
@@ -455,9 +451,9 @@ public class MemberController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mId", mId);
 		map.put("id", id);
+		map.put("msgType", msgType);
 		
 		Message m =  mService.selectMsg(mId);
-		System.out.println(m);
 		if(m!=null) {
 			response.setContentType("application/json; charset=UTF-8");
 			GsonBuilder gb = new GsonBuilder();
