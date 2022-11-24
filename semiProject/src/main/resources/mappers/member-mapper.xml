@@ -181,6 +181,7 @@
 		<result column="SENDER_USERNAME" property="senderUsername"/>
 		<result column="RECEIVER_USERNAME" property="receiverUsername"/>
 		<result column="REF_BOARD_ID" property="refBoardId"/>
+		<result column="BOARD_TYPE" property="boardType"/>
 	</resultMap>
 		
 	<select id="getMsgListCount" resultType="_int" parameterType="java.util.HashMap">

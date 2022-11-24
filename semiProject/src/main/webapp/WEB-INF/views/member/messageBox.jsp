@@ -139,16 +139,19 @@
 										<img alt="읽지않은메시지이미지" src="https://cdn-icons-png.flaticon.com/512/6188/6188613.png" style="width: 50px; height: 35px;">
 										</c:if>
 									</td>
-									<td><c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if><c:if test="${m.boardType eq 'Don'}">[기부]</c:if>${ title}</td>
+									<td>
+									<c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if>
+									<c:if test="${m.boardType eq 'Don'}">[기부]</c:if>
+									${title}</td>
 								    <c:if test="${loginUser.memberUsername eq m.receiverUsername}">
 							      		<td scope="col">${m.senderUsername}</td>
 							   		</c:if>
 									<c:if test="${loginUser.memberUsername eq m.senderUsername}">
 							      		<td scope="col">${m.receiverUsername}</td>
 							      	</c:if>
-							      	<td>${m.messageCreateDate}</td>
+							      	<td>${m.messageCreateDate}${ m.messageId }</td>
 								    <td>
-								    <input id="mId"type="hidden" value="${ m.messageId }" >
+								    <input id="deleteMId" type="hidden" value="${ m.messageId }" >
 								    <input id="msgTypeVal" type="hidden" value="${ msgType }" >
 								    </td>
 							    </tr>
@@ -223,7 +226,7 @@
 				    </div>
 		      <div class="modal-body" style="text-align: left">
 		    	제목<input type="text" class="form-control " id="recipient-name" name="selectMsgDetail" readonly>
-		    	내용<input class="form-control" name="selectMsgDetail" readonly style="height: 300px">
+		    	내용 ${m}<input class="form-control" name="selectMsgDetail" readonly style="height: 300px">
 		      	<br>
 		      	아이디 : <input readonly="readonly" name="selectMsgDetail" readonly style="border: none;">
 		      </div>
@@ -275,18 +278,20 @@
 								
 				const tbody = document.querySelector('tbody');
 				const trs = tbody.querySelectorAll('tr');
-				
+				var msgId;
+				var type;
 				<!-- 상세페이지 -->
 				for(const tr of trs){
 					tr.addEventListener('click', function() {
+						msgId = this.querySelectorAll('input')[0].value;
+						type = this.querySelectorAll('input')[1].value;
 						$.ajax({
 							url: '${contextPath}/selectMsg.me',
 							data: {
-									messageId:this.querySelectorAll('input')[0].value,
-									msgType:this.querySelectorAll('input')[1].value 
+									messageId:msgId,
+									msgType:type
 								},
 							success: (data) => {
-								console.log(data);
 								$('#msgDetailModal').modal('show');
 								const inputMsg = document.getElementsByName("selectMsgDetail");
 								inputMsg[0].value=data.messageTitle;
@@ -315,8 +320,8 @@
 				}
 				
 				document.getElementById("delete").addEventListener('click', ()=>{
-					const mId = document.getElementById("mId").value;
-					const msgType = document.getElementById("msgTypeVal").value;
+					const mId = msgId;
+					const msgType = type;
 					location.href='${contextPath}/deleteMsg.me?mId='+ mId+'&msgType='+ msgType;
 				});
 				
@@ -344,7 +349,7 @@
 				});
 				
 			
-				
+		<!--새로운 쪽지 알림-->		
 		setInterval(
 			function alarm() {
 				$.ajax({
@@ -353,18 +358,13 @@
 						if(data>0){
 							document.getElementById('msgBox').style="width: 40px; height:30px; padding-left: 10px;"
 						}
-						
 					},
 					error: (data) => {
 						console.log(data);
 					}
 				});
-		 },1000);
-		
-				
-				
-				
-				
+		 	},
+		 1000);
 		}
 	</script>
 
