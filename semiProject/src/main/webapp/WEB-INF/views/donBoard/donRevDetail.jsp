@@ -154,10 +154,6 @@
 			
 		</div>
 		<br>
-		
-		<div class="text-center">
-			<button onclick="#" class="btn btn-lg text-white" style="background-color: orange">장미 보내기</button>
-		</div>
 		<br>
 	</div>
 	
