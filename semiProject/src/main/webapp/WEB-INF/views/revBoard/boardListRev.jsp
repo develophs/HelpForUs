@@ -215,23 +215,25 @@
 		window.onload = () => {
 
 			const cards = document.getElementsByClassName('cards');
+			
 			for(const card of cards){
-				
-				
 				card.addEventListener('click', function() {
 					const small = this.querySelectorAll('small');
 					const bId = small[0].innerText;
 					const nickName = small[1].innerText;
 					const bType = this.querySelector('input').value;
 					console.log(bType)
-						if(btype == "donRev"){
-							location.href='${contextPath}/donRevDetail.re?bId=' + bId + '&nickName=' + nickName;
+						if(bType =="donRev" ){
+							console.log(bType);
+							location.href='${contextPath}/selectDonBoard.do?bId=' + bId + '&nickName=' + nickName;
 						}else{
-							location.href='${contextPath}/volRevDetail.re?bId=' + bId + '&nickName=' + nickName;
+							console.log(bType);
+							location.href='${contextPath}/volBoardDetail.vo?bId=' + bId + '&nickName=' + nickName;
 						}
 						
-					}
-				});
+					});
+					
+		
 			}
 		}
 	</script>
