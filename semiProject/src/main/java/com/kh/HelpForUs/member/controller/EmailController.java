@@ -39,8 +39,8 @@ public class EmailController {
 	      return randomNumber;
 	   }
 	
-    private String sendMail = "javachild@naver.com";
-    private String username = "javachild";
+    private String sendMail = "bha4388@naver.com";
+    private String username = "bha4388";
     private String password = null;
 
     @RequestMapping("email.me")

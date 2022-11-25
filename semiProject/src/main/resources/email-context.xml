@@ -6,7 +6,7 @@
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    	<property name="host" value="smtp.naver.com"/>
 	    	<property name="port" value="465"/>
-	    	<property name="username" value="javachild"/>
+	    	<property name="username" value="bha4388"/>
 	    	<property name="password" value="null"/>
 	    	<property name="javaMailProperties">
 				<props>
@@ -15,7 +15,7 @@
 					<prop key="mail.smtp.starttls.enable">true</prop>
 					<prop key="mail.debug">true</prop>
 					<prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
-					<prop key="mail.smtp.ssl.protocols">TLSv1</prop>
+					<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
 					<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
 				</props>
 			</property>
