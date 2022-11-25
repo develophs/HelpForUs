@@ -12,7 +12,7 @@
 		margin-top: 100px; 
 	}
 	#countDiv>div{
-		border: 1px solid black; width: 300px; height: 400px;
+		border: 1px solid black; width: 330px; height: 400px;
 		margin: 80px; padding: 20px;
 	}
 	.countTitle{
@@ -105,7 +105,7 @@
 				<div class="container text-center" id="volunteerCountDiv">
 					<img src="resources/img/peoples.png" width="200px;" height="200px;">
 					<br><br>
-					<strong class="countTitle">모집중인 봉사활동</strong>
+					<strong class="countTitle">오늘 신청한 봉사자</strong>
 					<br><br>
 					<p class="count"></p>
 				</div>
@@ -120,7 +120,7 @@
 				success: (data) => {
 					const counts = document.getElementsByClassName('count');
 					counts[0].innerText = data[0] + '송이';
-					counts[1].innerText = data[1] + '개';
+					counts[1].innerText = data[1] + '명';
 				},
 				error: (data) => {
 					console.log(data);

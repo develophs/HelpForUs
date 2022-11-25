@@ -163,7 +163,15 @@
 		            </c:if>
 	            </c:if>
 	            <div class="card-body">
-	            <h5>${ r.boardTitle }</h5>
+	           
+	            <h5>
+	             <c:if test="${ r.boardType eq 'volRev'}">
+	            	[봉사후기]
+	            </c:if>
+	            <c:if test="${ r.boardType eq 'donRev'}">
+	            	[기부후기]
+	            </c:if>
+	            ${ fn:substring(r.boardTitle, 0, 15) }</h5>
 	            	<c:set var="content" value="${ fn:substring(r.boardContent, 0, 20) }..."></c:set>
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
@@ -172,6 +180,7 @@
 	              <div class="d-flex justify-content-between align-items-center">
 	              	<small class="text-muted">${ r.memberNickname }</small>
 	                <small class="text-muted">${ r.boardCreateDate }</small>
+	                <input id="bType" type="hidden" value="${ r.boardType }">
 	              </div>
 	            </div>
 	          </div>
@@ -212,14 +221,27 @@
 	</main>
 	<script>
 		window.onload = () => {
+
 			const cards = document.getElementsByClassName('cards');
+			
 			for(const card of cards){
 				card.addEventListener('click', function() {
 					const small = this.querySelectorAll('small');
 					const bId = small[0].innerText;
 					const nickName = small[1].innerText;
-					location.href='${contextPath}/revBoardDetail.re?bId=' + bId + '&nickName=' + nickName;
-				});
+					const bType = this.querySelector('input').value;
+					console.log(bType)
+						if(bType =="donRev" ){
+							console.log(bType);
+							location.href='${contextPath}/selectDonBoard.do?bId=' + bId + '&nickName=' + nickName;
+						}else{
+							console.log(bType);
+							location.href='${contextPath}/volBoardDetail.vo?bId=' + bId + '&nickName=' + nickName;
+						}
+						
+					});
+					
+		
 			}
 		}
 	</script>

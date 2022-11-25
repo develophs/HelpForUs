@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,7 +135,12 @@ public class DonBoardController {
 			}else {
 				a.setLevel(1);
 			}
-			a.setFileType("Don");
+			
+			if(dB.getBoardType().equals("Don")) {
+				a.setFileType("Don");
+			}else {
+				a.setFileType("donRev");
+			}
 			
 			insAttmCount += dService.insertAttm(a);
 			insImgCount += dService.insertImg(0);
@@ -147,7 +153,14 @@ public class DonBoardController {
 		System.out.println(insImgCount);
 		System.out.println(fList.size());
 		if(insBoardCount + insAttmCount + insImgCount == fList.size()+fList.size()+3) {
-			return "redirect:donBoardList.do";
+			
+			if(dB.getBoardType().equals("Don")) {
+				return "redirect:donBoardList.do";
+			} else{
+				return "redirect:revBoardList.re";
+			}
+			
+			
 		}else {
 			for(Attachment a : list) {
 				deleteFile(a.getRenameName(), request);
@@ -224,7 +237,12 @@ public class DonBoardController {
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
 		if(dB != null) {
-			mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("boardDetailDon");
+			if(dB.getBoardType().equals("Don")) {
+				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("boardDetailDon");
+			}else {
+				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("donRevDetail");
+			}
+			
 		}else {
 			throw new BoardException("게시글 상세 조회 실패");
 		}

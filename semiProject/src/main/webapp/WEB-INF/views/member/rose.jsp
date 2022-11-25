@@ -223,8 +223,9 @@
 			          if (rsp.success) {
 			        	$.ajax({ type: "GET", 
 			                    url: "${contextPath}/updateRose.me", 
-			                    data: {"roseNum" : roseNum.value/100}
+			                    data: {"roseNum" : won/100}
 			                	});
+			        		location.reload();
 							swal('장미를 구매했어요!');
 			          } else {
 			        		swal('장미 구매에 실패했어요. 다시 시도해주세요');

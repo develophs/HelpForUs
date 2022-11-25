@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.vo.Attachment;
+import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
+import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Member;
 import com.kh.HelpForUs.revBoard.model.service.RevBoardService;
 import com.kh.HelpForUs.revBoard.model.vo.RevBoard;
+import com.kh.HelpForUs.volBoard.model.service.VolBoardService;
+import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
 @Controller
@@ -32,6 +39,11 @@ public class RevBoardController {
 	@Autowired
 	private RevBoardService rService;
 	
+	@Autowired
+	private DonBoardService dService;
+	
+	@Autowired
+	private VolBoardService vService;
 	
 	// 봉사/기부 게시판 리스트 // 게시판리스트로 넘어감
 	@RequestMapping("revBoardList.re")
@@ -63,131 +75,35 @@ public class RevBoardController {
 	}
 		
 	
-//----------------------------------------------------------------------------------------------------------	
-	//작성페이지로 넘어감 	
-	@RequestMapping("witrerevBoardview.re")
-	public String witrerevBoardview() {
-		return "revBoardWrite";
-	}
-	
-//----------------------------------------------------------------------------------------------------------- 	
-	// 봉사 게시글 insert
-		@RequestMapping("insertRevBoard.re")//insertRevBoard.re작성페이지에서 리스트로 넘어가는url
-		public String insertVolBoard(HttpServletRequest request, @ModelAttribute RevBoard rBoard, @RequestParam("file") ArrayList<MultipartFile> files) {
-			String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
-			rBoard.setRefMemberUsername(id);
-//			System.out.println(rBoard);
-//			System.out.println(files);
-			int boardResult = rService.insertRevBoard(rBoard);
-			
-			ArrayList<Attachment> list = new ArrayList<Attachment>();
-			for(MultipartFile file : files) {
-				String fileName = file.getOriginalFilename();
-				if(!fileName.equals("")) {
-					String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-					System.out.println(fileType);
-					if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("gpeg")) {
-						String[]  returnArr = saveFile(file, request);
-						System.out.println(returnArr);
-						
-						if(returnArr[1] != null) {
-							Attachment attm = new Attachment();
-							attm.setOriginalName(file.getOriginalFilename());
-							attm.setRenameName(returnArr[1]);
-							attm.setFileLink(returnArr[0]);
-							
-							list.add(attm);
-						}
-						
-						}
-					}
-				}
-			int attmResult = 0;
-			int imgResult = 0; 
-			for(int i = 0; i < list.size(); i++) {
-				Attachment a = list.get(i);
-				if(i == 0) {
-					a.setLevel(0);
-				} else {
-					a.setLevel(1);
-				}
-				a.setFileType("Rev");
-				attmResult += rService.insertAttm(a);
-				imgResult += rService.insertImg(0);
-			}
-			
-			System.out.println(list.size());
-			System.out.println(boardResult);
-			System.out.println(imgResult);
-			System.out.println(attmResult);
-			
-			
-			if(boardResult + attmResult + imgResult == list.size()*2+2) {
-				return "redirect:revBoardList.re";
-			} else {
-				for(Attachment a : list) {
-					deleteFile(a.getRenameName(), request);
-				}
-				throw new BoardException("봉사 게시글 작성 실패");
-			}
-		} 
-			
-			
+	@RequestMapping("volRevWrite.re") 
+	public ModelAndView volRevWrite(@RequestParam("bId") int bId, ModelAndView mv) {
 		
-//-----------------------------------------------------------------------------------------------------------------			
-	
-			
+		boolean yn =false;
+		VolBoard v = vService.selectVolBoard(bId, yn);
 
-	public String[] saveFile(MultipartFile file, HttpServletRequest request) {//파일저장
-		String root = request.getSession().getServletContext().getRealPath("resources");//파일저장위치 지정
-		String savePath = root +"\\uploadFiles";
-		
-		File folder = new File(savePath);
-		if(!folder.exists()) {
-			folder.mkdirs();
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		int ranNum = (int)(Math.random()*100000);
-		String originFileName = file.getOriginalFilename();
-		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))+ranNum
-											+originFileName.substring(originFileName.lastIndexOf("."));
-		
-		String renamePath = folder + "\\" +renameFileName;
-		
-		try {
-			file.transferTo(new File(renamePath));
-		} catch (Exception e) {
-			System.out.println("파일 전송 에러 :" + e.getMessage());
-		}
-		String[] returnArr = new String[2];
-		returnArr[0] = savePath;
-		returnArr[1] = renameFileName;
-		
-		return returnArr;
-	}
-//-----------------------------------------------------------------------------------------------------
+		if(v != null) { 
+			mv.addObject("v",v); 
+			mv.setViewName("volRevWrite");
+			return mv; 
+		}else { 
+			throw new BoardException("게시글 작성 실패"); }
+	 
+	  }
 	
-	private void deleteFile(String renameName, HttpServletRequest request) {
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\uploadFiles";
+	@RequestMapping("donRevWrite.re") 
+	public ModelAndView donRevWrite(@RequestParam("bId") int bId, ModelAndView mv) {
 		
-		File f = new File(savePath +"\\"+ renameName);
-		if(f.exists()) {
-			f.delete();
-		}
-		
-		
-	}
-	@RequestMapping("revBoardDetail.re")
-	public String revBoardDetail() {
-		return "boardReviewDetail";
-	}
+		boolean yn =false;
+		DonBoard d = dService.selectDonBoard(bId, yn);
+		System.out.println(d);
+		if(d != null) { 
+			mv.addObject("d",d); 
+			mv.setViewName("donRevWrite");
+			return mv; 
+		}else { 
+			throw new BoardException("게시글 작성 실패"); }
+	 
+	  }
+	
+
 }
-//------------------------------------------------------------------------------------------------------	
-	
-	
-  
-	/*
-	 * @RequestMapping("volwitrerevBoardview.re") public String
-	 * volwitrerevBoardview() { return "volRevBoardWrite"; }
-	 */

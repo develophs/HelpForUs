@@ -112,17 +112,31 @@ public class VolBoardController {
 			} else {
 				a.setLevel(1);
 			}
-			a.setFileType("Vol");
+			
+			if(vBoard.getBoardType().equals("Vol")) {
+				a.setFileType("Vol");
+			}else {
+				a.setFileType("volRev");
+			}
+			
 		}
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("bId", 0);
+		int attmResult = 0;
 		
-		int attmResult = vService.insertAttm(map);
+		if(!list.isEmpty()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("bId", 0);
+
+			attmResult = vService.insertAttm(map);
+		}
 		
 		if(boardResult + attmResult == list.size()*2+3) {
-			return "redirect:volBoardList.vo";
+			if(vBoard.getBoardType().equals("Vol")) {
+				return "redirect:volBoardList.vo";
+			} else{
+				return "redirect:revBoardList.re";
+			}
 		} else {
 			for(Attachment a : list) {
 				deleteFile(a.getRenameName(), request);
@@ -216,7 +230,14 @@ public class VolBoardController {
 			model.addAttribute("cheer", cheer);
 			model.addAttribute("appCheck", appCheck);
 			
-			return "boardDetailVol";
+			if(vBoard.getBoardType().equals("Vol")) {
+				return "boardDetailVol";
+			}else {
+				return "volRevDetail";
+			}
+			
+		
+		
 		} else {
 			throw new BoardException("봉사 게시글 조회 실패.");
 		}
@@ -360,11 +381,16 @@ public class VolBoardController {
 			a.setFileType("Vol");
 		}
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("bId", v.getBoardId());
+		int attmResult = 0;
 		
-		int attmResult = vService.insertAttm(map);
+		if(!list.isEmpty()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("bId", v.getBoardId());
+			
+			
+			attmResult = vService.insertAttm(map);
+		}
 		
 		if(boardResult + attmResult == list.size()*2+3) {
 			model.addAttribute("bId", v.getBoardId());

@@ -91,7 +91,7 @@
 		select *
 		from attachment
 			join image using(attm_id)
-		where file_type = 'Vol' and file_status = 'Y' and ATTM_LEVEL = 0
+		where (file_type = 'Vol' or file_type = 'volRev') and file_status = 'Y' and ATTM_LEVEL = 0
 	</select>
 	
 	<resultMap type="Attachment" id="attachmentResultSet">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>				<!-- 글쓰기 페이지  -->
 <html>
 <head>
@@ -46,39 +46,59 @@
 	<jsp:include page="../common/nav.jsp"></jsp:include>
 
 	<div class="container text-center" id="writeDiv"  >
-	<form action="${ contextPath }/insertRevBoard.re" method="POST" enctype="multipart/form-data" id="RevForm">
-		<h2>후기 활동 후기 글쓰기</h2>
+	<form action="${ contextPath }/writeVolBoard.vo" method="POST" enctype="multipart/form-data" id="RevForm">
+		<h2>봉사 후기</h2>
 		<br>
 		
 		<table class="table table-sm table-bordered" style="table-layout: fixed;">
 				<tr>
 					<th class="table-active">제목 :</th>
-					<td><input  id="title" type="text" class="text1" name="boardTitle" style=" width:100%" placeholder="제목을 입력해주세요 "></td>
+					<td><input  id="title" type="text" class="text1" name="boardTitle" style=" width:100%" value="${v.boardTitle }"></td>
 					<th class="table-active">봉사 날짜 :</th>
-					<td><input id="voldate" type="Date" name="volunteerDate" class="text1" style=" width:100%"></td>
+					<td><input id="voldate" type="Date" name="volunteerDate" class="text1" style=" width:100%" value="${v.volunteerDate}" readonly></td>
 				</tr>
 				
 				<tr>
 					<th class="table-active">이름 :</th>
-					<td><input type="text" id="nickname" name="refMemberUsername" class="text1"style=" width:100%">
+					<td><input type="text" id="nickname" name="refMemberUsername" class="text1"style=" width:100%" value="${v.memberNickname}" readonly>
 					
 					<th class="table-active">봉사대상 :</th>
-					<td><select name="refCategoryId" >
-					<option value="0">전체</option>
-					<option value="1">아동</option>
-					<option value="2">동물</option>
-					<option value="3">노인</option>
-					<option value="4">여성</option>
-					<option value="5">환경</option>
-					<option value="6">장애인</option>
-					</select></tr>
-				
+					<td><input value="${ v.categoryName}" readonly></td>
+					<c:choose>
+						<c:when test="${v.categoryName eq '아동'}">
+    					<input name="refCategoryId" value="1" type="hidden">
+    					</c:when>
+						<c:when test="${v.categoryName eq '동물'}">
+							<input name="refCategoryId" value="2" type="hidden">
+	    				</c:when>
+						<c:when test="${v.categoryName eq '노인'}">
+							<input name="refCategoryId" value="3" type="hidden">
+	    				</c:when>
+						<c:when test="${v.categoryName eq '여성'}">
+							<input name="refCategoryId" value="4" type="hidden">
+	    				</c:when>
+						<c:when test="${v.categoryName eq '환경'}">
+							<input name="refCategoryId" value="5" type="hidden">
+	    				</c:when>
+						<c:when test="${v.categoryName eq '장애인'}">
+							<input name="refCategoryId" value="6" type="hidden">
+    					</c:when>
+					</c:choose>
+					
 				
 				<tr>
 					<th class="table-active">봉사장소 :</th>
-					<td colspan="3"><input type="text" name="volunteerLocation" id="vollocation" class="text1" style="width:100%" placeholder="봉사장소를 입력해주세요"></td>
-					
+					<td colspan="1"><input type="text" name="volunteerLocation" id="vollocation" class="text1" style="width:100%"  value="${v.volunteerLocation }" readonly></td>
+					<th class="table-active">마감일 :</th>
+					<td><input name="boardDeadline" value="${v.boardDeadline }" readonly></td>
 				</tr>
+				<tr>
+					<th class="table-active">담당자</th>
+					<td><input type="text" class="text1" name="managerName" required value="${v.managerName}" ></td>
+					<th class="table-active">연락처</th>
+					<td><input type="text" class="text1" name="managerPhone" required value="${v.managerPhone}"></td>
+				</tr>
+		
 				
 				<tr>
 					<th class="table-active" id="filearea">이미지</th>
@@ -97,7 +117,7 @@
 			
 			
 			<br><br>
-			
+			<input type="hidden" name="boardType" value="volRev">
 			<button type="submit" id="submitButton" class="btn btn-primary"  >글 작성하기</button>
 		</form>	
 	</div>
