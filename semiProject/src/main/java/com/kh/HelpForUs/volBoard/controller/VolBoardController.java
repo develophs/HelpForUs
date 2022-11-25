@@ -121,16 +121,19 @@ public class VolBoardController {
 			
 		}
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("bId", 0);
-		System.out.println(list);
-		System.out.println(map);
-		int attmResult = vService.insertAttm(map);
+		int attmResult = 0;
+		
+		if(!list.isEmpty()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("bId", 0);
+
+			attmResult = vService.insertAttm(map);
+		}
 		
 		if(boardResult + attmResult == list.size()*2+3) {
 			if(vBoard.getBoardType().equals("Vol")) {
-				return "redirect:volBoardList.do";
+				return "redirect:volBoardList.vo";
 			} else{
 				return "redirect:revBoardList.re";
 			}
@@ -378,11 +381,16 @@ public class VolBoardController {
 			a.setFileType("Vol");
 		}
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("bId", v.getBoardId());
+		int attmResult = 0;
 		
-		int attmResult = vService.insertAttm(map);
+		if(!list.isEmpty()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("bId", v.getBoardId());
+			
+			
+			attmResult = vService.insertAttm(map);
+		}
 		
 		if(boardResult + attmResult == list.size()*2+3) {
 			model.addAttribute("bId", v.getBoardId());
