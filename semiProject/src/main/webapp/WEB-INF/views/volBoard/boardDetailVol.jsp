@@ -269,9 +269,9 @@
 						   refBoardId:input[3].value},
 					success: (data) => {
 						$('#modal').modal('hide')
-						 reMsgInput[0].value = '';
-						 reMsgInput[1].value = ''; 
-						 location.reload();
+						input[0].value = '';
+						input[1].value = ''; 
+						location.reload();
 					},
 					error: (data) => {
 						console.log(data);

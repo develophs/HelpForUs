@@ -233,7 +233,7 @@ public class VolBoardController {
 			if(vBoard.getBoardType().equals("Vol")) {
 				return "boardDetailVol";
 			}else {
-				return "volRevDetail";
+				return "../revBoard/volRevDetail";
 			}
 			
 		

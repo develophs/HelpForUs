@@ -595,7 +595,6 @@ public class MemberController {
 		String id =((Member)session.getAttribute("loginUser")).getMemberUsername();
 	
 		int result = mService.msgAlarm(id);
-		
 		response.setContentType("application/json; charset=UTF-8");
 		GsonBuilder gb = new GsonBuilder();
 		Gson gson = gb.create();

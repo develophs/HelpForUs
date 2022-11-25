@@ -92,13 +92,13 @@
 	    <div class="row py-lg-5">
 	    	<table>
 	    		<tr align="center">
-		    		<td><a href="#"><img alt="전체" src="https://cdn-icons-png.flaticon.com/512/1598/1598191.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="아동" src="https://cdn-icons-png.flaticon.com/512/4540/4540679.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="동물" src="https://cdn-icons-png.flaticon.com/512/489/489399.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="노인" src="https://cdn-icons-png.flaticon.com/512/864/864481.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="여성" src="https://cdn-icons-png.flaticon.com/512/2585/2585340.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="환경" src="https://cdn-icons-png.flaticon.com/512/3904/3904971.png" width="50" height="50"></a></td>
-		    		<td><a href="#"><img alt="장애인" src="https://cdn-icons-png.flaticon.com/512/1467/1467285.png" width="50" height="50"></a></td>
+		    		<td><a href="revBoardList.re?category=0"><img alt="전체" src="https://cdn-icons-png.flaticon.com/512/1598/1598191.png" width="50" height="50"></a></td>
+		    		<td><a href="revBoardList.re?category=1"><img alt="아동" src="https://cdn-icons-png.flaticon.com/512/4540/4540679.png" width="50" height="50"></a></td>
+		    		<td><a href="revBoardList.re?category=2"><img alt="동물" src="https://cdn-icons-png.flaticon.com/512/489/489399.png" width="50" height="50"></a></td>
+		    		<td><a href="revBoardList.re?category=3"><img alt="노인" src="https://cdn-icons-png.flaticon.com/512/864/864481.png" width="50" height="50"></a></td>
+		    		<td><a href="revBoardList.re?category=4"><img alt="여성" src="https://cdn-icons-png.flaticon.com/512/2585/2585340.png" width="50" height="50"></a></td>
+		    		<td><a href="revBoardList.re?category=5"><img alt="환경" src="https://cdn-icons-png.flaticon.com/512/3904/3904971.png" width="50" height="50"></a></td>
+		    		<td><a href="revBoardList.re?category=6"><img alt="장애인" src="https://cdn-icons-png.flaticon.com/512/1467/1467285.png" width="50" height="50"></a></td>
 	    		</tr>
 	    		<tr>
 		    		<th>전체</th>
