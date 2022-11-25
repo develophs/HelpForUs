@@ -153,14 +153,6 @@
 		
 		<div class="text-center">
 			<c:if test="${ loginUser != null}">
-				<c:if test="${ loginUser.memberRight == 'B' }">
-					<c:if test="${ appCheck == 0 }">
-					<button id="applicationVol" class="btn btn-lg text-white" style="background-color: orange">봉사 신청</button>
-					</c:if>
-					<c:if test="${ appCheck == 1 }">
-					<button id="applicationVolCancle" class="btn btn-lg text-white" style="background-color: orange">신청 취소</button>
-					</c:if>
-				</c:if>
 				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A'}">
 					<button id="deleteButton" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
 					<button onclick="location.href='${contextPath}/updateVolBoardView.vo?bId=${ vBoard.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
@@ -237,22 +229,6 @@
 				document.getElementById('deleteButton').addEventListener('click', () => {
 					if(confirm('게시글을 삭제하면 다시 되돌릴 수 없습니다, 정말 삭제 하시겠습니까?')){
 						location.href="${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }" 	
-					}
-				});
-			}
-			
-			if(document.getElementById('applicationVol') != null){
-				document.getElementById('applicationVol').addEventListener('click', () => {
-					if(confirm('정말 신청 하시겠습니까?')){
-						location.href='${contextPath}/applicationVol.vo?bId=' + ${ vBoard.boardId }
-					}
-				});
-			}
-			
-			if(document.getElementById('applicationVolCancle') != null){
-				document.getElementById('applicationVolCancle').addEventListener('click', () => {
-					if(confirm('정말 신청 취소 하시겠습니까?')){
-						location.href='${contextPath}/applicationVolCancle.vo?bId=' + ${ vBoard.boardId }
 					}
 				});
 			}
