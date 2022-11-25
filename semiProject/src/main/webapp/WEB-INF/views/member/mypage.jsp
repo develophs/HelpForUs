@@ -97,7 +97,7 @@
 				<c:if test="${loginUser.memberRight == 'C'}">
 					<p class="category">단체 서류 제출</p>
 	   				<ul type="circle">
-		   				<li><p class="menu" onclick="location.href='${contextPath}/certificateView.me'">서류 제출함</p></li>
+		   				<li><p class="menu" onclick="location.href='${contextPath}/certificate.me'">서류 제출함</p></li>
 					</ul>
 				</c:if>
    			</div>

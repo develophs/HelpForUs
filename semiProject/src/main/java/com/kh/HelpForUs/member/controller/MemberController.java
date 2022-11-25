@@ -1,5 +1,6 @@
 ﻿package com.kh.HelpForUs.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,6 +29,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.exception.MemberException;
+import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
@@ -602,31 +607,64 @@ public class MemberController {
 	}
 	
 	//봉사단체 서류 제출함 이동
-	@RequestMapping("certificateView.me")
-	public String cetificateView() {
-		return "certificateView";
+	@GetMapping("certificate.me")
+	public String cetificateView(Model model,HttpSession session) {
+		String memberUsername = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		String memberNickname = ((Member)session.getAttribute("loginUser")).getMemberNickname();
+		
+		Attachment attm = mService.getCertificate(memberUsername);
+		if(attm != null) {
+			model.addAttribute("attm",attm);
+			model.addAttribute("memberNickname",memberNickname);
+			return "certificateView";
+		} else {
+			model.addAttribute("msg","제출한 서류가 존재하지 않습니다.");
+			return "certificateView";
+		}
+		
 	}
 	
-	//봉사단체 서류 제출 저장
-	@RequestMapping("certificate.me")
-	public String insertCertificate(@RequestParam("title")String title, 
-			@RequestParam("content")String content, 
-			@RequestParam MultipartFile file, 
-			HttpSession session) {
+	//봉사단체 서류 컴퓨터에 저장
+	@PostMapping("certificate.me")
+	public String insertCertificate(Model model, @RequestParam MultipartFile file, 
+			HttpSession session,HttpServletRequest request) {
+		if(file.isEmpty()) {
+			return null;
+		}
 		
 		Member m = (Member)session.getAttribute("loginUser");
-		String certiTitle = title;
-		String certiContent = content;
+		String memberUsername = m.getMemberUsername();
+		String originalName = file.getOriginalFilename();
+		String uuid = UUID.randomUUID().toString();
 		
-		String originName = file.getOriginalFilename();
-		String reName = UUID.randomUUID().toString();
-		String fileExtension = originName.substring(originName.lastIndexOf(".") + 1);
-		originName = originName.substring(0, originName.lastIndexOf("."));
-		long fileSize = file.getSize();
+		// . +1부터 마지막까지
+		String fileExt = originalName.substring(originalName.lastIndexOf(".") + 1);
+		String renameName = uuid + "."+ fileExt;
 		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\uploadFiles";
 		
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
+		String renamePath = folder + "\\" + renameName;
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
 		
-		return "redirect:/certificateView.me";
+		Map<String,Object> map = new HashMap<>();
+		map.put("userName", memberUsername);
+		map.put("fileExt", fileExt);
+		map.put("originalName", originalName);
+		map.put("renameName", renameName);
+		map.put("renamePath", renamePath);
+		
+		int result = mService.insertCertificate(map);
+		System.out.println(result);
+		return "redirect:/certificate.me";
 	}
 	
 }

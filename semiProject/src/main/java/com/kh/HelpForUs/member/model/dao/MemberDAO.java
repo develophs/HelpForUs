@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
@@ -178,5 +179,13 @@ public class MemberDAO {
 
 	public int msgAlarm(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.selectOne("memberMapper.notReadMsg", id);
+	}
+
+	public int insertCertificate(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("memberMapper.insertCertificate", map);
+	}
+
+	public Attachment getCertificate(SqlSessionTemplate sqlSession, String memberUsername) {
+		return sqlSession.selectOne("memberMapper.getCertificate", memberUsername);
 	}
 }

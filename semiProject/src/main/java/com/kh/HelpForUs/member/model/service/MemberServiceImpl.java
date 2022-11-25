@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
@@ -192,6 +193,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int msgAlarm(String id) {
 		return mDAO.msgAlarm(sqlSession, id);
+	}
+
+	@Override
+	public int insertCertificate(Map<String, Object> map) {
+		return mDAO.insertCertificate(sqlSession,map);
+	}
+
+	@Override
+	public Attachment getCertificate(String memberUsername) {
+		return mDAO.getCertificate(sqlSession,memberUsername);
 	}
 
 	

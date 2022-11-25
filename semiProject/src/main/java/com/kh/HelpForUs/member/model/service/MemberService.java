@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
@@ -81,6 +82,10 @@ public interface MemberService {
 	int inquiry(Message msg);
 
 	int msgAlarm(String id);
+
+	int insertCertificate(Map<String, Object> map);
+
+	Attachment getCertificate(String memberUsername);
 
 
 

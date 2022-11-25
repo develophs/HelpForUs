@@ -335,5 +335,32 @@
 		from message
     		where RECEIVER_USERNAME = #{mId} and MESSAGE_CHECK='N'
 	</select>
+	
+	<insert id="insertCertificate">
+		INSERT ALL
+		INTO ATTACHMENT VALUES(NEW_AID,#{fileExt},SYSDATE,#{originalName},#{renameName},#{renamePath},0,default)
+		INTO CERTIFICATE VALUES(#{userName},CUR_AID)
+		SELECT * FROM DUAL
+	</insert>
+	
+	<select id="getCertificate" parameterType="string" resultMap="attachmentResultSet">
+		SELECT ATTM_ID, FILE_TYPE, CREATE_DATE, ORIGINAL_NAME, RENAME_NAME, FILE_LINK, ATTM_LEVEL, FILE_STATUS
+		FROM ATTACHMENT
+		JOIN CERTIFICATE USING(ATTM_ID)
+		JOIN MEMBER USING(MEMBER_USERNAME)
+		WHERE MEMBER_USERNAME = #{memberUsername} AND FILE_STATUS = 'Y'
+	</select>
+	
+	<resultMap type="Attachment" id="attachmentResultSet">
+		<id property="attmId" column="ATTM_ID"/>
+		<result property="boardId" column="BOARD_ID"/>
+		<result property="fileType" column="FILE_TYPE"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="originalName" column="ORIGINAL_NAME"/>
+		<result property="renameName" column="RENAME_NAME"/>
+		<result property="fileLink" column="FILE_LINK"/>
+		<result property="level" column="ATTM_LEVEL"/>
+		<result property="fileStatus" column="FILE_STATUS"/>
+	</resultMap>
 
 </mapper>

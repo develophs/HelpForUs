@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이페이지</title>
+<title>봉사단체 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
@@ -68,65 +68,57 @@
    			</div>
    			<%--공백생성 --%>
    			
+			   			
    			<div class="col-9 border border-dark border-2">
-   				<h4 style="padding:10px;">마감된 모금활동</h4>
-   				
+   				<h4 style="padding:10px;">봉사 단체 서류 제출함</h4>
 					<table class="table table-hover">
-					
+					  
 					  <thead>
 					    <tr>
-					      <th scope="col">글 제목</th>
-					      <th scope="col">마감 일</th>
+					      <th scope="col">서류명</th>
+					      <th scope="col">신청일</th>
 					      <th scope="col">신청자</th>
 					    </tr>
+					 
 					  </thead>
-					  
-					  <tbody class="table-group-divider" >
-					  
-						  <c:if test="${list != null}">
-							  <c:forEach items="${list}" var="v"> 
-							    <tr>
-							      <td>${v.boardTitle}</td>
-							      <td>${v.boardDeadline}</td>
-							      <td><button >신청자 보기</button></td>
-							    </tr>
-							  </c:forEach>
-						  </c:if>
-						  
-						  <c:if test="${message != null}">
-							  <tr>
-							  	<td colspan="3" id="nullList"></td>
-							  </tr>
-						  </c:if>
-						  
-					  </tbody>
+					  <c:if test="${ attm != null }">
+					    <tr>
+					      <th scope="col">${ attm.originalName }</th>
+					      <th scope="col">${ attm.createDate }</th>
+					      <th scope="col">${ memberNickname }</th>
+					    </tr>
+					  </c:if>
+					  <c:if test="${ attm == null }">
+					  	<tr>
+					  		<th colspan="3" scope="col">제출하신 서류가 존재하지 않습니다.</th>
+					  	</tr>
+					  </c:if>
 					</table>
-   				
-   				<ul class="pagination" style="justify-content: center;">
-					<c:if test="${ pi.currentPage > 1 }">
-					<li class="page-item"><c:url var="goBack" value="${ loc }">
-							<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
-						</c:url> <a class="page-link" href="${ goBack }" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-					</a></li>
-					</c:if>
-					<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-						<c:url var="goNum" value="${ loc }">
-							<c:param name="page" value="${ p }"></c:param>
-						</c:url>
-						<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
-					</c:forEach>
-					<c:if test="${ pi.currentPage < pi.maxPage }">
-					<li class="page-item"><c:url var="goNext" value="${ loc }">
-							<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
-						</c:url> <a class="page-link" href="${ goNext }" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span>
-					</a></li>
-					</c:if>
-				</ul>
-				
-   			<div style="padding-top: 50px;"></div>
-   		</div>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
+					<c:if test="${ attm != null }"> disabled</c:if>>서류 제출하기</button>
+					
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5" id="exampleModalLabel">봉사 단체 증명서</h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        <form action="${contextPath}/certificate.me" enctype="multipart/form-data" method="post">
+					          	<input type="file" class="form-control form-control-md" style="float:left" name="file">
+					          	<br><br>
+					          	<button type="submit" class="btn btn-primary">제출하기</button>
+					      		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+					        </form>
+					      </div>
+					      <div class="modal-footer">
+					      	
+					      </div>
+					    </div>
+					  </div>
+					</div>
+   			</div>
 		<div style="height: 100px;"></div>
   	</div>
 </div>
@@ -136,7 +128,6 @@
 	<script type="text/javascript">
 		document.getElementById('nullList').innerText ='${message}';
 	</script>
-	
 	<script>
 	
 	window.onload=()=>{
@@ -156,7 +147,6 @@
 					}
 				});
 		 },1000);
-		
 		
 	}
 	</script>
