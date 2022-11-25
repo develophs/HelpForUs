@@ -28,6 +28,38 @@
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 	
 	<style>
+		
+			#index_02{
+	    width: 500px;
+	    height: 200px;
+	    border: 1px solid dimgrey;
+	    margin: 50px auto;
+	}
+	
+	#header2{
+	    height: 100px;
+	    border-bottom: 1px solid dimgrey;
+	    box-sizing: border-box;
+	    text-align: center;
+	    line-height: 100px;
+	    font-size: 1.5rem;
+	}
+	
+	#slide2{
+	    height: 300px;
+	    border-bottom: 1px solid dimgrey;
+	    overflow: hidden;
+	}
+	#slide2>ul{
+	    height: 900px;
+	}
+	#slide2>ul>li{
+	    height: 300px;
+	}
+	
+
+		
+		
 		*{font-family: 'Nanum Gothic', sans-serif;}
 	
 		hr{
@@ -149,9 +181,16 @@
 				<tr>
 					<td colspan="2"><img src="resources/img/roseDon.png" id="roseDon"></td>
 				</tr>
-				
 			</table>
-			
+			 <div id="index_02">
+        		<div id="header2">기부해주셔서 감사합니다 ^^ 당신은 천사~!</div>
+        			<div id="slide2">
+            		<ul>
+                		<li><a href="#"><a>김지호</a></li>
+            		</ul>
+        </div>
+    </div>
+    
 		</div>
 		<br>
 		<br>
@@ -163,6 +202,24 @@
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	
+	<script>
+	setInterval(
+			function alarm() {
+				$.ajax({
+					url: '${ contextPath }/.me',
+					success: (data) => {
+						if(data>0){
+							
+						}
+					},
+					error: (data) => {
+						console.log(data);
+					}
+				});
+		 	},2000);
+		
 	
+	
+	</script>
 </body>
 </html>

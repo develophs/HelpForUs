@@ -111,8 +111,8 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark " id="divTable">
-   				<h3 style="text-align: center; padding-bottom: 20px; padding-top: 50px;">쪽지함</h3>
-   				<div style="height: 400px">
+   				<h3 style="text-align: center; padding-bottom: 20px; padding-top: 30px;">쪽지함</h3>
+   				<div style="height: 450px">
    				
 	   				<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
 						<div class="btn-group me-2" role="group" aria-label="First group">
@@ -369,8 +369,7 @@
 						console.log(data);
 					}
 				});
-		 	},
-		 1000);
+		 	},1000);
 		}
 	</script>
 
