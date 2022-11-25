@@ -172,6 +172,7 @@
 	              <div class="d-flex justify-content-between align-items-center">
 	              	<small class="text-muted">${ r.memberNickname }</small>
 	                <small class="text-muted">${ r.boardCreateDate }</small>
+	                <input id="bType" type="hidden" value="${ r.boardType }">
 	              </div>
 	            </div>
 	          </div>
@@ -212,16 +213,24 @@
 	</main>
 	<script>
 		window.onload = () => {
-			if(){
-				
-			}
+
 			const cards = document.getElementsByClassName('cards');
 			for(const card of cards){
+				
+				
 				card.addEventListener('click', function() {
 					const small = this.querySelectorAll('small');
 					const bId = small[0].innerText;
 					const nickName = small[1].innerText;
-					location.href='${contextPath}/revBoardDetail.re?bId=' + bId + '&nickName=' + nickName;
+					const bType = this.querySelector('input').value;
+					console.log(bType)
+						if(btype == "donRev"){
+							location.href='${contextPath}/donRevDetail.re?bId=' + bId + '&nickName=' + nickName;
+						}else{
+							location.href='${contextPath}/volRevDetail.re?bId=' + bId + '&nickName=' + nickName;
+						}
+						
+					}
 				});
 			}
 		}

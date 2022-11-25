@@ -251,7 +251,7 @@
 			          if (rsp.success) {
 			        	$.ajax({ type: "GET", 
 			                    url: "${contextPath}/updateRose.me", 
-			                    data: {"roseNum" : roseNum.value/100}
+			                    data: {"roseNum" : won/100}
 			                	});
 							swal('장미를 구매했어요!');
 			          } else {

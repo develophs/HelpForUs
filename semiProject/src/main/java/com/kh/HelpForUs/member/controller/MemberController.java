@@ -130,6 +130,8 @@ public class MemberController {
 		int result = mService.updateRose(map);
 		int result2 = mService.insertPay(map);
 		
+		System.out.println(result);
+		System.out.println(result2);
 		if(result + result2 == 2) {
 			return "rose";
 		}else {
