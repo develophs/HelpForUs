@@ -91,7 +91,7 @@
 	<div class="mx-auto" style="width: 750px">
 		<table class="table table-sm table-bordered">
 			<tr>
-				<th>${ dB.boardTitle }</th>
+				<th>[기부후기]${ dB.boardTitle }</th>
 			</tr>
 		</table>
 	</div>

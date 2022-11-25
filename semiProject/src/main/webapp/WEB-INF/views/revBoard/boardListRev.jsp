@@ -163,7 +163,15 @@
 		            </c:if>
 	            </c:if>
 	            <div class="card-body">
-	            <h5>${ r.boardTitle }</h5>
+	           
+	            <h5>
+	             <c:if test="${ r.boardType eq 'volRev'}">
+	            	[봉사후기]
+	            </c:if>
+	            <c:if test="${ r.boardType eq 'donRev'}">
+	            	[기부후기]
+	            </c:if>
+	            ${ fn:substring(r.boardTitle, 0, 15) }</h5>
 	            	<c:set var="content" value="${ fn:substring(r.boardContent, 0, 20) }..."></c:set>
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">

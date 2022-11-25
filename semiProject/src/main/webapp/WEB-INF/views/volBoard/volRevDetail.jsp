@@ -88,12 +88,7 @@
 		<table class="table table-sm table-bordered">
 			<tr align="center">
 				<th style="width: 2%">
-				<c:if test="${ vBoard.volunteerGoalPeople > vBoard.volunteerCurrentPeople }">
-					모집중
-				</c:if>
-				<c:if test="${ vBoard.volunteerGoalPeople <= vBoard.volunteerCurrentPeople }">
-					모집마감
-				</c:if>
+					[봉사후기]
 				</th>
 				<th align="center">${ vBoard.boardTitle }</th>
 			</tr>
