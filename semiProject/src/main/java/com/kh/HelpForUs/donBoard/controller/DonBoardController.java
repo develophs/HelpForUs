@@ -238,10 +238,8 @@ public class DonBoardController {
 		
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
-				System.out.println("기부디테일 : " + dB.getBoardType());
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("boardDetailDon");
 			}else {
-				System.out.println("기부후기디테일 : " + dB.getBoardType());
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("donRevDetail");
 			}
 			
