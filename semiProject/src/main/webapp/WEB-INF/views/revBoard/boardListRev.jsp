@@ -87,6 +87,8 @@
     
   </head>
   <body >
+ 	 <jsp:include page="../common/top.jsp"></jsp:include>
+	<jsp:include page="../common/nav.jsp"></jsp:include>
 	<main>
 	  <section class="py-5 text-center container">
 	    <div class="row py-lg-5">
@@ -111,10 +113,6 @@
 	    		</tr>
 	    	</table>
 	    </div>
-	    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-	    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-	    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-	    
 	    
 	   <table align="right">
 	  		<tr>
@@ -126,16 +124,6 @@
 	  			</td>
 	  		</tr>
 	  	</table>	
-	  	<spen>
-	  	<c:if test="${ loginUser.memberRight == 'B'}">
-			&emsp;&emsp;<button align="right" class="btn btn-outline-success"  onclick="location.href='${contextPath}/witrerevBoardview.re'">봉사 글 쓰기</button>
-		</c:if>
-		<c:if test="${ loginUser.memberRight == 'C'}">
-			&emsp;&emsp;<button class="btn btn-outline-success"  onclick="location.href='${contextPath}/witrerevBoardview.re'">봉사 글 쓰기</button>
-			&emsp;&emsp;<button class="btn btn-outline-success"  onclick="location.href='${contextPath}/volwitrerevBoardview.re'">모금 글 쓰기</button>
-		</c:if>
-	  	</spen>
-	  	
 	  </section>
 		
 	  <div class="album py-5">
@@ -217,7 +205,7 @@
 			</c:if>
 		</ul>
 
-		    <jsp:include page="../common/pagination.jsp"/>
+		    <jsp:include page="../common/footer.jsp"/>
 	</main>
 	<script>
 		window.onload = () => {
