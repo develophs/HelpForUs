@@ -133,6 +133,8 @@ public class MemberController {
 		System.out.println(result);
 		System.out.println(result2);
 		if(result + result2 == 2) {
+			Member loginUser = mService.login(m);
+			session.setAttribute("loginUser", loginUser);
 			return "rose";
 		}else {
 			throw new MemberException("장미 충천을 실패했습니다.");
@@ -438,7 +440,7 @@ public class MemberController {
 		}
 	}
 	
-	
+	//메시지 상세보기
 	@RequestMapping("selectMsg.me")
 	@ResponseBody
 	public void selectMsg(@RequestParam("messageId") int mId, @RequestParam(value="msgType", required=false) Integer type,Model model, HttpServletResponse response,HttpSession session ) {

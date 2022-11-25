@@ -104,4 +104,6 @@ public class RevBoardController {
 			throw new BoardException("게시글 작성 실패"); }
 	 
 	  }
+	
+
 }
