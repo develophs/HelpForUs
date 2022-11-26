@@ -59,7 +59,22 @@
 		<result property="fileStatus" column="FILE_STATUS"/>
 	</resultMap>
 
+	<resultMap type="Donation" id="DonationResultSet">
+		<id property="donationId" column="DONATION_ID"/>
+		<result property="donationPrice" column="DONATION_PRICE"/>
+		<result property="donationDate" column="DONATION_DATE"/>
+		<result property="refBoardId" column="REF_BOARD_ID"/>
+		<result property="refMemberUsername" column="MEMBER_NICKNAME"/>
+	</resultMap>
 
+
+
+	<select id="selectDonor" resultMap="DonationResultSet">
+		select DONATION_ID,DONATION_PRICE,DONATION_DATE,REF_BOARD_ID,MEMBER_NICKNAME
+		from DONATION
+			join member on(REF_MEMBER_USERNAME=MEMBER_USERNAME)
+		where REF_BOARD_ID = #{bId}
+	</select>
 
 
 

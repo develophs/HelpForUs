@@ -25,6 +25,7 @@ import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
+import com.kh.HelpForUs.member.model.vo.Donation;
 import com.kh.HelpForUs.member.model.vo.Member;
 import com.kh.HelpForUs.revBoard.model.service.RevBoardService;
 import com.kh.HelpForUs.revBoard.model.vo.RevBoard;
@@ -104,6 +105,7 @@ public class RevBoardController {
 			throw new BoardException("게시글 작성 실패"); }
 	 
 	  }
+
 	
 
 }

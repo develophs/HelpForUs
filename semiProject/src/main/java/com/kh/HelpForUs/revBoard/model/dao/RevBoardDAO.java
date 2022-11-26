@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Donation;
 import com.kh.HelpForUs.revBoard.model.vo.RevBoard;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -44,6 +45,10 @@ public class RevBoardDAO {
 
 	public ArrayList<Attachment> selectAttmList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("RevMapper.selectAttmList");
+	}
+
+	public ArrayList<Donation> selectDonor(SqlSessionTemplate sqlSession, int bId) {
+		return (ArrayList)sqlSession.selectList("RevMapper.selectDonor",bId);
 	}
 
 	

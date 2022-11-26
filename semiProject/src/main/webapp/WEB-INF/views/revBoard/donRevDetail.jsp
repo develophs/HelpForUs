@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +103,7 @@
 	<br><br>
 	
 	<div class="mx-auto m-3">
-		<button onclick="location.href='${contextPath}/donBoardList.do?page=${page}'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
+		<button onclick="location.href='${contextPath}/revBoardList.re?page=${page}'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername}">
 			<button onclick="window.open('${contextPath}/inquiryDonView.do?boardId=${ dB.boardId }&writer=${ dB.refMemberUsername }', 'inquiryVol', 'width = 500, height = 400, left = 350, top = 100')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 			<c:if test="${ cheer == null }">
@@ -128,7 +129,6 @@
 		</table>
 	</div>
 	
-	<div style="border: 5px solid lightgray; width:60%" class="mx-auto">
 		<br>
 		<div class="mx-auto" style="width: 750px">
 			<table class="table table-sm table-bordered">
@@ -163,11 +163,26 @@
 		
 		<br><br><br>
 		
-		<div class="mx-auto" style="height: 40%; width: 50%">
+		<div class="mx-auto" style="height: 50%; width: 50%">
 			${ dB.boardContent }
 		</div>
-		<br><br>
 		
+		<br><br>
+		<span class="mx-auto" style="text-align:center; width: 50%; font-size: 20px;">기부해 주신 분들 모두 감사합니다^^</span>
+		<div align="center">
+			<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+			    	<c:forEach items="${ dList }" var="dl" >
+			    	<div class="carousel-item active" data-bs-interval="2000" >
+			       		<fmt:parseNumber var="price" value="${dl.donationPrice/100 }"  integerOnly="true"  />
+			       		<input value="${dl.refMemberUsername }님 ${price}장미" style="border: none ; font-size: 20px" readonly>
+			    	</div>
+			    	</c:forEach>
+  				</div>
+			</div>		
+		</div>	
+		
+					
 		<div id="total">
 			<table id="totalTable">
 				<tr>
@@ -182,44 +197,14 @@
 					<td colspan="2"><img src="resources/img/roseDon.png" id="roseDon"></td>
 				</tr>
 			</table>
-			 <div id="index_02">
-        		<div id="header2">기부해주셔서 감사합니다 ^^ 당신은 천사~!</div>
-        			<div id="slide2">
-            		<ul>
-                		<li><a href="#"><a>김지호</a></li>
-            		</ul>
-        </div>
-    </div>
+
     
 		</div>
 		<br>
 		<br>
-	</div>
-	
-	
 	<br><br><br>
 	<br><br><br>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-	
-	<script>
-	setInterval(
-			function alarm() {
-				$.ajax({
-					url: '${ contextPath }/.me',
-					success: (data) => {
-						if(data>0){
-							
-						}
-					},
-					error: (data) => {
-						console.log(data);
-					}
-				});
-		 	},2000);
-		
-	
-	
-	</script>
 </body>
 </html>
