@@ -205,6 +205,21 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.getCertificate(sqlSession,memberUsername);
 	}
 
+	@Override
+	public int getGroupCertiCount() {
+		return mDAO.getGroupCertiCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Attachment> getGroupCertificate(PageInfo pi) {
+		return mDAO.getGroupCertificate(sqlSession,pi);
+	}
+
+	@Override
+	public int authorizeGroup(String userName) {
+		return mDAO.authorizeGroup(sqlSession, userName);
+	}
+
 	
 
 	

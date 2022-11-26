@@ -57,6 +57,7 @@
    				<p class="category">단체 관리</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/groupList.me'">단체 목록</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/groupCertificate.me'">단체 증명서 확인창</p></li>
 				</ul>
 				
    			</div>
@@ -131,26 +132,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<script>
 	
-	window.onload=()=>{
 
-		setInterval(
-			function alarm() {
-				$.ajax({
-					url: '${ contextPath }/msgAlarm.me',
-					success: (data) => {
-						if(data>0){
-							document.getElementById('msgBox').style="width: 40px; height:30px; padding-left: 10px;"
-						}
-						
-					},
-					error: (data) => {
-						console.log(data);
-					}
-				});
-		 },1000);
-		
-		
-	}
 	</script>
 </body>
 </html>

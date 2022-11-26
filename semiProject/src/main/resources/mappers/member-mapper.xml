@@ -338,7 +338,7 @@
 	
 	<insert id="insertCertificate">
 		INSERT ALL
-		INTO ATTACHMENT VALUES(NEW_AID,#{fileExt},SYSDATE,#{originalName},#{renameName},#{renamePath},0,default)
+		INTO ATTACHMENT VALUES(NEW_AID,#{fileExt},SYSDATE,#{originalName},#{renameName},#{savePath},0,default)
 		INTO CERTIFICATE VALUES(#{userName},CUR_AID)
 		SELECT * FROM DUAL
 	</insert>
@@ -362,5 +362,31 @@
 		<result property="level" column="ATTM_LEVEL"/>
 		<result property="fileStatus" column="FILE_STATUS"/>
 	</resultMap>
+	
+	<select id="getGroupCertiCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CERTIFICATE
+		JOIN ATTACHMENT USING(ATTM_ID)
+		WHERE FILE_STATUS = 'Y'
+	</select>
+	
+	<select id="getGroupCertificate" resultMap="groupCertificate">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN CERTIFICATE C USING(ATTM_ID)
+		JOIN MEMBER M USING(MEMBER_USERNAME)
+		WHERE FILE_STATUS = 'Y'
+	</select>
+	
+	<resultMap id="groupCertificate" type="com.kh.HelpForUs.member.model.vo.Certificate">
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="attachment" resultMap="attachmentResultSet"/>
+	</resultMap>
+	
+	<update id="authorizeGroup">
+		UPDATE MEMBER
+		SET MEMBER_RIGHT = 'C'
+		WHERE MEMBER_USERNAME = #{userName} AND MEMBER_STATUS = 'Y'
+	</update>
 
 </mapper>

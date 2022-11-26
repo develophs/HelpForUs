@@ -663,11 +663,39 @@ public class MemberController {
 		map.put("fileExt", fileExt);
 		map.put("originalName", originalName);
 		map.put("renameName", renameName);
-		map.put("renamePath", renamePath);
+		map.put("savePath", savePath);
 		
 		int result = mService.insertCertificate(map);
 		System.out.println(result);
 		return "redirect:/certificate.me";
 	}
 	
+	// 관리자페이지 증명서 제출확인
+	@GetMapping("groupCertificate.me")
+	public String getGroupCer(@RequestParam(value="page", required=false) Integer page, Model model) {
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+		int listCount = mService.getGroupCertiCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		ArrayList<Attachment> cList = mService.getGroupCertificate(pi);
+		if(cList != null) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("cList", cList);
+			return "adminCertificate";
+		} else {
+			throw new MemberException("단체 증명서 조회 실패");
+		}
+		
+	}
+	
+	// 관리자페이지 증명서 확인 후 권한 부여
+	@RequestMapping("authorize.me")
+	@ResponseBody
+	public String authorizeGroup(@RequestParam("memberUsername")String userName) {
+		int result = mService.authorizeGroup(userName);
+		String data = result>0 ? "yes" : "no";
+		return data;
+	}
 }

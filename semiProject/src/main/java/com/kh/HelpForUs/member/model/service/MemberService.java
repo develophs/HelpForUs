@@ -87,6 +87,12 @@ public interface MemberService {
 
 	Attachment getCertificate(String memberUsername);
 
+	int getGroupCertiCount();
+
+	ArrayList<Attachment> getGroupCertificate(PageInfo pi);
+
+	int authorizeGroup(String userName);
+
 
 
 }

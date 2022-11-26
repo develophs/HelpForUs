@@ -55,6 +55,7 @@
    				<p class="category">단체 관리</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/groupList.me'">단체 목록</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/groupCertificate.me'">단체 증명서 확인창</p></li>
 				</ul>
 				
    			

@@ -188,4 +188,20 @@ public class MemberDAO {
 	public Attachment getCertificate(SqlSessionTemplate sqlSession, String memberUsername) {
 		return sqlSession.selectOne("memberMapper.getCertificate", memberUsername);
 	}
+
+	public int getGroupCertiCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getGroupCertiCount");
+	}
+
+	public ArrayList<Attachment> getGroupCertificate(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds row = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getGroupCertificate", null, row);
+	}
+
+	public int authorizeGroup(SqlSessionTemplate sqlSession, String userName) {
+		return sqlSession.update("memberMapper.authorizeGroup", userName);
+	}
+	
+	
 }

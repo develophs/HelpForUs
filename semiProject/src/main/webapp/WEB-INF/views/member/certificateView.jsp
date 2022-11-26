@@ -76,16 +76,16 @@
 					  <thead>
 					    <tr>
 					      <th scope="col">서류명</th>
+					      <th scope="col">신청단체</th>
 					      <th scope="col">신청일</th>
-					      <th scope="col">신청자</th>
 					    </tr>
 					 
 					  </thead>
 					  <c:if test="${ attm != null }">
 					    <tr>
 					      <th scope="col">${ attm.originalName }</th>
-					      <th scope="col">${ attm.createDate }</th>
 					      <th scope="col">${ memberNickname }</th>
+					      <th scope="col">${ attm.createDate }</th>
 					    </tr>
 					  </c:if>
 					  <c:if test="${ attm == null }">
@@ -94,9 +94,14 @@
 					  	</tr>
 					  </c:if>
 					</table>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"
-					<c:if test="${ attm != null }"> disabled</c:if>>서류 제출하기</button>
 					
+					<c:if test="${ attm == null }"> 
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">서류 제출하기</button>
+					</c:if>
+					
+					<c:if test="${ attm != null }"> 
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" disabled>제출하신 서류가 존재합니다.</button>
+					</c:if>
 					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog">
 					    <div class="modal-content">
