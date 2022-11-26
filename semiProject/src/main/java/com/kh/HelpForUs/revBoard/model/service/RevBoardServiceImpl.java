@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Donation;
 import com.kh.HelpForUs.revBoard.model.dao.RevBoardDAO;
 import com.kh.HelpForUs.revBoard.model.vo.RevBoard;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -50,6 +51,11 @@ public class RevBoardServiceImpl implements RevBoardService{
 	@Override
 	public ArrayList<Attachment> selectAttmList() {
 		return rDAO.selectAttmList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Donation> selectDonor(int bId) {
+		return rDAO.selectDonor(sqlSession,bId);
 	}
 
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.member.model.vo.Donation;
 import com.kh.HelpForUs.revBoard.model.vo.RevBoard;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
 
@@ -21,6 +22,9 @@ public interface RevBoardService {
 	ArrayList<VolBoard> selectVolBoardList(PageInfo pi, int category);
 
 	ArrayList<Attachment> selectAttmList();
+
+	ArrayList<Donation> selectDonor(int bId);
+
 
 	
 

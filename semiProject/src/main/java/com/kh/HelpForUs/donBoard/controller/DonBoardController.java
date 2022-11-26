@@ -26,13 +26,17 @@ import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
+import com.kh.HelpForUs.member.model.vo.Donation;
 import com.kh.HelpForUs.member.model.vo.Member;
+import com.kh.HelpForUs.revBoard.model.service.RevBoardService;
 
 @Controller
 public class DonBoardController {
 	
 	@Autowired
 	private DonBoardService dService;
+	@Autowired
+	private RevBoardService rService;
 	
 	// 모금 게시글 리스트
 	@RequestMapping("donBoardList.do")
@@ -236,11 +240,13 @@ public class DonBoardController {
 		DonBoard dB = dService.selectDonBoard(bId, bool);
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
+		ArrayList<Donation> dList = rService.selectDonor(bId);
+		
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("boardDetailDon");
 			}else {
-				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("../revBoard/donRevDetail");
+				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("dList", dList).setViewName("../revBoard/donRevDetail");
 			}
 			
 		}else {

@@ -148,7 +148,8 @@
 									<td>
 									<c:if test="${m.boardType eq 'Vol'}">[봉사]</c:if>
 									<c:if test="${m.boardType eq 'Don'}">[기부]</c:if>
-									${title}</td>
+									${title}
+									</td>
 								    <c:if test="${loginUser.memberUsername eq m.receiverUsername}">
 							      		<td scope="col">${m.senderUsername}</td>
 							   		</c:if>
