@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-	
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<style>
 		
 			#index_02{
@@ -101,7 +102,7 @@
 	<jsp:include page="/WEB-INF/views/common/nav.jsp"/>
 	
 	<br><br>
-	
+	${nickName}
 	<div class="mx-auto m-3">
 		<button onclick="location.href='${contextPath}/revBoardList.re?page=${page}'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername}">
@@ -117,7 +118,7 @@
 			<button class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
 			<button class="btn btn-lg mb-0 text-white" style="background-color: gray" disabled>응원하기</button>
 		</c:if>
-		
+			<a id="btnKakao" onclick="kakaoShare()" class="kakaotalk" target="_self" title="카카오톡 새창열림"><img style="width: 50px; height: 50px;" src="https://cdn-icons-png.flaticon.com/128/7468/7468476.png"></a>
 			
 	</div>
 	
@@ -157,6 +158,7 @@
 		
 		<div class="mx-auto" style="height: 20%; text-align: center">
 			<c:forEach items="${ aList }" var="a">
+			
 				<img style="margin: auto" src="resources/uploadFiles/${ a.renameName }">
 			</c:forEach>
 		</div>
@@ -171,9 +173,9 @@
 		<span class="mx-auto" style="text-align:center; width: 50%; font-size: 20px;">기부해 주신 분들 모두 감사합니다^^</span>
 		<div align="center">
 			<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-				<div class="carousel-inner">
+				<div class="carousel-inner" style="width: 200px;">
 			    	<c:forEach items="${ dList }" var="dl" >
-			    	<div class="carousel-item active" data-bs-interval="2000" >
+			    	<div class="carousel-item active" data-bs-interval="2000"  >
 			       		<fmt:parseNumber var="price" value="${dl.donationPrice/100 }"  integerOnly="true"  />
 			       		<input value="${dl.refMemberUsername }님 ${price}장미" style="border: none ; font-size: 20px" readonly>
 			    	</div>
@@ -206,5 +208,38 @@
 	<br><br><br>
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+		
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script>
+	
+	Kakao.init('e642cc213c74d7f2a652d395b7b56e6d');
+	Kakao.isInitialized();
+	const currUrl =	$(location).attr('href');
+	const imgUrl = 	$(location).attr('href')
+	function kakaoShare() {
+		Kakao.Share.sendDefault({
+			  objectType: 'feed',
+			  content: {
+			    title: '${dB.boardTitle}',
+			    description: '${ fn:substring(dB.boardContent, 0, 20) }',
+			    imageUrl: 'https://ifh.cc/g/WPbPc8.jpg',
+			    link: {
+			      webUrl: currUrl,
+			    },
+			  },
+			  buttons: [
+			    {
+			      title: 'HelpForUs로 이동',
+			      link: {
+			        webUrl: currUrl,
+			      },
+			    },
+			  ],
+			});
+	}
+
+	
+	
+	</script>
 </body>
 </html>
