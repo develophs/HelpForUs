@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.common.vo.Reply;
 
 @Repository("cDAO")
 public class CommonDAO {
@@ -64,6 +65,14 @@ public class CommonDAO {
 
 	public int deleteNotBoard(SqlSessionTemplate sqlSession, int bId) {
 		return sqlSession.update("commonMapper.deleteNotBoard", bId);
+	}
+
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("commonMapper.insertReply", r);
+	}
+
+	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int refBoardId) {
+		return (ArrayList)sqlSession.selectList("commonMapper.selectReply", refBoardId);
 	}
 	
 }

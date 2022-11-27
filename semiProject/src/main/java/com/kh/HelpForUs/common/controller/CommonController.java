@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.model.service.CommonService;
@@ -22,6 +23,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.common.vo.Reply;
 import com.kh.HelpForUs.member.model.vo.Member;
 
 @Controller
@@ -199,6 +201,24 @@ public class CommonController {
 			return "redirect:notBoardList.no";
 		} else {
 			throw new BoardException("공지 글 삭젠 실패");
+		}
+	}
+	
+	//댓글
+	@RequestMapping("insertReply.co")
+	public void insertReply(@ModelAttribute Reply r, HttpServletResponse response) {
+		int result = cService.insertReply(r);
+		
+		ArrayList<Reply> rList = cService.selectReply(r.getRefBoardId());
+		
+		response.setContentType("application/json; charset=UTF-8");
+		GsonBuilder gb = new GsonBuilder();
+		gson = gb.setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(rList, response.getWriter());
+		} catch (JsonIOException | IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

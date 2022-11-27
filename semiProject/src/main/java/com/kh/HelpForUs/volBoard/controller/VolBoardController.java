@@ -15,17 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.HelpForUs.common.exception.BoardException;
+import com.kh.HelpForUs.common.model.service.CommonService;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.common.vo.Reply;
 import com.kh.HelpForUs.member.model.vo.Member;
-import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.service.VolBoardService;
 import com.kh.HelpForUs.volBoard.model.vo.Application;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -35,6 +35,9 @@ public class VolBoardController {
 	
 	@Autowired
 	private VolBoardService vService;
+	
+	@Autowired
+	private CommonService cService;
 	
 	// 봉사 게시글 리스트
 	@RequestMapping("volBoardList.vo")
@@ -223,12 +226,15 @@ public class VolBoardController {
 			}
 		}
 		
+		ArrayList<Reply> rList = cService.selectReply(bId);
+		
 		if(vBoard != null) {
 			vBoard.setVolunteerCurrentPeople(app.size());
 			model.addAttribute("vBoard", vBoard);
 			model.addAttribute("aList", aList);
 			model.addAttribute("cheer", cheer);
 			model.addAttribute("appCheck", appCheck);
+			model.addAttribute("rList", rList);
 			
 			if(vBoard.getBoardType().equals("Vol")) {
 				return "boardDetailVol";

@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.HelpForUs.common.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.HelpForUs.donBoard.model.vo.DonBoard" alias="donBoard"/>
 		<typeAlias type="com.kh.HelpForUs.member.model.vo.Donation" alias="Donation"/>
+		<typeAlias type="com.kh.HelpForUs.common.vo.Reply" alias="Reply"/>
 	</typeAliases>
 
 	<mappers>

@@ -11,6 +11,7 @@ import com.kh.HelpForUs.common.model.dao.CommonDAO;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.common.vo.Reply;
 
 @Service("cService")
 public class CommonServiceImpl implements CommonService {
@@ -77,6 +78,16 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public int delelteNotBoard(int bId) {
 		return cDAO.deleteNotBoard(sqlSession, bId);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return cDAO.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReply(int refBoardId) {
+		return cDAO.selectReply(sqlSession, refBoardId);
 	}
 	
 }

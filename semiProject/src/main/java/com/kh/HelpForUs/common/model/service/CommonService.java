@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.common.vo.Reply;
 
 public interface CommonService {
 
@@ -30,5 +31,9 @@ public interface CommonService {
 	int updateNotBoard(Board b);
 
 	int delelteNotBoard(int bId);
+
+	int insertReply(Reply r);
+
+	ArrayList<Reply> selectReply(int refBoardId);
 
 }
