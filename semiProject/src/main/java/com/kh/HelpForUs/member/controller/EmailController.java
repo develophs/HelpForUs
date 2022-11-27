@@ -41,7 +41,7 @@ public class EmailController {
 	
     private String sendMail = "bha4388@naver.com";
     private String username = "bha4388";
-    private String password = null;
+    private String password = "null";
 
     @RequestMapping("email.me")
     public String mailSend(@RequestParam("email")String memberEmail){

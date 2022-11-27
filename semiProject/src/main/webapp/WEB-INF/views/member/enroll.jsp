@@ -104,8 +104,8 @@
 	
 	<script>
 	
-		let authNumber = null;
-	 	let mailNumber = null;	
+		let authNumber = 0;
+	 	let mailNumber = 0;	
 	
  		window.onload = () =>{
  			document.getElementById('mailButton').addEventListener('click',function(){

@@ -202,6 +202,15 @@ public class MemberDAO {
 	public int authorizeGroup(SqlSessionTemplate sqlSession, String userName) {
 		return sqlSession.update("memberMapper.authorizeGroup", userName);
 	}
+
+	public int checkEmail(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("memberMapper.checkEmail", email);
+	}
+
+
+	public int modifyPwd(SqlSessionTemplate sqlSession, Map<String, String> map) {
+		return sqlSession.update("memberMapper.modifyPwd", map);
+	}
 	
 	
 }

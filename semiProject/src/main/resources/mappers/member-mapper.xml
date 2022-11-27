@@ -388,5 +388,17 @@
 		SET MEMBER_RIGHT = 'C'
 		WHERE MEMBER_USERNAME = #{userName} AND MEMBER_STATUS = 'Y'
 	</update>
+	
+	<select id="checkEmail" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_EMAIL = #{email} AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<update id="modifyPwd">
+		UPDATE MEMBER
+		SET MEMBER_PWD = #{enPwd}
+		WHERE MEMBER_EMAIL = #{email}
+	</update>
 
 </mapper>

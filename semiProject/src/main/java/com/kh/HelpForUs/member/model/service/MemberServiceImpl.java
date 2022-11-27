@@ -220,6 +220,17 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.authorizeGroup(sqlSession, userName);
 	}
 
+	@Override
+	public int checkEmail(String email) {
+		return mDAO.checkEmail(sqlSession,email);
+	}
+
+	@Override
+	public int modifyPwd(Map<String, String> map) {
+		return mDAO.modifyPwd(sqlSession,map);
+	}
+
+
 	
 
 	

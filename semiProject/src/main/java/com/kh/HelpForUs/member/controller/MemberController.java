@@ -698,4 +698,43 @@ public class MemberController {
 		String data = result>0 ? "yes" : "no";
 		return data;
 	}
+	
+	// 가입된 이메일 확인
+	@RequestMapping("checkEmail.me")
+	@ResponseBody
+	public String checkEmail(@RequestParam("email")String email) {
+		int count = mService.checkEmail(email);
+		System.out.println(email);
+		System.out.println(count);
+		String result = count>0 ? "yes" : "no";
+		return result;
+	}
+	
+	// 비밀번호 재설정창 이동
+	@GetMapping("modifyPwd.me")
+	public String pwdView(@RequestParam("emailAdress")String email,Model model) {
+		model.addAttribute("email",email);
+		return "modifyPwd";
+	}
+	
+	// 비밀번호 재설정
+	@PostMapping("modifyPwd.me")
+	public String modifyPwd(@RequestParam("pwd1")String pwd1, @RequestParam("pwd2")String pwd2,
+			@RequestParam("email")String email) {
+		if(!pwd1.equals(pwd2)) {
+			throw new MemberException("비밀번호가 일치하지 않습니다.");
+		}
+		String enPwd = bcrypt.encode(pwd1);
+		Map<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("enPwd", enPwd);
+		
+		int result = mService.modifyPwd(map);
+		if(result>0) {
+			return "redirect:/";
+		} else {
+			throw new MemberException("비밀번호 재설정에 실패하셨습니다.");
+		}
+		
+	}
 }

@@ -93,6 +93,10 @@ public interface MemberService {
 
 	int authorizeGroup(String userName);
 
+	int checkEmail(String email);
+
+	int modifyPwd(Map<String, String> map);
+
 
 
 }
