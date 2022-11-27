@@ -81,14 +81,14 @@
 					      <th scope="col">권한부여버튼</th>
 					    </tr>
 					  </thead>
-					  <tbody class="table-group-divider" >
+					  <tbody class="table-group-divider">
 							<c:forEach items="${ cList }" var="c"> 
-							    <tr data-bs-toggle="modal" data-bs-target="#exampleModal">
-								    <td>${c.attachment.attmId}</td>
-								    <td>${c.attachment.originalName}</td>
-								    <td>${c.member.memberUsername}</td>
-								    <td>${c.member.memberNickname}</td>
-								    <td>${c.attachment.createDate}</td>
+							    <tr>
+								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.attachment.attmId}</td>
+								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.attachment.originalName}</td>
+								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.member.memberUsername}</td>
+								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.member.memberNickname}</td>
+								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.attachment.createDate}</td>
 								    <td>
 								      <button type="button" class="btn btn-outline-primary btn-sm">권한 부여</button>
 								    </td>
@@ -144,15 +144,18 @@
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<script>
-		window.onload=()=>{
-			
+		window.onload = () =>{
 			const trs = document.querySelectorAll('tbody tr');
 			for(const tr of trs){
 				tr.addEventListener('click',function(){
+					const tds = this.querySelectorAll('td');
+					tds[5].addEventListener('click',function(event){
+						event.preventDefault();
+					});
+					
 					const link = this.nextElementSibling.value;
 					document.getElementById('certiShow').innerHTML = "<img src=" + link +'>';
 					
-					const tds = this.querySelectorAll('td');
 					const userName = tds[2].innerText;
 					
 					tds[5].children[0].addEventListener('click',function(){
@@ -174,6 +177,6 @@
 				});
 			}
 		}
-		</script>
+	</script>
 </body>
 </html>
