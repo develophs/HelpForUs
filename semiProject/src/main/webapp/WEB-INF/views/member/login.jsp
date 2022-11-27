@@ -85,7 +85,7 @@
 				const email = document.getElementById('emailAdress').value;
 				$.ajax({
 					url: '${contextPath}/checkEmail.me',
-					async : true,
+					async : false,
 					data: {email,email},
 					success: (data)=>{
 						if(data.trim()== 'yes'){
@@ -103,7 +103,6 @@
 						mailNumber = data;
 					}
 				});
-				
 			});
 		}
 		

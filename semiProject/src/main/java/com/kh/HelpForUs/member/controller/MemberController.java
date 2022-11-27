@@ -704,8 +704,6 @@ public class MemberController {
 	@ResponseBody
 	public String checkEmail(@RequestParam("email")String email) {
 		int count = mService.checkEmail(email);
-		System.out.println(email);
-		System.out.println(count);
 		String result = count>0 ? "yes" : "no";
 		return result;
 	}
