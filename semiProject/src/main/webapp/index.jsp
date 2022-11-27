@@ -59,8 +59,6 @@
 								<td class="notTitle"></td>
 								<td class="notDate"></td>
 								<td class="notCount"></td>
-								<input type="hidden">
-								<input type="hidden">
 							</tr>
 						</c:forEach>
 						<tr align="right">
@@ -130,6 +128,7 @@
 			$.ajax({
 				url: '${ contextPath }/latestBoard.co',
 				success: (data) => {
+					const cards = document.getElementsByClassName('cards');
 					const title = document.getElementsByClassName('title');
 					const content = document.getElementsByClassName('content');
 					const date = document.getElementsByClassName('date');
@@ -144,6 +143,18 @@
 						title[i].innerText = data.bList[i].boardTitle;
 						content[i].innerText = data.bList[i].boardContent.substring(0, 20);
 						date[i].innerText = data.bList[i].boardCreateDate;
+						
+						cards[i].addEventListener('click', () => {
+							console.log(data.bList[i].boardType);
+							switch(data.bList[i].boardType){
+							case 'Vol': case 'volRev':
+								location.href='${contextPath}/volBoardDetail.vo?bId=' + data.bList[i].boardId + '&userName=' + data.bList[i].refMemberUsername;
+								break;
+							case 'Don':
+								location.href='${contextPath}/selectDonBoard.do?bId=' + data.bList[i].boardId + '&userName=' + data.bList[i].refMemberUsername;
+								break;
+							}
+						});
 					}
 
 				},
@@ -166,8 +177,6 @@
 						title[i].innerText = data[i].boardTitle;
 						date[i].innerText = data[i].boardModifyDate;
 						count[i].innerText = data[i].boardCount;
-						hidden[0].value = data[i].boardId;
-						hidden[1].value = data[i].refMemberUsername;
 						
 						nots[i].addEventListener('mouseover', () => {
 							nots[i].style.background = 'lightgray';
@@ -179,7 +188,7 @@
 						});
 						
 						nots[i].addEventListener('click', () => {
-							location.href='${contextPath}/notBoardDetail.no?bId=' + hidden[0].value + '&userName=' + hidden[1].value
+							location.href='${contextPath}/notBoardDetail.no?bId=' + data[i].boardId + '&userName=' + data[i].refMemberUsername;
 						});
 					}
 				},

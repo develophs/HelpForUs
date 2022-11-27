@@ -182,9 +182,9 @@
 			<table class="table">
 			  <thead>
 			    <tr>
-			      <th scope="col" style="width: 50%">댓글</th>
-			      <th scope="col" style="width: 25%">작성자</th>
-			      <th scope="col" style="width: 25%">작성일</th>
+			      <th scope="col" style="width: 70%"></th>
+			      <th scope="col" style="width: 15%">작성자</th>
+			      <th scope="col" style="width: 15%">작성일</th>
 			    </tr>
 			    </thead>
 			    <tbody id="replyTbody">
