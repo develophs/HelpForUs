@@ -11,10 +11,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
 	.mypage{padding-top:15px; text-align:left; font-weight:bold;}
-	.category{font-weight:bold; text-align:left; font-size:24px; padding-top:15px;}
-	.menu{text-align:left; font-size:15px;}
-	.menu:hover{font-weight:bold; cursor:pointer;}
+	.category{font-weight:bold; text-align:left; font-size:22px; padding-top:5px;}
+	.menu{text-align:left; font-size:13px; margin:1px;}
+	.menu:hover{font-weight:bold; cursor:pointer; text-decoration:underline;}
+	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
 	.row{height:700px;}
+	.title{font-weight:bold; text-align:left; font-size:22px; padding:30px;}
 </style>
 </head>
 <body>
@@ -42,14 +44,14 @@
    				<p class="category">기부 현황</p>
    				<ul type="circle">
    					<li><p class="menu" onclick="location.href='${contextPath}/donBoard.me'">기부 내역</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 모금 게시글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/cheerDBoard.me'">응원한 모금 게시글</p></li>
    				</ul>
    				
    				
    				<p class="category">봉사 활동 현황</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/volBoard.me'">신청한 봉사활동</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/cheerVBoard.me'">응원한 봉사활동</p></li>
 				</ul>
 				
 				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
@@ -65,17 +67,16 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark border-2">
-   				<h1 class="fs-1 fw-bold text-start mt-5 ms-4">신청한 봉사활동</h1>
+   				<h3 class="title">신청한 봉사활동</h3>
    				
    				<div class="w-60 jstify-content-center">
-   					<table class="table table-bordered" style="padding: auto">
-   					
+   					<table class="table table-hover" style="padding: 10px;">
 	   					<thead>
 		   					<tr class="table-active align-middle">
 		   						<th>글번호</th>
 		   						<th>단체명</th>
 		   						<th>제목</th>
-		   						<td>마감일</td>
+		   						<th>마감일</th>
 		   					</tr>
 		   				<thead>	
 		   				

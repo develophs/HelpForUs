@@ -400,5 +400,64 @@
 		SET MEMBER_PWD = #{enPwd}
 		WHERE MEMBER_EMAIL = #{email}
 	</update>
+	
+	<select id="getCheerDCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CHEER C
+		JOIN MEMBER M ON (MEMBER_USERNAME=REF_MEMBER_USERNAME)
+		JOIN BOARD B ON (BOARD_ID = REF_BOARD_ID)
+		WHERE M.MEMBER_USERNAME = #{id} AND B.BOARD_TYPE ='Don' AND B.BOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="getCheerVCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CHEER C
+		JOIN MEMBER M ON (MEMBER_USERNAME = REF_MEMBER_USERNAME)
+		JOIN BOARD B ON (BOARD_ID = REF_BOARD_ID)
+		WHERE M.MEMBER_USERNAME = #{id} AND B.BOARD_TYPE ='Vol' AND B.BOARD_STATUS = 'Y'
+	</select>
+	
+	<select id="getCheerVList" resultMap="cheerList">
+		SELECT M.MEMBER_USERNAME, M.MEMBER_NICKNAME, B.BOARD_ID, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_DEADLINE, BOARD_TYPE
+		FROM BOARD B
+		JOIN CHEER C ON (B.BOARD_ID = C.REF_BOARD_ID)
+		JOIN MEMBER M ON (M.MEMBER_USERNAME = C.REF_MEMBER_USERNAME)
+		WHERE B.BOARD_STATUS ='Y' AND B.BOARD_TYPE='Vol' AND M.MEMBER_USERNAME = #{id}
+	</select>
+	
+	<select id="getCheerDList" resultMap="cheerList">
+		SELECT M.MEMBER_USERNAME, M.MEMBER_NICKNAME, B.BOARD_ID, B.BOARD_TITLE, B.BOARD_CONTENT, B.BOARD_DEADLINE, BOARD_TYPE
+		FROM BOARD B
+		JOIN CHEER C ON (B.BOARD_ID = C.REF_BOARD_ID)
+		JOIN MEMBER M ON (M.MEMBER_USERNAME = C.REF_MEMBER_USERNAME)
+		WHERE B.BOARD_STATUS ='Y' AND B.BOARD_TYPE='Don' AND M.MEMBER_USERNAME = #{id}
+	</select>
+	
+	<resultMap id="cheerList" type="com.kh.HelpForUs.member.model.vo.CheerList">
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="board" resultMap="boardResultSet"/>
+		<collection property="cheer" resultMap="cheerResultSet"/>
+	</resultMap>
+	
+	<resultMap type="Board" id="boardResultSet">
+		<id property="boardId" column="BOARD_ID"/>
+		<result property="boardType" column="BOARD_TYPE"/>
+		<result property="refMemberUsername" column="REF_MEMBER_USERNAME"/>
+		<result property="refCategoryId" column="REF_CATEGORY_ID"/>
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="boardCreateDate" column="BOARD_CREATE_DATE"/>
+		<result property="boardModifyDate" column="BOARD_MODIFY_DATE"/>
+		<result property="boardDeadline" column="BOARD_DEADLINE"/>
+		<result property="boardStatus" column="BOARD_STATUS"/>
+		<result property="boardCount" column="BOARD_COUNT"/>
+	</resultMap>
+	
+	<resultMap id="cheerResultSet" type="com.kh.HelpForUs.common.vo.Cheer">
+		<result property="boardId" column="REF_BOARD_ID"/>
+		<result property="memberUserName" column="REF_MEMBER_USERNAME"/>
+	</resultMap>
+	
+	
 
 </mapper>

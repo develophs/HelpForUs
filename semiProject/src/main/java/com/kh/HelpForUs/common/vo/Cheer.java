@@ -15,5 +15,5 @@ import lombok.ToString;
 @ToString
 public class Cheer {
 	private int boardId;
-	private String memberUserName;	
+	private String memberUserName;
 }
