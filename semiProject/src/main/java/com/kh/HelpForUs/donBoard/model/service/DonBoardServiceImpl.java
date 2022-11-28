@@ -32,8 +32,8 @@ public class DonBoardServiceImpl implements DonBoardService{
 	}
 
 	@Override
-	public ArrayList<DonBoard> selectDonList(PageInfo pi, int cate) {
-		return dDAO.selectDonList(sqlSession, pi, cate);
+	public ArrayList<DonBoard> selectDonList(PageInfo pi, HashMap<String, Object> map) {
+		return dDAO.selectDonList(sqlSession, pi, map);
 	}
 
 	@Override

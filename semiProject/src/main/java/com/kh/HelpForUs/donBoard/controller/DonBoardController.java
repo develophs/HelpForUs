@@ -44,7 +44,7 @@ public class DonBoardController {
 	
 	// 모금 게시글 리스??
 	@RequestMapping("donBoardList.do")
-	public String donBoardList(@RequestParam(value="page", required=false) Integer page, @RequestParam(value="category", required=false) Integer category, Model model) {
+	public String donBoardList(@RequestParam(value="page", required=false) Integer page, @RequestParam(value="category", required=false) Integer category, Model model, @RequestParam(value="search", required=false) String search) {
 		int currentPage = 1;
 		if(page != null) {
 			currentPage = page;
@@ -58,9 +58,14 @@ public class DonBoardController {
 		int dListCount = dService.getDonListCount(1);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, dListCount, 9);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cate", cate);
+		map.put("search", search);
 		
-		ArrayList<DonBoard> dList = dService.selectDonList(pi, cate);
+		ArrayList<DonBoard> dList = dService.selectDonList(pi, map);
 		ArrayList<Attachment> aList = dService.selectAttmList();
+		
+		
 		
 		if(dList != null) {
 			model.addAttribute("pi", pi);

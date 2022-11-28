@@ -26,6 +26,9 @@
 		<if test="cate != 0">
 			and ref_category_id=#{cate}
 		</if>
+		<if test="search != null">
+			and board_title like '%'||#{search}||'%'
+		</if>
 		order by board_id desc
 	</select>
 	
