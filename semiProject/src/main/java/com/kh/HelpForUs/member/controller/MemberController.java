@@ -679,6 +679,7 @@ public class MemberController {
 		}
 		int listCount = mService.getGroupCertiCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		
 		ArrayList<Attachment> cList = mService.getGroupCertificate(pi);
 		if(cList != null) {
 			model.addAttribute("pi", pi);
@@ -735,4 +736,51 @@ public class MemberController {
 		}
 		
 	}
+	
+	//봉사 기부게시글 댓글
+	@RequestMapping("allRepList.me")
+	public String allRepList(@RequestParam(value="page",required=false)Integer page,Model model,@RequestParam ("boardType") String boardType) {
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		
+		int groupCount = mService.getRepCount(boardType);
+		PageInfo pi = Pagination.getPageInfo(currentPage, groupCount, 10);
+		
+		List<Member> getRepList = mService.getRepList(pi,boardType);
+		
+		if(getRepList != null) {
+			model.addAttribute("getRepList",getRepList);
+			model.addAttribute("pi",pi);
+			return "adminRepList";
+			
+		} else {
+			throw new MemberException("댓글조회에 실패하셨습니다.");
+		}
+	}
+	
+	//후기댓글
+	@RequestMapping("allRRepList.me")
+	public String allVRepList(@RequestParam(value="page",required=false)Integer page,Model model) {
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		
+		int getRRepCount = mService.getRRepCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, getRRepCount, 10);
+		
+		List<Member> getRRepList = mService.getRRepList(pi);
+		
+		if(getRRepList != null) {
+			model.addAttribute("getRepList",getRRepList);
+			model.addAttribute("pi",pi);
+			return "adminRepList";
+		} else {
+			throw new MemberException("댓글조회에 실패하셨습니다.");
+		}
+	}
+	
+	
 }

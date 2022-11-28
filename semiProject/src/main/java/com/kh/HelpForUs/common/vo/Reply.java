@@ -22,4 +22,5 @@ public class Reply {
 	private int refBoardId;
 	private String replyStatus;
 	private String nickName;
+	private String refBoardType;
 }

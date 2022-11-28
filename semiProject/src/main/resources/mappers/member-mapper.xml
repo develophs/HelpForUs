@@ -400,5 +400,52 @@
 		SET MEMBER_PWD = #{enPwd}
 		WHERE MEMBER_EMAIL = #{email}
 	</update>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id property="replyId" column="REPLY_ID"/>
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="replyModifyDate" column="REPLY_MODIFY_DATE"/>
+		<result property="replyCreateDate" column="REPLY_CREATE_DATE"/>
+		<result property="refMemberUsername" column="REF_MEMBER_USERNAME"/>
+		<result property="refBoardId" column="REF_BOARD_ID"/>
+		<result property="replyStatus" column="REPLY_STATUS"/>
+		<result property="nickName" column="MEMBER_NICKNAME"/>
+		<result property="refBoardType" column="BOARD_TYPE"/>
+	</resultMap>
+	
+	<select id="getRepCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM reply r
+		JOIN member on(r.REF_MEMBER_USERNAME= MEMBER_USERNAME)
+		JOIN board b on(r.REF_BOARD_ID = b.BOARD_ID)
+		WHERE BOARD_TYPE= #{boardType} AND BOARD_STATUS ='Y' and REPLY_STATUS='Y'
+	</select>
+	
+	<select id="getRepList" resultMap="replyResultSet">
+		SELECT REPLY_ID, REPLY_CONTENT, REPLY_MODIFY_DATE, REPLY_CREATE_DATE, r.REF_MEMBER_USERNAME, r.REF_BOARD_ID, REPLY_STATUS, MEMBER_NICKNAME,b.BOARD_TYPE
+		FROM reply r
+			JOIN member m on(r.REF_MEMBER_USERNAME = m.MEMBER_USERNAME)
+        	JOIN board b on(r.REF_BOARD_ID = b.BOARD_ID)
+		WHERE b.BOARD_TYPE=#{boardType} AND b.BOARD_STATUS ='Y' and REPLY_STATUS='Y'
+	</select>
+	
+	<select id="getRRepCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM reply r
+		JOIN member on( r.REF_MEMBER_USERNAME= MEMBER_USERNAME)
+		JOIN board b on(r.REF_BOARD_ID = b.BOARD_ID)
+		WHERE (BOARD_TYPE= 'donRev' or BOARD_TYPE= 'volRev')AND BOARD_STATUS ='Y' and REPLY_STATUS='Y'
+	</select>
+	
+	<select id="getRRepList" resultMap="replyResultSet">
+		SELECT REPLY_ID, REPLY_CONTENT, REPLY_MODIFY_DATE, REPLY_CREATE_DATE, r.REF_MEMBER_USERNAME, r.REF_BOARD_ID, REPLY_STATUS, MEMBER_NICKNAME,b.BOARD_TYPE
+		FROM reply r
+			JOIN member m on(r.REF_MEMBER_USERNAME = m.MEMBER_USERNAME)
+        	JOIN board b on(r.REF_BOARD_ID = b.BOARD_ID)
+		WHERE (b.BOARD_TYPE= 'donRev' or b.BOARD_TYPE= 'volRev') AND b.BOARD_STATUS ='Y' and REPLY_STATUS='Y'
+	</select>
+	
+	
+	
 
 </mapper>

@@ -97,6 +97,17 @@ public interface MemberService {
 
 	int modifyPwd(Map<String, String> map);
 
+	int getRepCount(String boardType);
+
+	List<Member> getRepList(PageInfo pi, String boardType);
+	
+	int getRRepCount();
+
+	List<Member> getRRepList(PageInfo pi);
+
+	
+
+
 
 
 }
