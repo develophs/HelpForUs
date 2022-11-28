@@ -17,7 +17,7 @@ public interface DonBoardService {
 
 	int getDonListCount(int i);
 
-	ArrayList<DonBoard> selectDonList(PageInfo pi, int cate);
+	ArrayList<DonBoard> selectDonList(PageInfo pi, HashMap<String, Object> map);
 
 	int insertDonBoard(DonBoard dB);
 

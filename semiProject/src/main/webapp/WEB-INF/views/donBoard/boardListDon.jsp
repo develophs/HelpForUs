@@ -111,8 +111,10 @@
 		  			</td>
 	  			</c:if>
 	  			<td>
-	        		<form class="d-flex" role="search">
-	        		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" width="150" height="25" >
+	        		<form class="d-flex" role="search" action="${ contextPath }/donBoardList.do">
+	        		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" width="150" height="25" name="search">
+	        		<input type="hidden" name="page" value="${ pi.currentPage }">
+	        		<input type="hidden" name="category" value="${ category }">
 	        		<button class="btn btn-outline-success" type="submit">Search</button>
 	        		</form>
 	  			</td>

@@ -285,7 +285,9 @@
 					 	<input type="hidden" name="writer" id="writer" value="${ dB.memberNickname }">
 					 	<input type="hidden" id="totalRose" name="totalRose">
 						<input type="button" class="btn text-white" value="리셋" style="background-color: darkkhaki" id="reset">
-						<input type="submit" class="btn text-white" id="roseSend" style="background-color: #0088ff" value="기부하기">
+						
+						
+						<input type="submit" class="btn text-white" id="roseSend" style="background-color: #0088ff; display: none" value="기부하기">
 				      	<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button> -->
 					 </div>
 		    	</div> 
@@ -334,14 +336,20 @@
 					alert('보유 장미 개수보다 많은 장미를 선택할 수 없습니다.');
 				}
 			}
+			if(count>0) {
+				document.getElementById('roseSend').style.display = 'inline';
+			}
 			
 			$('#reset').click(function(){
 				count = 0;
 				document.getElementById('addRose').innerHTML = count;
+				document.getElementById('roseSend').style.display = 'none';
 			});
 			
 			document.getElementById('addRose').innerHTML = count;
 			document.getElementById('totalRose').value = count;
+			
+
 		});
 		
 		$('#deleteBtn').click(function(){

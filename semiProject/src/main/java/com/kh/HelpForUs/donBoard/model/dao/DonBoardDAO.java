@@ -24,10 +24,10 @@ public class DonBoardDAO {
 		return sqlSession.selectOne("donationMapper.getDonListCount", i);
 	}
 
-	public ArrayList<DonBoard> selectDonList(SqlSessionTemplate sqlSession, PageInfo pi, int cate) {
+	public ArrayList<DonBoard> selectDonList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> map) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList)sqlSession.selectList("donationMapper.selectDonList", cate, rowBounds);
+		return (ArrayList)sqlSession.selectList("donationMapper.selectDonList", map, rowBounds);
 	}
 	
 	public int insertDonBoard(SqlSessionTemplate sqlSession, DonBoard dB) {
