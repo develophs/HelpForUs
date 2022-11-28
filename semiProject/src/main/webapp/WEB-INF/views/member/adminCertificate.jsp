@@ -160,7 +160,7 @@
 					});
 					
 					const link = this.nextElementSibling.value;
-					document.getElementById('certiShow').innerHTML = "<img src=" + link +'>';
+					document.getElementById('certiShow').innerHTML = "<img src=" + link +' width=450px; height=500px;>';
 					
 					const userName = tds[2].innerText;
 					
@@ -170,7 +170,8 @@
 							data: {memberUsername:userName},
 							success: (data)=>{
 								if(data.trim() == 'yes'){
-									swal('해당 단체의 권한이 설정되었습니다.');
+									alert('해당 단체의 권한이 설정되었습니다.');
+									location.href='${contextPath}/groupCertificate.me';
 								} else{
 									swal('해당 단체의 권한 설정에 실패하셨습니다.');
 								}
