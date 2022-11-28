@@ -77,9 +77,7 @@
 		   						<th>단체명</th>
 		   						<th>제목</th>
 		   						<td>마감일</td>
-		   						<td>마감일</td>
 		   						<td>후기작성</td>
-		   						<th>마감일</th>
 		   					</tr>
 		   				<thead>	
 		   				
@@ -143,6 +141,16 @@
 	<script>
 	
 	window.onload=()=>{
+		const trs = document.querySelectorAll('tbody tr');
+		for(const tr of trs){
+			tr.addEventListener('click',function(){
+				const tds = this.querySelectorAll('td');
+				const boardId = tds[0].innerText;
+				const writer = tds[1].innerText;
+					location.href='${contextPath}/volBoardDetail.vo?bId=' + boardId + '&nickName=' + writer;
+				}
+			})
+		}
 
 		setInterval(
 			function alarm() {

@@ -126,5 +126,17 @@
 
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<script>
+		const trs = document.querySelectorAll('tbody tr');
+		for(const tr of trs){
+			tr.addEventListener('click',function(){
+				const tds = this.querySelectorAll('td');
+				const boardId = tds[0].innerText;
+				const writer = tds[2].innerText;
+				location.href='${contextPath}/selectDonBoard.do?bId=' + boardId + '&writer=' + writer + '&page=' + ${pi.currentPage};
+			})
+		}
+	</script>
+
 </body>
 </html>
