@@ -76,6 +76,7 @@
 		   						<th>단체명</th>
 		   						<th>제목</th>
 		   						<td>마감일</td>
+		   						<td>후기작성</td>
 		   					</tr>
 		   				<thead>	
 		   				
@@ -87,6 +88,7 @@
 							      <td>${d.memberNickname}</td>
 							      <td>${d.boardTitle}</td>
 							      <td>${d.boardDeadline}</td>
+							      <td><button onclick="location.href='${contextPath}/volRevWrite.re?bId='+${d.boardId}">후기쓰기</button></td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
