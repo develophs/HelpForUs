@@ -58,7 +58,6 @@
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
-				
    			
    			</div>
    			
@@ -68,29 +67,27 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark border-2">
-   				<h3 class="title">기부 목록</h3>
+   				<h3 class="title">응원한 기부 활동</h3>
    				
    				<div class="w-60 jstify-content-center">
-   					<table class="table table-hover" style="padding: auto">
-   						
-   						<thead>
+   					<table class="table table-hover" style="padding: 10px;">
+	   					<thead>
 		   					<tr class="table-active align-middle">
 		   						<th>글번호</th>
 		   						<th>단체명</th>
 		   						<th>제목</th>
 		   						<th>마감일</th>
 		   					</tr>
-	   					</thead>
-	   					
-	   					<tbody class="table-group-divider" >
-					  
-					  	 <c:if test="${list != null}">
-							  <c:forEach items="${list}" var="d"> 
+		   				<thead>	
+		   				
+		   				<tbody class="table-group-divider" >
+					  	 <c:if test="${cDList != null}">
+							  <c:forEach items="${cDList}" var="list"> 
 							    <tr>
-								  <td>${d.boardId}</td>
-								  <td>${d.memberNickname}</td>
-							      <td>${d.boardTitle}</td>
-							      <td>${d.boardDeadline}</td>
+							      <td>${list.board.boardId}</td>
+							      <td>${list.member.memberNickname}</td>
+							      <td>${list.board.boardTitle}</td>
+							      <td>${list.board.boardDeadline}</td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
@@ -103,7 +100,7 @@
 					    
 					  </tbody>
      			</table>
-   				</div>
+   			</div>
    				
      			<ul class="pagination" style="justify-content: center;">
 					<c:if test="${ pi.currentPage > 1 }">
@@ -132,7 +129,6 @@
 	</div>
 	
 	<br><br><br>
-
 
 	<script type="text/javascript">
 		document.getElementById('nullList').innerText ='${message}';

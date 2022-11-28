@@ -13,6 +13,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
+import com.kh.HelpForUs.member.model.vo.CheerList;
 import com.kh.HelpForUs.member.model.vo.Member;
 
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -211,6 +212,30 @@ public class MemberDAO {
 	public int modifyPwd(SqlSessionTemplate sqlSession, Map<String, String> map) {
 		return sqlSession.update("memberMapper.modifyPwd", map);
 	}
+
+	public int getCheerDCount(SqlSessionTemplate sqlSession,String id) {
+		return sqlSession.selectOne("memberMapper.getCheerDCount",id);
+	}
+
+	public int getCheerVCount(SqlSessionTemplate sqlSession,String id) {
+		return sqlSession.selectOne("memberMapper.getCheerVCount",id);
+	}
+
+	public List<CheerList> getCheerDBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		PageInfo pi = (PageInfo)map.get("pi");
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getCheerDList", map, rowBounds);
+	}
+
+	public List<CheerList> getCheerVBoard(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		PageInfo pi = (PageInfo)map.get("pi");
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getCheerVList", map, rowBounds);
+	}
+	
+	
 	
 	
 }

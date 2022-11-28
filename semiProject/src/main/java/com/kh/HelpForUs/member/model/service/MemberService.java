@@ -9,6 +9,7 @@ import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
+import com.kh.HelpForUs.member.model.vo.CheerList;
 import com.kh.HelpForUs.member.model.vo.Member;
 
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -96,6 +97,14 @@ public interface MemberService {
 	int checkEmail(String email);
 
 	int modifyPwd(Map<String, String> map);
+
+	int getCheerDCount(String id);
+
+	int getCheerVCount(String id);
+
+	List<CheerList> getCheerDBoard(Map<String, Object> map);
+
+	List<CheerList> getCheerVBoard(Map<String, Object> map);
 
 
 
