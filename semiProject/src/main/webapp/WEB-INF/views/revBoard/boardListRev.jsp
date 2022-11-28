@@ -220,7 +220,9 @@
 					const bType = this.querySelector('input').value;
 					
 						if(bType =="donRev" ){
-							location.href='${contextPath}/selectDonBoard.do?bId=' + bId;
+							location.href='${contextPath}/selectDonBoard.do?bId=' + bId+'&nickName='+nickName;
+						}else{
+							location.href='${contextPath}/volBoardDetail.vo?bId=' + bId+'&nickName='+nickName;
 						}
 						
 					});
