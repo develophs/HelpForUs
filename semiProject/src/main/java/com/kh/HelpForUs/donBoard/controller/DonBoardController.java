@@ -46,7 +46,7 @@ public class DonBoardController {
 	@Autowired
 	private MemberService mService;
 	
-	// 모금 게시글 리스??
+	// 모금 게시글 리스트
 	@RequestMapping("donBoardList.do")
 	public String donBoardList(@RequestParam(value="page", required=false) Integer page, @RequestParam(value="category", required=false) Integer category, Model model, @RequestParam(value="search", required=false) String search) {
 		int currentPage = 1;
@@ -83,13 +83,13 @@ public class DonBoardController {
 		}
 	}	
 	
-	// 모금 글 ?�성 ?�이지�? ?�어가�?
+	// 모금 글 작성 페이지 이동
 	@RequestMapping("donBoardWrite.do")
 	public String donBoardWrite() {
 		return "donBoardWrite";
 	}
 	
-	// 모금 글 ?�성?�기
+	// 모금 글 작성하기
 	@RequestMapping("insertDonBoard.do")
 	public String insertDonBoard(HttpServletRequest request, @ModelAttribute DonBoard dB, @RequestParam("file") ArrayList<MultipartFile> files) {
 		String donBoardWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
@@ -171,7 +171,7 @@ public class DonBoardController {
 				for(Attachment a : list) {
 					deleteFile(a.getRenameName(), request);
 				}
-				throw new BoardException("기�? 게시글 ?�성 ?�패");
+				throw new BoardException("기부 게시글 작성 실패");
 			}
 		}
 		
@@ -200,7 +200,7 @@ public class DonBoardController {
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (Exception e) {
-			System.out.println("?�일 ?�송 ?�러" + e.getMessage());
+			System.out.println("파일 전송 에러" + e.getMessage());
 		}
 		
 		String[] returnArr = new String[2];
@@ -233,7 +233,7 @@ public class DonBoardController {
 		}
 		
 //		System.out.println(bId);
-		// ?�원 ?�역 보기 ?�한 �?
+		// 응원 내역 보기
 		Cheer c = new Cheer();
 		Cheer cheer = null;
 		if(m != null) {
@@ -245,7 +245,7 @@ public class DonBoardController {
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
 		ArrayList<Donation> dList = rService.selectDonor(bId);
-		// ?��? ?�역
+		// 댓글
 		Reply r = new Reply();
 		ArrayList<Reply> reply = null;
 		r.setRefBoardId(bId);
@@ -272,7 +272,7 @@ public class DonBoardController {
 		return mv;
 	}
 	
-	// ?�원?�기
+	// 응원하기
 	@RequestMapping("cheerBoard.do")
 	public String cheerBoard(HttpSession session, @RequestParam("bId") int boardId, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
@@ -285,11 +285,11 @@ public class DonBoardController {
 			model.addAttribute("bId", boardId);
 			return "redirect:selectDonBoard.do";
 		}else {
-			throw new BoardException("?�원?�기 ?�패");
+			throw new BoardException("응원하기 실패");
 		}
 	}
 	
-	// ?�원?�기 취소
+	// 응원하기 취소
 	@RequestMapping("cheerCancle.do")
 	public String cheerCancle(HttpSession session, @RequestParam("bId") int bId, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
@@ -302,11 +302,11 @@ public class DonBoardController {
 			model.addAttribute("bId", bId);
 			return "redirect:selectDonBoard.do";
 		}else {
-			throw new BoardException("?�원?�기 취소 ?�패");
+			throw new BoardException("응원 취소 실패");
 		}
 	}
 	
-	// ?��? 기�??�기
+	// 장미 기부하기
 	@RequestMapping("roseDonation.do")
 	public String roseDonation(HttpSession session, @RequestParam("bId") int bId, @RequestParam("writer") String writer ,@RequestParam("reply") String reply, Model model, @RequestParam("totalRose") String totalRose, @ModelAttribute DonBoard dB) {
 		Member mem = ((Member)session.getAttribute("loginUser"));
@@ -366,11 +366,11 @@ public class DonBoardController {
 			return "redirect:selectDonBoard.do?bId="+bId +"&writer="+writer + "&page=1";
 			
 		}else {
-			throw new BoardException("기�??�기 ?�패");
+			throw new BoardException("기부하기 실패");
 		}
 	}
 	
-	// 모금 게시글 ??��
+	// 모금 게시글 삭제
 	@RequestMapping("deleteDonBoard.do")
 	public String deleteDonBoard(@RequestParam("bId") int bId) {
 		int result = dService.deleteDonBoard(bId);
@@ -378,11 +378,11 @@ public class DonBoardController {
 		if(result > 0) {
 			return "redirect:donBoardList.do";
 		}else {
-			throw new BoardException("모금 게시글 ??�� ?�패");
+			throw new BoardException("모금 게시글 삭제 실패");
 		}
 	}
 	
-	// 모금 게시글 ?�정 ?�이지 ?�동
+	// 모금 게시글 수정 페이지 이동
 	@RequestMapping("goUpdateDonBoard.do")
 	public String goUpdateDonBoard(@RequestParam("bId") int bId, Model model) {
 		DonBoard dB = dService.selectDonBoard(bId, false);
@@ -392,7 +392,7 @@ public class DonBoardController {
 		return "donBoardEdit";
 	}
 	
-	// 모금 게시글 ?�정
+	// 모금 게시글 수정
 	@RequestMapping("updateDonBoard.do")
 	public String updateDonBoard(@ModelAttribute DonBoard dB, @RequestParam("deleteAttm") String[] deleteAttm, @RequestParam("file") ArrayList<MultipartFile> files, HttpServletRequest request, Model model) {
 		System.out.println(dB);
@@ -402,7 +402,6 @@ public class DonBoardController {
 		int result = dService.updateDonBoard(dB);
 		
 		
-		// ?�파?? ?�??
 		ArrayList<Attachment> list = new ArrayList<>();
 		for(MultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
@@ -480,12 +479,13 @@ public class DonBoardController {
 			a.setFileType("Don");
 		}
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("bId", dB.getBoardId());
-		
 		int updateAttmResult = 0;
-		updateAttmResult = dService.insertAttm(map);
+		if(!list.isEmpty()) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("bId", dB.getBoardId());
+			updateAttmResult = dService.insertAttm(map);
+		}
 		
 //		System.out.println(result);
 //		System.out.println(updateAttmResult);
@@ -500,7 +500,7 @@ public class DonBoardController {
 				return "redirect:selectDonBoard.do";
 			}
 		}else {
-			throw new BoardException("모금 게시글 ?�정 ?�패");
+			throw new BoardException("모금 게시글 수정 실패");
 		}
 	}
 	
