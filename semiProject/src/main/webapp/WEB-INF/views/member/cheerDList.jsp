@@ -139,6 +139,16 @@
 	<script>
 	
 	window.onload=()=>{
+		
+		const trs = document.querySelectorAll('tbody tr');
+		for(const tr of trs){
+			tr.addEventListener('click',function(){
+				const tds = this.querySelectorAll('td');
+				const boardId = tds[0].innerText;
+				const writer = tds[1].innerText;
+				location.href='${contextPath}/selectDonBoard.do?bId=' + boardId + '&writer=' + writer + '&page=' + ${pi.currentPage};
+			})
+		}
 
 		setInterval(
 			function alarm() {
