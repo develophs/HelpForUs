@@ -62,6 +62,7 @@ public class RevBoardController {
 		if(page != null && page > 1) {
 			currentPage = page;
 		}
+		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("category", category);
 		map.put("search", search);
@@ -69,7 +70,7 @@ public class RevBoardController {
 		
 		int listCount = rService.getRListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 9);
-		ArrayList<VolBoard> rList = rService.selectVolBoardList(pi, category);
+		ArrayList<VolBoard> rList = rService.selectVolBoardList(pi, map);
 		ArrayList<Attachment> aList = rService.selectAttmList();
 		
 		if(rList != null) {

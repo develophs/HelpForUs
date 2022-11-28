@@ -45,8 +45,8 @@ public class RevBoardServiceImpl implements RevBoardService{
 	}
 
 	@Override
-	public ArrayList<VolBoard> selectVolBoardList(PageInfo pi, int category) {
-		return rDAO.selectVolBoardList(sqlSession, pi, category);
+	public ArrayList<VolBoard> selectVolBoardList(PageInfo pi, HashMap<String, Object> map) {
+		return rDAO.selectVolBoardList(sqlSession, pi, map);
 	}
 
 	@Override
