@@ -14,9 +14,6 @@
 	.category{font-weight:bold; text-align:left; font-size:24px; padding-top:15px;}
 	.menu{text-align:left; font-size:15px;}
 	.menu:hover{font-weight:bold; cursor:pointer;}
-	tr{height: 80px;}
-	th, td{font-size: 20px; border-left: none; border-right: none;}
-	table{border-bottom: 4px solid gray;}
 	.row{height:700px;}
 </style>
 </head>
