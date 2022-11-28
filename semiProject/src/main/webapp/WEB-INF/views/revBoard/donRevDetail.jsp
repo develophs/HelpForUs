@@ -126,6 +126,7 @@
 		<table class="table table-sm table-bordered">
 			<tr>
 				<th>[기부후기]${ dB.boardTitle }</th>
+				
 			</tr>
 		</table>
 	</div>
@@ -184,7 +185,7 @@
 			    <tr>
 			      <th scope="col" style="width: 35%">작성자</th>
 			      <th scope="col" style="width: 35%">내용</th>
-			      <th scope="col" style="width: %">작성일</th>
+			      <th scope="col" style="width: ">작성일</th>
 			    </tr>
 			    </thead>
 			    <tbody id="replyTbody">

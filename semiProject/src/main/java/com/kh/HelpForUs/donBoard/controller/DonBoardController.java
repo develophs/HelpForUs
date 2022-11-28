@@ -70,17 +70,17 @@ public class DonBoardController {
 			
 			return "boardListDon";
 		}else {
-			throw new BoardException("게시글 조회 ?�패");
+			throw new BoardException("게시글 조회 ?�패");
 		}
 	}	
 	
-	// 모금 글 ?�성 ?�이지�? ?�어가�?
+	// 모금 글 ?�성 ?�이지�? ?�어가�?
 	@RequestMapping("donBoardWrite.do")
 	public String donBoardWrite() {
 		return "donBoardWrite";
 	}
 	
-	// 모금 글 ?�성?�기
+	// 모금 글 ?�성?�기
 	@RequestMapping("insertDonBoard.do")
 	public String insertDonBoard(HttpServletRequest request, @ModelAttribute DonBoard dB, @RequestParam("file") ArrayList<MultipartFile> files) {
 		String donBoardWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
@@ -162,7 +162,7 @@ public class DonBoardController {
 				for(Attachment a : list) {
 					deleteFile(a.getRenameName(), request);
 				}
-				throw new BoardException("기�? 게시글 ?�성 ?�패");
+				throw new BoardException("기�? 게시글 ?�성 ?�패");
 			}
 		}
 		
@@ -191,7 +191,7 @@ public class DonBoardController {
 		try {
 			file.transferTo(new File(renamePath));
 		} catch (Exception e) {
-			System.out.println("?�일 ?�송 ?�러" + e.getMessage());
+			System.out.println("?�일 ?�송 ?�러" + e.getMessage());
 		}
 		
 		String[] returnArr = new String[2];
@@ -224,7 +224,7 @@ public class DonBoardController {
 		}
 		
 //		System.out.println(bId);
-		// ?�원 ?�역 보기 ?�한 �?
+		// ?�원 ?�역 보기 ?�한 �?
 		Cheer c = new Cheer();
 		Cheer cheer = null;
 //		System.out.println("DonCont m : " + m);
@@ -239,7 +239,7 @@ public class DonBoardController {
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
 		ArrayList<Donation> dList = rService.selectDonor(bId);
-		// ?��? ?�역
+		// ?��? ?�역
 		Reply r = new Reply();
 		ArrayList<Reply> reply = null;
 		r.setRefBoardId(bId);
@@ -248,24 +248,24 @@ public class DonBoardController {
 //		if(dB != null) {
 //			mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).setViewName("boardDetailDon");
 //		}else {
-//			throw new BoardException("게시글 ?�세 조회 ?�패");
+//			throw new BoardException("게시글 ?�세 조회 ?�패");
 //		}
 		
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).setViewName("boardDetailDon");
 			}else {
-				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("dList", dList).setViewName("../revBoard/donRevDetail");
+				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("dList", dList).addObject("reply", reply).setViewName("../revBoard/donRevDetail");
 			}
 			
 		}else {
-			throw new BoardException("게시글 ?�세 조회 ?�패");
+			throw new BoardException("게시글 ?�세 조회 ?�패");
 		}
 		
 		return mv;
 	}
 	
-	// ?�원?�기
+	// ?�원?�기
 	@RequestMapping("cheerBoard.do")
 	public String cheerBoard(HttpSession session, @RequestParam("bId") int boardId, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
@@ -278,11 +278,11 @@ public class DonBoardController {
 			model.addAttribute("bId", boardId);
 			return "redirect:selectDonBoard.do";
 		}else {
-			throw new BoardException("?�원?�기 ?�패");
+			throw new BoardException("?�원?�기 ?�패");
 		}
 	}
 	
-	// ?�원?�기 취소
+	// ?�원?�기 취소
 	@RequestMapping("cheerCancle.do")
 	public String cheerCancle(HttpSession session, @RequestParam("bId") int bId, Model model) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
@@ -295,11 +295,11 @@ public class DonBoardController {
 			model.addAttribute("bId", bId);
 			return "redirect:selectDonBoard.do";
 		}else {
-			throw new BoardException("?�원?�기 취소 ?�패");
+			throw new BoardException("?�원?�기 취소 ?�패");
 		}
 	}
 	
-	// ?��? 기�??�기
+	// ?��? 기�??�기
 	@RequestMapping("roseDonation.do")
 	public String roseDonation(HttpSession session, @RequestParam(value="bId", required=false) Integer bId,@RequestParam("writer") String writer ,@RequestParam("reply") String reply, Model model, @RequestParam("totalRose") String totalRose, RedirectAttributes rttr) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
@@ -332,11 +332,11 @@ public class DonBoardController {
 //			rttr.addAttribute("bId",bId);
 			return "redirect:selectDonBoard.do?bId="+bId + "&writer="+writer + "&page=1";
 		}else {
-			throw new BoardException("기�??�기 ?�패");
+			throw new BoardException("기�??�기 ?�패");
 		}
 	}
 	
-	// 모금 게시글 ??��
+	// 모금 게시글 ??��
 	@RequestMapping("deleteDonBoard.do")
 	public String deleteDonBoard(@RequestParam("bId") int bId) {
 		int result = dService.deleteDonBoard(bId);
@@ -344,11 +344,11 @@ public class DonBoardController {
 		if(result > 0) {
 			return "redirect:donBoardList.do";
 		}else {
-			throw new BoardException("모금 게시글 ??�� ?�패");
+			throw new BoardException("모금 게시글 ??�� ?�패");
 		}
 	}
 	
-	// 모금 게시글 ?�정 ?�이지 ?�동
+	// 모금 게시글 ?�정 ?�이지 ?�동
 	@RequestMapping("goUpdateDonBoard.do")
 	public String goUpdateDonBoard(@RequestParam("bId") int bId, Model model) {
 		DonBoard dB = dService.selectDonBoard(bId, false);
@@ -358,7 +358,7 @@ public class DonBoardController {
 		return "donBoardEdit";
 	}
 	
-	// 모금 게시글 ?�정
+	// 모금 게시글 ?�정
 	@RequestMapping("updateDonBoard.do")
 	public String updateDonBoard(@ModelAttribute DonBoard dB, @RequestParam("deleteAttm") String[] deleteAttm, @RequestParam("file") ArrayList<MultipartFile> files, HttpServletRequest request, Model model) {
 		System.out.println(dB);
@@ -368,7 +368,7 @@ public class DonBoardController {
 		int result = dService.updateDonBoard(dB);
 		
 		
-		// ?�파?? ?�??
+		// ?�파?? ?�??
 		ArrayList<Attachment> list = new ArrayList<>();
 		for(MultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
@@ -391,7 +391,7 @@ public class DonBoardController {
 			}
 		}
 		
-		// ?�택?? ?�일?? ??��
+		// ?�택?? ?�일?? ??��
 		ArrayList<String> delRename = new ArrayList<>();
 		ArrayList<Integer> delLevel = new ArrayList<>();
 		for(String rename : deleteAttm) {
@@ -407,7 +407,7 @@ public class DonBoardController {
 		
 		System.out.println(delRename);
 		int deleteAttmResult = 0;
-		boolean existBeforeAttm = true;  // ?�?�했?? 첨�??�일 �? ?�나?�도 ??��?�겠?�고 ?? 경우
+		boolean existBeforeAttm = true;  // ?�?�했?? 첨�??�일 �? ?�나?�도 ??��?�겠?�고 ?? 경우
 		if(!delRename.isEmpty()) {
 			deleteAttmResult = dService.deleteAttm(delRename);
 			if(deleteAttmResult > 0) {
@@ -416,7 +416,7 @@ public class DonBoardController {
 				}
 			}
 			
-			if(delRename.size() == deleteAttm.length) { // 기존 ?�일?? ?��? ??��?�겠?�고 ?? 경우
+			if(delRename.size() == deleteAttm.length) { // 기존 ?�일?? ?��? ??��?�겠?�고 ?? 경우
 				existBeforeAttm = false;
 			} else {
 				for(int level : delLevel) {
@@ -466,7 +466,7 @@ public class DonBoardController {
 				return "redirect:selectDonBoard.do";
 			}
 		}else {
-			throw new BoardException("모금 게시글 ?�정 ?�패");
+			throw new BoardException("모금 게시글 ?�정 ?�패");
 		}
 	}
 	
