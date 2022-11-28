@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,7 +49,8 @@ public class RevBoardController {
 	
 	// 봉사/기부 게시판 리스트 // 게시판리스트로 넘어감
 	@RequestMapping("revBoardList.re")
-	public String RevBoardList(@RequestParam(value="page", required=false) Integer page, Model model, @RequestParam(value="category", required=false) Integer cate) {
+	public String RevBoardList(@RequestParam(value="page", required=false) Integer page, Model model, @RequestParam(value="category", required=false) Integer cate,
+							   @RequestParam(value="search", required=false) String search) {
 		int category = 0;
 		if(cate != null && cate > 0 && cate < 7) {
 			category = cate;
@@ -58,6 +60,10 @@ public class RevBoardController {
 		if(page != null && page > 1) {
 			currentPage = page;
 		}
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("category", category);
+		map.put("search", search);
+		
 		
 		int listCount = rService.getRListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 9);

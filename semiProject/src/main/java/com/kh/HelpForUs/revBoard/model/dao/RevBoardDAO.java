@@ -18,6 +18,8 @@ public class RevBoardDAO {
 	public int insertRevBoard(SqlSessionTemplate sqlSession, RevBoard rBoard) {
 		return sqlSession.insert("RevMapper.insertRevBoard",rBoard);
 	}
+	
+	
 
 	public int insertAttm(SqlSessionTemplate sqlSession, Attachment a) {
 		return sqlSession.insert("RevMapper.insertAttm", a);
