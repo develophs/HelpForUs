@@ -57,6 +57,11 @@ public interface DonBoardService {
 
 	int deleteAttmStatus(int bId);
 
+	int fundraisingUpdate(DonBoard dFund);
+
+	int selectCurrRose(String id);
+
+
 
 
 

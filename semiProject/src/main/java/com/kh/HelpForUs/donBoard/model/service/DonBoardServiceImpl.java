@@ -136,6 +136,17 @@ public class DonBoardServiceImpl implements DonBoardService{
 		return dDAO.deleteAttmStatus(sqlSession, bId);
 	}
 
+	@Override
+	public int fundraisingUpdate(DonBoard dFund) {
+		return dDAO.fundraisingUpdate(sqlSession, dFund);
+	}
+
+	@Override
+	public int selectCurrRose(String id) {
+		return dDAO.selectCurrRose(sqlSession, id);
+	}
+
+
 
 
 

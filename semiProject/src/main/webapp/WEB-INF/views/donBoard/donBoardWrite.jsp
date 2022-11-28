@@ -42,7 +42,7 @@
 	<jsp:include page="../common/nav.jsp"></jsp:include>
 
 	<div class="container text-center" id="writeDiv"  >
-		<h2>봉사 활동 모금 글쓰기</h2>
+		<h2>모금 글쓰기</h2>
 		<hr>
 		<form action="${contextPath}/insertDonBoard.do" id="form" enctype="multipart/form-data" method="post">
 			<table class="table table-sm table-bordered" style="table-layout: fixed;">

@@ -1,4 +1,4 @@
-package com.kh.HelpForUs.donBoard.controller;
+﻿package com.kh.HelpForUs.donBoard.controller;
 
 import java.io.File;
 import java.sql.Date;
@@ -111,7 +111,7 @@ public class DonBoardController {
 			String fileName = file.getOriginalFilename();
 			if(!fileName.equals("")) {
 				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-				System.out.println(fileType);
+//				System.out.println(fileType);
 				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
 					String[] returnArr = saveFile(file, request);
 					
@@ -148,7 +148,7 @@ public class DonBoardController {
 			map.put("list", list);
 			map.put("bId", 0);
 			
-			System.out.println(list);
+//			System.out.println(list);
 			if(!list.isEmpty()) {
 				insAttmCount = dService.insertAttm(map);
 			}
@@ -212,7 +212,7 @@ public class DonBoardController {
 	}
 	
 	@RequestMapping("selectDonBoard.do")
-	public ModelAndView selectDonBoard(@RequestParam("bId") Integer bId, @RequestParam(value="writer", required=false) String writer, HttpSession session, ModelAndView mv) {
+	public ModelAndView selectDonBoard(@RequestParam("bId") Integer bId, @RequestParam(value="writer", required=false) String writer, HttpSession session, ModelAndView mv, @ModelAttribute DonBoard dFund) {
 		Member m = (Member)session.getAttribute("loginUser");
 		String login = null;
 		boolean bool = false;
@@ -227,14 +227,11 @@ public class DonBoardController {
 		// ?�원 ?�역 보기 ?�한 �?
 		Cheer c = new Cheer();
 		Cheer cheer = null;
-//		System.out.println("DonCont m : " + m);
 		if(m != null) {
 			c.setBoardId(bId);
 			c.setMemberUserName(m.getMemberUsername());
-//			System.out.println("DonCont c : " + c);
 			cheer = dService.cheer(c);
 		}
-//		System.out.println("DonCont cheer2 : " + cheer);
 		DonBoard dB = dService.selectDonBoard(bId, bool);
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
@@ -251,15 +248,16 @@ public class DonBoardController {
 //			throw new BoardException("게시글 ?�세 조회 ?�패");
 //		}
 		
+//		System.out.println(dB);
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
-				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).setViewName("boardDetailDon");
+				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).addObject("dFund", dFund).setViewName("boardDetailDon");
 			}else {
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("dList", dList).addObject("reply", reply).setViewName("../revBoard/donRevDetail");
 			}
 			
 		}else {
-			throw new BoardException("게시글 ?�세 조회 ?�패");
+			throw new BoardException("게시글 상세 조회 실패");
 		}
 		
 		return mv;
@@ -301,9 +299,10 @@ public class DonBoardController {
 	
 	// ?��? 기�??�기
 	@RequestMapping("roseDonation.do")
-	public String roseDonation(HttpSession session, @RequestParam(value="bId", required=false) Integer bId,@RequestParam("writer") String writer ,@RequestParam("reply") String reply, Model model, @RequestParam("totalRose") String totalRose, RedirectAttributes rttr) {
+	public String roseDonation(HttpSession session, @RequestParam("bId") int bId, @RequestParam("writer") String writer ,@RequestParam("reply") String reply, Model model, @RequestParam("totalRose") String totalRose, @ModelAttribute DonBoard dB) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currRose = ((Member)session.getAttribute("loginUser")).getMemberRose();
+//		int currRose = ((Member)session.getAttribute("loginUser")).getMemberRose();
+		int currRose = dService.selectCurrRose(id);
 		
 //		System.out.println(bId);
 		Donation don = new Donation();
@@ -313,11 +312,24 @@ public class DonBoardController {
 //		System.out.println(bId);
 		int donResult = dService.breakdownDon(don);
 		
+//		System.out.println(currRose);
+//		System.out.println(totalRose);
 		Member m = new Member();
 		m.setMemberRose(currRose-Integer.parseInt(totalRose));
+//		System.out.println(currRose-Integer.parseInt(totalRose));
 		m.setMemberUsername(id);
 //		System.out.println(m.getMemberUsername());
 		int roseUpdate = dService.roseDonation(m);
+		
+		DonBoard dFund = new DonBoard();
+		int currPrice = 0;
+		currPrice += (Integer.parseInt(totalRose)*100);
+		currPrice += dB.getFundraisingCurrentPrice();
+		
+//		System.out.print(currPrice);
+		dFund.setFundraisingCurrentPrice(currPrice);
+		dFund.setBoardId(bId);
+		int fundraisingUpdate = dService.fundraisingUpdate(dFund);
 		
 		Reply r = new Reply();
 		r.setRefMemberUsername(id);
@@ -330,7 +342,9 @@ public class DonBoardController {
 //			model.addAttribute("bId", bId);
 //			rttr.addAttribute("r",r);
 //			rttr.addAttribute("bId",bId);
-			return "redirect:selectDonBoard.do?bId="+bId + "&writer="+writer + "&page=1";
+			model.addAttribute("currPrice", currPrice);
+			return "redirect:selectDonBoard.do?bId="+bId +"&writer="+writer + "&page=1";
+			
 		}else {
 			throw new BoardException("기�??�기 ?�패");
 		}

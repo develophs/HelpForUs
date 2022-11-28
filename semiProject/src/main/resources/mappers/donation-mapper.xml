@@ -46,6 +46,7 @@
 		<result column="FUNDRAISING_CURRENT_PRICE" property="fundraisingCurrentPrice"/>
 		<result column="category_name" property="categoryName"/>
 		<result column="member_nickname" property="memberNickname"/>
+		<result column="board_count" property="boardCount"/>
 	</resultMap>
 	
 	<insert id="insertAttm">
@@ -152,6 +153,12 @@
 		where member_username=#{memberUsername}
 	</update>
 	
+	<update id="fundraisingUpdate">
+		update fundraising
+		set fundraising_current_price=fundraising_current_price+#{fundraisingCurrentPrice}
+		where ref_board_id=#{boardId}
+	</update>
+	
 	<insert id="replyInsert">
 		insert into reply
 		values(seq_rid.nextval, #{replyContent}, sysdate, sysdate, #{refMemberUsername}, #{refBoardId}, default)
@@ -219,6 +226,25 @@
 		set file_status='N' 
 	</update>
 	
+	<select id="selectCurrRose" resultType="_int">
+		select member_rose
+		from member
+		where member_username=#{id}
+	</select>
 	
+	<resultMap type="Member" id="memberResultMap">
+		<id column="MEMBER_USERNAME" property="memberUsername"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NICKNAME" property="memberNickname"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_ROSE" property="memberRose"/>
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrollDate"/>
+		<result column="MEMBER_MODIFY_DATE" property="memberModifyDate"/>
+		<result column="MEMBER_RIGHT" property="memberRight"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>
 	
 </mapper>
