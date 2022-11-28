@@ -155,12 +155,14 @@
 			for(const tr of trs){
 				tr.addEventListener('click',function(){
 					const tds = this.querySelectorAll('td');
-					tds[5].addEventListener('click',function(event){
-						event.preventDefault();
-					});
+					
+					
 					
 					const link = this.nextElementSibling.value;
-					document.getElementById('certiShow').innerHTML = "<img src=" + link +' width=450px; height=500px;>';
+					
+					document.getElementById('certiShow').innerHTML = "<img src=" + link +' width=450px; height=500px;>'+ '<br>'+
+					'<a href="'+ link + '"download=봉사단체증명서.jpg>'+
+					'<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">다운로드</button>' + '</a>';
 					
 					const userName = tds[2].innerText;
 					
