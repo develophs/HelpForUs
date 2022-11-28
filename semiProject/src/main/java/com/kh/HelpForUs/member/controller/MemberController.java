@@ -751,9 +751,31 @@ public class MemberController {
 		if(allDList != null) {
 			model.addAttribute("allDList",allDList);
 			model.addAttribute("pi",pi);
-			return "allDList";
+			return "allDRevList";
 		} else {
 			throw new MemberException("글 목록 조회 실패");
 		}
 	}
+	
+	// 모금후기 관리
+		@RequestMapping("allVRevList.me")
+		public String allvRevList(@RequestParam(value="page", required=false) Long page, Model model) {
+			long currentPage = 0;
+			String boardType ="volRev";
+			if(page != null && page>0) {
+				currentPage = page;
+			}
+			long allDListCount = mService.getAllListCount(boardType);
+			PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+			List<Board> allDList = mService.getAllList(boardType,pi);
+			
+			System.out.println(allDList);
+			if(allDList != null) {
+				model.addAttribute("allDList",allDList);
+				model.addAttribute("pi",pi);
+				return "allDList";
+			} else {
+				throw new MemberException("글 목록 조회 실패");
+			}
+		}
 }
