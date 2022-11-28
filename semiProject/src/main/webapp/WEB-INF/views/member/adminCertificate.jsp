@@ -90,7 +90,13 @@
 								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.member.memberNickname}</td>
 								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.attachment.createDate}</td>
 								    <td>
-								      <button type="button" class="btn btn-outline-primary btn-sm">권한 부여</button>
+								      <c:if test="${ c.member.memberRight =='D'}">	
+								     	 <button type="button" class="btn btn-outline-primary btn-sm">권한 부여</button>
+								      </c:if>
+								      
+								      <c:if test="${ c.member.memberRight =='C'}">	
+								     	 <button type="button" class="btn btn-outline-primary btn-sm" disabled>인증된 회원입니다.</button>
+								      </c:if>
 								    </td>
 							   </tr>
 							   <input type="hidden" value="${contextPath}/resources/uploadFiles/${c.attachment.renameName}">
