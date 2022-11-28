@@ -68,16 +68,17 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark border-2">
-   				<h1 class="fs-1 fw-bold text-start mt-5 ms-4">봉사 게시글 관리</h1>
+   				<h1 class="fs-1 fw-bold text-start mt-5 ms-4">신청한 봉사활동</h1>
    				
    				<div class="w-60 jstify-content-center">
    					<table class="table table-bordered" style="padding: auto">
    					
 	   					<thead>
 		   					<tr class="table-active align-middle">
+		   						<th>글번호</th>
 		   						<th>단체명</th>
 		   						<th>제목</th>
-		   						<td>이동</td>
+		   						<td>마감일</td>
 		   					</tr>
 		   				<thead>	
 		   				
@@ -85,9 +86,10 @@
 					  	 <c:if test="${list != null}">
 							  <c:forEach items="${list}" var="d"> 
 							    <tr>
+							      <td>${d.boardId}</td>
+							      <td>${d.memberNickname}</td>
 							      <td>${d.boardTitle}</td>
 							      <td>${d.boardDeadline}</td>
-							      <td><button class="btn btn-secondary" onclick="#">이동</button></td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
