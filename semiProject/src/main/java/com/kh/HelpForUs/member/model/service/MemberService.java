@@ -98,6 +98,7 @@ public interface MemberService {
 
 	int modifyPwd(Map<String, String> map);
 
+
 	int getCheerDCount(String id);
 
 	int getCheerVCount(String id);
@@ -105,6 +106,18 @@ public interface MemberService {
 	List<CheerList> getCheerDBoard(Map<String, Object> map);
 
 	List<CheerList> getCheerVBoard(Map<String, Object> map);
+
+	int getRepCount(String boardType);
+
+	List<Member> getRepList(PageInfo pi, String boardType);
+	
+	int getRRepCount();
+
+	List<Member> getRRepList(PageInfo pi);
+
+	
+
+
 
 
 

@@ -43,8 +43,9 @@
    				
    				<p class="category">댓글 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/allDRepList.me'">모금 댓글</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}/allVRepList.me'">봉사 후기 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allRepList.me?boardType=Don'">모금 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allRepList.me?boardType=Vol'">봉사 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allRRepList.me'">후기 댓글</p></li>
    				</ul>
    				
    				<p class="category">회원 관리</p>

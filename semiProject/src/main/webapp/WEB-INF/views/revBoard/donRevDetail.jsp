@@ -140,16 +140,14 @@
 					<td>${ dB.categoryName }</td>
 				</tr>
 				<tr>
-					<th class="table-active">모인 장미</th>
-					<td>${ dB.fundraisingCurrentPrice }</td>
-					<th class="table-active">목표 장미</th>
-					<td>${ dB.fundraisingGoalPrice }</td>
-				</tr>
-				<tr>
 					<th class="table-active">담당자</th>
 					<td>${ dB.managerName }</td>
 					<th class="table-active">연락처</th>
 					<td>${ dB.managerPhone }</td>
+				</tr>
+				<tr>
+					<th class="table-active">모인 장미</th>
+					<td>${ dB.fundraisingCurrentPrice }</td>
 				</tr>
 			</table>
 		</div>

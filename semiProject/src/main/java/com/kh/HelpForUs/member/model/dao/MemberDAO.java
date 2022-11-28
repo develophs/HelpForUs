@@ -213,6 +213,7 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.modifyPwd", map);
 	}
 
+
 	public int getCheerDCount(SqlSessionTemplate sqlSession,String id) {
 		return sqlSession.selectOne("memberMapper.getCheerDCount",id);
 	}
@@ -236,6 +237,30 @@ public class MemberDAO {
 	}
 	
 	
-	
+
+	public int getRepCount(SqlSessionTemplate sqlSession, String boardType) {
+		return sqlSession.selectOne("memberMapper.getRepCount", boardType);
+	}
+
+	public List<Member> getRepList(SqlSessionTemplate sqlSession, String boardType, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getRepList", boardType,rowBounds);
+	}
+
+	public int getRRepCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getRRepCount");
+	}
+
+	public List<Member> getRRepList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("memberMapper.getRRepList",rowBounds);
+	}
+
+
+
+
+
 	
 }

@@ -251,6 +251,25 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.getCheerVBoard(sqlSession,map);
 	}
 
+	public int getRepCount(String boardType) {
+		 return mDAO.getRepCount(sqlSession,boardType);
+	}
+
+	@Override
+	public List<Member> getRepList(PageInfo pi, String boardType) {
+		return mDAO.getRepList(sqlSession,boardType,pi);
+	}
+
+	@Override
+	public int getRRepCount() {
+		 return mDAO.getRRepCount(sqlSession);
+	}
+
+	@Override
+	public List<Member> getRRepList(PageInfo pi) {
+		return mDAO.getRRepList(sqlSession,pi);
+	}
+
 
 	
 
