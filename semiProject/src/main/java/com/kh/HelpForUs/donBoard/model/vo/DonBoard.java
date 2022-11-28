@@ -30,5 +30,6 @@ public class DonBoard {
 	private String fundraisingCurrentPrice;
 	private String managerName;
 	private String managerPhone;
+	private String memberNickname;
 	
 }

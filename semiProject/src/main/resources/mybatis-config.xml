@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.HelpForUs.volBoard.model.vo.Application" alias="Application"/>
 		<typeAlias type="com.kh.HelpForUs.common.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.HelpForUs.donBoard.model.vo.DonBoard" alias="donBoard"/>
+		<typeAlias type="com.kh.HelpForUs.common.vo.Reply" alias="Reply"/>
 	</typeAliases>
 
 	<mappers>

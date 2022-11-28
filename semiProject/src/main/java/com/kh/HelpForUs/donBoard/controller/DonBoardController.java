@@ -4,28 +4,32 @@ import java.io.File;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.HelpForUs.common.exception.BoardException;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
+import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.common.vo.Reply;
 import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
+import com.kh.HelpForUs.member.model.vo.Donation;
 import com.kh.HelpForUs.member.model.vo.Member;
 
 @Controller
@@ -98,13 +102,12 @@ public class DonBoardController {
 //				}
 //			}
 //		}
-		ArrayList<Attachment> fList = new ArrayList<>();
+		ArrayList<Attachment> list = new ArrayList<>();
 		for(MultipartFile file : files) {
 			String fileName = file.getOriginalFilename();
-//			System.out.println(file.getOriginalFilename());
 			if(!fileName.equals("")) {
 				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-//				System.out.println(fileType);
+				System.out.println(fileType);
 				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
 					String[] returnArr = saveFile(file, request);
 					
@@ -114,7 +117,7 @@ public class DonBoardController {
 						attm.setRenameName(returnArr[1]);
 						attm.setFileLink(returnArr[0]);
 						
-						fList.add(attm);
+						list.add(attm);
 					}
 				}
 			}
@@ -123,52 +126,47 @@ public class DonBoardController {
 		// 로직 2
 //		System.out.println(list);
 //		dB.setBoardType("Don");
+//		int insAttmCount = 0;
+//		int insImgCount = 0;
+		
 		int insAttmCount = 0;
-		int insImgCount = 0;
-		
-		
-		ArrayList<Attachment> list = new ArrayList<>();
-		for(int i = 0; i < fList.size(); i++) {
-			Attachment a = fList.get(i);
+		for(int i = 0; i < list.size(); i++) {
+			Attachment a = list.get(i);
 			if(i == 0) {
 				a.setLevel(0);
 			}else {
 				a.setLevel(1);
 			}
+			a.setFileType("Don");
+		}
 			
-			if(dB.getBoardType().equals("Don")) {
-				a.setFileType("Don");
-			}else {
-				a.setFileType("donRev");
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("list", list);
+			map.put("bId", 0);
+			
+			System.out.println(list);
+			if(!list.isEmpty()) {
+				insAttmCount = dService.insertAttm(map);
 			}
 			
-			insAttmCount += dService.insertAttm(a);
-			insImgCount += dService.insertImg(0);
-		}
-		
-		// 한 번에 넣을 수 있게 바꿔주기
-		
-		System.out.println(insBoardCount);
-		System.out.println(insAttmCount);
-		System.out.println(insImgCount);
-		System.out.println(fList.size());
-		if(insBoardCount + insAttmCount + insImgCount == fList.size()+fList.size()+3) {
 			
-			if(dB.getBoardType().equals("Don")) {
+//			System.out.println(insBoardCount);
+//			System.out.println(insAttmCount);
+			if(insBoardCount + insAttmCount == list.size()*2+3) {
 				return "redirect:donBoardList.do";
-			} else{
-				return "redirect:revBoardList.re";
+			} else {
+				for(Attachment a : list) {
+					deleteFile(a.getRenameName(), request);
+				}
+				throw new BoardException("기부 게시글 작성 실패");
 			}
-			
-			
-		}else {
-			for(Attachment a : list) {
-				deleteFile(a.getRenameName(), request);
-			}
-			throw new BoardException("기부 게시글 작성 실패");
 		}
 		
-	}	
+//		System.out.println(insBoardCount);
+//		System.out.println(insAttmCount);
+//		System.out.println(insImgCount);
+//		System.out.println(fList.size());
+		
 	
 	private String[] saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -210,7 +208,7 @@ public class DonBoardController {
 	}
 	
 	@RequestMapping("selectDonBoard.do")
-	public ModelAndView selectDonBoard(@RequestParam("bId") int bId, @RequestParam(value="writer", required=false) String writer, HttpSession session, ModelAndView mv) {
+	public ModelAndView selectDonBoard(@RequestParam("bId") Integer bId, @RequestParam(value="writer", required=false) String writer, HttpSession session, ModelAndView mv) {
 		Member m = (Member)session.getAttribute("loginUser");
 		String login = null;
 		boolean bool = false;
@@ -221,24 +219,36 @@ public class DonBoardController {
 			}
 		}
 		
+//		System.out.println(bId);
 		// 응원 내역 보기 위한 것
 		Cheer c = new Cheer();
 		Cheer cheer = null;
-		System.out.println("DonCont m : " + m);
+//		System.out.println("DonCont m : " + m);
 		if(m != null) {
 			c.setBoardId(bId);
 			c.setMemberUserName(m.getMemberUsername());
-			System.out.println("DonCont c : " + c);
+//			System.out.println("DonCont c : " + c);
 			cheer = dService.cheer(c);
-			
 		}
-		System.out.println("DonCont cheer2 : " + cheer);
+//		System.out.println("DonCont cheer2 : " + cheer);
 		DonBoard dB = dService.selectDonBoard(bId, bool);
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
+		// 댓글 내역
+		Reply r = new Reply();
+		ArrayList<Reply> reply = null;
+		r.setRefBoardId(bId);
+		reply = dService.selectReply(r);
+		
+//		if(dB != null) {
+//			mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).setViewName("boardDetailDon");
+//		}else {
+//			throw new BoardException("게시글 상세 조회 실패");
+//		}
+		
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
-				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("boardDetailDon");
+				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).setViewName("boardDetailDon");
 			}else {
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).setViewName("../revBoard/donRevDetail");
 			}
@@ -284,12 +294,176 @@ public class DonBoardController {
 		}
 	}
 	
+	// 장미 기부하기
+	@RequestMapping("roseDonation.do")
+	public String roseDonation(HttpSession session, @RequestParam(value="bId", required=false) Integer bId,@RequestParam("writer") String writer ,@RequestParam("reply") String reply, Model model, @RequestParam("totalRose") String totalRose, RedirectAttributes rttr) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currRose = ((Member)session.getAttribute("loginUser")).getMemberRose();
+		
+//		System.out.println(bId);
+		Donation don = new Donation();
+		don.setRefMemberUsername(id);
+		don.setRefBoardId(bId);
+		don.setDonationPrice(totalRose);
+//		System.out.println(bId);
+		int donResult = dService.breakdownDon(don);
+		
+		Member m = new Member();
+		m.setMemberRose(currRose-Integer.parseInt(totalRose));
+		m.setMemberUsername(id);
+//		System.out.println(m.getMemberUsername());
+		int roseUpdate = dService.roseDonation(m);
+		
+		Reply r = new Reply();
+		r.setRefMemberUsername(id);
+		r.setRefBoardId(bId);
+		r.setReplyContent(reply);
+		int replyIns = dService.replyInsert(r);
+		
+		if(donResult > 0) {
+//			model.addAttribute("r", r);
+//			model.addAttribute("bId", bId);
+//			rttr.addAttribute("r",r);
+//			rttr.addAttribute("bId",bId);
+			return "redirect:selectDonBoard.do?bId="+bId + "&writer="+writer + "&page=1";
+		}else {
+			throw new BoardException("기부하기 실패");
+		}
+	}
 	
+	// 모금 게시글 삭제
+	@RequestMapping("deleteDonBoard.do")
+	public String deleteDonBoard(@RequestParam("bId") int bId) {
+		int result = dService.deleteDonBoard(bId);
+		result += dService.deleteAttmStatus(bId);
+		if(result > 0) {
+			return "redirect:donBoardList.do";
+		}else {
+			throw new BoardException("모금 게시글 삭제 실패");
+		}
+	}
 	
+	// 모금 게시글 수정 페이지 이동
+	@RequestMapping("goUpdateDonBoard.do")
+	public String goUpdateDonBoard(@RequestParam("bId") int bId, Model model) {
+		DonBoard dB = dService.selectDonBoard(bId, false);
+		ArrayList<Attachment> list = dService.selectDonAttm(bId);
+		model.addAttribute("dB", dB);
+		model.addAttribute("list", list);
+		return "donBoardEdit";
+	}
 	
-	
-	
-	
+	// 모금 게시글 수정
+	@RequestMapping("updateDonBoard.do")
+	public String updateDonBoard(@ModelAttribute DonBoard dB, @RequestParam("deleteAttm") String[] deleteAttm, @RequestParam("file") ArrayList<MultipartFile> files, HttpServletRequest request, Model model) {
+		System.out.println(dB);
+		System.out.println(Arrays.toString(deleteAttm));
+		System.out.println(files);
+		
+		int result = dService.updateDonBoard(dB);
+		
+		
+		// 새파일 저장
+		ArrayList<Attachment> list = new ArrayList<>();
+		for(MultipartFile file : files) {
+			String fileName = file.getOriginalFilename();
+//			System.out.println(file.getOriginalFilename());
+			if(!fileName.equals("")) {
+				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
+//				System.out.println(fileType);
+				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
+					String[] returnArr = saveFile(file, request);
+					
+					if(returnArr[1] != null) {
+						Attachment attm = new Attachment();
+						attm.setOriginalName(file.getOriginalFilename());
+						attm.setRenameName(returnArr[1]);
+						attm.setFileLink(returnArr[0]);
+						
+						list.add(attm);
+					}
+				}
+			}
+		}
+		
+		// 선택한 파일들 삭제
+		ArrayList<String> delRename = new ArrayList<>();
+		ArrayList<Integer> delLevel = new ArrayList<>();
+		for(String rename : deleteAttm) {
+			if(!rename.equals("")) {
+				System.out.println(rename);
+				String[] split = rename.split("/");
+				delRename.add(split[0]);
+				delLevel.add(Integer.parseInt(split[1]));
+				Image img = new Image(dB.getBoardId(), Integer.parseInt(split[2]));
+				dService.deleteImage(img);
+			}
+		}
+		
+		System.out.println(delRename);
+		int deleteAttmResult = 0;
+		boolean existBeforeAttm = true;  // 저장했던 첨부파일 중 하나라도 삭제하겠다고 한 경우
+		if(!delRename.isEmpty()) {
+			deleteAttmResult = dService.deleteAttm(delRename);
+			if(deleteAttmResult > 0) {
+				for(String rename : delRename) {
+					deleteFile(rename, request);
+				}
+			}
+			
+			if(delRename.size() == deleteAttm.length) { // 기존 파일을 전부 삭제하겠다고 한 경우
+				existBeforeAttm = false;
+			} else {
+				for(int level : delLevel) {
+					if(level == 0) {
+						dService.updateAttmLevel(dB.getBoardId());
+						break;
+					}
+				}
+			}
+		}
+		if(deleteAttm == null) {
+			existBeforeAttm = false;
+		}
+		
+		for(int i = 0; i <list.size(); i++) {
+			Attachment a = list.get(i);
+			
+			if(existBeforeAttm) {
+				a.setLevel(1);
+			}else {
+				if(i == 0) {
+					a.setLevel(0);
+				}else {
+					a.setLevel(1);
+				}
+			}
+			a.setFileType("Don");
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("bId", dB.getBoardId());
+		
+		int updateAttmResult = 0;
+		updateAttmResult = dService.insertAttm(map);
+		
+//		System.out.println(result);
+//		System.out.println(updateAttmResult);
+//		System.out.println(list);
+		if(result + updateAttmResult == list.size()*2+1) {
+			if(delRename.size() == deleteAttm.length && updateAttmResult == 0) {
+				return "redirect:donBoardDetail.do";
+			}else {
+//				return "redirect:selectAttm.at?bId=" + b.getBoardId() + "&writer=" + ((Member)request.getSession().getAttribute("loginUser")).getNickName() + "&page=" + page;
+				model.addAttribute("bId", dB.getBoardId());
+				model.addAttribute("writer", ((Member)request.getSession().getAttribute("loginUser")).getMemberNickname());
+				return "redirect:selectDonBoard.do";
+			}
+		}else {
+			throw new BoardException("모금 게시글 수정 실패");
+		}
+	}
 	
 	
 	

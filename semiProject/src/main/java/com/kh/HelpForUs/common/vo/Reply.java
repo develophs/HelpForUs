@@ -21,4 +21,5 @@ public class Reply {
 	private String refMemberUsername;
 	private int refBoardId;
 	private String replyStatus;
+	private String nickName;
 }
