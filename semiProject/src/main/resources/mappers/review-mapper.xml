@@ -8,14 +8,20 @@
 		where (board_type = 'volRev'or board_type = 'donRev' ) and BOARD_STATUS = 'Y'
 	</select>  	
 	
-	<select id="selectVolBoardList" resultMap="volBoardResultSet">
+	<select id="selectVolBoardList" parameterType="hashmap" resultMap="volBoardResultSet">
 		select *
 		from BOARD
 			join member on(REF_MEMBER_USERNAME = MEMBER_USERNAME)
-		where (board_type = 'volRev'or board_type = 'donRev' ) and BOARD_STATUS = 'Y'
-		<if test="category != 0">
+		where (BOARD_TYPE = 'volRev' or board_type = 'donRev') and BOARD_STATUS = 'Y'
+
+		<if test="category > 0">
 			and REF_CATEGORY_ID = #{category}
 		</if>
+
+		<if test="search != null">
+			and BOARD_TITLE LIKE '%'||#{search}||'%'
+		</if>
+		
 		order by BOARD_ID desc
 	</select>
 	

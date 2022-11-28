@@ -1,6 +1,7 @@
 package com.kh.HelpForUs.revBoard.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -37,12 +38,12 @@ public class RevBoardDAO {
 		return sqlSession.selectOne("RevMapper.getRListCount");
 	}
 
-	public ArrayList<VolBoard> selectVolBoardList(SqlSessionTemplate sqlSession, PageInfo pi, int category) {
+	public ArrayList<VolBoard> selectVolBoardList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> map) {
 		int offset = (pi.getCurrentPage() - 1)*pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("RevMapper.selectVolBoardList", category, rowBounds);
+		return (ArrayList)sqlSession.selectList("RevMapper.selectVolBoardList", map, rowBounds);
 	}
 
 	public ArrayList<Attachment> selectAttmList(SqlSessionTemplate sqlSession) {

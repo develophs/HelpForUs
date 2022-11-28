@@ -14,15 +14,13 @@ public interface RevBoardService {
 
 	int insertRevBoard(RevBoard rBoard);
 	
-	
-	
 	int insertAttm(Attachment a);
 
 	int insertImg(int i);
 
 	int getRListCount();
 
-	ArrayList<VolBoard> selectVolBoardList(PageInfo pi, int category);
+	ArrayList<VolBoard> selectVolBoardList(PageInfo pi, HashMap<String, Object> map);
 
 	ArrayList<Attachment> selectAttmList();
 
