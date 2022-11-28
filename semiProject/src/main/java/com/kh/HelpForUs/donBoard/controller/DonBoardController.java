@@ -304,6 +304,8 @@ public class DonBoardController {
 //		int currRose = ((Member)session.getAttribute("loginUser")).getMemberRose();
 		int currRose = dService.selectCurrRose(id);
 		
+		
+		
 //		System.out.println(bId);
 		Donation don = new Donation();
 		don.setRefMemberUsername(id);
@@ -330,6 +332,10 @@ public class DonBoardController {
 		dFund.setFundraisingCurrentPrice(currPrice);
 		dFund.setBoardId(bId);
 		int fundraisingUpdate = dService.fundraisingUpdate(dFund);
+		
+		if(reply.equals("")) {
+			reply = "응원합니다!";
+		}
 		
 		Reply r = new Reply();
 		r.setRefMemberUsername(id);
