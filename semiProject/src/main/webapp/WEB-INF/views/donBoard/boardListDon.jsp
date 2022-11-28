@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!doctype html>
 <html lang="en">
@@ -119,6 +120,7 @@
 	  	</table>	
 	  
 	  </section>
+	
 		
 	  <div class="album py-5">
 	    <div class="container">
@@ -126,24 +128,29 @@
 	       <c:forEach items="${ dList }" var="d">
 	        <div class="col">
 	          <div class="card shadow-sm cards">
+	          	<c:set var="fileO" value="false"/>
+	          	<c:set var="imageName"/>
 	          	<c:forEach items="${ aList }" var="a">
 		          	<c:if test="${ d.boardId eq a.boardId }">
-		          		<c:if test="${ a.originalName == null }">
-		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-		            	</c:if>
-		            	<c:if test="${ a.originalName != null }">
-		            		<img src="resources/uploadFiles/${ a.renameName }" class="card-img-top" alt="..." height="300px;">
-		            	</c:if>
+		          	<img src="resources/uploadFiles/${ a.renameName }" class="card-img-top" alt="..." height="300px;">
+		          		<c:set var="fileO" value="true"/>
 		            </c:if>
+		            	<c:if test="${ !fileO }">
+		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>
+		            	</c:if>
 	            </c:forEach>
 			            <div class="card-body">
 			            <h5>${ d.boardTitle }</h5>
-			              <p class="card-text">${ d.boardContent }</p>
+			            <c:set var="content" value="${ fn:substring(d.boardContent, 0, 20) }..."></c:set>
+			              <p class="card-text">${ content }</p>
 			              <div class="d-flex justify-content-between align-items-center">
-		              		<small class="text-muted">${ d.boardId }</small>
-			                <small class="text-muted">${ d.refMemberUsername }</small>
+			                <small class="text-muted">${ d.boardId }</small>
+			              </div>
+			              <div class="d-flex justify-content-between align-items-center">
+		              		<small class="text-muted">${ d.memberNickname }</small>
 			                <small class="text-muted">${ d.boardCreateDate }</small>
 			              </div>
+			              <input type="hidden" value="${ d.boardId }">
 			            </div>
 			          </div>
 			        </div>

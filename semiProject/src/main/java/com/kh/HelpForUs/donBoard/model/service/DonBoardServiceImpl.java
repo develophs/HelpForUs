@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
+import com.kh.HelpForUs.common.vo.Image;
 import com.kh.HelpForUs.common.vo.PageInfo;
+import com.kh.HelpForUs.common.vo.Reply;
 import com.kh.HelpForUs.donBoard.model.dao.DonBoardDAO;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
+import com.kh.HelpForUs.member.model.vo.Donation;
+import com.kh.HelpForUs.member.model.vo.Member;
 
 @Service("dService")
 public class DonBoardServiceImpl implements DonBoardService{
@@ -38,8 +42,8 @@ public class DonBoardServiceImpl implements DonBoardService{
 	}
 
 	@Override
-	public int insertAttm(Attachment a) {
-		return dDAO.insertAttm(sqlSession, a);
+	public int insertAttm(HashMap<String, Object> map) {
+		return dDAO.insertAttm(sqlSession, map);
 	}
 
 	@Override
@@ -80,6 +84,60 @@ public class DonBoardServiceImpl implements DonBoardService{
 	public int cheerCancle(Cheer cheerUp) {
 		return dDAO.cheerCancle(sqlSession, cheerUp);
 	}
+
+	@Override
+	public int roseDonation(Member m) {
+		return dDAO.roseDonation(sqlSession, m);
+	}
+
+	@Override
+	public int breakdownDon(Donation don) {
+		return dDAO.breakdownDon(sqlSession, don);
+	}
+
+	@Override
+	public int replyInsert(Reply r) {
+		return dDAO.replyInsert(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReply(Reply r) {
+		return dDAO.selectReply(sqlSession, r);
+	}
+
+	@Override
+	public int deleteDonBoard(int bId) {
+		return dDAO.deleteDonBoard(sqlSession, bId);
+	}
+
+	@Override
+	public int updateDonBoard(DonBoard dB) {
+		return dDAO.updateDonBoard(sqlSession, dB);
+	}
+
+	@Override
+	public int deleteAttm(ArrayList<String> delRename) {
+		return dDAO.deleteAttm(sqlSession, delRename);
+	}
+
+	@Override
+	public void updateAttmLevel(int boardId) {
+		dDAO.updateAttmLevel(sqlSession, boardId);
+	}
+
+	@Override
+	public void deleteImage(Image img) {
+		dDAO.deleteImage(sqlSession, img);
+		
+	}
+
+	@Override
+	public int deleteAttmStatus(int bId) {
+		return dDAO.deleteAttmStatus(sqlSession, bId);
+	}
+
+
+
 
 
 }

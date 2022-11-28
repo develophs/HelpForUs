@@ -45,11 +45,25 @@
 		<result column="FUNDRAISING_GOAL_PRICE" property="fundraisingGoalPrice"/>
 		<result column="FUNDRAISING_CURRENT_PRICE" property="fundraisingCurrentPrice"/>
 		<result column="category_name" property="categoryName"/>
+		<result column="member_nickname" property="memberNickname"/>
 	</resultMap>
 	
 	<insert id="insertAttm">
-		insert into attachment
-		values(seq_aid.nextval,	#{fileType}, sysdate, #{originalName}, #{renameName}, #{fileLink}, #{level}, default)
+		insert all
+		<foreach collection="list" item="a">
+			into attachment
+			values(new_aid, #{a.fileType}, sysdate, #{a.originalName}, #{a.renameName}, #{a.fileLink}, #{a.level}, default)
+			into image
+			values(
+			<if test="bId == 0">
+				seq_bid.currval,
+			</if>
+			<if test="bId > 0">
+				#{bId},
+			</if>
+			cur_aid)
+		</foreach>
+		select * from dual
 	</insert>
 	
 	<insert id="insertImg">
@@ -126,5 +140,85 @@
 		set board_count = board_count+1
 		where board_id=#{bId}
 	</update>
+	
+	<insert id="breakdownDon">
+		insert into donation
+		values(seq_did.nextval, #{donationPrice}, sysdate, #{refBoardId}, #{refMemberUsername})
+	</insert>
+	
+	<update id="roseDonation">
+		update member
+		set member_rose=#{memberRose}
+		where member_username=#{memberUsername}
+	</update>
+	
+	<insert id="replyInsert">
+		insert into reply
+		values(seq_rid.nextval, #{replyContent}, sysdate, sysdate, #{refMemberUsername}, #{refBoardId}, default)
+	</insert>
+	
+	<select id="selectReply" resultMap="replyResultSet">
+		select *
+		from reply r
+			join board b on(board_id = r.ref_board_id)
+			join member m on(member_username = r.ref_member_username)
+		where board_id=#{refBoardId}
+		order by reply_id desc
+	</select>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id column="REPLY_ID" property="replyId"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_MODIFY_DATE" property="replyModifyDate"/>
+		<result column="REPLY_CREATE_DATE" property="replyCreateDate"/>
+		<result column="REF_MEMBER_USERNAME" property="refMemberUsername"/>
+		<result column="REF_BOARD_ID" property="refBoardId"/>
+		<result column="REPLY_STATUS" property="replyStatus"/>
+		<result column="member_nickname" property="nickName"/>
+	</resultMap>
+	
+	<update id="deleteDonBoard">
+		update board
+		set board_status='N'
+		where board_id=#{bId}
+	</update>
+	
+	<delete id="deleteAttm">
+		delete from attachment
+		where rename_name in
+		<foreach collection="list" open="(" close=")" separator="," item="item">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="updateAttmLevel">
+		update attachment
+		set attm_level = 0
+		where attm_id = (select min(attm_id)
+							from attachment
+								join image using(attm_id)
+							where board_id = #{boardId})
+	</update>
+	
+	<delete id="deleteImg">
+		delete from image
+		where board_id=#{boardId} and attm_id=#{attmId}
+	</delete>
+	
+	<update id="updateDonBoard">
+		update board
+		set ref_category_id=#{refCategoryId}, board_title=#{boardTitle}, board_content=#{boardContent}, board_modify_date=sysdate, board_deadline=#{boardDeadline}
+		where board_id=#{boardId}
+	</update>
+	
+	<update id="deleteAttmStatus">
+		update (select file_status
+				from attachment
+					join image using(attm_id)
+				where board_id=#{bId})
+		set file_status='N' 
+	</update>
+	
+	
 	
 </mapper>
