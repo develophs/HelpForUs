@@ -14,6 +14,7 @@ import com.kh.HelpForUs.common.vo.Board;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.dao.MemberDAO;
+import com.kh.HelpForUs.member.model.vo.CheerList;
 import com.kh.HelpForUs.member.model.vo.Member;
 
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -228,6 +229,45 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int modifyPwd(Map<String, String> map) {
 		return mDAO.modifyPwd(sqlSession,map);
+	}
+
+	@Override
+	public int getCheerDCount(String id) {
+		return mDAO.getCheerDCount(sqlSession,id);
+	}
+
+	@Override
+	public int getCheerVCount(String id) {
+		return mDAO.getCheerVCount(sqlSession,id);
+	}
+
+	@Override
+	public List<CheerList> getCheerDBoard(Map<String, Object> map) {
+		return mDAO.getCheerDBoard(sqlSession,map);
+	}
+
+	@Override
+	public List<CheerList> getCheerVBoard(Map<String, Object> map) {
+		return mDAO.getCheerVBoard(sqlSession,map);
+	}
+
+	public int getRepCount(String boardType) {
+		 return mDAO.getRepCount(sqlSession,boardType);
+	}
+
+	@Override
+	public List<Member> getRepList(PageInfo pi, String boardType) {
+		return mDAO.getRepList(sqlSession,boardType,pi);
+	}
+
+	@Override
+	public int getRRepCount() {
+		 return mDAO.getRRepCount(sqlSession);
+	}
+
+	@Override
+	public List<Member> getRRepList(PageInfo pi) {
+		return mDAO.getRRepList(sqlSession,pi);
 	}
 
 

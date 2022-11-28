@@ -43,9 +43,8 @@
    				
    				<p class="category">댓글 관리</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/allRepList.me?boardType=Don'">모금 댓글</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}/allRepList.me?boardType=Vol'">봉사 댓글</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}/allRRepList.me'">후기 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allDRepList.me'">모금 댓글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/allVRepList.me'">봉사 후기 댓글</p></li>
    				</ul>
    				
    				<p class="category">회원 관리</p>
@@ -70,7 +69,7 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark border-2">
-   				<h4 style="padding:10px;">작성된 모금 게시판</h4>
+   				<h4 style="padding:10px;">작성된 봉사 후기 게시판</h4>
    				
 					<table class="table table-hover">
 					

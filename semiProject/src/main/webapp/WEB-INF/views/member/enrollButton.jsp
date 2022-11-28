@@ -22,7 +22,7 @@
 			</div>
 			
 			<div class="form-floating">
-				<button class="btn btn-primary btn-primary btn-lg" type="submit" name='right' value='C'>봉사 단체</button>
+				<button class="btn btn-primary btn-primary btn-lg" type="submit" name='right' value='D'>봉사 단체</button>
 			</div>
 		</form>
 	</main>

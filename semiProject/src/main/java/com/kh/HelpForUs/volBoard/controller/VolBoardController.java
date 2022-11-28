@@ -194,6 +194,9 @@ public class VolBoardController {
 		String loginNick = null;
 		boolean yn = true;
 		
+		System.out.println(bId);
+		System.out.println(nickName);
+		
 		if(loginUser != null && nickName != null) {
 			loginNick = loginUser.getMemberNickname();
 			
@@ -241,8 +244,6 @@ public class VolBoardController {
 			}else {
 				return "../revBoard/volRevDetail";
 			}
-			
-		
 		
 		} else {
 			throw new BoardException("봉사 게시글 조회 실패.");

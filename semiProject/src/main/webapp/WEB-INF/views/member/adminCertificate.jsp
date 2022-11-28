@@ -90,7 +90,13 @@
 								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.member.memberNickname}</td>
 								    <td data-bs-toggle="modal" data-bs-target="#exampleModal">${c.attachment.createDate}</td>
 								    <td>
-								      <button type="button" class="btn btn-outline-primary btn-sm">권한 부여</button>
+								      <c:if test="${ c.member.memberRight =='D'}">	
+								     	 <button type="button" class="btn btn-outline-primary btn-sm">권한 부여</button>
+								      </c:if>
+								      
+								      <c:if test="${ c.member.memberRight =='C'}">	
+								     	 <button type="button" class="btn btn-outline-primary btn-sm" disabled>인증된 회원입니다.</button>
+								      </c:if>
 								    </td>
 							   </tr>
 							   <input type="hidden" value="${contextPath}/resources/uploadFiles/${c.attachment.renameName}">
@@ -149,12 +155,14 @@
 			for(const tr of trs){
 				tr.addEventListener('click',function(){
 					const tds = this.querySelectorAll('td');
-					tds[5].addEventListener('click',function(event){
-						event.preventDefault();
-					});
+					
+					
 					
 					const link = this.nextElementSibling.value;
-					document.getElementById('certiShow').innerHTML = "<img src=" + link +'>';
+					
+					document.getElementById('certiShow').innerHTML = "<img src=" + link +' width=450px; height=500px;>'+ '<br>'+
+					'<a href="'+ link + '"download=봉사단체증명서.jpg>'+
+					'<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">다운로드</button>' + '</a>';
 					
 					const userName = tds[2].innerText;
 					
@@ -164,7 +172,8 @@
 							data: {memberUsername:userName},
 							success: (data)=>{
 								if(data.trim() == 'yes'){
-									swal('해당 단체의 권한이 설정되었습니다.');
+									alert('해당 단체의 권한이 설정되었습니다.');
+									location.href='${contextPath}/groupCertificate.me';
 								} else{
 									swal('해당 단체의 권한 설정에 실패하셨습니다.');
 								}

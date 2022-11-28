@@ -35,6 +35,7 @@ import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.service.MemberService;
+import com.kh.HelpForUs.member.model.vo.CheerList;
 import com.kh.HelpForUs.member.model.vo.Member;
 import com.kh.HelpForUs.member.model.vo.Message;
 import com.kh.HelpForUs.volBoard.model.vo.VolBoard;
@@ -52,12 +53,7 @@ public class MemberController {
 	public String loginView() {
 		return "login";
 	}
-	
-	@RequestMapping("myPage.me")
-	public String myPageView() {
-		return "mypage";
-	}
-	
+
 	// 회원가입 작성 이동
 	@RequestMapping("enrollView.me")
 	public String enrollView(@RequestParam("right") String right,Model model) {
@@ -301,7 +297,6 @@ public class MemberController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		ArrayList<DonBoard> list = mService.getDList(pi,userName);
-		System.out.println(list.size());
 		
 		if(list.size() != 0) {
 			model.addAttribute("pi", pi);
@@ -679,6 +674,7 @@ public class MemberController {
 		}
 		int listCount = mService.getGroupCertiCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
+		
 		ArrayList<Attachment> cList = mService.getGroupCertificate(pi);
 		if(cList != null) {
 			model.addAttribute("pi", pi);
@@ -733,6 +729,155 @@ public class MemberController {
 		} else {
 			throw new MemberException("비밀번호 재설정에 실패하셨습니다.");
 		}
+	}
+	
+	// 모금후기 관리
+	@RequestMapping("allDRevList.me")
+	public String allDRevList(@RequestParam(value="page", required=false) Long page, Model model) {
+		long currentPage = 0;
+		String boardType ="donRev";
+		if(page != null && page>0) {
+			currentPage = page;
+		}
+		long allDListCount = mService.getAllListCount(boardType);
+		PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+		List<Board> allDList = mService.getAllList(boardType,pi);
+		
+		System.out.println(allDList);
+		if(allDList != null) {
+			model.addAttribute("allDList",allDList);
+			model.addAttribute("pi",pi);
+			return "allDRevList";
+		} else {
+			throw new MemberException("글 목록 조회 실패");
+		}
+	}
+	
+	// 모금후기 관리
+		@RequestMapping("allVRevList.me")
+		public String allvRevList(@RequestParam(value="page", required=false) Long page, Model model) {
+			long currentPage = 0;
+			String boardType ="volRev";
+			if(page != null && page>0) {
+				currentPage = page;
+			}
+			long allDListCount = mService.getAllListCount(boardType);
+			PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+			List<Board> allDList = mService.getAllList(boardType,pi);
+			
+			System.out.println(allDList);
+			if(allDList != null) {
+				model.addAttribute("allDList",allDList);
+				model.addAttribute("pi",pi);
+				return "allDList";
+			} else {
+				throw new MemberException("글 목록 조회 실패");
+			}
+		}
+
+	// 응원한 기부목록
+	@GetMapping("cheerDBoard.me")
+	public String getCheerDBoard(@RequestParam(value="page",required=false)Integer page,Model model,HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		
+		int count = mService.getCheerDCount(id);
+		PageInfo pi = Pagination.getPageInfo(currentPage, count, 10);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pi", pi);
+		
+		
+		List<CheerList> cDList = mService.getCheerDBoard(map);
+		System.out.println(cDList);
+		if(cDList !=null) {
+			model.addAttribute("cDList", cDList);
+			model.addAttribute("pi", pi);
+			return "cheerDList";
+		} else {
+			throw new MemberException("응원 기부 목록을 가져오는데 실패했습니다.");
+		}
 		
 	}
+	
+	// 응원한 봉사목록
+	@GetMapping("cheerVBoard.me")
+	public String getCheerVBoard(@RequestParam(value="page",required=false)Integer page,Model model,HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		
+		int count = mService.getCheerVCount(id);
+		PageInfo pi = Pagination.getPageInfo(currentPage, count, 10);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pi", pi);
+		
+		
+		List<CheerList> cVList = mService.getCheerVBoard(map);
+		System.out.println(cVList);
+		if(cVList != null) {
+			model.addAttribute("cVList",cVList);
+			model.addAttribute("pi",pi);
+			return "cheerVList";
+		} else {
+			throw new MemberException("응원 봉사 목록을 가져오는데 실패했습니다.");
+		}
+		
+		
+	}
+	
+	//봉사 기부게시글 댓글
+	@RequestMapping("allRepList.me")
+	public String allRepList(@RequestParam(value="page",required=false)Integer page,Model model,@RequestParam ("boardType") String boardType) {
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		
+		int groupCount = mService.getRepCount(boardType);
+		PageInfo pi = Pagination.getPageInfo(currentPage, groupCount, 10);
+		
+		List<Member> getRepList = mService.getRepList(pi,boardType);
+		
+		if(getRepList != null) {
+			model.addAttribute("getRepList",getRepList);
+			model.addAttribute("pi",pi);
+			return "adminRepList";
+			
+		} else {
+			throw new MemberException("댓글조회에 실패하셨습니다.");
+		}
+	}
+	
+	//후기댓글
+	@RequestMapping("allRRepList.me")
+	public String allVRepList(@RequestParam(value="page",required=false)Integer page,Model model) {
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		
+		int getRRepCount = mService.getRRepCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, getRRepCount, 10);
+		
+		List<Member> getRRepList = mService.getRRepList(pi);
+		
+		if(getRRepList != null) {
+			model.addAttribute("getRepList",getRRepList);
+			model.addAttribute("pi",pi);
+			return "adminRepList";
+		} else {
+			throw new MemberException("댓글조회에 실패하셨습니다.");
+		}
+	}
+	
+	
 }

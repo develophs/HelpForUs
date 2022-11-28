@@ -39,7 +39,7 @@
 			<h3 class='mypage'>My Page</h3>
 		</c:if>
 		
-		<c:if test="${loginUser.memberRight =='C'}">
+		<c:if test="${loginUser.memberRight =='C' || loginUser.memberRight == 'D'}">
 			<h3 class='mypage'>단체 정보 페이지</h3>
 		</c:if>
 		
@@ -59,14 +59,14 @@
    				<p class="category">기부 현황</p>
    				<ul type="circle">
    					<li><p class="menu" onclick="location.href='${contextPath}/donBoard.me'">기부 내역</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 모금 게시글</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/cheerDBoard.me'">응원한 모금 게시글</p></li>
    				</ul>
    				
    				
    				<p class="category">봉사 활동 현황</p>
    				<ul type="circle">
 	   				<li><p class="menu" onclick="location.href='${contextPath}/volBoard.me'">신청한 봉사활동</p></li>
-   					<li><p class="menu" onclick="location.href='${contextPath}'">응원한 봉사활동</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/cheerVBoard.me'">응원한 봉사활동</p></li>
 				</ul>
 				
 				
