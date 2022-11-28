@@ -171,7 +171,9 @@
 	              	<small class="text-muted">${ r.memberNickname }</small>
 	                <small class="text-muted">${ r.boardCreateDate }</small>
 	                <input id="bType" type="hidden" value="${ r.boardType }">
+	                
 	              </div>
+	              <small class="text-muted">${ r.boardCount }</small>
 	            </div>
 	          </div>
 	        </div>
