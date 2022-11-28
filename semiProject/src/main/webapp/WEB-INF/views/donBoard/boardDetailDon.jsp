@@ -148,7 +148,6 @@
 			${ dB.boardContent }
 		</div>
 		<br><br>
-		
 		<div id="total">
 			<table id="totalTable">
 				<tr>
@@ -204,9 +203,6 @@
 		<div class="text-center">
 			<c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername }">
 				<button onclick="$('#roseModal').modal('show')" class="btn btn-lg text-white" style="background-color: orange">장미 보내기</button>
-			</c:if>
-			<c:if test="${ loginUser == null || dB.refMemberUsername == loginUser.memberUsername }">
-				<button onclick="$('#roseModal').modal('show')" class="btn btn-lg text-white" style="background-color: orange" disabled>장미 보내기</button>
 			</c:if>
 		</div>
 		<br>
@@ -328,6 +324,7 @@
 		
 		// 장미 기부하기(모달)
 		var count = 0;
+		
 		document.getElementById('addRose').innerHTML = count;
 		$('.roseCount').click(function(){
 			if(count <= ${loginUser.memberRose}){

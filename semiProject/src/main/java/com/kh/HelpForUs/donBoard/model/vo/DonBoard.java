@@ -27,9 +27,9 @@ public class DonBoard {
 	private Date boardDeadline;
 	private String boardStatus;
 	private String fundraisingGoalPrice;
-	private String fundraisingCurrentPrice;
+	private int fundraisingCurrentPrice;
 	private String managerName;
 	private String managerPhone;
 	private String memberNickname;
-	
+	private int boardCount;
 }

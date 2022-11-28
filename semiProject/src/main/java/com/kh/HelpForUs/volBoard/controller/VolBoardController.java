@@ -93,7 +93,7 @@ public class VolBoardController {
 			if(!fileName.equals("")) {
 				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
 				System.out.println(fileType);
-				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("gpeg")) {
+				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
 					String[] returnArr = saveFile(file, request);
 					
 					if(returnArr[1] != null) {

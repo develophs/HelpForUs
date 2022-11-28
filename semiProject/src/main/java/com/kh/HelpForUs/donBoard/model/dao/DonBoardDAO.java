@@ -112,6 +112,14 @@ public class DonBoardDAO {
 		return sqlSession.update("donationMapper.deleteAttmStatus", bId);
 	}
 
+	public int fundraisingUpdate(SqlSessionTemplate sqlSession, DonBoard dFund) {
+		return sqlSession.update("donationMapper.fundraisingUpdate", dFund);
+	}
+
+	public int selectCurrRose(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("donationMapper.selectCurrRose", id);
+	}
+
 
 
 

@@ -129,28 +129,35 @@
 	        <div class="col">
 	          <div class="card shadow-sm cards">
 	          	<c:set var="fileO" value="false"/>
+	          	<c:set var="isBreak" value="true"/>
 	          	<c:set var="imageName"/>
+	          	<c:if test="${ isBreak }"></c:if>
 	          	<c:forEach items="${ aList }" var="a">
 		          	<c:if test="${ d.boardId eq a.boardId }">
-		          	<img src="resources/uploadFiles/${ a.renameName }" class="card-img-top" alt="..." height="300px;">
 		          		<c:set var="fileO" value="true"/>
+						<c:set var="isBreak" value="false"/>
+			          	<c:set var="imageName" value="${ a.renameName }"/>		          		
 		            </c:if>
-		            	<c:if test="${ !fileO }">
-		            		<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>
+		        </c:forEach>
+		            	<c:if test="${ fileO }">
+		            		<img src="resources/uploadFiles/${ imageName }" class="card-img-top" alt="..." height="225">
 		            	</c:if>
-	            </c:forEach>
+		            	<c:if test="${ !fileO }">
+		            		<svg class="bd-placeholder-img card-img-top" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>
+		            	</c:if>
+	            		
 			            <div class="card-body">
 			            <h5>${ d.boardTitle }</h5>
 			            <c:set var="content" value="${ fn:substring(d.boardContent, 0, 20) }..."></c:set>
 			              <p class="card-text">${ content }</p>
 			              <div class="d-flex justify-content-between align-items-center">
-			                <small class="text-muted">${ d.boardId }</small>
+			                <small class="text-muted">${ d.boardCount }</small>
 			              </div>
 			              <div class="d-flex justify-content-between align-items-center">
 		              		<small class="text-muted">${ d.memberNickname }</small>
 			                <small class="text-muted">${ d.boardCreateDate }</small>
 			              </div>
-			              <input type="hidden" value="${ d.boardId }">
+			              <input type="hidden" name="bId" value="${ d.boardId }">
 			            </div>
 			          </div>
 			        </div>
@@ -199,7 +206,7 @@
 			for(card of cards){
 				card.addEventListener('click', function(){
 					const small = this.querySelectorAll('small');
-					const boardId = small[0].innerText;
+					const boardId = this.querySelector('input[type="hidden"]').value;
 					const writer = small[1].innerText;
 					console.log(writer);
 					location.href='${contextPath}/selectDonBoard.do?bId=' + boardId + '&writer=' + writer + '&page=' + ${pi.currentPage};
