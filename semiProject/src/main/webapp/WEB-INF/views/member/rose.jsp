@@ -39,7 +39,7 @@
 			<h3 class='mypage'>My Page</h3>
 		</c:if>
 		
-		<c:if test="${loginUser.memberRight =='C'}">
+		<c:if test="${loginUser.memberRight =='C' || loginUser.memberRight == 'D'}">
 			<h3 class='mypage'>단체 정보 페이지</h3>
 		</c:if>
 		

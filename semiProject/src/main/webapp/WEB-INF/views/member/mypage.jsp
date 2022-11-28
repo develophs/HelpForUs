@@ -26,7 +26,7 @@
 			<h3 class='mypage'>My Page</h3>
 		</c:if>
 		
-		<c:if test="${loginUser.memberRight =='C'}">
+		<c:if test="${loginUser.memberRight =='C' || loginUser.memberRight == 'D'}">
 			<h3 class='mypage'>단체 정보 페이지</h3>
 		</c:if>
 		
@@ -40,7 +40,7 @@
    					<p class="category">내 정보</p>
    				</c:if>
    				
-   				<c:if test="${loginUser.memberRight =='C'}">
+   				<c:if test="${loginUser.memberRight =='C' || loginUser.memberRight == 'D'}">
    					<p class="category">단체 정보</p>
    				</c:if>
    				
@@ -50,7 +50,7 @@
    						<li><p class="menu" onclick="location.href='${contextPath}/rose.me'">장미 구입</p></li>
 	   				</c:if>
 	   				
-	   				<c:if test="${loginUser.memberRight =='C'}">
+	   				<c:if test="${loginUser.memberRight =='C' || loginUser.memberRight == 'D'}">
 	   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인 / 수정</p></li>
 	   				</c:if>
 	   				
@@ -74,7 +74,7 @@
 				
 				</c:if>
 				
-				<c:if test="${loginUser.memberRight =='C'}">
+				<c:if test="${loginUser.memberRight =='C' || loginUser.memberRight == 'D'}">
 					<p class="category">봉사 모집 현황</p>
 		   			<ul type="circle">
 		   				<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">진행중인 모집 현황</p></li>
@@ -94,7 +94,7 @@
 	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
 				</ul>
 				
-				<c:if test="${loginUser.memberRight == 'C'}">
+				<c:if test="${loginUser.memberRight == 'C' || loginUser.memberRight == 'D'}">
 					<p class="category">단체 서류 제출</p>
 	   				<ul type="circle">
 		   				<li><p class="menu" onclick="location.href='${contextPath}/certificate.me'">서류 제출함</p></li>

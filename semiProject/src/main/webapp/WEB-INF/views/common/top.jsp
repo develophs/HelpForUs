@@ -52,8 +52,8 @@
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/enrollButton.me">회원가입</a></li>
 					</c:if>
 					
-					<c:if test="${ loginUser.memberRight == 'B' || loginUser.memberRight == 'C'}">
-						<li class="nav-item"><a class="nav-link" href="${contextPath}/myPage.me">내 정보</a></li>
+					<c:if test="${ loginUser.memberRight == 'B' || loginUser.memberRight == 'C' || loginUser.memberRight == 'D'}">
+						<li class="nav-item"><a class="nav-link" href="${contextPath}/myInfo.me">내 정보</a></li>
 						<li class="nav-item"><a class="nav-link" href="${contextPath}/logout.me">로그아웃</a></li>
 					</c:if>
 					
