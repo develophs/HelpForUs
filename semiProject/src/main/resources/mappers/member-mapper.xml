@@ -315,13 +315,14 @@
 	<select id="getAllList" resultMap="volBoardResultSet">
 		SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_CREATE_DATE, BOARD_MODIFY_DATE, BOARD_DEADLINE, MEMBER_NICKNAME
 		FROM BOARD
-		<if test="boardType == 'Don'">
+		<if test="boardType == 'Don' || boardType == 'donRev'">
 		JOIN FUNDRAISING ON(BOARD_ID = REF_BOARD_ID)
 		</if>
-		<if test="boardType == 'Vol'">
+		<if test="boardType == 'Vol' || boardType == 'volRev'">
 		JOIN VOLUNTEER ON(BOARD_ID = REF_BOARD_ID)
 		</if>
 		JOIN MEMBER ON (MEMBER_USERNAME = REF_MEMBER_USERNAME)
+		WHERE BOARD_TYPE=#{boardType}
 	</select>
 	
 	<insert id="inquiry">

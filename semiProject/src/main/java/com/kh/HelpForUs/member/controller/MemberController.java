@@ -733,6 +733,27 @@ public class MemberController {
 		} else {
 			throw new MemberException("비밀번호 재설정에 실패하셨습니다.");
 		}
+	}
+	
+	// 모금후기 관리
+	@RequestMapping("allDRevList.me")
+	public String allDRevList(@RequestParam(value="page", required=false) Long page, Model model) {
+		long currentPage = 0;
+		String boardType ="donRev";
+		if(page != null && page>0) {
+			currentPage = page;
+		}
+		long allDListCount = mService.getAllListCount(boardType);
+		PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+		List<Board> allDList = mService.getAllList(boardType,pi);
 		
+		System.out.println(allDList);
+		if(allDList != null) {
+			model.addAttribute("allDList",allDList);
+			model.addAttribute("pi",pi);
+			return "allDList";
+		} else {
+			throw new MemberException("글 목록 조회 실패");
+		}
 	}
 }
