@@ -20,10 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.HelpForUs.common.exception.BoardException;
+import com.kh.HelpForUs.common.model.service.CommonService;
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.Cheer;
 import com.kh.HelpForUs.common.vo.PageInfo;
 import com.kh.HelpForUs.common.vo.Pagination;
+import com.kh.HelpForUs.common.vo.Reply;
 import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
 import com.kh.HelpForUs.member.model.vo.Donation;
@@ -87,6 +89,8 @@ public class RevBoardController {
 		
 		boolean yn =false;
 		VolBoard v = vService.selectVolBoard(bId, yn);
+		
+		
 
 		if(v != null) { 
 			mv.addObject("v",v); 
@@ -102,6 +106,7 @@ public class RevBoardController {
 		
 		boolean yn =false;
 		DonBoard d = dService.selectDonBoard(bId, yn);
+	    
 		System.out.println(d);
 		if(d != null) { 
 			mv.addObject("d",d); 

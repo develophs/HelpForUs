@@ -64,7 +64,7 @@
 	<br><br>
 	
 	<div class="mx-auto m-3">
-		<button onclick="location.href='${contextPath}/volBoardList.vo'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
+		<button onclick="location.href='${contextPath}/revBoardList.re'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
 			<button id="inquiry" onclick="$('#modal').modal('show')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 			<c:if test="${ cheer == null }">
@@ -171,18 +171,17 @@
 			<table class="table">
 			  <thead>
 			    <tr>
-			      <th scope="col" style="width: 15%">댓글번호</th>
-			      <th scope="col" style="width: 55%">내용</th>
+			      
 			      <th scope="col" style="width: 15%">작성자</th>
+			      <th scope="col" style="width: 55%">내용</th>
 			      <th scope="col" style="width: 15%">작성일</th>
 			    </tr>
 			    </thead>
 			    <tbody id="replyTbody">
 				    <c:forEach items="${ rList }" var="r">
 				    	<tr>
-				    		<td>${ r.replyId }</td>
-				    		<td>${ r.replyContent }</td>
 				    		<td>${ r.refMemberUsername }</td>
+				    		<td>${ r.replyContent }</td>
 				    		<td>${ r.replyModifyDate }</td>
 				    	</tr>
 				    </c:forEach>
@@ -300,8 +299,8 @@
 						tbody.innerHTML = '';
 						
 						for(const r of data){
-							let str = '<tr><td>' + r.replyContent + '</td>';
-							str += '<td>' + r.refMemberUsername + '</td>';
+							let str = '<tr><td>' + r.refMemberUsername + '</td>';
+							 str += '<td>' + r.replyContent + '</td>';
 							str += '<td>' + r.replyModifyDate + '</td></tr>';
 							
 							console.log(str);
@@ -314,9 +313,7 @@
 					}
 					
 				});
-			});
-			
-			
+			});	
 		}
 	</script>
 </body>

@@ -129,8 +129,9 @@
 			</tr>
 		</table>
 	</div>
-	
+	<div style="border: 5px solid lightgray; width:60%" class="mx-auto">
 		<br>
+		
 		<div class="mx-auto" style="width: 750px">
 			<table class="table table-sm table-bordered">
 				<tr>
@@ -170,48 +171,46 @@
 		</div>
 		
 		<br><br>
-		<span class="mx-auto" style="text-align:center; width: 50%; font-size: 20px;">기부해 주신 분들 모두 감사합니다^^</span>
-		<div align="center">
-			<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-				<div class="carousel-inner" style="width: 200px;">
-			    	<c:forEach items="${ dList }" var="dl" >
-			    	<div class="carousel-item active" data-bs-interval="2000"  >
-			       		<fmt:parseNumber var="price" value="${dl.donationPrice/100 }"  integerOnly="true"  />
-			       		<input value="${dl.refMemberUsername }님 ${price}장미" style="border: none ; font-size: 20px" readonly>
-			    	</div>
-			    	</c:forEach>
-  				</div>
-			</div>		
-		</div>	
-		
-					
-		<div id="total">
-			<table id="totalTable">
-				<tr>
-					<td>기부된 장미</td>
-					<td>목표 장미</td>
-				</tr>
-				<tr>
-					<th>${ dB.fundraisingCurrentPrice }</th>
-					<th>${ dB.fundraisingGoalPrice }</th>
-				</tr>
-				<tr>
-					<td colspan="2"><img src="resources/img/roseDon.png" id="roseDon"></td>
-				</tr>
+		<div style="margin: 50px;">
+			<h4>댓글</h4>
+			<br>
+			<div class="input-group">
+	  			<textarea class="form-control" rows="3" id="replyContent" style="resize: none;"></textarea>
+	 			<button class="btn btn-outline-secondary" type="button" id="replyButton"
+	 			<c:if test="${ loginUser == null }"> disabled </c:if>
+	 			>Button</button>
+			</div>
+			<br>
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col" style="width: 35%">작성자</th>
+			      <th scope="col" style="width: 35%">내용</th>
+			      <th scope="col" style="width: %">작성일</th>
+			    </tr>
+			    </thead>
+			    <tbody id="replyTbody">
+				    <c:forEach items="${ reply }" var="r">
+				    	<tr>
+				    		<td>${ r.refMemberUsername }</td>
+				    		<td>${ r.replyContent }</td>
+				    		<td>${ r.replyModifyDate }</td>
+				    	</tr>
+				    </c:forEach>
+				</tbody>
 			</table>
-
-    
 		</div>
-		<br>
-		<br>
-	<br><br><br>
-	<br><br><br>
+	</div>
+	
+
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 		
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script>
 	
+	<script>
+	window.onload = () => {
+		
 	Kakao.init('e642cc213c74d7f2a652d395b7b56e6d');
 	Kakao.isInitialized();
 	const currUrl =	$(location).attr('href');
@@ -237,9 +236,40 @@
 			  ],
 			});
 	}
+	
+	
+	
+	
 
 	
-	
+		document.getElementById('replyButton').addEventListener('click', () => {
+		
+		$.ajax({
+			url: '${contextPath}/insertReply.co',
+			data: {replyContent:document.getElementById('replyContent').value,
+				   refBoardId:${dB.boardId},refMemberUsername:'${loginUser.memberUsername}'},
+			success: (data) => {
+				document.getElementById('replyContent').value = '';
+				const tbody = document.getElementById('replyTbody');
+				tbody.innerHTML = '';
+				
+				for(const r of data){
+					let str ='<tr><td>'+ r.refMemberUsername +'</td>';
+					 str +='<td>'+ r.replyContent +'</td>';
+					str +='<td>'+ r.replyModifyDate +'</td></tr>';
+					
+					console.log(str);
+					
+					tbody.innerHTML += str;
+				}
+			},
+			error: (data) => {
+				console.log(data);
+			}
+			
+		});
+	});
+	} 
 	</script>
 </body>
 </html>
