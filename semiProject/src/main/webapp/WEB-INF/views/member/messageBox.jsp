@@ -156,7 +156,7 @@
 									<c:if test="${loginUser.memberUsername eq m.senderUsername}">
 							      		<td scope="col">${m.receiverUsername}</td>
 							      	</c:if>
-							      	<td>${m.messageCreateDate}${ m.messageId }</td>
+							      	<td>${m.messageCreateDate}</td>
 								    <td>
 								    <input id="deleteMId" type="hidden" value="${ m.messageId }" >
 								    <input id="msgTypeVal" type="hidden" value="${ msgType }" >
