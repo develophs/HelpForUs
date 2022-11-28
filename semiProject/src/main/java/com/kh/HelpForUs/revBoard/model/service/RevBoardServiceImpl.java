@@ -1,6 +1,7 @@
 package com.kh.HelpForUs.revBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,8 @@ public class RevBoardServiceImpl implements RevBoardService{
 	public ArrayList<Donation> selectDonor(int bId) {
 		return rDAO.selectDonor(sqlSession,bId);
 	}
+
+	
 
 	
 	

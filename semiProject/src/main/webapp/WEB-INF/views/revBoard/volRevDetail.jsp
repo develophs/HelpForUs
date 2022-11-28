@@ -154,8 +154,47 @@
 				</c:if>
 			</c:if>
 		</div>
-		<br>
+		<br><br>
+	
+	
+	
+	<div style="margin: 50px;">
+			<h4>댓글</h4>
+			<br>
+			<div class="input-group">
+	  			<textarea class="form-control" rows="3" id="replyContent" style="resize: none;"></textarea>
+	 			<button class="btn btn-outline-secondary" type="button" id="replyButton"
+	 			<c:if test="${ loginUser == null }"> disabled </c:if>
+	 			>Button</button>
+			</div>
+			<br>
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th scope="col" style="width: 15%">댓글번호</th>
+			      <th scope="col" style="width: 55%">내용</th>
+			      <th scope="col" style="width: 15%">작성자</th>
+			      <th scope="col" style="width: 15%">작성일</th>
+			    </tr>
+			    </thead>
+			    <tbody id="replyTbody">
+				    <c:forEach items="${ rList }" var="r">
+				    	<tr>
+				    		<td>${ r.replyId }</td>
+				    		<td>${ r.replyContent }</td>
+				    		<td>${ r.refMemberUsername }</td>
+				    		<td>${ r.replyModifyDate }</td>
+				    	</tr>
+				    </c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
+	
+	
+	
+	
+	
 	
 	<div class="modal fade" id="modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 	  <div class="modal-dialog modal-dialog-centered">
@@ -250,6 +289,32 @@
 				});
 			});
 			
+			document.getElementById('replyButton').addEventListener('click', () => {
+				$.ajax({
+					url: '${contextPath}/insertReply.co',
+					data: {replyContent:document.getElementById('replyContent').value,
+						   refBoardId:${vBoard.boardId}, refMemberUsername:'${loginUser.memberUsername}'},
+					success: (data) => {
+						document.getElementById('replyContent').value = '';
+						const tbody = document.getElementById('replyTbody');
+						tbody.innerHTML = '';
+						
+						for(const r of data){
+							let str = '<tr><td>' + r.replyContent + '</td>';
+							str += '<td>' + r.refMemberUsername + '</td>';
+							str += '<td>' + r.replyModifyDate + '</td></tr>';
+							
+							console.log(str);
+							
+							tbody.innerHTML += str;
+						}
+					},
+					error: (data) => {
+						console.log(data);
+					}
+					
+				});
+			});
 			
 			
 		}

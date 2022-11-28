@@ -1,6 +1,7 @@
 package com.kh.HelpForUs.revBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.HelpForUs.common.vo.Attachment;
 import com.kh.HelpForUs.common.vo.PageInfo;
@@ -12,6 +13,8 @@ public interface RevBoardService {
 
 
 	int insertRevBoard(RevBoard rBoard);
+	
+	
 	
 	int insertAttm(Attachment a);
 
