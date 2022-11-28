@@ -258,6 +258,18 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.getRRepList",rowBounds);
 	}
 
+	public int getACount(SqlSessionTemplate sqlSession, Map<String,Object> map) {
+		return sqlSession.selectOne("memberMapper.getACount",map);
+	}
+
+	public List<Member> getAppList(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		PageInfo pi = (PageInfo)map.get("pi");
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.getAppList", map, rowBounds);
+	}
+
 
 
 

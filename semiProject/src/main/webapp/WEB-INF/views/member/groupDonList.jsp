@@ -71,10 +71,11 @@
    			<div class="col-9 border border-dark border-2">
    				<h4 style="padding:10px;">진행중인 모금활동</h4>
    				
-					<table class="table table-hover">
+					<table class="table table-hover" id="table">
 					
 					  <thead>
 					    <tr>
+					      <th scope="col">글 번호</th>
 					      <th scope="col">글 제목</th>
 					      <th scope="col">마감 일</th>
 					      <th scope="col">신청자</th>
@@ -86,9 +87,12 @@
 						  <c:if test="${list != null}">
 							  <c:forEach items="${list}" var="v"> 
 							    <tr>
+							      <td>${v.boardId}</td>
 							      <td>${v.boardTitle}</td>
 							      <td>${v.boardDeadline}</td>
-							      <td><button >신청자 보기</button></td>
+							      <td>
+							      	<button onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">신청자 보기</button>
+							      </td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
@@ -133,14 +137,20 @@
 
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		document.getElementById('nullList').innerText ='${message}';
-	</script>
+	</script> -->
 	
 	<script>
 	
 	window.onload=()=>{
-
+		const button = document.querySelector('button');
+		
+		const tds = document.querySelectorAll('tbody td');
+		for(const td of tds){
+			console.log(td);
+			
+		}
 		setInterval(
 			function alarm() {
 				$.ajax({

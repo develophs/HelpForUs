@@ -270,6 +270,16 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.getRRepList(sqlSession,pi);
 	}
 
+	@Override
+	public int getACount(Map<String,Object> map) {
+		return mDAO.getACount(sqlSession,map);
+	}
+
+	@Override
+	public List<Member> getAppList(Map<String, Object> map) {
+		return mDAO.getAppList(sqlSession,map);
+	}
+
 
 	
 

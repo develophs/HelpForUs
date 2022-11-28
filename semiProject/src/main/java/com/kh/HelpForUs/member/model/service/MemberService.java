@@ -115,6 +115,10 @@ public interface MemberService {
 
 	List<Member> getRRepList(PageInfo pi);
 
+	int getACount(Map<String,Object> map);
+
+	List<Member> getAppList(Map<String, Object> map);
+
 	
 
 

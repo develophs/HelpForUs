@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -753,7 +754,7 @@ public class MemberController {
 		}
 	}
 	
-	// 모금후기 관리
+	// 봉사후기 관리
 		@RequestMapping("allVRevList.me")
 		public String allvRevList(@RequestParam(value="page", required=false) Long page, Model model) {
 			long currentPage = 0;
@@ -878,6 +879,48 @@ public class MemberController {
 			throw new MemberException("댓글조회에 실패하셨습니다.");
 		}
 	}
+	
+	// 해당 글에 대한 기부,신청자
+	@GetMapping("applicant.me/{boardType}/{boardId}")
+	public String getApplicant(@PathVariable("boardId")int bId,@PathVariable("boardType")String bType,
+			@RequestParam(value="page",required=false)Integer page,Model model) {
+		
+		String tableName = null;
+		
+		if(bType.equals("Vol")) {
+			tableName = "APPLICATION";
+		} else {
+			tableName = "DONATION";
+		}
+		
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("bId", bId);
+		map.put("bType", bType);
+		map.put("tableName", tableName);
+		
+		int applicantCount = mService.getACount(map);
+		
+		int currentPage = 0;
+		if(page!=null && page>0) {
+			currentPage=page;
+		}
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, applicantCount, 10);
+		map.put("pi", pi);
+		
+		List<Member> appList = mService.getAppList(map);
+		if(appList != null) {
+			model.addAttribute("appList",appList);
+			model.addAttribute("pi",pi);
+			return "member/applicant";
+		} else {
+			throw new MemberException("신청자 조회에 실패하셨습니다.");
+		}
+		
+	}
+	
+	
 	
 	
 }

@@ -75,6 +75,7 @@
 					
 					  <thead>
 					    <tr>
+					      <th scope="col">글 번호</th>
 					      <th scope="col">글 제목</th>
 					      <th scope="col">마감 일</th>
 					      <th scope="col">신청자</th>
@@ -86,9 +87,12 @@
 						  <c:if test="${list != null}">
 							  <c:forEach items="${list}" var="v"> 
 							    <tr>
+							      <td>${v.boardId}</td>
 							      <td>${v.boardTitle}</td>
 							      <td>${v.boardDeadline}</td>
-							      <td><button >신청자 보기</button></td>
+							      <td>
+							      <button onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">신청자 보기</button>
+							      </td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
