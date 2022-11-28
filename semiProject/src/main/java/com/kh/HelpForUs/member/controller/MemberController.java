@@ -53,12 +53,7 @@ public class MemberController {
 	public String loginView() {
 		return "login";
 	}
-	
-	@RequestMapping("myPage.me")
-	public String myPageView() {
-		return "mypage";
-	}
-	
+
 	// 회원가입 작성 이동
 	@RequestMapping("enrollView.me")
 	public String enrollView(@RequestParam("right") String right,Model model) {
