@@ -65,12 +65,12 @@
 			<if test="bId > 0">
 				#{bId},
 			</if>
-			cur_aid)
+			CUR_AID)
 		</foreach>
 		select * from dual
 	</insert>
 	
-	<insert id="insertImg">
+	<!-- <insert id="insertImg">
 		insert into image
 		values(
 		<if test="i == 0">
@@ -80,7 +80,7 @@
 			#{i},
 		</if>
 		seq_aid.currval)
-	</insert>
+	</insert> -->
 	
 	<select id="selectAttmList" resultMap="AttmResultSet">
 		select *

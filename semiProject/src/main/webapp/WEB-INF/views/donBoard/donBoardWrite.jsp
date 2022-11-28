@@ -50,7 +50,7 @@
 					<th class="table-active">제목</th>
 					<td><input type="text" class="text1" name="boardTitle" required></td>
 					<th class="table-active">목표 금액</th>
-					<td><input type="text" class="text1" name="fundraisingGoalPrice" required></td>
+					<td><input type="number" class="text1" name="fundraisingGoalPrice" required></td>
 				</tr>
 				<tr>
 					<th class="table-active">모금 마감일</th>
