@@ -29,6 +29,7 @@ import com.kh.HelpForUs.common.vo.Pagination;
 import com.kh.HelpForUs.common.vo.Reply;
 import com.kh.HelpForUs.donBoard.model.service.DonBoardService;
 import com.kh.HelpForUs.donBoard.model.vo.DonBoard;
+import com.kh.HelpForUs.member.model.service.MemberService;
 import com.kh.HelpForUs.member.model.vo.Donation;
 import com.kh.HelpForUs.member.model.vo.Member;
 import com.kh.HelpForUs.revBoard.model.service.RevBoardService;
@@ -41,6 +42,9 @@ public class DonBoardController {
 	
 	@Autowired
 	private RevBoardService rService;
+	
+	@Autowired
+	private MemberService mService;
 	
 	// 모금 게시글 리스??
 	@RequestMapping("donBoardList.do")
@@ -300,8 +304,11 @@ public class DonBoardController {
 	// ?��? 기�??�기
 	@RequestMapping("roseDonation.do")
 	public String roseDonation(HttpSession session, @RequestParam("bId") int bId, @RequestParam("writer") String writer ,@RequestParam("reply") String reply, Model model, @RequestParam("totalRose") String totalRose, @ModelAttribute DonBoard dB) {
-		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
-//		int currRose = ((Member)session.getAttribute("loginUser")).getMemberRose();
+		Member mem = ((Member)session.getAttribute("loginUser"));
+		String id = mem.getMemberUsername();
+
+		
+		//		int currRose = ((Member)session.getAttribute("loginUser")).getMemberRose();
 		int currRose = dService.selectCurrRose(id);
 		
 		
@@ -349,6 +356,8 @@ public class DonBoardController {
 //			rttr.addAttribute("r",r);
 //			rttr.addAttribute("bId",bId);
 			model.addAttribute("currPrice", currPrice);
+			Member loginUser = mService.login(mem);
+			session.setAttribute("loginUser", loginUser);
 			return "redirect:selectDonBoard.do?bId="+bId +"&writer="+writer + "&page=1";
 			
 		}else {
