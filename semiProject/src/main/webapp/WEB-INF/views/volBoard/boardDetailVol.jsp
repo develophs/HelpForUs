@@ -182,7 +182,7 @@
 			<table class="table">
 			  <thead>
 			    <tr>
-			      <th scope="col" style="width: 60%"></th>
+			      <th scope="col" style="width: 60%">내용</th>
 			      <th scope="col" style="width: 15%">작성자</th>
 			      <th scope="col" style="width: 15%">작성일</th>
 			      <th scope="col" style="width: 10%"></th>
@@ -352,7 +352,7 @@
 					d.style.cursor = 'pointer';
 				});
 				d.addEventListener('click', function() {
-					location.href = '${contextPath}/deleteReply.co?rId=' + d.nextElementSibling.value + '&bId=' + ${vBoard.boardId};
+					location.href = '${contextPath}/deleteReply.co?rId=' + d.nextElementSibling.value + '&bId=' + ${vBoard.boardId} + '&bType=Vol';
 				});
 			}
 			

@@ -172,7 +172,7 @@
 		from reply r
 			join board b on(board_id = r.ref_board_id)
 			join member m on(member_username = r.ref_member_username)
-		where board_id=#{refBoardId}
+		where board_id=#{refBoardId} and REPLY_STATUS = 'Y'
 		order by reply_id desc
 	</select>
 	

@@ -183,16 +183,21 @@
 				<h4>기부자 댓글</h4>
 				<table class="table" style="width: 80%; margin-left: auto; margin-right: auto;">
 					<tr>
-						<th style="width:10%">작성자</th>
-						<th>내용</th>
-						<th style="width:10%">작성일</th>
+						<th scope="col" style="width: 60%">내용</th>
+					     <th scope="col" style="width: 15%">작성자</th>
+					     <th scope="col" style="width: 15%">작성일</th>
+					     <th scope="col" style="width: 10%"></th>
 					</tr>
 					<c:forEach items="${ reply }" var="r">
 						<tr>
-							<td>${ r.nickName }</td>
-							<td>${ r.replyContent }</td>
-							<td>${ r.replyCreateDate }</td>
-						</tr>
+				    		<td>${ r.replyContent }</td>
+				    		<td>${ r.refMemberUsername }</td>
+				    		<td>${ r.replyModifyDate }</td>
+				    		<c:if test="${ loginUser != null && (r.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A') }">
+				    			<td id="deleteReply" class="deleteReply">삭제</td>
+				    			<input type="hidden" value="${ r.replyId }">
+				    		</c:if>
+				    	</tr>
 					</c:forEach>
 				</table>
 			</div>
@@ -359,6 +364,16 @@
 				alert('취소를 누르셨습니다.');
 			}
 		});
+		
+		const deleteReply = document.getElementsByClassName('deleteReply');
+		for(const d of deleteReply){
+			d.addEventListener('mouseover', () => {
+				d.style.cursor = 'pointer';
+			});
+			d.addEventListener('click', function() {
+				location.href = '${contextPath}/deleteReply.co?rId=' + d.nextElementSibling.value + '&bId=' + ${dB.boardId} + '&bType=Don';
+			});
+		}
 		
 	}
 	</script>

@@ -225,12 +225,19 @@ public class CommonController {
 	
 	// 댓글 삭제
 	@RequestMapping("deleteReply.co")
-	public String deleteRepliy(@RequestParam("rId") int rId, @RequestParam("bId") String bId, Model model) {
+	public String deleteRepliy(@RequestParam("rId") int rId, @RequestParam("bId") String bId, @RequestParam("bType") String bType, Model model) {
 		int result = cService.deleteReply(rId);
 		
 		if(result > 0) {
 			model.addAttribute("bId", bId);
-			return "redirect:volBoardDetail.vo";
+			
+			if(bType.equals("Vol")) {
+				return "redirect:volBoardDetail.vo";
+			} else if(bType.equals("Don")) {
+				return "redirect:selectDonBoard.do";
+			} else {
+				throw new BoardException("댓글 삭제 실패");
+			}
 		} else {
 			throw new BoardException("댓글 삭제 실패");
 		}
