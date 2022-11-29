@@ -54,6 +54,15 @@ public class MemberController {
 	public String loginView() {
 		return "login";
 	}
+	
+	// 페이지 처리를 위한 메서드
+	public int getCurrentPage(Integer page) {
+		int currentPage = 1;
+		if(page != null && page > 1) {
+			currentPage = page;
+		}
+		return currentPage;
+	}
 
 	// 회원가입 작성 이동
 	@RequestMapping("enrollView.me")
@@ -288,11 +297,7 @@ public class MemberController {
 	public String myDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page,
 			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currentPage = 1;
-		
-		if(page != null && page > 1) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
 		
 		int listCount = mService.getDListCount(userName);
 		
@@ -316,10 +321,7 @@ public class MemberController {
 	@RequestMapping("volBoard.me")
 	public String myVolBoard(HttpSession session,@RequestParam(value="page",required=false)Integer page,Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currentPage = 1;
-			if(page != null && page > 1) {
-				currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
 			
 		int listCount = mService.getVListCount(userName);
 		
@@ -342,10 +344,7 @@ public class MemberController {
 	public String gourpDonBoard(HttpSession session, @RequestParam(value="page",required=false)Integer page,Model model){
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		
-		int currentPage = 1;
-		if(page != null && page > 1) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
 			
 		int listCount = mService.getGroupDListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
@@ -367,10 +366,7 @@ public class MemberController {
 	public String groupVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page,
 			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currentPage = 1;
-		if(page != null && page > 1) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
 			
 		int listCount = mService.getGroupVListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
@@ -393,10 +389,7 @@ public class MemberController {
 	public String endDonList(HttpSession session, @RequestParam(value="page",required=false)Integer page,
 			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currentPage = 1;
-		if(page != null && page > 1) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
 			
 		int listCount = mService.getEndDListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
@@ -419,10 +412,8 @@ public class MemberController {
 	public String endVolList(HttpSession session, @RequestParam(value="page",required=false)Integer page,
 			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currentPage = 1;
-		if(page != null && page > 1) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
+		
 			
 		int listCount = mService.getEndVListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
@@ -480,10 +471,7 @@ public class MemberController {
 	@RequestMapping("memberList.me")
 	public String getMemberList(@RequestParam(value="page",required=false)Integer page,Model model) {
 		int memberCount = mService.getMemberCount();
-		int currentPage = 0;
-		if(page != null && page>0) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
 		PageInfo pi = Pagination.getPageInfo(currentPage, memberCount, 10);
 		
 		List<Member> memberList = mService.getMemberList(pi);
@@ -500,10 +488,7 @@ public class MemberController {
 	// 관리자 페이지 - 단체 리스트
 	@RequestMapping("groupList.me")
 	public String getGroupList(@RequestParam(value="page",required=false)Integer page,Model model) {
-		int currentPage = 0;
-		if(page!=null && page>0) {
-			currentPage=page;
-		}
+		int currentPage = getCurrentPage(page);
 		int groupCount = mService.getGroupCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, groupCount, 10);
 		
@@ -520,14 +505,12 @@ public class MemberController {
 	
 	// 관리자 페이지 - 모금 게시글 관리
 	@RequestMapping("allDList.me")
-	public String getAllDList(@RequestParam(value="page", required=false) Long page, Model model) {
-		long currentPage = 0;
+	public String getAllDList(@RequestParam(value="page", required=false) Integer page, Model model) {
 		String boardType ="Don";
-		if(page != null && page>0) {
-			currentPage = page;
-		}
+		
+		int currentPage = getCurrentPage(page);
 		long allDListCount = mService.getAllListCount(boardType);
-		PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+		PageInfo pi = Pagination.getPageInfo(currentPage, (int)allDListCount, 10);
 		List<Board> allDList = mService.getAllList(boardType,pi);
 		if(allDList != null) {
 			model.addAttribute("allDList",allDList);
@@ -541,14 +524,11 @@ public class MemberController {
 	
 	// 관리자 페이지 - 봉사모집 관리
 	@RequestMapping("allVList.me")
-	public String getAllVList(@RequestParam(value="page", required=false) Long page, Model model) {
-		long currentPage = 0;
-		if(page!=null && page>0) {
-			currentPage = page;
-		}
+	public String getAllVList(@RequestParam(value="page", required=false) Integer page, Model model) {
+		int currentPage = getCurrentPage(page);
 		String boardType ="Vol";
 		long allVListCount = mService.getAllListCount(boardType);
-		PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allVListCount, 10);
+		PageInfo pi = Pagination.getPageInfo(currentPage, (int)allVListCount, 10);
 		List<Board> allVList = mService.getAllList(boardType,pi);
 		if(allVList != null) {
 			model.addAttribute("allVList",allVList);
@@ -669,10 +649,7 @@ public class MemberController {
 	// 관리자페이지 증명서 제출확인
 	@GetMapping("groupCertificate.me")
 	public String getGroupCer(@RequestParam(value="page", required=false) Integer page, Model model) {
-		int currentPage = 1;
-		if(page != null && page > 1) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
 		int listCount = mService.getGroupCertiCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
 		
@@ -734,14 +711,12 @@ public class MemberController {
 	
 	// 모금후기 관리
 	@RequestMapping("allDRevList.me")
-	public String allDRevList(@RequestParam(value="page", required=false) Long page, Model model) {
-		long currentPage = 0;
+	public String allDRevList(@RequestParam(value="page", required=false) Integer page, Model model) {
 		String boardType ="donRev";
-		if(page != null && page>0) {
-			currentPage = page;
-		}
+		int currentPage = getCurrentPage(page);
+		
 		long allDListCount = mService.getAllListCount(boardType);
-		PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+		PageInfo pi = Pagination.getPageInfo(currentPage, (int)allDListCount, 10);
 		List<Board> allDList = mService.getAllList(boardType,pi);
 		
 		System.out.println(allDList);
@@ -756,14 +731,12 @@ public class MemberController {
 	
 	// 봉사후기 관리
 		@RequestMapping("allVRevList.me")
-		public String allvRevList(@RequestParam(value="page", required=false) Long page, Model model) {
-			long currentPage = 0;
+		public String allvRevList(@RequestParam(value="page", required=false) Integer page, Model model) {
+			int currentPage = getCurrentPage(page);
 			String boardType ="volRev";
-			if(page != null && page>0) {
-				currentPage = page;
-			}
+			
 			long allDListCount = mService.getAllListCount(boardType);
-			PageInfo pi = Pagination.getPageInfo((int)currentPage, (int)allDListCount, 10);
+			PageInfo pi = Pagination.getPageInfo(currentPage, (int)allDListCount, 10);
 			List<Board> allDList = mService.getAllList(boardType,pi);
 			
 			System.out.println(allDList);
@@ -780,10 +753,7 @@ public class MemberController {
 	@GetMapping("cheerDBoard.me")
 	public String getCheerDBoard(@RequestParam(value="page",required=false)Integer page,Model model,HttpSession session) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currentPage = 0;
-		if(page!=null && page>0) {
-			currentPage=page;
-		}
+		int currentPage = getCurrentPage(page);
 		
 		int count = mService.getCheerDCount(id);
 		PageInfo pi = Pagination.getPageInfo(currentPage, count, 10);
@@ -809,10 +779,7 @@ public class MemberController {
 	@GetMapping("cheerVBoard.me")
 	public String getCheerVBoard(@RequestParam(value="page",required=false)Integer page,Model model,HttpSession session) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
-		int currentPage = 0;
-		if(page!=null && page>0) {
-			currentPage=page;
-		}
+		int currentPage = getCurrentPage(page);
 		
 		int count = mService.getCheerVCount(id);
 		PageInfo pi = Pagination.getPageInfo(currentPage, count, 10);
@@ -838,10 +805,7 @@ public class MemberController {
 	//봉사 기부게시글 댓글
 	@RequestMapping("allRepList.me")
 	public String allRepList(@RequestParam(value="page",required=false)Integer page,Model model,@RequestParam ("boardType") String boardType) {
-		int currentPage = 0;
-		if(page!=null && page>0) {
-			currentPage=page;
-		}
+		int currentPage = getCurrentPage(page);
 		
 		int groupCount = mService.getRepCount(boardType);
 		PageInfo pi = Pagination.getPageInfo(currentPage, groupCount, 10);
@@ -861,10 +825,7 @@ public class MemberController {
 	//후기댓글
 	@RequestMapping("allRRepList.me")
 	public String allVRepList(@RequestParam(value="page",required=false)Integer page,Model model) {
-		int currentPage = 0;
-		if(page!=null && page>0) {
-			currentPage=page;
-		}
+		int currentPage = getCurrentPage(page);
 		
 		int getRRepCount = mService.getRRepCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, getRRepCount, 10);
@@ -900,11 +861,7 @@ public class MemberController {
 		map.put("tableName", tableName);
 		
 		int applicantCount = mService.getACount(map);
-		
-		int currentPage = 0;
-		if(page!=null && page>0) {
-			currentPage=page;
-		}
+		int currentPage = getCurrentPage(page);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, applicantCount, 10);
 		map.put("pi", pi);
