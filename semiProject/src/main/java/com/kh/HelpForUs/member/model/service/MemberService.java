@@ -119,6 +119,13 @@ public interface MemberService {
 
 	List<Member> getAppList(Map<String, Object> map);
 
+	int getAllRose(int bId);
+
+	int insertAllRose(Map<String, Object> map);
+
+	int updateFunding(int bId);
+
+
 	
 
 

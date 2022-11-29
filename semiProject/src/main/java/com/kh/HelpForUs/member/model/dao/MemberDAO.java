@@ -270,6 +270,19 @@ public class MemberDAO {
 		return (ArrayList)sqlSession.selectList("memberMapper.getAppList", map, rowBounds);
 	}
 
+	public int getAllRose(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("memberMapper.getAllRose", bId);
+	}
+
+	public int insertAllRose(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("memberMapper.insertAllRose", map);
+	}
+
+	public int updateFunding(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("memberMapper.updateFunding", bId);
+	}
+
+	
 
 
 

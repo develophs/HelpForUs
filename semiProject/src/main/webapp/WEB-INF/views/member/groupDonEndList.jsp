@@ -80,6 +80,7 @@
 					      <th scope="col">마감 일</th>
 					      <th scope="col">신청자</th>
 					      <th scope="col">후기 작성</th>
+					      <th scope="col">장미받기</th>
 					    </tr>
 					  </thead>
 					  
@@ -93,6 +94,7 @@
 							      <td>${v.boardDeadline}</td>
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">후원자 목록</button></td>
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/donRevWrite.re?bId='+${v.boardId}">후기 작성</button></td>
+							    <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/getAllRose.me?bId='+${v.boardId}">장미받기</button></td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
@@ -160,6 +162,9 @@
 					}
 				});
 		 },1000);
+		
+		
+		
 		
 		
 	}

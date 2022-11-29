@@ -280,6 +280,21 @@ public class MemberServiceImpl implements MemberService{
 		return mDAO.getAppList(sqlSession,map);
 	}
 
+	@Override
+	public int getAllRose(int bId) {
+		return mDAO.getAllRose(sqlSession,bId);
+	}
+
+	@Override
+	public int insertAllRose(Map<String, Object> map) {
+		return mDAO.insertAllRose(sqlSession,map);
+	}
+
+	@Override
+	public int updateFunding(int bId) {
+		return mDAO.updateFunding(sqlSession,bId);
+	}
+
 
 	
 
