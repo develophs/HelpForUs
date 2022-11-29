@@ -92,9 +92,9 @@
 							      <td>${v.boardTitle}</td>
 							      <td>${v.boardDeadline}</td>
 							      <td>
-							      <button onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">신청자 보기</button>
+							      <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">신청자 보기</button>
 							      </td>
-							      <td><button onclick="location.href='${contextPath}/volRevWrite.re?bId='+${v.boardId}">후기 작성</button></td>
+							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/volRevWrite.re?bId='+${v.boardId}">후기 작성</button></td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>

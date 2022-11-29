@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>신청자 목록</title>
+<title>봉사단체페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
@@ -23,18 +23,43 @@
 	
 	
 	<div class="container text-center">
-		<h3 class='mypage'>뒤로가기</h3>
+		<h3 class='mypage'>단체 정보 페이지</h3>
 		
 		<br>
 		
 		<div class="row">
     		<div class="col-2 border border-dark border-2">
    				
+   				<p class="category">단체 정보</p>
    				<ul type="circle">
-   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">마이페이지로 이동</p></li>
+   					<li><p class="menu" onclick="location.href='${contextPath}/myInfo.me'">단체 정보 확인 / 수정</p></li>
    				</ul>
-   			</div>
+   				<p class="category"></p>
+   				
+   				
+   				<p class="category">봉사 모집 현황</p>
+	   			<ul type="circle">
+	   				<li><p class="menu" onclick="location.href='${contextPath}/volList.me'">진행중인 모집 현황</p></li>
+	   				<li><p class="menu" onclick="location.href='${contextPath}/endVolList.me'">봉사모집 마감 현황</p></li>
+				</ul>
+					
+				<p class="category">모금 현황</p>
+	   			<ul type="circle">
+		   			<li><p class="menu" onclick="location.href='${contextPath}/donList.me'">진행중인 모금 현황</p></li>
+		   			<li><p class="menu" onclick="location.href='${contextPath}/endDonList.me'">모금 마감 현황</p></li>
+				</ul>
+				
+				<p class="category">쪽지함<img id="msgBox" src='https://cdn-icons-png.flaticon.com/512/6188/6188613.png' style='display: none;'></p>
+   				<ul type="circle">
+	   				<li><p class="menu" onclick="location.href='${contextPath}/message.me'">쪽지함</p></li>
+				</ul>
+				
+				<p class="category">단체 서류 제출</p>
+	   			<ul type="circle">
+		   			<li><p class="menu" onclick="location.href='${contextPath}/certificate.me'">서류 제출함</p></li>
+				</ul>
    			
+   			</div>
    			
    			
    			<%--공백생성 --%>
@@ -43,9 +68,9 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark border-2">
-   				<h4 style="padding:10px;">해당 게시글에 신청, 기부자 목록</h4>
+   				<h4 style="padding:10px;">신청자 목록</h4>
    				
-					<table class="table table-hover" id="sendBox">
+					<table class="table table-hover">
 						<thead>
 						    <tr>
 						    	<th scope="col">신청자 명</th>
@@ -100,5 +125,32 @@
 
 	<jsp:include page="../common/footer.jsp"/>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<!-- <script type="text/javascript">
+		document.getElementById('nullList').innerText ='${message}';
+	</script> -->
+	
+	<script>
+	
+	window.onload=()=>{
+		
+		setInterval(
+			function alarm() {
+				$.ajax({
+					url: '${ contextPath }/msgAlarm.me',
+					success: (data) => {
+						if(data>0){
+							document.getElementById('msgBox').style="width: 40px; height:30px; padding-left: 10px;"
+						}
+						
+					},
+					error: (data) => {
+						console.log(data);
+					}
+				});
+		 },1000);
+		
+		
+	}
+	</script>
 </body>
 </html>
