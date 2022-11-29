@@ -213,7 +213,7 @@
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
 	<script>
-	window.onload = () => {
+	
 		
 	Kakao.init('e642cc213c74d7f2a652d395b7b56e6d');
 	Kakao.isInitialized();
@@ -243,7 +243,7 @@
 	
 	
 	
-
+	window.onload = () => {
 	
 		document.getElementById('replyButton').addEventListener('click', () => {
 		
