@@ -41,12 +41,12 @@ public class EmailController {
 	
     private String sendMail = "bha4388@naver.com";
     private String username = "bha4388";
-    private String password = "null";
+    private String password = "null!";
 
     @RequestMapping("email.me")
     public String mailSend(@RequestParam("email")String memberEmail){
     	String authNumber = null;
-    	sendMail = memberEmail;
+    	String recipient = memberEmail;
     	
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.naver.com");
@@ -65,7 +65,7 @@ public class EmailController {
         	authNumber = makeRandomNumber();
             Message mimeMessage = new MimeMessage(session);
             mimeMessage.setFrom(new InternetAddress(sendMail));	
-            mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(memberEmail));
+            mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             mimeMessage.setSubject("Help For Us 이메일 인증 번호 입니다.");
             mimeMessage.setContent("인증번호 : " + authNumber, "text/html;charset=UTF-8");
             Transport.send(mimeMessage);
