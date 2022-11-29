@@ -39,9 +39,7 @@
 			<button class="btn btn-primary" type="button" onclick="location.href='${contextPath}'" 
 			style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: 1rem; --bs-btn-font-size: 1.1rem;"
 			>Cancel</button>
-			<br><br>
-			
-			<br><br>
+			<br><br>			
 		</form>
 		
 		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"

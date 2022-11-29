@@ -70,8 +70,7 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark border-2">
-   				<h4 style="padding:10px;">작성된 모금 게시판</h4>
-   				
+   				<h4 style="padding:10px;">작성된 게시판 댓글</h4>
 					<table class="table table-hover">
 					
 					  <thead>

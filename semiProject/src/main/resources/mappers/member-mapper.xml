@@ -315,14 +315,14 @@
 	<select id="getGroupCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
-		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y'
+		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y' AND  MEMBER_RIGHT = 'D'
 	</select>
 	
 	<!-- 단체 리스트 가져오기 -->
 	<select id="getGroupList" resultMap="memberResultSet">
 		SELECT MEMBER_USERNAME, MEMBER_NICKNAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_ENROLL_DATE
 		FROM MEMBER
-		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y'
+		WHERE MEMBER_RIGHT = 'C' AND MEMBER_STATUS = 'Y' AND  MEMBER_RIGHT = 'D'
 	</select>
 	
 	
