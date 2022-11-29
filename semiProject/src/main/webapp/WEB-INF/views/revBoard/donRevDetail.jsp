@@ -163,6 +163,18 @@
 			${ dB.boardContent }
 		</div>
 		
+			<br><br><br>
+			<br><br><br>
+			<br><br><br>
+		
+		<div class="text-center">
+			<c:if test="${ loginUser != null}">
+				<c:if test="${ dB.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A'}">
+					<button id="deleteBtn" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
+					<button onclick="location.href='${contextPath}/goUpdateDonBoard.do?bId=${ dB.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
+				</c:if>
+			</c:if>
+		</div>
 		<br><br>
 		<div style="margin: 50px;">
 			<h4>댓글</h4>
@@ -207,33 +219,6 @@
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	
 	<script>
-	
-		
-	Kakao.init('e642cc213c74d7f2a652d395b7b56e6d');
-	Kakao.isInitialized();
-	const currUrl =	$(location).attr('href');
-	function kakaoShare() {
-		Kakao.Share.sendDefault({
-			  objectType: 'feed',
-			  content: {
-			    title: '${dB.boardTitle}',
-			    description: '${ fn:substring(dB.boardContent, 0, 20) }',
-			    imageUrl: 'https://ifh.cc/g/WPbPc8.jpg',
-			    link: {
-			      webUrl: currUrl,
-			    },
-			  },
-			  buttons: [
-			    {
-			      title: 'HelpForUs로 이동',
-			      link: {
-			        webUrl: currUrl,
-			      },
-			    },
-			  ],
-			});
-	}
-	
 	
 	
 	
@@ -286,6 +271,22 @@
 				location.href = '${contextPath}/deleteReply.co?rId=' + d.nextElementSibling.value + '&bId=' + ${vBoard.boardId} + '&bType=Don';
 			});
 		}
+		
+		
+
+		
+		$('#deleteBtn').click(function(){
+			if(confirm('게시글을 삭제하면 다시 되돌릴 수 없습니다, 정말 삭제하시겠습니까?')){
+				location.href="${contextPath}/deleteDonBoard.do?bId=${ dB.boardId }" 	
+			}else{
+				alert('취소를 누르셨습니다.');
+			}
+		});
+		
+		
+		
+		
+		
 	} 
 	</script>
 </body>

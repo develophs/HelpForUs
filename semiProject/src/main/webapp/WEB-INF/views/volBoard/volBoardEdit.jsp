@@ -46,7 +46,12 @@
 	<jsp:include page="../common/nav.jsp"></jsp:include>
 
 	<div class="container text-center" id="writeDiv"  >
+		<c:if test="${vBoard.boardType eq 'Vol' }">
 		<h2>봉사 활동 모집 글쓰기</h2>
+		</c:if>
+		<c:if test="${vBoard.boardType eq 'volRev' }">
+		<h2>봉사 활동 후기 글쓰기</h2>
+		</c:if>
 		<hr>
 		<form action="${contextPath}/updateVolBoard.vo" id="form" enctype="multipart/form-data" method="post">
 			<table class="table table-sm table-bordered" style="table-layout: fixed;">
