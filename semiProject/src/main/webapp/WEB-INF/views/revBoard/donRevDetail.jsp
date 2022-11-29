@@ -218,7 +218,6 @@
 	Kakao.init('e642cc213c74d7f2a652d395b7b56e6d');
 	Kakao.isInitialized();
 	const currUrl =	$(location).attr('href');
-	const imgUrl = 	$(location).attr('href')
 	function kakaoShare() {
 		Kakao.Share.sendDefault({
 			  objectType: 'feed',
