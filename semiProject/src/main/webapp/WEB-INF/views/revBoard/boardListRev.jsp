@@ -165,7 +165,7 @@
 	            	<c:set var="content" value="${ fn:substring(r.boardContent, 0, 20) }..."></c:set>
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
-	              	<small class="text-muted">${ r.boardId }</small>
+	              	<small class="text-muted" style="display: none;">${ r.boardId }</small>
 	              </div>
 	              <div class="d-flex justify-content-between align-items-center">
 	              	<small class="text-muted">${ r.memberNickname }</small>
@@ -223,7 +223,6 @@
 					const nickName = small[1].innerText;
 					const writer = small[1].innerText;
 					const bType = this.querySelector('input').value;
-					
 						if(bType =="donRev" ){ 
 							location.href='${contextPath}/selectDonBoard.do?bId=' + bId+'&writer='+writer;
 						}else{
