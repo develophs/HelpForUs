@@ -16,7 +16,13 @@
 <!-- MDB -->
 <link  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet" />
 <style>
-	*{font-family: 'Nanum Gothic', sans-serif;}
+	*{font-family: 'MICEGothic Bold';}
+		@font-face {
+	    font-family: 'MICEGothic Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+		}
 	#writeDiv{
 		 margin: auto; padding: 50px; min-height: 800px;
 		/* position: absolute; left:0; right:0; top:0; bottom:0; margin:auto;  */
