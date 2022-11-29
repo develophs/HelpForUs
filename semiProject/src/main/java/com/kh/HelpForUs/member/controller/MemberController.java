@@ -874,6 +874,27 @@ public class MemberController {
 		
 	}
 	
+	@RequestMapping("getAllRose.me")
+	public String getMemberList(@RequestParam("bId")int bId, HttpSession session) {
+		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
+		System.out.println(bId);
+		int allRose = mService.getAllRose(bId);
+		System.out.println(allRose);
+		Map<String,Object> map = new HashMap<>();
+		map.put("allRose", allRose);
+		map.put("id", id);
+		
+		int result1 = mService.insertAllRose(map);
+		int result2 = mService.updateFunding(bId);
+		
+		if(result1+result2==2) {
+			return "redirect:endDonList.me";
+		} else {
+			throw new MemberException("장미받기에 실패하셨습니다.");
+			
+		}
+	}
+	
 	
 	
 	
