@@ -41,10 +41,6 @@
 			>Cancel</button>
 			<br><br>
 			
-			<a href="javascript:loginWithKakao()">
-			<img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png">
-			</a>
-			
 			<br><br>
 		</form>
 		
@@ -125,45 +121,5 @@
 		}
 	</script>
 	
-	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
- 	 integrity="sha384-eKjgHJ9+vwU/FCSUG3nV1RKFolUXLsc6nLQ2R1tD0t4YFPCvRmkcF8saIfOZNWf/" crossorigin="anonymous">
-	</script>
-	
-	<script>
-	  Kakao.init('41bd5d7a56a78a5912e112fa3b3f6592'); // 사용하려는 앱의 JavaScript 키 입력
-	</script>
-	
-	<script>
-		// key : 41bd5d7a56a78a5912e112fa3b3f6592
-		// web : http://localhost:8080
-		// redirect : http://localhost:8080/HelpForUs/loginView.me
-		
-		function loginWithKakao() {
-   		 Kakao.Auth.authorize({
-     	 	redirectUri: 'http://localhost:8080/HelpForUs/loginView.me',
-   		 });
-  		}
-     
-	
-	</script>	
-	
-
-	<!-- Kakao.Auth.authorize({
-     			redirectUri: 'http://localhost:8080/HelpForUs/loginView.me',
-     			scope:'profile_nickname, account_email',
-     			success : function(authObj){
-     				console.log(authObj);
-     				Kakao.API.request({
-     					url:'/v2/user/me',
-     					success : res = >{
-     						const kakao_account = res.kakao_account;
-     						console.log(kakao_account);
-     					}
-     				});
-     			}
-     		}): -->
-
-
-
 </body>
 </html>
