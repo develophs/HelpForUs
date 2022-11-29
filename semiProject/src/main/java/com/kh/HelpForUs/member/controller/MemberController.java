@@ -63,6 +63,12 @@ public class MemberController {
 		}
 		return currentPage;
 	}
+	
+	// 중복검사 결과 확인 메서드
+	public String getResult(int count) {
+		String result = count>0 ? "yes" : "no";
+		return result;
+	}
 
 	// 회원가입 작성 이동
 	@RequestMapping("enrollView.me")
@@ -150,7 +156,6 @@ public class MemberController {
 		}
 	}
 		
-
 		
 	// 내정보 이동 메서드
 	@RequestMapping("myInfo.me")
@@ -163,8 +168,7 @@ public class MemberController {
 	@ResponseBody
 	public String checkUserName(@RequestParam("userName")String userName){
 		int count = mService.checkUserName(userName);
-		String result = count>0 ? "yes" : "no";
-		return result;
+		return getResult(count);
 	}
 	
 	// 닉네임 중복 검사 메서드
@@ -172,8 +176,7 @@ public class MemberController {
 	@ResponseBody
 	public String checkNickName(@RequestParam("nickName")String nickName){
 		int count = mService.checkNickName(nickName);
-		String result = count>0 ? "yes" : "no";
-		return result;
+		return getResult(count);
 	}
 	
 	// 회원 정보 수정 메서드
@@ -413,7 +416,6 @@ public class MemberController {
 			Model model) {
 		String userName=((Member)session.getAttribute("loginUser")).getMemberUsername();
 		int currentPage = getCurrentPage(page);
-		
 			
 		int listCount = mService.getEndVListCount(userName);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 10);
@@ -669,8 +671,7 @@ public class MemberController {
 	@ResponseBody
 	public String authorizeGroup(@RequestParam("memberUsername")String userName) {
 		int result = mService.authorizeGroup(userName);
-		String data = result>0 ? "yes" : "no";
-		return data;
+		return getResult(result);
 	}
 	
 	// 가입된 이메일 확인
@@ -678,8 +679,7 @@ public class MemberController {
 	@ResponseBody
 	public String checkEmail(@RequestParam("email")String email) {
 		int count = mService.checkEmail(email);
-		String result = count>0 ? "yes" : "no";
-		return result;
+		return getResult(count);
 	}
 	
 	// 비밀번호 재설정창 이동
@@ -730,24 +730,23 @@ public class MemberController {
 	}
 	
 	// 봉사후기 관리
-		@RequestMapping("allVRevList.me")
-		public String allvRevList(@RequestParam(value="page", required=false) Integer page, Model model) {
-			int currentPage = getCurrentPage(page);
-			String boardType ="volRev";
+	@RequestMapping("allVRevList.me")
+	public String allvRevList(@RequestParam(value="page", required=false) Integer page, Model model) {
+		int currentPage = getCurrentPage(page);
+		String boardType ="volRev";
 			
-			long allDListCount = mService.getAllListCount(boardType);
-			PageInfo pi = Pagination.getPageInfo(currentPage, (int)allDListCount, 10);
-			List<Board> allDList = mService.getAllList(boardType,pi);
+		long allDListCount = mService.getAllListCount(boardType);
+		PageInfo pi = Pagination.getPageInfo(currentPage, (int)allDListCount, 10);
+		List<Board> allDList = mService.getAllList(boardType,pi);
 			
-			System.out.println(allDList);
-			if(allDList != null) {
-				model.addAttribute("allDList",allDList);
-				model.addAttribute("pi",pi);
-				return "allVRevList";
-			} else {
-				throw new MemberException("글 목록 조회 실패");
-			}
+		if(allDList != null) {
+			model.addAttribute("allDList",allDList);
+			model.addAttribute("pi",pi);
+			return "allVRevList";
+		} else {
+			throw new MemberException("글 목록 조회 실패");
 		}
+	}
 
 	// 응원한 기부목록
 	@GetMapping("cheerDBoard.me")
@@ -788,9 +787,7 @@ public class MemberController {
 		map.put("id", id);
 		map.put("pi", pi);
 		
-		
 		List<CheerList> cVList = mService.getCheerVBoard(map);
-		System.out.println(cVList);
 		if(cVList != null) {
 			model.addAttribute("cVList",cVList);
 			model.addAttribute("pi",pi);
@@ -853,7 +850,6 @@ public class MemberController {
 		} else {
 			tableName = "DONATION";
 		}
-		
 		
 		Map<String,Object> map = new HashMap<>();
 		map.put("bId", bId);
