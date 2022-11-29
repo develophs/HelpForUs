@@ -46,7 +46,12 @@
 	<jsp:include page="../common/nav.jsp"></jsp:include>
 
 	<div class="container text-center" id="writeDiv"  >
+		<c:if test="${dB.boardType eq 'Don' }">
 		<h2>모금 게시글 수정하기</h2>
+		</c:if>
+		<c:if test="${dB.boardType eq 'donRev' }">
+		<h2>모금 후기 수정하기</h2>
+		</c:if>
 		<hr>
 		<form action="${contextPath}/updateDonBoard.do" id="form" enctype="multipart/form-data" method="post">
 			<table class="table table-sm table-bordered" style="table-layout: fixed;">
