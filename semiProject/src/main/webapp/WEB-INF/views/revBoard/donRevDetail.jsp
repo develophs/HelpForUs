@@ -106,27 +106,20 @@
 	
 	 <div class="mx-auto m-3">
 		<button onclick="location.href='${contextPath}/revBoardList.re?page=${page}'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
-		<%-- <c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername}">
+		<c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername}">
 			<button onclick="window.open('${contextPath}/inquiryDonView.do?boardId=${ dB.boardId }&writer=${ dB.refMemberUsername }', 'inquiryVol', 'width = 500, height = 400, left = 350, top = 100')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
-			<c:if test="${ cheer == null }">
-				<button onclick="location.href='${contextPath}/cheerBoard.do?bId=${ dB.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray">응원하기</button>
-			</c:if>
-			<c:if test="${ cheer != null }">
-				<button onclick="location.href='${contextPath}/cheerCancle.do?bId=${ dB.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray">응원취소</button>
-			</c:if>
 		</c:if>
 		<c:if test="${ loginUser == null || dB.refMemberUsername == loginUser.memberUsername }">
 			<button class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
-			<button class="btn btn-lg mb-0 text-white" style="background-color: gray" disabled>응원하기</button>
 		</c:if>
-			<a id="btnKakao" onclick="kakaoShare()" class="kakaotalk" target="_self" title="카카오톡 새창열림"><img style="width: 50px; height: 50px;" src="https://cdn-icons-png.flaticon.com/128/7468/7468476.png"></a> --%>
+			<a id="btnKakao" onclick="kakaoShare()" class="kakaotalk" target="_self" title="카카오톡 새창열림"><img style="width: 50px; height: 50px;" src="https://cdn-icons-png.flaticon.com/128/7468/7468476.png"></a>
 			
 	</div> 
 	
 	<div class="mx-auto" style="width: 750px">
 		<table class="table table-sm table-bordered">
 			<tr>
-				<th>[기부후기]${ dB.boardTitle }</th>
+				<th align="center">[기부후기]${ dB.boardTitle }</th>
 				
 			</tr>
 		</table>
