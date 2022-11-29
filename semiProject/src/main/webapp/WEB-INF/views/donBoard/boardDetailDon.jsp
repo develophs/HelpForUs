@@ -188,11 +188,18 @@
 						<th style="width:10%">작성일</th>
 					</tr>
 					<c:forEach items="${ reply }" var="r">
-						<tr>
-							<td>${ r.nickName }</td>
-							<td>${ r.replyContent }</td>
-							<td>${ r.replyCreateDate }</td>
-						</tr>
+						<c:if test="${ r.replyStatus == 'Y' }">
+							<tr>
+								<td>${ r.nickName }</td>
+								<td style="width: 30%">${ r.replyContent }</td>
+								<td>${ r.replyCreateDate }</td>
+								<c:if test="${loginUser.memberRight == 'A' || loginUser.memberUsername == r.refMemberUsername}">
+									<td style="width: 10%">
+										<button onclick="location.href='${contextPath}/delReply.do?bId='+${dB.boardId}">삭제</button>
+									</td>
+								</c:if>
+							</tr>
+						</c:if>
 					</c:forEach>
 				</table>
 			</div>
@@ -326,14 +333,15 @@
 		
 		// 장미 기부하기(모달)
 		var count = 0;
-		
 		document.getElementById('addRose').innerHTML = count;
 		$('.roseCount').click(function(){
-			if(count <= ${loginUser.memberRose}){
-				if(count + Number(($(this).attr('value'))) <= ${loginUser.memberRose}){
-					count += Number(($(this).attr('value')));
-				}else{
-					alert('보유 장미 개수보다 많은 장미를 선택할 수 없습니다.');
+			if(count <= ${dB.fundraisingGoalPrice}){
+				if(count <= ${loginUser.memberRose}){
+					if(count + Number(($(this).attr('value'))) <= ${loginUser.memberRose}){
+						count += Number(($(this).attr('value')));
+					}else{
+						alert('보유 장미 개수보다 많은 장미를 선택할 수 없습니다.');
+					}
 				}
 			}
 			if(count>0) {
