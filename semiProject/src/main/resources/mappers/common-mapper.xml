@@ -127,7 +127,7 @@
 	<select id="selectReply" resultMap="ReplyResultSet">
 		select *
 		from reply
-		where REF_BOARD_ID = #{refBoardId}
+		where REF_BOARD_ID = #{refBoardId} and REPLY_STATUS = 'Y'
 		order by REPLY_ID desc
 	</select>
 	
@@ -140,4 +140,10 @@
 		<result column="REF_BOARD_ID" property="refBoardId"/>
 		<result column="REPLY_STATUS" property="replyStatus"/>
 	</resultMap>
+	
+	<update id="deleteReply">
+		update reply
+		set REPLY_STATUS = 'N'
+		where REPLY_ID = #{rId}
+	</update>
 </mapper>

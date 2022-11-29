@@ -182,9 +182,10 @@
 			<table class="table">
 			  <thead>
 			    <tr>
-			      <th scope="col" style="width: 70%"></th>
+			      <th scope="col" style="width: 60%"></th>
 			      <th scope="col" style="width: 15%">작성자</th>
 			      <th scope="col" style="width: 15%">작성일</th>
+			      <th scope="col" style="width: 10%"></th>
 			    </tr>
 			    </thead>
 			    <tbody id="replyTbody">
@@ -193,6 +194,10 @@
 				    		<td>${ r.replyContent }</td>
 				    		<td>${ r.refMemberUsername }</td>
 				    		<td>${ r.replyModifyDate }</td>
+				    		<c:if test="${ loginUser != null && (r.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A') }">
+				    			<td id="deleteReply" class="deleteReply">삭제</td>
+				    			<input type="hidden" value="${ r.replyId }">
+				    		</c:if>
 				    	</tr>
 				    </c:forEach>
 				</tbody>
@@ -322,7 +327,12 @@
 						for(const r of data){
 							let str = '<tr><td>' + r.replyContent + '</td>';
 							str += '<td>' + r.refMemberUsername + '</td>';
-							str += '<td>' + r.replyModifyDate + '</td></tr>';
+							str += '<td>' + r.replyModifyDate + '</td>';
+							if(${ loginUser != null && (r.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A') }){
+								str += '<td id="deleteReply" class="deleteReply">삭제</td>';
+				    			str += '<input type="hidden" value="${ r.replyId }">';
+							}
+							str += '</tr>';
 							
 							console.log(str);
 							
@@ -335,6 +345,16 @@
 					
 				});
 			});
+			
+			const deleteReply = document.getElementsByClassName('deleteReply');
+			for(const d of deleteReply){
+				d.addEventListener('mouseover', () => {
+					d.style.cursor = 'pointer';
+				});
+				d.addEventListener('click', function() {
+					location.href = '${contextPath}/deleteReply.co?rId=' + d.nextElementSibling.value + '&bId=' + ${vBoard.boardId};
+				});
+			}
 			
 		}
 	</script>
