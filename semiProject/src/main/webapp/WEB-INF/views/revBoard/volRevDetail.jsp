@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,23 +67,13 @@
 	
 	<div class="mx-auto m-3">
 		<button onclick="location.href='${contextPath}/revBoardList.re'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
-		<%-- <c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
+		 <c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
 			<button id="inquiry" onclick="$('#modal').modal('show')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
-			<c:if test="${ cheer == null }">
-				<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
-				<c:if test="${ vBoard.refMemberUsername == loginUser.memberUsername }">
-					disabled
-				</c:if>
-				>응원하기</button>
-			</c:if>
-			<c:if test="${ cheer != null }">
-				<button onclick="location.href='${contextPath}/cheerCancle.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray">응원취소</button>
-			</c:if>
 		</c:if>
 		<c:if test="${ loginUser == null || vBoard.refMemberUsername == loginUser.memberUsername }">
 			<button class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
-			<button class="btn btn-lg mb-0 text-white" style="background-color: gray" disabled>응원하기</button>
-		</c:if> --%>
+		</c:if> 
+		<a id="btnKakao" onclick="kakaoShare()" class="kakaotalk" target="_self" title="카카오톡 새창열림"><img style="width: 50px; height: 50px;" src="https://cdn-icons-png.flaticon.com/128/7468/7468476.png"></a>
 	</div>
 	
 	<div class="mx-auto" style="width: 750px">
@@ -228,8 +220,48 @@
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=17211e215fd1702049160ddd7221beba&libraries=services"></script>
+		<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script>
-		window.onload = () => {
+		
+	
+	Kakao.init('e642cc213c74d7f2a652d395b7b56e6d');
+	Kakao.isInitialized();
+	const currUrl =	$(location).attr('href');
+	function kakaoShare() {
+		Kakao.Share.sendDefault({
+			  objectType: 'feed',
+			  content: {
+			    title: '${vBoard.boardTitle}',
+			    description: '${ fn:substring(vBoard.boardContent, 0, 20) }',
+			    imageUrl: 'https://ifh.cc/g/WPbPc8.jpg',
+			    link: {
+			      webUrl: currUrl,
+			    },
+			  },
+			  buttons: [
+			    {
+			      title: 'HelpForUs로 이동',
+			      link: {
+			        webUrl: currUrl,
+			      },
+			    },
+			  ],
+			});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	window.onload = () => {
 			
 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 			
