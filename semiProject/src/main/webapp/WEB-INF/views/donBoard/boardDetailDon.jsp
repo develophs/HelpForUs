@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -198,6 +198,7 @@
 				    			<input type="hidden" value="${ r.replyId }">
 				    		</c:if>
 				    	</tr>
+						
 					</c:forEach>
 				</table>
 			</div>
@@ -331,14 +332,15 @@
 		
 		// 장미 기부하기(모달)
 		var count = 0;
-		
 		document.getElementById('addRose').innerHTML = count;
 		$('.roseCount').click(function(){
-			if(count <= ${loginUser.memberRose}){
-				if(count + Number(($(this).attr('value'))) <= ${loginUser.memberRose}){
-					count += Number(($(this).attr('value')));
-				}else{
-					alert('보유 장미 개수보다 많은 장미를 선택할 수 없습니다.');
+			if(count <= ${dB.fundraisingGoalPrice}){
+				if(count <= ${loginUser.memberRose}){
+					if(count + Number(($(this).attr('value'))) <= ${loginUser.memberRose}){
+						count += Number(($(this).attr('value')));
+					}else{
+						alert('보유 장미 개수보다 많은 장미를 선택할 수 없습니다.');
+					}
 				}
 			}
 			if(count>0) {
