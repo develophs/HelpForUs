@@ -79,7 +79,7 @@ public class DonBoardController {
 			
 			return "boardListDon";
 		}else {
-			throw new BoardException("게시글 조회 ?�패");
+			throw new BoardException("게시글 조회 실패");
 		}
 	}	
 	
@@ -237,8 +237,6 @@ public class DonBoardController {
 				bool = true;
 			}
 		}
-		
-//		System.out.println(bId);
 		// 응원 내역 보기
 		Cheer c = new Cheer();
 		Cheer cheer = null;
@@ -257,11 +255,6 @@ public class DonBoardController {
 		r.setRefBoardId(bId);
 		reply = dService.selectReply(r);
 		
-//		if(dB != null) {
-//			mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).setViewName("boardDetailDon");
-//		}else {
-//			throw new BoardException("게시글 ?�세 조회 ?�패");
-//		}
 		System.out.println(dList);
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
@@ -321,8 +314,6 @@ public class DonBoardController {
 		//		int currRose = ((Member)session.getAttribute("loginUser")).getMemberRose();
 		int currRose = dService.selectCurrRose(id);
 		
-		
-		
 //		System.out.println(bId);
 		Donation don = new Donation();
 		don.setRefMemberUsername(id);
@@ -354,6 +345,7 @@ public class DonBoardController {
 			reply = "응원합니다!";
 		}
 		
+		
 		Reply r = new Reply();
 		r.setRefMemberUsername(id);
 		r.setRefBoardId(bId);
@@ -361,10 +353,6 @@ public class DonBoardController {
 		int replyIns = dService.replyInsert(r);
 		
 		if(donResult > 0) {
-//			model.addAttribute("r", r);
-//			model.addAttribute("bId", bId);
-//			rttr.addAttribute("r",r);
-//			rttr.addAttribute("bId",bId);
 			model.addAttribute("currPrice", currPrice);
 			Member loginUser = mService.login(mem);
 			session.setAttribute("loginUser", loginUser);

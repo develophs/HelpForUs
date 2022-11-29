@@ -180,9 +180,16 @@
 		<div class="text-center">
 			<c:if test="${ loginUser != null}">
 				<c:if test="${ dB.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A'}">
-					<button id="deleteBtn" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
-					<button onclick="location.href='${contextPath}/goUpdateDonBoard.do?bId=${ dB.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
+					<c:if test="${ dB.fundraisingCurrentPrice != 0 }">
+						<button id="deleteBtn" class="btn btn-lg text-white" style="background-color: orange;" disabled>삭제</button>
+						<button onclick="location.href='${contextPath}/goUpdateDonBoard.do?bId=${ dB.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
+					</c:if>
+					<c:if test="${ dB.fundraisingCurrentPrice == 0 }">
+						<button id="deleteBtn" class="btn btn-lg text-white" style="background-color: orange;">삭제</button>
+						<button onclick="location.href='${contextPath}/goUpdateDonBoard.do?bId=${ dB.boardId }'" class="btn btn-lg text-white" style="background-color: green;">수정</button>
+					</c:if>
 				</c:if>
+				
 			</c:if>
 		</div>
 		
@@ -200,7 +207,6 @@
 					</tr>
 					<c:forEach items="${ reply }" var="r">
 						<tr>
-							
 				    		<td>${ r.replyContent }</td>
 				    		<td>${ r.nickName }</td>
 				    		<td>${ r.replyModifyDate }</td>
@@ -208,12 +214,6 @@
 				    			<td id="deleteReply" class="deleteReply">삭제</td>
 				    			<input type="hidden" value="${ r.replyId }">
 				    		</c:if>
-				    	</tr>
-						
-							<td>${ r.nickName }</td>
-							<td>${ r.replyContent }</td>
-							<td>${ r.replyCreateDate }</td>
-						</tr>
 					</c:forEach>
 				</table>
 			</div>
