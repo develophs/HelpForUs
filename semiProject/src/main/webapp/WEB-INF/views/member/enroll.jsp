@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +53,12 @@
                             <!-- 이름 input-->
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="memberName" name="memberName" type="text" required/>
-                                <label for="memberName">이름</label>
+                                <c:if test="${ right =='B'}">
+                                	<label for="memberName">이름</label>
+                                </c:if>
+                                <c:if test="${ right =='D'}">
+                                	<label for="memberName">봉사 단체 명</label>
+                                </c:if>
                             </div>
                             
                              <!-- 닉네임 input-->
