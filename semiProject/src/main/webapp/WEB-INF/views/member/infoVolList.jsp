@@ -94,9 +94,9 @@
 							  </c:forEach>
 						  </c:if>
 						  
-						  <c:if test="${message != null}">
+						  <c:if test="${list == null}">
 							  <tr>
-							  	<td colspan="3" id="nullList"></td>
+							  	<td colspan="5" id="nullList">신청한 봉사활동이 존재하지 않습니다.</td>
 							  </tr>
 						  </c:if> 
 					    
