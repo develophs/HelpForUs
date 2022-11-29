@@ -540,8 +540,23 @@
 		WHERE BOARD_STATUS = 'Y' AND BOARD_TYPE = #{bType} AND BOARD_ID = #{bId}
 	</select>
 	
+	<select id="getAllRose" resultType="_int">
+		SELECT FUNDRAISING_CURRENT_PRICE
+		FROM FUNDRAISING
+		WHERE REF_BOARD_ID =#{bId}
+	</select>
+	
+	<update id="insertAllRose" parameterType="java.util.HashMap">
+		UPDATE MEMBER
+		SET MEMBER_ROSE = #{allRose}
+		WHERE MEMBER_USERNAME = #{id}
+	</update>
+	
+	<update id="updateFunding" parameterType="java.util.HashMap">
+		UPDATE FUNDRAISING
+		SET FUNDRAISING_CURRENT_PRICE = 0
+		WHERE REF_BOARD_ID = ${bId}
+	</update>
 
-	
-	
 
 </mapper>
