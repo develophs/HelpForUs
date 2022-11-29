@@ -47,7 +47,7 @@
 	<nav class="navbar navbar-expand" style="background-color: #fbd14b;">
 		<div class="container-fluid" id="topDiv">
 			<a class="navbar-brand" href="${contextPath}">
-				<img src="resources/img/logo.png" alt="Logo" width="50" height="40" class="d-inline-block align-text-top">
+				<img src="${ contextPath }/resources/img/logo.png" alt="Logo" width="50" height="40" class="d-inline-block align-text-top">
 				&nbsp;HELP FOR US
 			</a>
 			<button class="navbar-toggler" type="button"
@@ -78,7 +78,7 @@
 		</div>
 	</nav>
 	<div id="topImgDiv">
-		<img src="resources/img/topImg.jpg" alt="img">
+		<img src="${ contextPath }/resources/img/topImg.jpg" alt="img">
 	</div>
 </body>
 </html>

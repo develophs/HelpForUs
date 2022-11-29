@@ -19,8 +19,8 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../common/top2.jsp"/>
-	
+
+	<jsp:include page="../common/top.jsp"/>
 	
 	<div class="container text-center">
 		<h3 class='mypage'>단체 정보 페이지</h3>

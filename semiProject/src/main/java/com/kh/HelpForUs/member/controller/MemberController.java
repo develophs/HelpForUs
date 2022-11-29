@@ -838,7 +838,7 @@ public class MemberController {
 		}
 	}
 	
-	// 해당 글에 대한 기부,신청자
+	// 해당 글에 대한 후원,신청자
 	@GetMapping("applicant.me/{boardType}/{boardId}")
 	public String getApplicant(@PathVariable("boardId")int bId,@PathVariable("boardType")String bType,
 			@RequestParam(value="page",required=false)Integer page,Model model) {
