@@ -118,9 +118,11 @@
 	
 	<div class="mx-auto" style="width: 750px">
 		<table class="table table-sm table-bordered">
-			<tr>
-				<th align="center">[기부후기]${ dB.boardTitle }</th>
-				
+			<tr align="center">
+				<th style="width: 2%">
+					[기부후기]
+				</th>
+				<th align="center">${ dB.boardTitle }</th>
 			</tr>
 		</table>
 	</div>
