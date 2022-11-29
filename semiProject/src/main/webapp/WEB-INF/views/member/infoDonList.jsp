@@ -79,6 +79,7 @@
 		   						<th>단체명</th>
 		   						<th>제목</th>
 		   						<th>마감일</th>
+		   						<th>기부 금액</th>
 		   					</tr>
 	   					</thead>
 	   					
@@ -91,6 +92,7 @@
 								  <td>${d.memberNickname}</td>
 							      <td>${d.boardTitle}</td>
 							      <td>${d.boardDeadline}</td>
+							      <td>${d.donationPrice}</td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>

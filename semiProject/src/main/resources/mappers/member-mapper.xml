@@ -244,13 +244,34 @@
 	</select>
 	
 	<!-- 회원이 기부한 내역 -->
-	<select id="getDList" resultMap="volBoardResultSet">
-		SELECT B.BOARD_ID, B.BOARD_TITLE, B.BOARD_DEADLINE, M.MEMBER_NICKNAME
+	<select id="getDList" resultMap="donBoardResultSet">
+		SELECT B.BOARD_ID, B.BOARD_TITLE, B.BOARD_DEADLINE, M.MEMBER_NICKNAME, D.DONATION_PRICE
 		FROM BOARD B
 		JOIN DONATION D ON (B.BOARD_ID = D.REF_BOARD_ID)
 		JOIN MEMBER M ON ( M.MEMBER_USERNAME = D.REF_MEMBER_USERNAME)
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_STATUS ='Y'
 	</select>
+	
+	<resultMap type="donBoard" id="donBoardResultSet">
+		<id column="board_id" property="boardId"/>
+		<result column="board_type" property="boardType"/>
+		<result column="ref_member_username" property="refMemberUsername"/>
+		<result column="ref_category_id" property="refCategoryId"/>
+		<result column="board_title" property="boardTitle"/>
+		<result column="board_content" property="boardContent"/>
+		<result column="board_create_date" property="boardCreateDate"/>
+		<result column="board_modify_date" property="boardModifyDate"/>
+		<result column="board_deadline" property="boardDeadline"/>
+		<result column="board_status" property="boardStatus"/>
+		<result column="manager_name" property="managerName"/>
+		<result column="manager_phone" property="managerPhone"/>
+		<result column="FUNDRAISING_GOAL_PRICE" property="fundraisingGoalPrice"/>
+		<result column="FUNDRAISING_CURRENT_PRICE" property="fundraisingCurrentPrice"/>
+		<result column="category_name" property="categoryName"/>
+		<result column="member_nickname" property="memberNickname"/>
+		<result column="board_count" property="boardCount"/>
+		<result column="DONATION_PRICE" property="donationPrice"/>
+	</resultMap>
 	
 	<!-- 회원이 봉사 신청한 내역 -->
 	<select id="getVList" resultMap="volBoardResultSet">
