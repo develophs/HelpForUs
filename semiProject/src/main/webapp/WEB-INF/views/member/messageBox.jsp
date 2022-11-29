@@ -168,8 +168,8 @@
    				</div>
    			
    			<!-- 페이징 처리 -->
-		   		<nav aria-label="Standard pagination example" style="align-content: center;">
-		        	<ul class="pagination">
+		   		<nav aria-label="Standard pagination example">
+		        	<ul class="pagination" style="justify-content: center;">
 		        	<c:if test="${ pi.currentPage > 1 }">
 			            <li class="page-item">
 			            	<c:url var="goBack" value="${ loc }">

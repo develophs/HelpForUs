@@ -30,7 +30,14 @@
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<style>
-		
+	*{font-family: 'MICEGothic Bold';}
+		@font-face {
+	    font-family: 'MICEGothic Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+		}
+	
 			#index_02{
 	    width: 500px;
 	    height: 200px;
@@ -58,11 +65,6 @@
 	#slide2>ul>li{
 	    height: 300px;
 	}
-	
-
-		
-		
-		*{font-family: 'Nanum Gothic', sans-serif;}
 	
 		hr{
 			width: 50%; margin-left: auto; margin-right: auto;
@@ -118,9 +120,11 @@
 	
 	<div class="mx-auto" style="width: 750px">
 		<table class="table table-sm table-bordered">
-			<tr>
-				<th align="center">[기부후기]${ dB.boardTitle }</th>
-				
+			<tr align="center">
+				<th style="width: 2%">
+					[기부후기]
+				</th>
+				<th align="center">${ dB.boardTitle }</th>
 			</tr>
 		</table>
 	</div>
