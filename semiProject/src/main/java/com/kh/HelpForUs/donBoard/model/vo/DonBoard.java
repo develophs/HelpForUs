@@ -32,4 +32,5 @@ public class DonBoard {
 	private String managerPhone;
 	private String memberNickname;
 	private int boardCount;
+	private int donationPrice;
 }
