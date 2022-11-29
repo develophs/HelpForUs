@@ -162,6 +162,11 @@
 		<div class="mx-auto" style="height: 50%; width: 50%">
 			${ dB.boardContent }
 		</div>
+		
+			<br><br><br>
+			<br><br><br>
+			<br><br><br>
+		
 		<div class="text-center">
 			<c:if test="${ loginUser != null}">
 				<c:if test="${ dB.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A'}">
@@ -294,6 +299,8 @@
 			});
 		}
 		
+		
+
 		
 		$('#deleteBtn').click(function(){
 			if(confirm('게시글을 삭제하면 다시 되돌릴 수 없습니다, 정말 삭제하시겠습니까?')){
