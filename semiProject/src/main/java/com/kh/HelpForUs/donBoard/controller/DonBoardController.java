@@ -248,19 +248,18 @@ public class DonBoardController {
 		DonBoard dB = dService.selectDonBoard(bId, bool);
 		ArrayList<Attachment> aList = dService.selectDonAttm(bId);
 		
-		ArrayList<Donation> dList = rService.selectDonor(bId);
+		
 		// 댓글
 		Reply r = new Reply();
 		ArrayList<Reply> reply = null;
 		r.setRefBoardId(bId);
 		reply = dService.selectReply(r);
 		
-		System.out.println(dList);
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).addObject("dFund", dFund).setViewName("boardDetailDon");
 			}else {
-				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("dList", dList).addObject("reply", reply).setViewName("../revBoard/donRevDetail");
+				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).setViewName("../revBoard/donRevDetail");
 			}
 			
 		}else {
