@@ -770,7 +770,7 @@ public class MemberController {
 			if(allDList != null) {
 				model.addAttribute("allDList",allDList);
 				model.addAttribute("pi",pi);
-				return "allDList";
+				return "allVRevList";
 			} else {
 				throw new MemberException("글 목록 조회 실패");
 			}
