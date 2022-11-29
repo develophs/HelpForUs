@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../common/top.jsp"/>
+	<jsp:include page="../common/top2.jsp"/>
 	
 	
 	<div class="container text-center">
@@ -68,15 +68,31 @@
    			<%--공백생성 --%>
    			
    			<div class="col-9 border border-dark border-2">
-   				<h4 style="padding:10px;">신청자 목록</h4>
+   				<c:if test="${tableName =='APPLICATION'}">
+   					<h4 style="padding:10px;">신청자 목록</h4>
+   				</c:if>
+   				
+   				<c:if test="${tableName =='DONATION'}">
+   					<h4 style="padding:10px;">후원자 목록</h4>
+   				</c:if>
    				
 					<table class="table table-hover">
 						<thead>
 						    <tr>
-						    	<th scope="col">신청자 명</th>
-							    <th scope="col">신청자 닉네임</th>
+						    	<c:if test="${tableName =='APPLICATION'}">
+						    		<th scope="col">신청자 명</th>
+						    		<th scope="col">신청자 닉네임</th>
+						    	</c:if>
+						    	<c:if test="${tableName =='DONATION'}">
+						    		<th scope="col">후원자 명</th>
+						    		<th scope="col">후원자 닉네임</th>
+						    	</c:if>	
+							    
 							    <th scope="col">핸드폰 번호</th>
 							    <th scope="col">이메일</th>
+							    <c:if test="${tableName =='DONATION'}">
+						    		<th scope="col">기부 금액(원)</th>
+						    	</c:if>	
 						    </tr>
 						</thead>
 						
@@ -88,6 +104,9 @@
 										 <td>${a.memberNickname}</td>
 										 <td>${a.memberPhone}</td>
 										 <td>${a.memberEmail}</td>
+										 <c:if test="${tableName =='DONATION'}">
+											 <td>${a.memberEmail}</td>
+										 </c:if>	 
 									 </tr>
 								</c:forEach>
 						     </c:if>

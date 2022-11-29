@@ -866,6 +866,7 @@ public class MemberController {
 		if(appList != null) {
 			model.addAttribute("appList",appList);
 			model.addAttribute("pi",pi);
+			model.addAttribute("tableName",tableName);
 			return "member/applicant";
 		} else {
 			throw new MemberException("신청자 조회에 실패하셨습니다.");
