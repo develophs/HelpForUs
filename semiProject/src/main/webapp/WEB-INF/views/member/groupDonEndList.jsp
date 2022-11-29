@@ -78,7 +78,8 @@
 					      <th scope="col">글 번호</th>
 					      <th scope="col">글 제목</th>
 					      <th scope="col">마감 일</th>
-					      <th scope="col">신청자</th>
+					      <th scope="col">최종 모금액</th>
+					      <th scope="col">후원자</th>
 					      <th scope="col">후기 작성</th>
 					    </tr>
 					  </thead>
@@ -91,6 +92,7 @@
 							      <td>${v.boardId}</td>
 							      <td>${v.boardTitle}</td>
 							      <td>${v.boardDeadline}</td>
+							      <td>${v.fundraisingCurrentPrice}</td>
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">후원자 목록</button></td>
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/donRevWrite.re?bId='+${v.boardId}">후기 작성</button></td>
 							    </tr>

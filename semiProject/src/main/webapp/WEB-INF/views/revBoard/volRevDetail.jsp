@@ -31,7 +31,13 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	
 	<style>
-		*{font-family: 'Nanum Gothic', sans-serif;}
+		*{font-family: 'MICEGothic Bold';}
+		@font-face {
+	    font-family: 'MICEGothic Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+		}
 	
 		hr{
 			width: 50%; margin-left: auto; margin-right: auto;

@@ -212,22 +212,24 @@
 	</update>
 	
 	<!-- 단체가 작성한 모금중인 기부글 -->
-	<select id="getGroupDList" resultMap="volBoardResultSet">
+	<select id="getGroupDList" resultMap="donBoardResultSet">
 		<![CDATA[
 		SELECT *
 		FROM BOARD B
 		JOIN MEMBER M ON(M.MEMBER_USERNAME = B.REF_MEMBER_USERNAME)
+		JOIN FUNDRAISING F ON (B.BOARD_ID = F.REF_BOARD_ID)
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_TYPE='Don' AND B.BOARD_STATUS = 'Y'
 		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') > TO_CHAR(SYSDATE,'MM/dd')
 		]]>
 	</select>
 	
 	<!-- 단체 모금 마감 -->
-	<select id="getEndDList" resultMap="volBoardResultSet">
+	<select id="getEndDList" resultMap="donBoardResultSet">
 		<![CDATA[
 		SELECT *
 		FROM BOARD B
 		JOIN MEMBER M ON (M.MEMBER_USERNAME = B.REF_MEMBER_USERNAME)
+		JOIN FUNDRAISING F ON (B.BOARD_ID = F.REF_BOARD_ID)
 		WHERE M.MEMBER_USERNAME = #{userName} AND B.BOARD_TYPE = 'Don' AND B.BOARD_STATUS='Y'
 		AND TO_CHAR(BOARD_DEADLINE,'MM/dd') < TO_CHAR(SYSDATE,'MM/dd')
 		]]>
