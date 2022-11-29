@@ -95,7 +95,7 @@ public class DonBoardController {
 		String donBoardWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
 		dB.setRefMemberUsername(donBoardWriter);
 		int insBoardCount = dService.insertDonBoard(dB);
-//		System.out.println(files);
+		System.out.println(dB);
 		
 		// 로직1
 //		ArrayList<Attachment> list = new ArrayList<Attachment>();
@@ -162,11 +162,17 @@ public class DonBoardController {
 				insAttmCount = dService.insertAttm(map);
 			}
 			
-			
 //			System.out.println(insBoardCount);
 //			System.out.println(insAttmCount);
 			if(insBoardCount + insAttmCount == list.size()*2+3) {
-				return "redirect:donBoardList.do";
+				if(dB.getBoardType().equals("Don")) {
+					return "redirect:donBoardList.do";
+				}else {
+					return "redirect:revBoardList.re";
+				}
+				
+				
+				
 			} else {
 				for(Attachment a : list) {
 					deleteFile(a.getRenameName(), request);
@@ -256,8 +262,7 @@ public class DonBoardController {
 //		}else {
 //			throw new BoardException("게시글 ?�세 조회 ?�패");
 //		}
-		
-//		System.out.println(dB);
+		System.out.println(dList);
 		if(dB != null) {
 			if(dB.getBoardType().equals("Don")) {
 				mv.addObject("dB", dB).addObject("aList", aList).addObject("cheer", cheer).addObject("reply", reply).addObject("dFund", dFund).setViewName("boardDetailDon");

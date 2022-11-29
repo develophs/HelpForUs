@@ -96,7 +96,7 @@
 				<tr>
 					<th class="table-active">이미지</th>
 					<td colspan="3" id="fileTd">
-						<input type="file" class="form-control form-control-md" id="" name="file" multiple/>
+						<input type="file" class="form-control form-control-md"  name="file" multiple/>
 					</td>
 				</tr>
 				<tr>
