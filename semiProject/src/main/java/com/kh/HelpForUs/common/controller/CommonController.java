@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -220,6 +221,20 @@ public class CommonController {
 		} catch (JsonIOException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// 댓글 삭제
+	@RequestMapping("deleteReply.co")
+	public String deleteRepliy(@RequestParam("rId") int rId, @RequestParam("bId") String bId, Model model) {
+		int result = cService.deleteReply(rId);
+		
+		if(result > 0) {
+			model.addAttribute("bId", bId);
+			return "redirect:volBoardDetail.vo";
+		} else {
+			throw new BoardException("댓글 삭제 실패");
+		}
+
 	}
 	
 }

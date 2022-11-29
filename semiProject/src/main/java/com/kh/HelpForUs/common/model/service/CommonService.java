@@ -36,4 +36,6 @@ public interface CommonService {
 
 	ArrayList<Reply> selectReply(int refBoardId);
 
+	int deleteReply(int rId);
+
 }

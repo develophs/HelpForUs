@@ -89,5 +89,10 @@ public class CommonServiceImpl implements CommonService {
 	public ArrayList<Reply> selectReply(int refBoardId) {
 		return cDAO.selectReply(sqlSession, refBoardId);
 	}
+
+	@Override
+	public int deleteReply(int rId) {
+		return cDAO.deleteReply(sqlSession, rId);
+	}
 	
 }

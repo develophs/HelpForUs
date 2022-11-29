@@ -74,5 +74,9 @@ public class CommonDAO {
 	public ArrayList<Reply> selectReply(SqlSessionTemplate sqlSession, int refBoardId) {
 		return (ArrayList)sqlSession.selectList("commonMapper.selectReply", refBoardId);
 	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int rId) {
+		return sqlSession.update("commonMapper.deleteReply", rId);
+	}
 	
 }
