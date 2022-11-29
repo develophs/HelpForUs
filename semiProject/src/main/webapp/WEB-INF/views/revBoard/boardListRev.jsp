@@ -221,10 +221,11 @@
 					const small = this.querySelectorAll('small');
 					const bId = small[0].innerText;
 					const nickName = small[1].innerText;
+					const writer = small[1].innerText;
 					const bType = this.querySelector('input').value;
 					
 						if(bType =="donRev" ){ 
-							location.href='${contextPath}/selectDonBoard.do?bId=' + bId+'&nickName='+nickName;
+							location.href='${contextPath}/selectDonBoard.do?bId=' + bId+'&writer='+writer;
 						}else{
 							location.href='${contextPath}/volBoardDetail.vo?bId=' + bId+'&nickName='+nickName;
 						}
