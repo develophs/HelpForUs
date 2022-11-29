@@ -72,6 +72,16 @@
 			text-align: center;
 		}
 		
+		body{
+			font-family: 'MICEGothic Bold';
+		}
+		
+		@font-face {
+	    font-family: 'MICEGothic Bold';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic Bold.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+		}
 	</style>
 </head>
 <body>
@@ -212,7 +222,7 @@
 		
 		
 		<div class="text-center">
-			<c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername }">
+			<c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername && loginUser.memberRight != 'A'}">
 				<button onclick="$('#roseModal').modal('show')" class="btn btn-lg text-white" style="background-color: orange">장미 보내기</button>
 			</c:if>
 		</div>
