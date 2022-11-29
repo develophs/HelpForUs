@@ -330,7 +330,7 @@
 	<select id="getAllListCount" resultType="long">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE BOARD_TYPE=#{boardType}
+		WHERE BOARD_TYPE=#{boardType} AND BOARD_STATUS = 'Y'
 	</select>
 	
 	<!-- 관리자페이지 봉사글, 모금글 리스트 가져오기 -->
