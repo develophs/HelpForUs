@@ -220,33 +220,6 @@
 	
 	<script>
 	
-		
-	Kakao.init('e642cc213c74d7f2a652d395b7b56e6d');
-	Kakao.isInitialized();
-	const currUrl =	$(location).attr('href');
-	function kakaoShare() {
-		Kakao.Share.sendDefault({
-			  objectType: 'feed',
-			  content: {
-			    title: '${dB.boardTitle}',
-			    description: '${ fn:substring(dB.boardContent, 0, 20) }',
-			    imageUrl: 'https://ifh.cc/g/WPbPc8.jpg',
-			    link: {
-			      webUrl: currUrl,
-			    },
-			  },
-			  buttons: [
-			    {
-			      title: 'HelpForUs로 이동',
-			      link: {
-			        webUrl: currUrl,
-			      },
-			    },
-			  ],
-			});
-	}
-	
-	
 	
 	
 	window.onload = () => {
