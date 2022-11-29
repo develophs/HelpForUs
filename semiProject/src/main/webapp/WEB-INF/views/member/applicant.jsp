@@ -105,7 +105,7 @@
 										 <td>${a.memberPhone}</td>
 										 <td>${a.memberEmail}</td>
 										 <c:if test="${tableName =='DONATION'}">
-											 <td>${a.memberEmail}</td>
+											 <td>${a.donationRose*100}</td>
 										 </c:if>	 
 									 </tr>
 								</c:forEach>

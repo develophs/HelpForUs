@@ -15,6 +15,7 @@
 		<result column="MEMBER_MODIFY_DATE" property="memberModifyDate"/>
 		<result column="MEMBER_RIGHT" property="memberRight"/>
 		<result column="MEMBER_STATUS" property="memberStatus"/>
+		<result column="DONATION_PRICE" property="donationRose"/>
 	</resultMap>
 	
 	<insert id="enroll" parameterType="Member">
@@ -533,7 +534,7 @@
 	
 	<select id="getAppList" resultMap="memberResultSet">
 		SELECT MEMBER_NICKNAME, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL<if test="tableName == 'DONATION'">,DONATION_PRICE</if>
-		FROM MEMBER
+		FROM MEMBER 
 		JOIN ${tableName} ON (MEMBER_USERNAME = REF_MEMBER_USERNAME)
 		JOIN BOARD ON (BOARD_ID = REF_BOARD_ID)
 		WHERE BOARD_STATUS = 'Y' AND BOARD_TYPE = #{bType} AND BOARD_ID = #{bId}

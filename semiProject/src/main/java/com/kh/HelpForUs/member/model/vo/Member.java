@@ -26,4 +26,5 @@ public class Member {
 	private Date memberModifyDate;
 	private String memberRight;
 	private String memberStatus;
+	private int donationRose;
 }
