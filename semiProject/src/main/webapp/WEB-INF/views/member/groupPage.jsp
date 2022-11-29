@@ -16,6 +16,7 @@
 	.menu:hover{font-weight:bold; cursor:pointer; text-decoration:underline;}
 	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
 	.row{height:700px;}
+	tr:hover{cursor:pointer;}
 </style>
 </head>
 <body>
