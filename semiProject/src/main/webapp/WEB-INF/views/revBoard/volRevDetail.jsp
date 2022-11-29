@@ -65,7 +65,7 @@
 	
 	<div class="mx-auto m-3">
 		<button onclick="location.href='${contextPath}/revBoardList.re'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
-		<c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
+		<%-- <c:if test="${ loginUser != null && vBoard.refMemberUsername != loginUser.memberUsername}">
 			<button id="inquiry" onclick="$('#modal').modal('show')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 			<c:if test="${ cheer == null }">
 				<button onclick="location.href='${contextPath}/cheerBoard.vo?boardId=${ vBoard.boardId }'" class="btn btn-lg mb-0 text-white" style="background-color: gray"
@@ -81,7 +81,7 @@
 		<c:if test="${ loginUser == null || vBoard.refMemberUsername == loginUser.memberUsername }">
 			<button class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
 			<button class="btn btn-lg mb-0 text-white" style="background-color: gray" disabled>응원하기</button>
-		</c:if>
+		</c:if> --%>
 	</div>
 	
 	<div class="mx-auto" style="width: 750px">

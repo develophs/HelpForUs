@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -190,6 +190,7 @@
 					</tr>
 					<c:forEach items="${ reply }" var="r">
 						<tr>
+							
 				    		<td>${ r.replyContent }</td>
 				    		<td>${ r.nickName }</td>
 				    		<td>${ r.replyModifyDate }</td>
@@ -198,6 +199,11 @@
 				    			<input type="hidden" value="${ r.replyId }">
 				    		</c:if>
 				    	</tr>
+						
+							<td>${ r.nickName }</td>
+							<td>${ r.replyContent }</td>
+							<td>${ r.replyCreateDate }</td>
+						</tr>
 					</c:forEach>
 				</table>
 			</div>
