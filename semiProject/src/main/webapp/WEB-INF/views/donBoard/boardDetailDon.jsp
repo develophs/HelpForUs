@@ -191,7 +191,7 @@
 					<c:forEach items="${ reply }" var="r">
 						<tr>
 				    		<td>${ r.replyContent }</td>
-				    		<td>${ r.refMemberUsername }</td>
+				    		<td>${ r.nickName }</td>
 				    		<td>${ r.replyModifyDate }</td>
 				    		<c:if test="${ loginUser != null && (r.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A') }">
 				    			<td id="deleteReply" class="deleteReply">삭제</td>

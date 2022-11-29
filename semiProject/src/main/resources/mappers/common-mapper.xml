@@ -127,6 +127,7 @@
 	<select id="selectReply" resultMap="ReplyResultSet">
 		select *
 		from reply
+		join member m on(member_username = ref_member_username)
 		where REF_BOARD_ID = #{refBoardId} and REPLY_STATUS = 'Y'
 		order by REPLY_ID desc
 	</select>
@@ -139,6 +140,7 @@
 		<result column="REF_MEMBER_USERNAME" property="refMemberUsername"/>
 		<result column="REF_BOARD_ID" property="refBoardId"/>
 		<result column="REPLY_STATUS" property="replyStatus"/>
+		<result column="member_nickname" property="nickName"/>
 	</resultMap>
 	
 	<update id="deleteReply">

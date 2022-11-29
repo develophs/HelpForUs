@@ -192,7 +192,7 @@
 				    <c:forEach items="${ rList }" var="r">
 				    	<tr>
 				    		<td>${ r.replyContent }</td>
-				    		<td>${ r.refMemberUsername }</td>
+				    		<td>${ r.nickName }</td>
 				    		<td>${ r.replyModifyDate }</td>
 				    		<c:if test="${ loginUser != null && (r.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A') }">
 				    			<td id="deleteReply" class="deleteReply">삭제</td>
@@ -326,11 +326,16 @@
 						
 						for(const r of data){
 							let str = '<tr><td>' + r.replyContent + '</td>';
-							str += '<td>' + r.refMemberUsername + '</td>';
+							str += '<td>' + r.nickName + '</td>';
 							str += '<td>' + r.replyModifyDate + '</td>';
-							if(${ loginUser != null && (r.refMemberUsername == loginUser.memberUsername || loginUser.memberRight == 'A') }){
-								str += '<td id="deleteReply" class="deleteReply">삭제</td>';
-				    			str += '<input type="hidden" value="${ r.replyId }">';
+							if(${loginUser ne null}){
+								if(r.refMemberUsername == '${ loginUser.memberUsername }'){
+									str += '<td id="deleteReply" class="deleteReply">삭제</td>';
+					    			str += '<input type="hidden" value="${ r.replyId }">';
+								}else if(${r.memberRight eq 'A'}){
+									str += '<td id="deleteReply" class="deleteReply">삭제</td>';
+					    			str += '<input type="hidden" value="${ r.replyId }">';
+								}	
 							}
 							str += '</tr>';
 							
