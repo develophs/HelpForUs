@@ -100,7 +100,7 @@
 						  
 						  <c:if test="${list == null}">
 							  <tr>
-							  	<td colspan="4" id="nullList">작성한 게시물이 존재하지 않습니다.</td>
+							  	<td colspan="5" id="nullList">작성한 게시물이 존재하지 않습니다.</td>
 							  </tr>
 						  </c:if>
 						  

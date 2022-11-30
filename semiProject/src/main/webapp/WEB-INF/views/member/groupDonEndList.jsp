@@ -86,7 +86,6 @@
 					  </thead>
 					  
 					  <tbody class="table-group-divider" >
-					  
 						  <c:if test="${list != null}">
 							  <c:forEach items="${list}" var="v"> 
 							    <tr>
@@ -96,7 +95,11 @@
 							      <td>${v.fundraisingCurrentPrice}</td>
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">후원자 목록</button></td>
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/donRevWrite.re?bId='+${v.boardId}">후기 작성</button></td>
-							    <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/getAllRose.me?bId='+${v.boardId}">장미받기</button></td>
+								  <td>
+								    <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/getAllRose.me?bId='+${v.boardId}">
+								     장미받기
+								    </button>
+								  </td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>
@@ -148,7 +151,7 @@
 	<script>
 	
 	window.onload=()=>{
-
+		
 		setInterval(
 			function alarm() {
 				$.ajax({
