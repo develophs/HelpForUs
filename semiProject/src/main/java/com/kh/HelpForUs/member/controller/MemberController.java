@@ -541,15 +541,7 @@ public class MemberController {
 		}
 	}
 	
-	// 문의 팝업
-	@RequestMapping("inquiryView.me")
-	public String inquiryView(@RequestParam("bId") int bId, @RequestParam("writer") String writer, Model model) {
-		model.addAttribute("bId", bId);
-		model.addAttribute("writer", writer);
-		
-		return "writeInquiry";
-	}
-	
+	//문의하기
 	@RequestMapping("inquiry.me")
 	@ResponseBody
 	public int inquiry(@ModelAttribute Message msg, HttpSession session) {
