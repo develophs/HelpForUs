@@ -270,7 +270,7 @@
 			if(document.getElementById('deleteButton') != null){
 				document.getElementById('deleteButton').addEventListener('click', () => {
 					if(confirm('게시글을 삭제하면 다시 되돌릴 수 없습니다, 정말 삭제 하시겠습니까?')){
-						location.href="${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }" 	
+						location.href="${contextPath}/deleteVolBoard.vo?bId=${ vBoard.boardId }&boardType=volRev" 	
 					}
 				});
 			}

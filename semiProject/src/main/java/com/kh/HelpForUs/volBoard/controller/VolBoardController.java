@@ -412,12 +412,17 @@ public class VolBoardController {
 	
 	// 봉사 게시글 삭제
 	@RequestMapping("deleteVolBoard.vo")
-	public String deleteVolBoard(@RequestParam("bId") int bId) {
+	public String deleteVolBoard(@RequestParam("bId") int bId, @RequestParam(value="boardType", required = false) String boardType) {
 		int result = vService.deleteBoard(bId);
 		result += vService.deleteAttmStatus(bId);
-		
+		System.out.println(boardType);
 		if(result > 0) {
-			return "redirect:volBoardList.vo";
+			if(boardType.equals("volRev")) {
+				return "redirect:revBoardList.re";
+			}else {
+				return "redirect:volBoardList.vo";
+			}
+			
 		} else {
 			throw new BoardException("봉사 게시글 삭제 실패");
 		}
