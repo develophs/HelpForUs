@@ -145,8 +145,6 @@ public class MemberController {
 		int result = mService.updateRose(map);
 		int result2 = mService.insertPay(map);
 		
-		System.out.println(result);
-		System.out.println(result2);
 		if(result + result2 == 2) {
 			Member loginUser = mService.login(m);
 			session.setAttribute("loginUser", loginUser);
@@ -644,7 +642,6 @@ public class MemberController {
 		map.put("savePath", savePath);
 		
 		int result = mService.insertCertificate(map);
-		System.out.println(result);
 		return "redirect:/certificate.me";
 	}
 	
@@ -719,7 +716,6 @@ public class MemberController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, (int)allDListCount, 10);
 		List<Board> allDList = mService.getAllList(boardType,pi);
 		
-		System.out.println(allDList);
 		if(allDList != null) {
 			model.addAttribute("allDList",allDList);
 			model.addAttribute("pi",pi);
@@ -763,7 +759,6 @@ public class MemberController {
 		
 		
 		List<CheerList> cDList = mService.getCheerDBoard(map);
-		System.out.println(cDList);
 		if(cDList !=null) {
 			model.addAttribute("cDList", cDList);
 			model.addAttribute("pi", pi);
@@ -877,9 +872,7 @@ public class MemberController {
 	@RequestMapping("getAllRose.me")
 	public String getMemberList(@RequestParam("bId")int bId, HttpSession session) {
 		String id = ((Member)session.getAttribute("loginUser")).getMemberUsername();
-		System.out.println(bId);
 		int allRose = mService.getAllRose(bId);
-		System.out.println(allRose);
 		Map<String,Object> map = new HashMap<>();
 		map.put("allRose", allRose);
 		map.put("id", id);
