@@ -391,7 +391,7 @@ public class DonBoardController {
 	
 	// 모금 게시글 수정
 	@RequestMapping("updateDonBoard.do")
-	public String updateDonBoard(@ModelAttribute DonBoard dB, @RequestParam("deleteAttm") String[] deleteAttm, @RequestParam("file") ArrayList<MultipartFile> files, HttpServletRequest request, Model model) {
+	public String updateDonBoard(@ModelAttribute DonBoard dB, @RequestParam(value="deleteAttm", required = false) String[] deleteAttm, @RequestParam("file") ArrayList<MultipartFile> files, HttpServletRequest request, Model model) {
 		System.out.println(dB);
 		System.out.println(Arrays.toString(deleteAttm));
 		System.out.println(files);
@@ -424,14 +424,16 @@ public class DonBoardController {
 		// ?�택?? ?�일?? ??��
 		ArrayList<String> delRename = new ArrayList<>();
 		ArrayList<Integer> delLevel = new ArrayList<>();
-		for(String rename : deleteAttm) {
-			if(!rename.equals("")) {
-				System.out.println(rename);
-				String[] split = rename.split("/");
-				delRename.add(split[0]);
-				delLevel.add(Integer.parseInt(split[1]));
-				Image img = new Image(dB.getBoardId(), Integer.parseInt(split[2]));
-				dService.deleteImage(img);
+		if(deleteAttm != null) {
+			for(String rename : deleteAttm) {
+				if(!rename.equals("")) {
+					System.out.println(rename);
+					String[] split = rename.split("/");
+					delRename.add(split[0]);
+					delLevel.add(Integer.parseInt(split[1]));
+					Image img = new Image(dB.getBoardId(), Integer.parseInt(split[2]));
+					dService.deleteImage(img);
+				}
 			}
 		}
 		
@@ -488,14 +490,10 @@ public class DonBoardController {
 //		System.out.println(updateAttmResult);
 //		System.out.println(list);
 		if(result + updateAttmResult == list.size()*2+1) {
-			if(delRename.size() == deleteAttm.length && updateAttmResult == 0) {
-				return "redirect:donBoardDetail.do";
-			}else {
-//				return "redirect:selectAttm.at?bId=" + b.getBoardId() + "&writer=" + ((Member)request.getSession().getAttribute("loginUser")).getNickName() + "&page=" + page;
-				model.addAttribute("bId", dB.getBoardId());
-				model.addAttribute("writer", ((Member)request.getSession().getAttribute("loginUser")).getMemberNickname());
+//			return "redirect:selectAttm.at?bId=" + b.getBoardId() + "&writer=" + ((Member)request.getSession().getAttribute("loginUser")).getNickName() + "&page=" + page;
+			model.addAttribute("bId", dB.getBoardId());
+			model.addAttribute("writer", ((Member)request.getSession().getAttribute("loginUser")).getMemberNickname());
 				return "redirect:selectDonBoard.do";
-			}
 		}else {
 			throw new BoardException("모금 게시글 수정 실패");
 		}
