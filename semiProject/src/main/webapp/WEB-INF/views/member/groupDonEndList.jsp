@@ -96,9 +96,14 @@
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/applicant.me/${v.boardType}/${v.boardId}'">후원자 목록</button></td>
 							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/donRevWrite.re?bId='+${v.boardId}">후기 작성</button></td>
 								  <td>
-								    <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/getAllRose.me?bId='+${v.boardId}">
-								     장미받기
-								    </button>
+								  	<c:if test="${v.fundraisingCurrentPrice > 0}">
+								    	<button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/getAllRose.me?bId='+${v.boardId}">
+								    		 장미받기
+								    	</button>
+								    </c:if>
+								    <c:if test="${v.fundraisingCurrentPrice <= 0}">
+								    	환전완료
+								    </c:if>
 								  </td>
 							    </tr>
 							  </c:forEach>
