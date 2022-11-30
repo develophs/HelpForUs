@@ -63,10 +63,15 @@
                             
                              <!-- 닉네임 input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="memberNickname" name="memberNickname" type="text" required/>
-                                <label for="memberNickname">닉네임</label>
+                           		<c:if test="${ right =='B'}">
+                               		<input class="form-control" id="memberNickname" name="memberNickname" type="text" required/>
+                                	<label for="memberNickname">닉네임</label>
+                                	<label id="checkNickName" class="check">닉네임을 입력해주세요.</label>
+                                </c:if>
+                                <c:if test="${ right =='D'}">
+                                	<input type="hidden" name="memberNickName" value="volunteerOrganization">
+                                </c:if>
                             </div>
-                            <label id="checkNickName" class="check">닉네임을 입력해주세요.</label>
                             <br>
                             
                             <!-- 이메일 input-->
