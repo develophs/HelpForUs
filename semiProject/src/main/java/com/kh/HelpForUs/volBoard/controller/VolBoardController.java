@@ -58,7 +58,7 @@ public class VolBoardController {
 		map.put("category", category);
 		map.put("search", search);
 		
-		int listCount = vService.getVListCount();
+		int listCount = vService.getVListCount(map);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, 9);
 		ArrayList<VolBoard> vList = vService.selectVolBoardList(pi, map);
 		ArrayList<Attachment> aList = vService.selectAttmList();
@@ -83,6 +83,8 @@ public class VolBoardController {
 	// 봉사 게시글 insert
 	@RequestMapping("writeVolBoard.vo")
 	public String insertVolBoard(HttpServletRequest request, @ModelAttribute VolBoard vBoard, @RequestParam("file") ArrayList<MultipartFile> files) {
+		
+		
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
 		vBoard.setRefMemberUsername(id);
 		int boardResult = vService.insertVolBoard(vBoard);
@@ -93,7 +95,7 @@ public class VolBoardController {
 			if(!fileName.equals("")) {
 				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
 				System.out.println(fileType);
-				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
+				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg") || fileType.equals("jfif")) {
 					String[] returnArr = saveFile(file, request);
 					
 					if(returnArr[1] != null) {

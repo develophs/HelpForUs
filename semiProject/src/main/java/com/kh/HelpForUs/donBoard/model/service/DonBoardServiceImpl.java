@@ -27,8 +27,8 @@ public class DonBoardServiceImpl implements DonBoardService{
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int getDonListCount(int i) {
-		return dDAO.getDonListCount(sqlSession, i);
+	public int getDonListCount(HashMap<String, Object> map) {
+		return dDAO.getDonListCount(sqlSession, map);
 	}
 
 	@Override

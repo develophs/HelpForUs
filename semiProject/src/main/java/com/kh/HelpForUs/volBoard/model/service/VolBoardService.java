@@ -17,7 +17,7 @@ public interface VolBoardService {
 
 	int insertAttm(HashMap<String, Object> map);
 
-	int getVListCount();
+	int getVListCount(HashMap<String, Object> map);
 
 	ArrayList<VolBoard> selectVolBoardList(PageInfo pi, HashMap<String, Object> map);
 

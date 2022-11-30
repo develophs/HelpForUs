@@ -150,8 +150,9 @@
 		            	</c:if>
 	            		
 			            <div class="card-body">
-			            <h5>${ d.boardTitle }</h5>
-			            <c:set var="content" value="${ fn:substring(d.boardContent, 0, 20) }..."></c:set>
+			            <c:set var="title" value="${ fn:substring(d.boardTitle, 0, 25) }..."/>
+			            <h5>${ title }</h5>
+			            <c:set var="content" value="${ fn:substring(d.boardContent, 0, 30) }..."/>
 			              <p class="card-text">${ content }</p>
 			              <div class="d-flex justify-content-between align-items-center">
 			                <small class="text-muted">${ d.boardCount }</small>
@@ -169,35 +170,31 @@
 	      </div>
 	     </div>
 	     
-	     <nav aria-label="Standard pagination example" style="float: right;">
-        	<ul class="pagination">
-	            <li class="page-item">
-	            	<c:url var="goBack" value="${ loc }">
-	            		<c:param name="page" value="${ pi.currentPage-1 }"/>
-	            		<c:param name="category" value="${ category }"></c:param>
-	            	</c:url>
-	            	<a class="page-link" href="${ goBack }" aria-label="Previous">
-	            		<span aria-hidden="true">&laquo;</span>
-	              	</a>
-	            </li>
-	            <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-	            	<c:url var="goNum" value="${ loc }">
-	            		<c:param name="page" value="${ p }"/>
-	            		<c:param name="category" value="${ category }"></c:param>
-	            	</c:url>
-	            	<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
-	            </c:forEach>
-	            <li class="page-item">
-	            	<c:url var="goNext" value="${ loc }">
-	            		<c:param name="page" value="${ pi.currentPage+1 }"/>
-	            		<c:param name="category" value="${ category }"></c:param>
-	            	</c:url>
-	            	<a class="page-link" href="${ goNext }" aria-label="Next">
-	            		<span aria-hidden="true">&raquo;</span>
-	            	</a>
-	            </li>
-	    	</ul>
-        </nav>
+	     <ul class="pagination" style="justify-content: center;">
+			<c:if test="${ pi.currentPage > 1 }">
+			<li class="page-item"><c:url var="goBack" value="${ loc }">
+					<c:param name="page" value="${ pi.currentPage-1 }"></c:param>
+					<c:param name="category" value="${ category }"></c:param>
+				</c:url> <a class="page-link" href="${ goBack }" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+			</a></li>
+			</c:if>
+			<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+				<c:url var="goNum" value="${ loc }">
+					<c:param name="page" value="${ p }"></c:param>
+					<c:param name="category" value="${ category }"></c:param>
+				</c:url>
+				<li class="page-item"><a class="page-link" href="${ goNum }">${ p }</a></li>
+			</c:forEach>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+			<li class="page-item"><c:url var="goNext" value="${ loc }">
+					<c:param name="page" value="${ pi.currentPage+1 }"></c:param>
+					<c:param name="category" value="${ category }"></c:param>
+				</c:url> <a class="page-link" href="${ goNext }" aria-label="Next"> <span
+					aria-hidden="true">&raquo;</span>
+			</a></li>
+			</c:if>
+		</ul>
 		    <jsp:include page="../common/pagination.jsp"/>
 		    <jsp:include page="../common/footer.jsp"/>
 	</main>

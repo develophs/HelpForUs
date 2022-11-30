@@ -59,12 +59,13 @@ public class DonBoardController {
 			cate = category;
 		}
 		
-		int dListCount = dService.getDonListCount(1);
-		
-		PageInfo pi = Pagination.getPageInfo(currentPage, dListCount, 9);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("cate", cate);
 		map.put("search", search);
+		
+		int dListCount = dService.getDonListCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, dListCount, 9);
 		
 		ArrayList<DonBoard> dList = dService.selectDonList(pi, map);
 		ArrayList<Attachment> aList = dService.selectAttmList();
@@ -94,8 +95,8 @@ public class DonBoardController {
 	public String insertDonBoard(HttpServletRequest request, @ModelAttribute DonBoard dB, @RequestParam("file") ArrayList<MultipartFile> files) {
 		String donBoardWriter = ((Member)request.getSession().getAttribute("loginUser")).getMemberUsername();
 		dB.setRefMemberUsername(donBoardWriter);
+		System.out.println(dB.getBoardType());
 		int insBoardCount = dService.insertDonBoard(dB);
-		System.out.println(dB);
 		
 		// 로직1
 //		ArrayList<Attachment> list = new ArrayList<Attachment>();
@@ -121,7 +122,7 @@ public class DonBoardController {
 			if(!fileName.equals("")) {
 				String fileType = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
 //				System.out.println(fileType);
-				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg")) {
+				if(fileType.equals("png") || fileType.equals("jpg") || fileType.equals("gif") || fileType.equals("jpeg") || fileType.equals("jfif")) {
 					String[] returnArr = saveFile(file, request);
 					
 					if(returnArr[1] != null) {
@@ -150,7 +151,8 @@ public class DonBoardController {
 			}else {
 				a.setLevel(1);
 			}
-			a.setFileType("Don");
+
+			a.setFileType(dB.getBoardType());
 		}
 			
 			HashMap<String, Object> map = new HashMap<String, Object>();

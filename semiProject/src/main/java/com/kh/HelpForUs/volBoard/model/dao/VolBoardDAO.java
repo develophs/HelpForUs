@@ -26,8 +26,8 @@ public class VolBoardDAO {
 		return sqlSession.insert("volMapper.insertAttm", map);
 	}
 
-	public int getVListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("volMapper.getVListCount");
+	public int getVListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectOne("volMapper.getVListCount", map);
 	}
 
 	public ArrayList<VolBoard> selectVolBoardList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> map) {

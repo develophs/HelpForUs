@@ -36,8 +36,8 @@ public class VolBoardServiceImpl implements VolBoardService{
 	}
 
 	@Override
-	public int getVListCount() {
-		return vDAO.getVListCount(sqlSession);
+	public int getVListCount(HashMap<String, Object> map) {
+		return vDAO.getVListCount(sqlSession, map);
 	}
 
 	@Override

@@ -20,8 +20,8 @@ import com.kh.HelpForUs.volBoard.model.vo.Application;
 @Repository("dDAO")
 public class DonBoardDAO {
 
-	public int getDonListCount(SqlSessionTemplate sqlSession, int i) {
-		return sqlSession.selectOne("donationMapper.getDonListCount", i);
+	public int getDonListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectOne("donationMapper.getDonListCount", map);
 	}
 
 	public ArrayList<DonBoard> selectDonList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> map) {

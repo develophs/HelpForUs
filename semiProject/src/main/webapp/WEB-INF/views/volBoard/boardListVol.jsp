@@ -16,7 +16,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 		
     <style>
-    
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -140,8 +139,9 @@
 	            	<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">NO IMAGE</text></svg>
 	            </c:if>
 	            <div class="card-body">
+	            <c:set var="content" value="${ fn:substring(v.boardTitle, 0, 25) }..."/>
 	            <h5>${ v.boardTitle }</h5>
-	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 20) }..."/>
+	            	<c:set var="content" value="${ fn:substring(v.boardContent, 0, 30) }..."/>
 	              <p class="card-text">${ content }</p>
 	              <div class="d-flex justify-content-between align-items-center">
 	              	<small class="text-muted">${ v.memberNickname }</small>

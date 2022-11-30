@@ -15,7 +15,7 @@ import com.kh.HelpForUs.volBoard.model.vo.Application;
 
 public interface DonBoardService {
 
-	int getDonListCount(int i);
+	int getDonListCount(HashMap<String, Object> map);
 
 	ArrayList<DonBoard> selectDonList(PageInfo pi, HashMap<String, Object> map);
 

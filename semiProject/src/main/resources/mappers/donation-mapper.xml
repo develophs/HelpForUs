@@ -5,6 +5,13 @@
 		select count(*)
 		from board
 		where board_type='Don' and board_status='Y'
+		<if test="cate != 0">
+			and ref_category_id=#{cate}
+		</if>
+		<if test="search != null">
+			and board_title like '%'||#{search}||'%'
+		</if>
+		
 	</select>
 	
 	<insert id="insertDonBoard">

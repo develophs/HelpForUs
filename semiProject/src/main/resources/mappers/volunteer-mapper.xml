@@ -110,6 +110,13 @@
 		update board
 		set board_count = board_count + 1
 		where board_id = #{bId}
+		<if test="category > 0">
+			and REF_CATEGORY_ID = #{category}
+		</if>
+
+		<if test="search != null">
+			and BOARD_TITLE LIKE '%'||#{search}||'%'
+		</if>
 	</update>
 	
 	<select id="selectBoard" resultMap="volBoardResultSet">
