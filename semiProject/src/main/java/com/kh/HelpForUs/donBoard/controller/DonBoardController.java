@@ -364,11 +364,16 @@ public class DonBoardController {
 	
 	// 모금 게시글 삭제
 	@RequestMapping("deleteDonBoard.do")
-	public String deleteDonBoard(@RequestParam("bId") int bId) {
+	public String deleteDonBoard(@RequestParam("bId") int bId,@RequestParam(value="boardType", required = false) String boardType) {
 		int result = dService.deleteDonBoard(bId);
 		result += dService.deleteAttmStatus(bId);
 		if(result > 0) {
-			return "redirect:donBoardList.do";
+			if(boardType.equals("donRev")) {
+				return "redirect:revBoardList.re";
+			}else {
+				return "redirect:donBoardList.do";
+			}
+			
 		}else {
 			throw new BoardException("모금 게시글 삭제 실패");
 		}

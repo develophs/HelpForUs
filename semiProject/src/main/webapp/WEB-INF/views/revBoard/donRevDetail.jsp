@@ -348,7 +348,7 @@
 				d.style.cursor = 'pointer';
 			});
 			d.addEventListener('click', function() {
-				location.href = '${contextPath}/deleteReply.co?rId=' + d.nextElementSibling.value + '&bId=' + ${vBoard.boardId} + '&bType=Don';
+				location.href = '${contextPath}/deleteReply.co?rId=' + d.nextElementSibling.value + '&bId=' + ${vBoard.boardId} + '&bType=DonRev';
 			});
 		}
 		
@@ -357,7 +357,7 @@
 		
 		$('#deleteBtn').click(function(){
 			if(confirm('게시글을 삭제하면 다시 되돌릴 수 없습니다, 정말 삭제하시겠습니까?')){
-				location.href="${contextPath}/deleteDonBoard.do?bId=${ dB.boardId }" 	
+				location.href="${contextPath}/deleteDonBoard.do?bId=${ dB.boardId }&boardType=donRev" 	
 			}else{
 				alert('취소를 누르셨습니다.');
 			}
