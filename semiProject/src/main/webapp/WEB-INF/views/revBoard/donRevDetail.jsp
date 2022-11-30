@@ -109,7 +109,7 @@
 	 <div class="mx-auto m-3">
 		<button onclick="location.href='${contextPath}/revBoardList.re?page=${page}'" class="btn btn-lg btn-space mb-0 text-white" style="background-color: orange">목록</button>
 		<c:if test="${ loginUser != null && dB.refMemberUsername != loginUser.memberUsername}">
-			<button onclick="window.open('${contextPath}/inquiryDonView.do?boardId=${ dB.boardId }&writer=${ dB.refMemberUsername }', 'inquiryVol', 'width = 500, height = 400, left = 350, top = 100')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
+			<button id="inquiry" onclick="$('#modal').modal('show')" class="btn btn-lg mb-0 text-white" style="background-color: skyblue">문의</button>
 		</c:if>
 		<c:if test="${ loginUser == null || dB.refMemberUsername == loginUser.memberUsername }">
 			<button class="btn btn-lg mb-0 text-white" style="background-color: skyblue" disabled>문의</button>
@@ -167,6 +167,9 @@
 			${ dB.boardContent }
 		</div>
 		
+		
+		
+		
 			<br><br><br>
 			<br><br><br>
 			<br><br><br>
@@ -217,6 +220,32 @@
 	</div>
 	
 
+	<div class="modal fade" id="modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+	  <div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+			  	<div class="modal-header">
+			        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">SEND MESSAGE</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			    </div>
+			 	<div class="modal-body" style="text-align: left">
+				    	제목<input type="text" class="form-control input" id="recipient-name" name="messageTitle">
+				    	내용<input class="form-control input" style="height: 300px" name="messageContent">
+				      	<br>
+				      	보낼 아이디 : <input value="${ dB.refMemberUsername }" type="text" name="receiverUsername" class="input" readonly style="border: none;">
+				      	<input value="${ dB.boardId }" type="hidden" name="refBoardId" class="input">
+				 </div>
+				 <div class="modal-footer">
+					<button class="btn btn-primary" id="sendBtn" ><strong>보내기</strong></button>
+			      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				 </div>
+	    	</div> 
+	  </div>
+	</div>	
+	
+
+
+
+
 	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 		
@@ -250,6 +279,30 @@
 	}
 	
 	window.onload = () => {
+		
+		document.getElementById('sendBtn').addEventListener('click', () => {
+			const input = document.getElementsByClassName('input');
+			console.log(input[2].value);
+			$.ajax({
+				url: '${ contextPath }/inquiry.me',
+				data: {messageTitle:input[0].value,
+					   messageContent:input[1].value,
+					   receiverUsername:input[2].value,
+					   refBoardId:input[3].value},
+				success: (data) => {
+					$('#modal').modal('hide')
+					 input[0].value = '';
+					 input[1].value = ''; 
+					 location.reload();
+				},
+				error: (data) => {
+					console.log(data);
+				}
+			});
+		});
+		
+		
+		
 	
 		document.getElementById('replyButton').addEventListener('click', () => {
 		

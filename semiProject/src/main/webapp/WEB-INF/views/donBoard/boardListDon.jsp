@@ -72,6 +72,7 @@
 	#boardAlign{
 		float: left;
 	}
+	
     </style>
 
     
@@ -129,7 +130,7 @@
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	       <c:forEach items="${ dList }" var="d">
 	        <div class="col">
-	          <div class="card shadow-sm cards">
+	          <div class="card shadow-sm cards" style="cursor: pointer;">
 	          	<c:set var="fileO" value="false"/>
 	          	<c:set var="isBreak" value="true"/>
 	          	<c:set var="imageName"/>
