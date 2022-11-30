@@ -158,7 +158,7 @@
 							case 'Vol': case 'volRev':
 								location.href='${contextPath}/volBoardDetail.vo?bId=' + data.bList[i].boardId + '&userName=' + data.bList[i].refMemberUsername;
 								break;
-							case 'Don':
+							case 'Don': case 'donRev':
 								location.href='${contextPath}/selectDonBoard.do?bId=' + data.bList[i].boardId + '&userName=' + data.bList[i].refMemberUsername;
 								break;
 							}

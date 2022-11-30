@@ -72,6 +72,7 @@
 	#boardAlign{
 		float: left;
 	}
+	
     </style>
 
     
@@ -106,8 +107,8 @@
 	   <table align="right">
 	  		<tr>
 	  			<c:if test="${ loginUser.memberRight eq 'C' }">
-	  				<td>
-		  				<button class="btn btn-outline-primary" type="button" onclick="location.href='donBoardWrite.do'">글쓰기</button>
+	  				<td style="padding-right: 20px;">
+		  				<button class="btn btn-outline-primary" type="button" onclick="location.href='donBoardWrite.do'">모금 글 작성</button>
 		  			</td>
 	  			</c:if>
 	  			<td>
@@ -129,7 +130,7 @@
 	      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 	       <c:forEach items="${ dList }" var="d">
 	        <div class="col">
-	          <div class="card shadow-sm cards">
+	          <div class="card shadow-sm cards" style="cursor: pointer;">
 	          	<c:set var="fileO" value="false"/>
 	          	<c:set var="isBreak" value="true"/>
 	          	<c:set var="imageName"/>

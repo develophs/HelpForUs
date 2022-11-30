@@ -22,7 +22,7 @@
 		select *
 		from board
 			join member on(ref_member_username = member_username)
-		where board_type='Don' and board_status='Y'
+		where board_type='Don' and board_status='Y' and (board_deadline <![CDATA[>=]]> sysdate)
 		<if test="cate != 0">
 			and ref_category_id=#{cate}
 		</if>

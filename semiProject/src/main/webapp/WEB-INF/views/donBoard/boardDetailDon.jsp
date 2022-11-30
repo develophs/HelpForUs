@@ -108,8 +108,8 @@
 	
 	<div class="mx-auto" style="width: 750px">
 		<table class="table table-sm table-bordered">
-			<tr>
-				<th>${ dB.boardTitle }</th>
+			<tr align="center">
+				<th align="center">${ dB.boardTitle }</th>
 			</tr>
 		</table>
 	</div>
