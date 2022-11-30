@@ -107,8 +107,8 @@
 	   <table align="right">
 	  		<tr>
 	  			<c:if test="${ loginUser.memberRight eq 'C' }">
-	  				<td>
-		  				<button class="btn btn-outline-primary" type="button" onclick="location.href='donBoardWrite.do'">글쓰기</button>
+	  				<td style="padding-right: 20px;">
+		  				<button class="btn btn-outline-primary" type="button" onclick="location.href='donBoardWrite.do'">모금 글 작성</button>
 		  			</td>
 	  			</c:if>
 	  			<td>

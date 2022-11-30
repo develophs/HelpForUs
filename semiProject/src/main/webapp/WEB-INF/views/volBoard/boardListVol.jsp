@@ -107,7 +107,7 @@
 	  		<tr>
 	  			<c:if test="${ loginUser.memberRight eq 'C' }">
 	  			<td style="padding-right: 20px;">
-	  				<button class="btn btn-outline-success" onclick="location.href='writeVolBoardView.vo'">봉사 글 작성</button>
+	  				<button class="btn btn-outline-primary" onclick="location.href='writeVolBoardView.vo'">봉사 글 작성</button>
 	  			</td>
 	  			</c:if>
 	  			<td>
