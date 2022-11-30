@@ -111,7 +111,7 @@
 						  
 						  <c:if test="${message != null}">
 							  <tr>
-							  	<td colspan="5" id="nullList"></td>
+							  	<td colspan="7" id="nullList"></td>
 							  </tr>
 						  </c:if>
 						  

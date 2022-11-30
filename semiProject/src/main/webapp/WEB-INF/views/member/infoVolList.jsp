@@ -17,6 +17,7 @@
 	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
 	.row{height:700px;}
 	.title{font-weight:bold; text-align:left; font-size:22px; padding:30px;}
+	tr:hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -89,7 +90,7 @@
 							      <td>${d.memberNickname}</td>
 							      <td>${d.boardTitle}</td>
 							      <td>${d.boardDeadline}</td>
-							      <td><button onclick="location.href='${contextPath}/volRevWrite.re?bId='+${d.boardId}">후기쓰기</button></td>
+							      <td><button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='${contextPath}/volRevWrite.re?bId='+${d.boardId}">후기쓰기</button></td>
 							    </tr>
 							  </c:forEach>
 						  </c:if>

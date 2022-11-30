@@ -17,6 +17,7 @@
 	.seletedCategory{font-weight:bold; text-align:center; font-size:22px; padding-top:5px;}
 	.row{height:700px;}
 	.title{font-weight:bold; text-align:left; font-size:22px; padding:30px;}
+	tr:hover{cursor:pointer;}
 </style>
 </head>
 <body>
